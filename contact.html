@@ -95,31 +95,7 @@
 				<br />
 				<h5>Send Me A Message!</h5>
 				<br />
-
-				<!-- <form name="contact" method="POST" data-netlify="true">
-					<p>
-						<label>Your Name: <input type="text" name="name" /></label>   
-					</p>
-					<p>
-						<label>Your Email: <input type="email" name="email" /></label>
-					</p>
-					<p>
-						<label>Your Role: <select name="role[]" multiple>
-						<option value="leader">Leader</option>
-						<option value="follower">Follower</option>
-						</select></label>
-					</p>
-					<p>
-						<label>Message: <textarea name="message"></textarea></label>
-					</p>
-					<p>
-						<button type="submit">Send</button>
-					</p>
-				</form> -->
-
-
-
-				<form name="contact" method="post" data-netlify="true">
+				<form name="contact" method="post" data-netlify-recaptcha="true" data-netlify="true">
 					<table>
 						</tr>
 						<tr>
@@ -165,44 +141,9 @@
 
 						</tr>
 					</table>
+					<div data-netlify-recaptcha="true"></div>
 					<div class="align-center"><input type="submit" value="Submit"></div>
 				</form>
-
-				<br />
-				<hr>
-				<br />
-
-
-
-
-
-				<!-- <form name="htmlform" action="send_contact_form.php" method="post">
-					<input type="text" name="name" maxlength="50" size="30" placeholder="Name">
-					<br />
-
-					<input type="text" name="email" maxlength="80" size="30" placeholder="Email">
-					<br />
-
-					<input type="checkbox" id="resume_request" name="resume_request">
-					<label for="resume_request">Resume Request</label><br />
-
-					<input type="checkbox" id="asme_inquiry" name="asme_inquiry">
-					<label for="asme_inquiry">ASME Inquiry</label><br />
-
-					<input type="checkbox" id="professional_inquiry" name="professional_inquiry">
-					<label for="professional_inquiry">Other Professional Inquiry</label><br />
-
-					<input type="checkbox" id="personal_inquiry" name="personal_inquiry">
-					<label for="personal_inquiry">Personal Inquiry</label>
-
-					<br />
-					<br />
-					<br />
-					<textarea name="message" maxlength="1000" cols="25" rows="6"
-						placeholder="Comment or Message"></textarea>
-					<br />
-					<div class="align-center"><input type="submit" value="Submit"></div>
-				</form> -->
 			</div>
 
 			<div class="affliated_organizations">

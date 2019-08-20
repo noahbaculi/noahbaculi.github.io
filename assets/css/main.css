@@ -92,6 +92,9 @@ input, select, textarea {
 		
 /* Custom Edits */
 
+	div > div.g-recaptcha > div {
+		margin: auto;
+	}
 
 	div.home_entrance_div_seventy_five {
 		max-width: 100vw;

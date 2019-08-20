@@ -119,7 +119,7 @@ input, select, textarea {
 
 	div.page_top_div_fifteen {
 		max-width: 100vw;
-		/* height: 13vh; */
+		min-height: 13vh;
 		/* overflow: hidden; */
 	}
 	

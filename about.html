@@ -663,25 +663,21 @@
 		window.onscroll = function () { stickNavbar() };
 
 		var navbar = document.getElementById("navbar");
+		var subnavbar = document.getElementById("subnavbar");
 		var main = document.getElementById("main");
 		var sticky = navbar.offsetTop;
 
 		function stickNavbar() {
 			if (window.pageYOffset >= sticky) {
 				navbar.classList.add("sticky");
+				subnavbar.classList.add("stickysubnavbar");
 				main.classList.add("page_scroll_down_top_padding");
 			} else {
 				navbar.classList.remove("sticky");
+				subnavbar.classList.remove("stickysubnavbar");
 				main.classList.remove("page_scroll_down_top_padding");
 			}
 		}
-	</script>
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-	<script type="text/javascript" src="../js/imageMapResizer.min.js"></script>
-	<script type="text/javascript">
-
-		$('map').imageMapResize();
-
 	</script>
 </body>
 

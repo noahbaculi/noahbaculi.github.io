@@ -536,6 +536,10 @@ input, select, textarea {
 
 	@media screen and (max-width: 736px) {
 
+		div.home_entrance_div_seventy_five {
+			height: 78%;
+		}
+
 		h1.home_entrance_title {margin-top: 1em;}
 
 		#navbar {
@@ -1816,7 +1820,6 @@ input, select, textarea {
 					width: calc(25% - 1.25em);
 					margin: 1.25em 0 0 1.25em;
 				}
-
 		}
 
 		@media screen and (max-width: 980px) {
@@ -1827,7 +1830,6 @@ input, select, textarea {
 					width: calc(33.3333333333% - 2.5em);
 					margin: 2.5em 0 0 2.5em;
 				}
-
 		}
 
 		@media screen and (max-width: 736px) {
@@ -1847,19 +1849,18 @@ input, select, textarea {
 					}
 		}
 
-		/* @media screen and (max-width: 480px) {
+		@media screen and (max-width: 480px) {
 
-			.tiles {
-				margin: 0;
-			}
+			.tiles {margin: 0;}
 
 				.tiles article {
-					width: 100%;
-					margin: 1.25em 0 0 0;
+					width: 48%;
+					margin: auto;
+					margin-top: 1vh;
 				}
+		}
 
-		} */
-
+		
 /* Header */
 
 		#header .logo {
@@ -2141,7 +2142,7 @@ input, select, textarea {
 				width: 16.5em;
 			}
 
-			.home-menu {animation: menu-mobile-animate 0.8s ease backwards 6s;}
+			.home-menu {animation: none;}
 
 			@keyframes menu-mobile-animate {
 				0% {transform: translateX(16.5em);}

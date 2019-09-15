@@ -139,6 +139,8 @@ input, select, textarea {
 		margin: 0;
 	}
 
+	h1.home_entrance_title > a {color: white;}
+
 	#home_entrance_tagline {
 		color: white;
 		text-align: center;
@@ -2031,7 +2033,7 @@ input, select, textarea {
 		z-index: 10002;
 	}
 
-	.home-menu {animation: menu-animate 0.8s ease backwards 6s;}
+	.home-menu {animation: menu-animate 0.8s ease backwards 5s;}
 
 	@keyframes menu-animate {
 		0% {transform: translateX(22em);}

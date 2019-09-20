@@ -78,6 +78,8 @@ input, select, textarea {
 		
 /* Custom Edits */
 
+	* {-webkit-overflow-scrolling: touch;}
+
 	div > div.g-recaptcha > div {margin: auto;}
 
 	div.home_entrance_div_seventy_five {

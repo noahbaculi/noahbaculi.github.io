@@ -676,6 +676,13 @@ input, select, textarea {
 		}
 	}
 
+	.asme_video {
+		width: 100%;
+		display: block;
+		margin: auto;
+		max-height: 80vh;
+	}
+
 
 
 /* Type */
@@ -1773,7 +1780,7 @@ input, select, textarea {
 			#asme_contact_solo {max-width: 15%;}
 
 			@media screen and (max-width: 980px) {
-				#asme_contact_solo {max-width: 50%;}
+				#asme_contact_solo {max-width: 35%;}
 			}
 
 			.tiles article.msab_contact > .image:before {

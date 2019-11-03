@@ -668,12 +668,29 @@ input, select, textarea {
 	}
 
 	@media screen and (max-width: 980px) {
-		.mobile_only {visibility: visible;}
+		.mobile_only {
+			visibility: visible;
+		}
 
 		.desktop_only {
 			visibility: hidden;
 			height: 0;
 		}
+
+		.fusion_embed {max-height: 55vh !important;}
+	}
+
+	@media screen and (min-width: 980px) {
+		.mobile_only {
+			height: 0;
+		}
+	}
+
+	.asme_video {
+		width: 100%;
+		display: block;
+		margin: auto;
+		max-height: 80vh;
 	}
 
 	.fusion_embed {

@@ -676,11 +676,11 @@ input, select, textarea {
 		}
 	}
 
-	.asme_video {
+	.fusion_embed {
 		width: 100%;
 		display: block;
 		margin: auto;
-		max-height: 80vh;
+		max-height: 75vh;
 	}
 
 

@@ -1781,12 +1781,12 @@ input, select, textarea {
 
 			.tiles article.northwestern_university_contact > .image:before {
 				background-image: url("../../images/contact/contact_northwestern.jpg");
-				background-color: #4E2A84;
+				/* background-color: #4E2A84; */
 			}
 
-			.tiles article.trane_contact > .image:before {
-				background-image: url("../../images/contact/contact_trane.jpg");
-				background-color: #F11A22;
+			.tiles article.otis_contact > .image:before {
+				background-image: url("../../images/contact/contact_otis.jpg");
+				background-color: rgb(255, 255, 255);
 			}
 
 			.tiles article.asme_contact > .image:before {

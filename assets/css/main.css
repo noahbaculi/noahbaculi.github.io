@@ -1797,10 +1797,18 @@ input, select, textarea {
 				background-color: #4E2A84;
 			}
 
-			#asme_contact_solo {max-width: 15%;}
+			.tiles article.aldras_contact > .image:before {
+				background-image: url("../../images/contact/contact_aldras.png");
+				background-color: rgb(153,0,0);
+				/* border-radius: 5px; */
+				/* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12); */
+				/* border: 1px solid rgb(153,0,0); */
+			}
+
+			#solo_contact {max-width: 15%;}
 
 			@media screen and (max-width: 980px) {
-				#asme_contact_solo {max-width: 35%;}
+				#solo_contact {max-width: 35%;}
 			}
 
 			.tiles article.msab_contact > .image:before {

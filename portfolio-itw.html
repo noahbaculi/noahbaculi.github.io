@@ -13,7 +13,7 @@
 		rel="stylesheet" type="text/css">
 </head>
 
-<body class="is-preload">
+<body class="is-preload" onload="highlightNavBars(['portfolio', 'itw'])">
 	<!-- Wrapper -->
 	<div id="wrapper">
 
@@ -28,25 +28,8 @@
 						<p id="home_entrance_tagline">Mechanical Engineering and Business Student</p>
 					</div>
 				</div>
-				<div class="row_scroll" id="navbar">
-					<ul width="50%">
-						<li><a href="index.html">Home</a></li>
-						<li><a href="portfolio.html" class="current_page">Portfolio</a></li>
-						<li><a href="about.html">About</a></li>
-						<li><a href="contact.html">Contact</a></li>
-					</ul>
-				</div>
-				<div class="row_scroll" id="subnavbar">
-					<ul width="50%">
-						<li><a href="portfolio-aldras.html">Aldras</a></li>
-						<li><a href="portfolio-asme.html">ASME</a></li>
-						<li><a href="portfolio-trane.html">Trane</a></li>
-						<li><a href="portfolio-itw.html" class="current_page">ITW</a></li>
-						<li><a href="portfolio-caffinator.html">Caffinator</a></li>
-						<li><a href="portfolio-nanofluidics.html">Nanofluidics</a></li>
-						<li><a href="portfolio-sciencecamp.html">Science Camp</a></li>
-					</ul>
-				</div>
+				<div id="navbar"></div>
+				<div id="portfolio_subnavbar"></div>
 			</div>
 		</header>
 
@@ -174,27 +157,7 @@
 	<script src="assets/js/breakpoints.min.js"></script>
 	<script src="assets/js/util.js"></script>
 	<script src="assets/js/main.js"></script>
-
-	<script>
-		window.onscroll = function () { stickNavbar() };
-
-		var navbar = document.getElementById("navbar");
-		var subnavbar = document.getElementById("subnavbar");
-		var main = document.getElementById("main");
-		var sticky = navbar.offsetTop;
-
-		function stickNavbar() {
-			if (window.pageYOffset >= sticky) {
-				navbar.classList.add("sticky");
-				subnavbar.classList.add("stickysubnavbar");
-				main.classList.add("page_scroll_down_top_padding");
-			} else {
-				navbar.classList.remove("sticky");
-				subnavbar.classList.remove("stickysubnavbar");
-				main.classList.remove("page_scroll_down_top_padding");
-			}
-		}
-	</script>
+	<script src="assets/js/navbar.js"></script>
 </body>
 
 </html>

@@ -13,7 +13,7 @@
 		rel="stylesheet" type="text/css">
 </head>
 
-<body class="is-preload">
+<body class="is-preload" onload="highlightNavBars(['home'])">
 	<!-- Wrapper -->
 	<div id="wrapper">
 
@@ -236,16 +236,7 @@
 						</svg>
 					</a>
 				</div>
-				<div class="row_scroll" id="navbar">
-					<ul width="50%">
-						<li><a href="index.html" class="current_page">Home</a></li>
-						<li><a href="portfolio.html">Portfolio</a></li>
-						<li><a href="about.html">About</a></li>
-						<li><a href="contact.html">Contact</a></li>
-					</ul>
-					<a href="#navbar" class="scroll_down"><img src="images/icons/icon_scroll_up.png" class="scroll_icon"
-							style="top: 1.5em; transform: rotate(180deg)"></a>
-				</div>
+				<div id="navbar"></div>
 			</div>
 		</header>
 
@@ -471,25 +462,8 @@
 	<script src="assets/js/breakpoints.min.js"></script>
 	<script src="assets/js/util.js"></script>
 	<script src="assets/js/main.js"></script>
-
-	<script>
-		window.onscroll = function () { stickNavbar() };
-
-		var navbar = document.getElementById("navbar");
-		var scroll_down_elements = document.getElementsByClassName("scroll_down");
-		var scroll_down = scroll_down_elements[0];
-		var sticky = navbar.offsetTop;
-
-		function stickNavbar() {
-			if (window.pageYOffset >= sticky) {
-				navbar.classList.add("sticky")
-				scroll_down.style.visibility = "hidden";
-			} else {
-				navbar.classList.remove("sticky");
-				scroll_down.style.visibility = "visible";
-			}
-		}
-	</script>
+	<script src="assets/js/navbar.js"></script>
 </body>
+
 
 </html>

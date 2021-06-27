@@ -17,16 +17,12 @@ window.onscroll = function () { stickNavbar() };
 const stickThreshold = navbar.offsetTop;
 function stickNavbar() {
 	const navbar = document.getElementById("navbar");
+	const main = document.getElementById("main");
 	const scroll_down_elements = document.getElementsByClassName("scroll_down");  // home page
 	const scroll_down = scroll_down_elements[0];  // home page
 	
-	
 	let subnavbar = document.getElementById("portfolio_subnavbar");
 	if (!subnavbar) {subnavbar = document.getElementById("about_subnavbar");};
-	const main = document.getElementById("main");
-
-	console.log(subnavbar)
-	
 
 	if (window.pageYOffset >= stickThreshold) {
 		navbar.classList.add("sticky")

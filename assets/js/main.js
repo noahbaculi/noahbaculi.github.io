@@ -177,3 +177,7 @@
 			});
 
 })(jQuery);
+
+
+// Add Footer
+$("#footer").load("assets/html/footer.html")

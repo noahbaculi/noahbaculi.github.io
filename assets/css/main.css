@@ -1512,8 +1512,6 @@ input, select, textarea {
 
 		table thead {border-bottom: solid 2px #c9c9c9;}
 
-		table tfoot {order-top: solid 2px #c9c9c9;}
-
 		table.alt {border-collapse: separate;}
 
 			table.alt tbody tr td {
@@ -1811,9 +1809,9 @@ input, select, textarea {
 				#solo_contact {max-width: 35%;}
 			}
 
-			.tiles article.msab_contact > .image:before {
-				background-image: url("../../images/contact/contact_msab.jpg");
-				background-color: #4E2A84;
+			.tiles article.salesforce_contact > .image:before {
+				background-image: url("../../images/contact/contact_salesforce.png");
+				background-color: black;
 			}
 
 			.tiles article.style1 > .image:before {background-color: #f2849e;}

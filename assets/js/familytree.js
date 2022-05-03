@@ -59,12 +59,12 @@ function getNewMemberHTML(name, partner, breadcrumbs, hasChildren = false) {
     HTMLString += `
     <div class="member-view-box"${imgPaddingStyle}>
     <div class="member-image">
-    <img src="${imgPath}" alt="${name}">
+    <img src="${imgPath}" loading="lazy" alt="${name}">
     `
 
     if (partner) {
         const partnerPath = getImagePath(breadcrumbs, partner);
-        HTMLString += `<img src="${partnerPath}" class="partner-image" alt="${partner}">`;
+        HTMLString += `<img src="${partnerPath}" loading="lazy" class="partner-image" alt="${partner}">`;
     }
 
     let nameLabel = `${name}<br>`

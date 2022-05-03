@@ -53,7 +53,7 @@ function getNewMemberHTML(name, partner, breadcrumbs, hasChildren = false) {
 
     let imgPaddingStyle = '';
     if (!partner) {
-        imgPaddingStyle=` style="padding-right: 0;"`
+        imgPaddingStyle = ` style="padding-right: 0;"`
     }
 
     HTMLString += `
@@ -70,6 +70,15 @@ function getNewMemberHTML(name, partner, breadcrumbs, hasChildren = false) {
     let nameLabel = `${name}<br>`
     if (partner) {
         nameLabel += `& ${partner}`
+
+        if (Array.from(name).length > 18 || Array.from(partner).length > 16) {
+            nameLabel = `${nameLabel.split(' ').join("<br>")}`
+        }
+
+    } else {
+        if (Array.from(name).length > 12) {
+            nameLabel = `${name.split(' ').join("<br>")}`
+        }
     }
 
     HTMLString += `

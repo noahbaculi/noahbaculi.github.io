@@ -1,48 +1,3 @@
-// Add Family Tree HTML
-// $("#familytreecontent").load("assets/html/familytreecontent.html")
-
-
-const comp = `
-<div class="tree">
-	<ul>
-		<li>
-			<a href="#"></a>
-			<ul>
-				<li>
-					<a href="#">Child</a>
-					<ul>
-						<li>
-							<a href="#">Grand Child</a>
-						</li>
-					</ul>
-				</li>
-				<li>
-					<a href="#">Child</a>
-					<ul>
-						<li><a href="#">Grand Child</a></li>
-						<li>
-							<a href="#">Grand Child</a>
-							<ul>
-								<li>
-									<a href="#">Great Grand Child</a>
-								</li>
-								<li>
-									<a href="#">Great Grand Child</a>
-								</li>
-								<li>
-									<a href="#">Great Grand Child</a>
-								</li>
-							</ul>
-						</li>
-						<li><a href="#">Grand Child</a></li>
-					</ul>
-				</li>
-			</ul>
-		</li>
-	</ul>
-</div>
-`
-
 const firstHTML = `<div class="body genealogy-body genealogy-scroll">
 <div class="genealogy-tree">
   <ul>
@@ -50,7 +5,7 @@ const firstHTML = `<div class="body genealogy-body genealogy-scroll">
       <a href="javascript:void(0);">
         <div class="member-view-box">
           <div class="member-image">
-            <img src="https://cdn-icons.flaticon.com/png/512/4140/premium/4140037.png?token=exp=1651534723~hmac=499d998545da98be68236391d0bed767" alt="Member">
+            <img src="./images/family_tree/family.png" style="background-color: lightgrey;" alt="Family">
             <div class="member-details">
               <h3></h3>
             </div>
@@ -68,22 +23,43 @@ const lastHTML = `
 </div>
 `
 
-function getNewMemberHTML(name, partner, hasChildren = false) {
-    let HTMLString = "<li>";
 
+function LinkCheck(url) {
+    var http = new XMLHttpRequest();
+    http.open('HEAD', url, false);
+    http.send();
+    return http.status != 404;
+}
+
+
+function getImagePath(breadcrumbs, name) {
+    const firstName = name.split(' ')[0];
+    let imgPath = `./images/family_tree/${breadcrumbs}/${firstName}.jpg`.toLowerCase().replace("//", "/");
+
+    if (!LinkCheck(imgPath)) { imgPath = `./images/family_tree/person.png` };
+
+    return imgPath;
+}
+
+
+function getNewMemberHTML(name, partner, breadcrumbs, hasChildren = false) {
+    let HTMLString = "<li>";
 
     if (hasChildren) {
         HTMLString += `<a href="javascript:void(0);">`;
     }
 
+    // const firstName = highest_relative.split(' ')[0];
+    let imgPath = getImagePath(breadcrumbs, name);
     HTMLString += `
     <div class="member-view-box">
     <div class="member-image">
-    <img src="https://cdn-icons.flaticon.com/png/512/4140/premium/4140037.png?token=exp=1651534723~hmac=499d998545da98be68236391d0bed767" alt="Member">
+    <img src="${imgPath}" style="background-color: white;" alt="${name}">
     `
 
     if (partner) {
-        HTMLString += `<img src="https://cdn-icons.flaticon.com/png/512/4140/premium/4140037.png?token=exp=1651534723~hmac=499d998545da98be68236391d0bed767" class="partner-image" alt="Member">`;
+        const partnerPath = getImagePath(breadcrumbs, partner);
+        HTMLString += `<img src="${partnerPath}" class="partner-image" alt="Member">`;
     }
 
     let nameLabel = `${name}<br>`
@@ -105,19 +81,18 @@ function getNewMemberHTML(name, partner, hasChildren = false) {
         HTMLString += `</a>`;
     }
 
-
     return HTMLString
 }
 
 
-function parseTree(tree) {
+function parseTree(tree, breadcrumbs = '') {
     console.log("tree", tree);
+    // console.log("breadcrumbs", breadcrumbs);
     let begHTML = [];
     let endHTML = [];
     for (const [key, family] of Object.entries(tree)) {
         highest_relative = key;
-
-        console.log(`${highest_relative} family`, family);
+        const firstName = highest_relative.split(' ')[0]
 
         endHTML.unshift(`</li>\n`);
 
@@ -126,26 +101,17 @@ function parseTree(tree) {
             partner = family["partner"]
         }
 
-        console.log("begHTML before children", begHTML)
         if (family.hasOwnProperty("children")) {
             let subFam = family["children"][0];
-            begHTML.push(getNewMemberHTML(highest_relative, partner, hasChildren = true));
+            begHTML.push(getNewMemberHTML(highest_relative, partner, breadcrumbs, hasChildren = true));
 
-            console.log("subFam", subFam);
-            const [subBegHTML, subEndHTML] = parseTree(subFam);
-
-
-
-            console.log("subBegHTML", subBegHTML);
-
+            const [subBegHTML, subEndHTML] = parseTree(subFam, `${breadcrumbs}/${firstName}`);
             begHTML.push(`<ul>${subBegHTML}</ul>`);
             endHTML.unshift(subEndHTML);
         }
         else {
-            begHTML.push(getNewMemberHTML(highest_relative, partner));
-            console.log("hi");
+            begHTML.push(getNewMemberHTML(highest_relative, partner, breadcrumbs));
         }
-        console.log("begHTML after children", begHTML)
     }
     return [begHTML, endHTML]
 }
@@ -161,36 +127,8 @@ $.getJSON("family_tree.json", function (tree) {
     begHTML.push(subBegHTML);
     endHTML.unshift(subEndHTML);
 
-    // for (const [key, family_dict] of Object.entries(tree)) {
-    //     highest_relative = Object.keys(family_dict)[0];
-    //     family = family_dict[highest_relative];
-
-    //     begHTML.push(`<li><a href="#">${highest_relative}</a>\n`);
-    //     endHTML.unshift(`</li>\n`);
-
-    //     console.log(family);
-    //     if (family.hasOwnProperty("partner")) {
-    //         begHTML.push(`<a href="#">${family["partner"]}</a>\n`);
-    //     }
-    //     if (family.hasOwnProperty("children")) {
-    //         console.log(family["children"][0]);
-    //         for (const child of family["children"]) {
-    //             console.log(child);
-    //         }
-    //     }
-    //     console.log("\n");
-    // }
-
-    console.log("\n\n\n");
-    console.log(begHTML);
-    console.log(endHTML);
-
     totHTML = begHTML.join("") + endHTML.join("");
-    console.log(typeof totHTML);
-
     totHTML = totHTML.replace(/,/g, "");
-    console.log(totHTML);
-
     document.getElementById("familytreecontent").innerHTML = totHTML;
 
     familyTreeInteractions()
@@ -198,15 +136,13 @@ $.getJSON("family_tree.json", function (tree) {
 
 
 function familyTreeInteractions() {
-    console.log('FAMILYTREE INTERACTIONS LOAD');
     $('.genealogy-tree ul').hide();
     $('.genealogy-tree>ul').show();
     $('.genealogy-tree ul.active').show();
-    $('.genealogy-tree li').on('click', function (e) {
-        console.log('hi');
+    $('.genealogy-tree li').on('click', function (event) {
         var children = $(this).find('> ul');
         if (children.is(":visible")) children.hide('fast').removeClass('active');
         else children.show('fast').addClass('active');
-        e.stopPropagation();
+        event.stopPropagation();
     });
 };

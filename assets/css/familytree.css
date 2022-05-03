@@ -148,18 +148,17 @@
 }
 
 .member-image img {
-	max-width: 60px;
-	max-height: 60px;
+	max-width: 65px;
 	width: 8vw;
 	height: auto;
 	border-radius: 6px;
+	border: 1px solid lightgrey;
 	background-color: white;
 	z-index: 1;
 }
 
 .member-image img:nth-of-type(2) {
-	max-width: 50px;
-	max-height: 50px;
+	max-width: 55px;
 	width: 7vw;
 }
 

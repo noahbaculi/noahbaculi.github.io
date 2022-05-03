@@ -76,7 +76,7 @@ function getNewMemberHTML(name, partner, breadcrumbs, hasChildren = false) {
         }
 
     } else {
-        if (Array.from(name).length > 12) {
+        if (Array.from(name).length > 11) {
             nameLabel = `${name.split(' ').join("<br>")}`
         }
     }

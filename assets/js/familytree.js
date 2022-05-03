@@ -26,7 +26,8 @@ const lastHTML = `
 
 function getImagePath(breadcrumbs, name) {
     const firstName = name.split(' ')[0];
-    let imgPath = `./images/family_tree/${breadcrumbs}/${firstName}.jpg`.toLowerCase().replace("//", "/");
+    let imgPath = `./images/family_tree/${breadcrumbs}${firstName}.jpg`.toLowerCase();
+    console.log(imgPath)
     return imgPath;
 }
 
@@ -107,7 +108,7 @@ function parseTree(tree, breadcrumbs = '') {
             let subFam = family["children"][0];
             begHTML.push(getNewMemberHTML(highest_relative, partner, breadcrumbs, hasChildren = true));
 
-            const [subBegHTML, subEndHTML] = parseTree(subFam, `${breadcrumbs}/${firstName}`);
+            const [subBegHTML, subEndHTML] = parseTree(subFam, `${breadcrumbs}${firstName}/`);
             begHTML.push(`<ul>${subBegHTML}</ul>`);
             endHTML.unshift(subEndHTML);
         }

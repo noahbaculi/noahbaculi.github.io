@@ -41,5 +41,6 @@
         "subnavbar",
         "xlink",
         "xmlns"
-    ]
+    ],
+    "python.formatting.provider": "black"
 }

@@ -5,7 +5,7 @@ const firstHTML = `<div class="body genealogy-body genealogy-scroll">
       <a href="javascript:void(0);">
         <div class="member-view-box">
           <div class="member-image">
-            <img src="./images/family_tree/family.png" style="background-color: lightgrey;" alt="Family">
+            <img src="./images/family_tree/family.png" style="background-color: white;" alt="Family">
             <div class="member-details">
               <h3></h3>
             </div>
@@ -49,17 +49,22 @@ function getNewMemberHTML(name, partner, breadcrumbs, hasChildren = false) {
         HTMLString += `<a href="javascript:void(0);">`;
     }
 
-    // const firstName = highest_relative.split(' ')[0];
     let imgPath = getImagePath(breadcrumbs, name);
+
+    let imgPaddingStyle = '';
+    if (!partner) {
+        imgPaddingStyle=` style="padding-right: 0;"`
+    }
+
     HTMLString += `
-    <div class="member-view-box">
+    <div class="member-view-box"${imgPaddingStyle}>
     <div class="member-image">
-    <img src="${imgPath}" style="background-color: white;" alt="${name}">
+    <img src="${imgPath}" alt="${name}">
     `
 
     if (partner) {
         const partnerPath = getImagePath(breadcrumbs, partner);
-        HTMLString += `<img src="${partnerPath}" class="partner-image" alt="Member">`;
+        HTMLString += `<img src="${partnerPath}" class="partner-image" alt="${partner}">`;
     }
 
     let nameLabel = `${name}<br>`
@@ -86,8 +91,7 @@ function getNewMemberHTML(name, partner, breadcrumbs, hasChildren = false) {
 
 
 function parseTree(tree, breadcrumbs = '') {
-    console.log("tree", tree);
-    // console.log("breadcrumbs", breadcrumbs);
+    // console.log("tree", tree);
     let begHTML = [];
     let endHTML = [];
     for (const [key, family] of Object.entries(tree)) {

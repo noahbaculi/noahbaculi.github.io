@@ -24,20 +24,9 @@ const lastHTML = `
 `
 
 
-function LinkCheck(url) {
-    var http = new XMLHttpRequest();
-    http.open('HEAD', url, false);
-    http.send();
-    return http.status != 404;
-}
-
-
 function getImagePath(breadcrumbs, name) {
     const firstName = name.split(' ')[0];
     let imgPath = `./images/family_tree/${breadcrumbs}/${firstName}.jpg`.toLowerCase().replace("//", "/");
-
-    if (!LinkCheck(imgPath)) { imgPath = `./images/family_tree/person.png` };
-
     return imgPath;
 }
 

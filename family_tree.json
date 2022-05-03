@@ -1,0 +1,85 @@
+{
+    "Violeta Mecija": {
+        "partner": "Virgilio _placeholder_",
+        "children": [
+            {
+                "Christine _placeholder_": {
+                    "partner": "_placeholder_",
+                    "children": [
+                        {
+                            "Charles Baculi": {}
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "Myrna Mecija": {
+        "partner": "Manuel Baculi",
+        "children": [
+            {
+                "Manuel Baculi": {
+                    "children": [
+                        {
+                            "Chaz Baculi": {
+                                "partner": "Courtney"
+                            }
+                        }
+                    ]
+                },
+                "Maria Baculi": {
+                    "partner": "Quest Akita",
+                    "children": [
+                        {
+                            "Crystal Knizewski": {},
+                            "Ruby Knizewski": {},
+                            "Amber Knizewski": {}
+                        }
+                    ]
+                },
+                "Raymond Baculi": {
+                    "partner": "Celia Hyman",
+                    "children": [
+                        {
+                            "Noah Baculi": {},
+                            "Aaron Baculi": {}
+                        }
+                    ]
+                },
+                "Frans Baculi": {
+                    "partner": "Kate _placeholder_",
+                    "children": [
+                        {
+                            "Ava Baculi": {}
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "Francis Mecija": {
+        "partner": "Emma _placeholder_",
+        "children": [
+            {
+                "Michelle _placeholder_": {
+                    "partner": "George _placeholder_",
+                    "children": [
+                        {
+                            "Charlotte _placeholder_": {},
+                            "Elliot _placeholder_": {}
+                        }
+                    ]
+                },
+                "Jennifer _placeholder_": {},
+                "Casey _placeholder_": {
+                    "partner": "CaseyWife _placeholder_",
+                    "children": [
+                        {
+                            "Asa _placeholder_": {}
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

@@ -36,7 +36,7 @@ function getImagePath(breadcrumbs, name) {
     const firstName = name.split(' ')[0];
     let imgPath = `./images/family_tree/${breadcrumbs}/${firstName}.jpg`.toLowerCase().replace("//", "/");
 
-    // if (!LinkCheck(imgPath)) { imgPath = `./images/family_tree/person.png` };
+    if (!LinkCheck(imgPath)) { imgPath = `./images/family_tree/person.png` };
 
     return imgPath;
 }

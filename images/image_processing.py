@@ -2,7 +2,7 @@ from PIL import Image
 import os
 
 
-def resize_square_jpg(file_path: str, img_size: int) -> str:
+def resize_square_jpg(file_path: str, img_size: int, exclude: list) -> str:
     file_ext = os.path.splitext(file_path)[1]
     if file_ext != ".jpg":  # only process .jpg files
         return ""
@@ -23,18 +23,24 @@ def resize_square_jpg(file_path: str, img_size: int) -> str:
     return ""
 
 
-def resize_img(file_path: str, img_width: int) -> str:
+def resize_img(file_path: str, width: int, height: int, exclude: list) -> str:
     file_ext = os.path.splitext(file_path)[1]
+    if any([True for exclude_str in exclude if exclude_str in file_path]):
+        print(f"\tSkipping excluded {file_path} with exclude list = {exclude}.")
+
     if not file_ext in [".jpg", ".JPG", ".png", ".PNG"]:
         return ""
-    
-    img = Image.open(file_path)
 
-    if img.size[0] <= img_width:
+    img = Image.open(file_path)
+    old_size = img.size
+
+    if old_size[0] > width:
+        size_ratio = width / old_size[0]
+    elif old_size[1] > height:
+        size_ratio = height / old_size[1]
+    else:
         return ""
 
-    old_size = img.size
-    size_ratio = img_width / old_size[0]
     new_size = tuple(round(dimension * size_ratio) for dimension in old_size)
 
     img = img.resize(new_size, Image.Resampling.LANCZOS)
@@ -45,19 +51,27 @@ def resize_img(file_path: str, img_width: int) -> str:
 
 
 def resize_images_in_folder(
-    base_path: str, img_width: int, square: bool = False
+    base_path: str,
+    width: int = 0,
+    height: int = 0,
+    square_size: int = 0,
+    exclude: list = None,
 ) -> None:
+
     print(
-        f"Resizing images in '{base_path}' to a width of {img_width}px with square={square}..."
+        f"Resizing images in '{base_path}' to width={width}px, height={height}px, and square_size={square_size}px..."
     )
+
+    if not exclude:
+        exclude = []
     invalid_files = []
     for root, _, files in list(os.walk(base_path)):
         for file in files:
             file_path = os.path.join(root, file)
-            if square:
-                invalid_files.append(resize_square_jpg(file_path, img_width))
+            if square_size:
+                invalid_files.append(resize_square_jpg(file_path, square_size, exclude))
             else:
-                invalid_files.append(resize_img(file_path, img_width))
+                invalid_files.append(resize_img(file_path, width, height, exclude))
 
     invalid_files = [file for file in invalid_files if file != ""]
 
@@ -67,6 +81,7 @@ def resize_images_in_folder(
 
 
 if __name__ == "__main__":
-    resize_images_in_folder(r".\images\family_tree", img_width=200, square=True)
+    resize_images_in_folder(r".\images\family_tree", square_size=200)
     print()
-    resize_images_in_folder(r".\images\portfolio", img_width=800)
+    resize_images_in_folder(r".\images\portfolio", width=800, height=600)
+    # resize_images_in_folder(r".\images\about", width=800, exclude=['background', 'principles'])

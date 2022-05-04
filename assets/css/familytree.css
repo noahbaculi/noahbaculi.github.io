@@ -1,16 +1,3 @@
-@media screen and (max-width: 736px) {
-	.home_entrance_title {
-		visibility: hidden !important;
-		height: 0;
-	}
-
-	h2 {
-		margin: 0;
-	}
-}
-
-
-
 /* Family Tree */
 
 .genealogy-scroll::-webkit-scrollbar {
@@ -167,11 +154,24 @@
 }
 
 @media screen and (max-width: 736px) {
+	.home_entrance_title {
+		visibility: hidden !important;
+		height: 0;
+	}
+
+	h2 {
+		margin: 0;
+	}
+
 	.member-details h3 {
 		font-size: 1em;
 	}
 
 	.member-view-box {
 		padding: 0px 20px;
+	}
+
+	#wrapper>*>.inner {
+		padding: 0;
 	}
 }

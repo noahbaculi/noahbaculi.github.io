@@ -1,8 +1,7 @@
 // Add Nav Bars
-$("#navbar").load("./navbar.html")
-
-$("#portfolio_subnavbar").load("assets/html/portfolio_subnavbar.html")
-$("#about_subnavbar").load("assets/html/about_subnavbar.html")
+$("#navbar").load("./_navbar.html")
+$("#portfolio_subnavbar").load("./_portfolio_subnavbar.html")
+$("#about_subnavbar").load("./_about_subnavbar.html")
 
 
 // Highlight Current Nav Bar Page

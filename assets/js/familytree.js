@@ -3,7 +3,7 @@ const firstHTML = `<div class="body genealogy-body genealogy-scroll">
   <ul>
     <li>
       <a href="javascript:void(0);">
-        <div class="member-view-box">
+        <div class="member-view-box" style="padding: 0;">
           <div class="member-image">
             <img src="./images/family_tree/family.png" style="background-color: white;" alt="Family">
             <div class="member-details">
@@ -27,7 +27,6 @@ const lastHTML = `
 function getImagePath(breadcrumbs, name) {
     const firstName = name.split(' ')[0];
     let imgPath = `./images/family_tree/${breadcrumbs}${firstName}.jpg`.toLowerCase();
-    console.log(imgPath)
     return imgPath;
 }
 
@@ -61,7 +60,7 @@ function getNewMemberHTML(name, partner, breadcrumbs, hasChildren = false) {
     if (partner) {
         nameLabel += `& ${partner}`
 
-        if (Array.from(name).length > 18 || Array.from(partner).length > 16) {
+        if (Array.from(nameLabel).length > 40) {
             nameLabel = `${nameLabel.split(' ').join("<br>")}`
         }
 

@@ -88,3 +88,5 @@ if __name__ == "__main__":
     resize_images_in_folder(r".\images\portfolio", width=800, height=600)
     print()
     resize_images_in_folder(r".\images\about", width=800, height=600, exclude=['background', 'principles'])
+    print()
+    resize_images_in_folder(r".\images\contact", width=800, height=600, exclude=['affiliated'])

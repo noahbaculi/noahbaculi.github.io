@@ -27,8 +27,10 @@ def resize_img(file_path: str, width: int, height: int, exclude: list) -> str:
     file_ext = os.path.splitext(file_path)[1]
     if any([True for exclude_str in exclude if exclude_str in file_path]):
         print(f"\tSkipping excluded {file_path} with exclude list = {exclude}.")
+        return ""
 
-    if not file_ext in [".jpg", ".JPG", ".png", ".PNG"]:
+    if not file_ext in [".jpg", ".JPG",".jpeg", ".JPEG", ".png", ".PNG"]:
+        # print(f"\tSkipping {file_path} with bad extension = {file_ext}.")
         return ""
 
     img = Image.open(file_path)
@@ -84,4 +86,5 @@ if __name__ == "__main__":
     resize_images_in_folder(r".\images\family_tree", square_size=200)
     print()
     resize_images_in_folder(r".\images\portfolio", width=800, height=600)
-    # resize_images_in_folder(r".\images\about", width=800, exclude=['background', 'principles'])
+    print()
+    resize_images_in_folder(r".\images\about", width=800, height=600, exclude=['background', 'principles'])

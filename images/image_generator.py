@@ -17,11 +17,17 @@ def covert_img(file_path: str, widths: list, exclude: list) -> str:
     # img.save(file_name + ".avif", "avif")
 
     for width in widths:
+        if width > old_size[0]:
+            width = old_size[0]
+
         size_ratio = width / old_size[0]
         new_size = tuple(round(dimension * size_ratio) for dimension in old_size)
 
         new_img = img.resize(new_size, Image.Resampling.LANCZOS)
         new_img.save(f"{file_name}_{width}_w.webp", "webp")
+
+        if width >= old_size[0]:
+            break
 
     print(f"\tGenerated images for '{file_path}'.")
 
@@ -55,3 +61,4 @@ def convert_folder(base_path: str, widths:list, exclude: list = None) -> None:
 if __name__ == "__main__":
     # convert_folder(r".\images\noah")
     convert_folder(r".\images\portfolio\salesforce", [400, 800], ['team_lunch_orig.png'])
+    convert_folder(r".\images\portfolio\aldras", [400, 800], ['team_lunch_orig.png'])

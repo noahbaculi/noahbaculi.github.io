@@ -4,9 +4,14 @@ import os
 import pillow_avif
 
 
-def covert_img(file_path: str, widths: list, exclude: list) -> str:
+def covert_img(file_path: str, widths: list, exclude: list, include: list) -> str:
     file_name = os.path.splitext(file_path)[0]
     file_ext = os.path.splitext(file_path)[1]
+    
+    if include and not any([True for include_str in include if include_str in file_name]):
+        print(f"\tSkipping not included {file_path} with include list = {exclude}.")
+        return ""
+
     if any([True for exclude_str in exclude if exclude_str in file_path]):
         print(f"\tSkipping excluded {file_path} with exclude list = {exclude}.")
         return ""
@@ -34,12 +39,16 @@ def covert_img(file_path: str, widths: list, exclude: list) -> str:
     return ""
 
 
-def convert_folder(base_path: str, widths:list, exclude: list = None) -> None:
+def convert_folder(
+    base_path: str, widths: list, exclude: list = None, include: list = None
+) -> None:
 
     print(f"Converting images in '{base_path}'")
 
     if not exclude:
         exclude = []
+    if not include:
+        include = []
     invalid_files = []
     for root, _, files in list(os.walk(base_path)):
         img_types = [".jpg", ".JPG", ".jpeg", ".JPEG", ".png", ".PNG"]
@@ -49,7 +58,7 @@ def convert_folder(base_path: str, widths:list, exclude: list = None) -> None:
 
         for file in files:
             file_path = os.path.join(root, file)
-            covert_img(file_path, widths, exclude)
+            covert_img(file_path, widths, exclude, include)
 
     invalid_files = [file for file in invalid_files if file != ""]
 
@@ -60,5 +69,8 @@ def convert_folder(base_path: str, widths:list, exclude: list = None) -> None:
 
 if __name__ == "__main__":
     # convert_folder(r".\images\noah")
-    convert_folder(r".\images\portfolio\salesforce", [400, 800], ['team_lunch_orig.png'])
-    convert_folder(r".\images\portfolio\aldras", [400, 800], ['team_lunch_orig.png'])
+    convert_folder(
+        r".\images\portfolio\salesforce", [400, 800], exclude=["team_lunch_orig.png"]
+    )
+    convert_folder(r".\images\portfolio\aldras", [400, 800], exclude=["logo", "inspiration", "business", "application_icon"])
+    convert_folder(r".\images\portfolio\aldras", [200], include=["logo", "inspiration", "business", "application_icon"])

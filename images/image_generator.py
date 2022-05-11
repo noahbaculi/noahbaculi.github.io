@@ -97,5 +97,6 @@ if __name__ == "__main__":
         [400, 1000],
         exclude=["drill", "foam", "mechatronics", "shop"],
     )
+    convert_folder(r".\images\portfolio\nanofluidics", [400, 1000])
 
     # convert_folder(r".\images\portfolio\contact", [400], include=['affiliated_organizations'])

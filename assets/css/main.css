@@ -806,8 +806,21 @@ div.affiliated_organizations {
 
 div.about_me_principles {
 	background-image: url("../../images/about/learning/woodworking_background.jpg");
+	background-image: url("../../images/about/learning/woodworking_background_2000_w.webp");
 	background-size: cover;
 	color: white;
+}
+
+@media screen and (max-width: 1000px) {
+	div.about_me_principles {
+		background-image: url("../../images/about/learning/woodworking_background_1000_w.webp");
+	}
+}
+
+@media screen and (max-width: 500px) {
+	div.about_me_principles {
+		background-image: url("../../images/about/learning/woodworking_background_500_w.webp");
+	}
 }
 
 div.about_me_principles img {

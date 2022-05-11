@@ -7,9 +7,11 @@ import pillow_avif
 def covert_img(file_path: str, widths: list, exclude: list, include: list) -> str:
     file_name = os.path.splitext(file_path)[0]
     file_ext = os.path.splitext(file_path)[1]
-    
-    if include and not any([True for include_str in include if include_str in file_name]):
-        print(f"\tSkipping not included {file_path} with include list = {exclude}.")
+
+    if include and not any(
+        [True for include_str in include if include_str in file_name]
+    ):
+        print(f"\tSkipping not included {file_path} with include list = {include}.")
         return ""
 
     if any([True for exclude_str in exclude if exclude_str in file_path]):
@@ -72,10 +74,28 @@ if __name__ == "__main__":
     convert_folder(
         r".\images\portfolio\salesforce", [400, 800], exclude=["team_lunch_orig.png"]
     )
-    convert_folder(r".\images\portfolio\aldras", [400, 1000], exclude=["logo", "inspiration", "business", "application_icon"])
-    convert_folder(r".\images\portfolio\aldras", [200], include=["logo", "inspiration", "business", "application_icon"])
+    convert_folder(
+        r".\images\portfolio\aldras",
+        [400, 1000],
+        exclude=["logo", "inspiration", "business", "application_icon"],
+    )
+    convert_folder(
+        r".\images\portfolio\aldras",
+        [200],
+        include=["logo", "inspiration", "business", "application_icon"],
+    )
     convert_folder(r".\images\portfolio\asme", [400, 1000])
     convert_folder(r".\images\portfolio\trane", [400, 1000])
     convert_folder(r".\images\portfolio\itw", [400, 1000])
+    convert_folder(
+        r".\images\portfolio\caffinator",
+        [400],
+        include=["drill", "foam", "mechatronics", "shop"],
+    )
+    convert_folder(
+        r".\images\portfolio\caffinator",
+        [400, 1000],
+        exclude=["drill", "foam", "mechatronics", "shop"],
+    )
 
     # convert_folder(r".\images\portfolio\contact", [400], include=['affiliated_organizations'])

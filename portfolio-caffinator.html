@@ -7,7 +7,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<link rel="stylesheet" href="assets/css/main.css" />
 	<noscript>
-		<link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<link rel="stylesheet" href="assets/css/noscript.css" />
+	</noscript>
 	<link rel="icon" href="images/icons/favicon.png">
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css" media="all"
 		rel="stylesheet" type="text/css">
@@ -16,7 +17,6 @@
 <body class="is-preload" onload="highlightNavBars(['portfolio', 'caffinator'])">
 	<!-- Wrapper -->
 	<div id="wrapper">
-
 		<header>
 			<div>
 				<div class="page_top_div_fifteen">
@@ -32,7 +32,6 @@
 				<div id="portfolio_subnavbar"></div>
 			</div>
 		</header>
-
 		<!-- Header -->
 		<header id="header">
 			<div class="inner">
@@ -44,7 +43,6 @@
 				</nav>
 			</div>
 		</header>
-
 		<!-- Menu -->
 		<nav id="menu">
 			<h2>Menu</h2>
@@ -86,7 +84,6 @@
 				<li><a href="contact.html">Contact</a></li>
 			</ul>
 		</nav>
-
 		<!-- Main -->
 		<div id="main">
 			<div class="inner subpage">
@@ -102,13 +99,20 @@
 							and alleviate the need for a constant human presence.</p>
 					</div>
 					<div class="half_image_column">
-						<img src="images/portfolio/caffinator/caffinator_use_case.jpg" alt="Caffinator Use Case">
+						<img srcset="
+								./images/portfolio/caffinator/caffinator_use_case_400_w.webp 400w" sizes="(max-width: 980px) 100vw, 55vw"
+							loading="lazy" decoding="async" src="./images/portfolio/caffinator/caffinator_use_case.jpg"
+							alt="Caffinator Use Case">
 					</div>
 				</div>
 				<hr class="mobile_only">
 				<div class="row">
 					<div class="half_image_column">
-						<img src="images/portfolio/caffinator/caffinator_design.jpg" alt="Caffinator Design">
+						<img srcset="
+								./images/portfolio/caffinator/caffinator_design_400_w.webp 400w,
+								./images/portfolio/caffinator/caffinator_design_1000_w.webp 1000w" sizes="(max-width: 980px) 100vw, 55vw"
+							loading="lazy" decoding="async" src="./images/portfolio/caffinator/caffinator_design.jpg"
+							alt="Caffinator Design">
 					</div>
 					<div class="half_text_column">
 						<p>Our team tackled the process of iteratively brainstorming and considering dozens and dozens
@@ -127,16 +131,25 @@
 				</div>
 				<div class="image_gallery">
 					<div class="quarter_column">
-						<img src="images/portfolio/caffinator/caffinator_shop.jpg" alt="Caffinator Shop">
+						<img srcset="./images/portfolio/caffinator/caffinator_shop_400_w.webp 400w"
+							sizes="(max-width: 980px) 100vw, 55vw" loading="lazy" decoding="async"
+							src="./images/portfolio/caffinator/caffinator_shop.jpg" alt="Caffinator Shop">
 					</div>
 					<div class="quarter_column">
-						<img src="images/portfolio/caffinator/caffinator_drill.jpg" alt="Caffinator Drill">
+						<img srcset="./images/portfolio/caffinator/caffinator_drill_400_w.webp 400w"
+							sizes="(max-width: 980px) 100vw, 55vw" loading="lazy" decoding="async"
+							src="./images/portfolio/caffinator/caffinator_drill.jpg" alt="Caffinator Drill">
 					</div>
 					<div class="quarter_column">
-						<img src="images/portfolio/caffinator/caffinator_mechatronics_box.JPG" alt="Caffinator Mechatronics Box">
+						<img srcset="./images/portfolio/caffinator/caffinator_mechatronics_box_400_w.webp 400w"
+							sizes="(max-width: 980px) 100vw, 55vw" loading="lazy" decoding="async"
+							src="./images/portfolio/caffinator/caffinator_mechatronics_box.JPG"
+							alt="Caffinator Mechatronics Box">
 					</div>
 					<div class="quarter_column">
-						<img src="images/portfolio/caffinator/caffinator_foam.jpg" alt="Caffinator Foam">
+						<img srcset="./images/portfolio/caffinator/caffinator_foam_400_w.webp 400w"
+							sizes="(max-width: 980px) 100vw, 55vw" loading="lazy" decoding="async"
+							src="./images/portfolio/caffinator/caffinator_foam.jpg" alt="Caffinator Foam">
 					</div>
 				</div>
 				<br class="mobile_only">
@@ -148,22 +161,25 @@
 							future.</p>
 					</div>
 					<div class="half_image_column">
-						<img src="images/portfolio/caffinator/caffinator_action.JPG" alt="Caffinator Action">
+						<img srcset="
+								./images/portfolio/caffinator/caffinator_action_400_w.webp 400w,
+								./images/portfolio/caffinator/caffinator_action_1000_w.webp 1000w" sizes="(max-width: 980px) 100vw, 55vw"
+							loading="lazy" decoding="async" src="./images/portfolio/caffinator/caffinator_action.JPG"
+							alt="Caffinator Shop">
 					</div>
 				</div>
 			</div>
 			<br />
 			<div class="row">
 				<a href="#top">
-					<img src="images/icons/icon_scroll_up.png" class="scroll_icon" alt="Scroll Up" style="position: inherit; margin-left: 90vw;">
+					<img src="images/icons/icon_scroll_up.png" class="scroll_icon" alt="Scroll Up"
+						style="position: inherit; margin-left: 90vw;">
 				</a>
 			</div>
 		</div>
-
 		<!-- Footer -->
 		<footer id="footer"></footer>
 	</div>
-
 	<!-- Scripts -->
 	<script src="assets/js/jquery.min.js"></script>
 	<script src="assets/js/browser.min.js"></script>

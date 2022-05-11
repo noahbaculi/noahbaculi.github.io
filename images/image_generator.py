@@ -75,6 +75,8 @@ def convert_folder(
 
 if __name__ == "__main__":
     # convert_folder(r".\images\noah")
+
+    # PORTFOLIO
     # convert_folder(
     #     r".\images\portfolio\salesforce", [400, 800], exclude=["team_lunch_orig.png"]
     # )
@@ -104,9 +106,12 @@ if __name__ == "__main__":
     # convert_folder(r".\images\portfolio\nanofluidics", [400, 1000])
     # convert_folder(r".\images\portfolio\science_camp", [400, 1000])
     # convert_folder(r".\images\portfolio\other", [400, 1000])
-    
+
+    # ABOUT
     # convert_folder(r".\images\about\travel", [400, 800, 1500])
     # convert_folder(r".\images\about\principles", [500, 1000, 2000])
-    convert_folder(r".\images\about\learning", [500, 1000, 2000], include=['background'])
+    # convert_folder(r".\images\about\learning", [500, 1000, 2000], include=['background'])
+
+    convert_folder(r".\images\about\learning", [400, 1000], exclude=['background'])
 
     # convert_folder(r".\images\portfolio\contact", [400], include=['affiliated_organizations'])

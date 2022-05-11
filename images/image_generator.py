@@ -9,7 +9,7 @@ def covert_img(file_path: str, widths: list, exclude: list, include: list) -> st
     file_ext = os.path.splitext(file_path)[1]
 
     if include and not any(
-        [True for include_str in include if include_str in file_name]
+        [True for include_str in include if include_str in file_path]
     ):
         print(f"\tSkipping not included {file_path} with include list = {include}.")
         return ""
@@ -99,5 +99,6 @@ if __name__ == "__main__":
     )
     convert_folder(r".\images\portfolio\nanofluidics", [400, 1000])
     convert_folder(r".\images\portfolio\science_camp", [400, 1000])
+    convert_folder(r".\images\portfolio\other", [400, 1000])
 
     # convert_folder(r".\images\portfolio\contact", [400], include=['affiliated_organizations'])

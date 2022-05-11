@@ -74,3 +74,5 @@ if __name__ == "__main__":
     )
     convert_folder(r".\images\portfolio\aldras", [400, 1000], exclude=["logo", "inspiration", "business", "application_icon"])
     convert_folder(r".\images\portfolio\aldras", [200], include=["logo", "inspiration", "business", "application_icon"])
+
+    convert_folder(r".\images\portfolio\asme", [400, 1000])

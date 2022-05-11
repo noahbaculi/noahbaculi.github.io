@@ -19,6 +19,10 @@ def covert_img(file_path: str, widths: list, exclude: list, include: list) -> st
         return ""
 
     img = Image.open(file_path)
+
+    if file_ext in [".png", ".PNG"]:
+        img = img.convert("RGBA")
+
     old_size = img.size
     # img.save(f"{file_name}.webp", "webp")
     # img.save(file_name + ".avif", "avif")
@@ -71,34 +75,36 @@ def convert_folder(
 
 if __name__ == "__main__":
     # convert_folder(r".\images\noah")
-    convert_folder(
-        r".\images\portfolio\salesforce", [400, 800], exclude=["team_lunch_orig.png"]
-    )
-    convert_folder(
-        r".\images\portfolio\aldras",
-        [400, 1000],
-        exclude=["logo", "inspiration", "business", "application_icon"],
-    )
-    convert_folder(
-        r".\images\portfolio\aldras",
-        [200],
-        include=["logo", "inspiration", "business", "application_icon"],
-    )
-    convert_folder(r".\images\portfolio\asme", [400, 1000])
-    convert_folder(r".\images\portfolio\trane", [400, 1000])
-    convert_folder(r".\images\portfolio\itw", [400, 1000])
-    convert_folder(
-        r".\images\portfolio\caffinator",
-        [400],
-        include=["drill", "foam", "mechatronics", "shop"],
-    )
-    convert_folder(
-        r".\images\portfolio\caffinator",
-        [400, 1000],
-        exclude=["drill", "foam", "mechatronics", "shop"],
-    )
-    convert_folder(r".\images\portfolio\nanofluidics", [400, 1000])
-    convert_folder(r".\images\portfolio\science_camp", [400, 1000])
-    convert_folder(r".\images\portfolio\other", [400, 1000])
+    # convert_folder(
+    #     r".\images\portfolio\salesforce", [400, 800], exclude=["team_lunch_orig.png"]
+    # )
+    # convert_folder(
+    #     r".\images\portfolio\aldras",
+    #     [400, 1000],
+    #     exclude=["logo", "inspiration", "business", "application_icon"],
+    # )
+    # convert_folder(
+    #     r".\images\portfolio\aldras",
+    #     [200],
+    #     include=["logo", "inspiration", "business", "application_icon"],
+    # )
+    # convert_folder(r".\images\portfolio\asme", [400, 1000])
+    # convert_folder(r".\images\portfolio\trane", [400, 1000])
+    # convert_folder(r".\images\portfolio\itw", [400, 1000])
+    # convert_folder(
+    #     r".\images\portfolio\caffinator",
+    #     [400],
+    #     include=["drill", "foam", "mechatronics", "shop"],
+    # )
+    # convert_folder(
+    #     r".\images\portfolio\caffinator",
+    #     [400, 1000],
+    #     exclude=["drill", "foam", "mechatronics", "shop"],
+    # )
+    # convert_folder(r".\images\portfolio\nanofluidics", [400, 1000])
+    # convert_folder(r".\images\portfolio\science_camp", [400, 1000])
+    # convert_folder(r".\images\portfolio\other", [400, 1000])
+    # convert_folder(r".\images\about\travel", [400, 800, 1500])
+    convert_folder(r".\images\about\principles", [500, 1000, 2000])
 
     # convert_folder(r".\images\portfolio\contact", [400], include=['affiliated_organizations'])

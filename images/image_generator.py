@@ -76,5 +76,6 @@ if __name__ == "__main__":
     convert_folder(r".\images\portfolio\aldras", [200], include=["logo", "inspiration", "business", "application_icon"])
     convert_folder(r".\images\portfolio\asme", [400, 1000])
     convert_folder(r".\images\portfolio\trane", [400, 1000])
+    convert_folder(r".\images\portfolio\itw", [400, 1000])
 
     # convert_folder(r".\images\portfolio\contact", [400], include=['affiliated_organizations'])

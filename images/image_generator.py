@@ -114,5 +114,6 @@ if __name__ == "__main__":
 
     convert_folder(r".\images\about\learning", [400, 1000], exclude=['background'])
     convert_folder(r".\images\about\music", [400, 1000])
+    convert_folder(r".\images\about\swim", [400, 1000])
 
     # convert_folder(r".\images\portfolio\contact", [400], include=['affiliated_organizations'])

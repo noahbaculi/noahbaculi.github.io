@@ -1253,6 +1253,7 @@ div.inner.subpage>div.row {
 .image_gallery>.quarter_column img,
 .image_gallery>.half_column img,
 .image_gallery>.third_column img {
+	border-radius: 4px;
 	margin-top: 0.2em;
 	vertical-align: middle;
 	width: 100%;

@@ -112,8 +112,14 @@ if __name__ == "__main__":
     # convert_folder(r".\images\about\principles", [500, 1000, 2000])
     # convert_folder(r".\images\about\learning", [500, 1000, 2000], include=['background'])
 
-    convert_folder(r".\images\about\learning", [400, 1000], exclude=['background'])
-    convert_folder(r".\images\about\music", [400, 1000])
-    convert_folder(r".\images\about\swim", [400, 1000])
+    # convert_folder(r".\images\about\learning", [400, 1000], exclude=["background"])
+    # convert_folder(r".\images\about\music", [400, 1000])
+    # convert_folder(r".\images\about\swim", [400, 1000])
+
+    convert_folder(r".\images\noah", [800], include=["2_by_3"])
+    convert_folder(r".\images\noah", [1200], include=["square"])
+    convert_folder(r".\images\noah", [1600], include=["4_by_3"])
+    convert_folder(r".\images\noah", [2000], include=["header.jpg"])
+    # convert_folder(r".\images\noah", [1e10], exclude=["_orig", "_page"])
 
     # convert_folder(r".\images\portfolio\contact", [400], include=['affiliated_organizations'])

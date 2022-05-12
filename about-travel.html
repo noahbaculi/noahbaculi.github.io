@@ -7,7 +7,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<link rel="stylesheet" href="assets/css/main.css" />
 	<noscript>
-		<link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<link rel="stylesheet" href="assets/css/noscript.css" />
+	</noscript>
 	<link rel="icon" href="images/icons/favicon.png">
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css" media="all"
 		rel="stylesheet" type="text/css">
@@ -16,12 +17,17 @@
 <body class="is-preload" onload="highlightNavBars(['about', 'travel'])">
 	<!-- Wrapper -->
 	<div id="wrapper">
-
 		<header>
 			<div>
 				<div class="page_top_div_fifteen">
 					<div class="page_top_div_zero">
-						<img src="images/noah/noah_baculi_header_page.jpg" class="page_header_pic" alt="Noah Header">
+						<img srcset="
+							./images/noah/noah_baculi_header_page_400_w.webp 400w,
+							./images/noah/noah_baculi_header_page_2_by_1_600_w.webp 800w,
+							./images/noah/noah_baculi_header_page_3_by_1_1200_w.webp 1000w,
+							./images/noah/noah_baculi_header_page_5_by_1_2000_w.webp 2000w" sizes="100vw"
+							loading="lazy" decoding="async" src="./images/noah/noah_baculi_header_page.jpg"
+							class="page_header_pic" alt="Noah Header">
 					</div>
 					<div style="margin: 1em 0;">
 						<h1 class="home_entrance_title"><a href="index.html">Noah Baculi</a></h1>
@@ -32,7 +38,6 @@
 				<div id="about_subnavbar"></div>
 			</div>
 		</header>
-
 		<!-- Header -->
 		<header id="header">
 			<div class="inner">
@@ -44,7 +49,6 @@
 				</nav>
 			</div>
 		</header>
-
 		<!-- Menu -->
 		<nav id="menu">
 			<h2>Menu</h2>
@@ -86,7 +90,6 @@
 				<li><a href="contact.html">Contact</a></li>
 			</ul>
 		</nav>
-
 		<!-- Main -->
 		<div id="main">
 			<div class="inner subpage">
@@ -104,7 +107,7 @@
 						./images/about/travel/los_angeles_family_400_w.webp 400w,
 						./images/about/travel/los_angeles_family_800_w.webp 800w,
 						./images/about/travel/los_angeles_family_1500_w.webp 1500w" sizes="(max-width: 980px) 100vw, 55vw" loading="lazy"
-						decoding="async" src="./images/about/travel/los_angeles_family.jpg"  alt="Travel LA Family">
+							decoding="async" src="./images/about/travel/los_angeles_family.jpg" alt="Travel LA Family">
 					</div>
 				</div>
 				<hr class="mobile_only">
@@ -112,8 +115,9 @@
 					<div class="half_image_column">
 						<img srcset="
 						./images/about/travel/chicago_northwestern_cohort_400_w.webp 400w,
-						./images/about/travel/chicago_northwestern_cohort_800_w.webp 800w" sizes="(max-width: 980px) 100vw, 55vw" loading="lazy"
-						decoding="async" src="./images/about/travel/chicago_northwestern_cohort.JPG" alt="Travel Northwestern Cohort">
+						./images/about/travel/chicago_northwestern_cohort_800_w.webp 800w" sizes="(max-width: 980px) 100vw, 55vw"
+							loading="lazy" decoding="async" src="./images/about/travel/chicago_northwestern_cohort.JPG"
+							alt="Travel Northwestern Cohort">
 					</div>
 					<div class="half_text_column">
 						<h3>Opportunity</h3>
@@ -133,46 +137,45 @@
 						feel the culture, but we interacted with energy technology experts and aimed to observe
 						first-hand how so many Chinese citizens live everyday through the lens of public health.</p>
 				</div>
-
 				<div class="image_gallery">
 					<div class="half_column">
 						<img srcset="
 						./images/about/travel/china_plant_400_w.webp 400w,
 						./images/about/travel/china_plant_800_w.webp 600w,
 						./images/about/travel/china_plant_1500_w.webp 1000w" sizes="(max-width: 980px) 100vw, 55vw" loading="lazy"
-						decoding="async" src="./images/about/travel/china_plant.jpg" alt="Travel China Plant">
+							decoding="async" src="./images/about/travel/china_plant.jpg" alt="Travel China Plant">
 						<img srcset="
 						./images/about/travel/china_sunglasses_400_w.webp 400w,
 						./images/about/travel/china_sunglasses_800_w.webp 600w,
 						./images/about/travel/china_sunglasses_1500_w.webp 1000w" sizes="(max-width: 980px) 100vw, 55vw" loading="lazy"
-						decoding="async" src="./images/about/travel/china_sunglasses.JPG" alt="Travel China Sunglasses">
+							decoding="async" src="./images/about/travel/china_sunglasses.JPG"
+							alt="Travel China Sunglasses">
 					</div>
 					<div class="half_column">
 						<img srcset="
 						./images/about/travel/china_wall_friends_400_w.webp 400w,
 						./images/about/travel/china_wall_friends_800_w.webp 600w,
 						./images/about/travel/china_wall_friends_1500_w.webp 1000w" sizes="(max-width: 980px) 100vw, 55vw" loading="lazy"
-						decoding="async" src="./images/about/travel/china_wall_friends.jpg" alt="Travel China Wall">
+							decoding="async" src="./images/about/travel/china_wall_friends.jpg" alt="Travel China Wall">
 						<img srcset="
 						./images/about/travel/china_friends_400_w.webp 400w,
 						./images/about/travel/china_friends_800_w.webp 600w,
 						./images/about/travel/china_friends_1500_w.webp 1000w" sizes="(max-width: 980px) 100vw, 55vw" loading="lazy"
-						decoding="async" src="./images/about/travel/china_friends.jpg" alt="Travel China Friends">
+							decoding="async" src="./images/about/travel/china_friends.jpg" alt="Travel China Friends">
 					</div>
 				</div>
 			</div>
 			<br />
 			<div class="row">
 				<a href="#top">
-					<img src="images/icons/icon_scroll_up.png" class="scroll_icon" alt="Scroll Up" style="position: inherit; margin-left: 90vw;">
+					<img src="images/icons/icon_scroll_up.png" class="scroll_icon" alt="Scroll Up"
+						style="position: inherit; margin-left: 90vw;">
 				</a>
 			</div>
 		</div>
-
 		<!-- Footer -->
 		<footer id="footer"></footer>
 	</div>
-
 	<!-- Scripts -->
 	<script src="assets/js/jquery.min.js"></script>
 	<script src="assets/js/browser.min.js"></script>

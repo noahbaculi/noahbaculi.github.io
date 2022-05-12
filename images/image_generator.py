@@ -116,10 +116,14 @@ if __name__ == "__main__":
     # convert_folder(r".\images\about\music", [400, 1000])
     # convert_folder(r".\images\about\swim", [400, 1000])
 
-    convert_folder(r".\images\noah", [800], include=["2_by_3"])
-    convert_folder(r".\images\noah", [1200], include=["square"])
-    convert_folder(r".\images\noah", [1600], include=["4_by_3"])
+    convert_folder(r".\images\noah", [800], include=["header_2_by_3"])
+    convert_folder(r".\images\noah", [1200], include=["header_square"])
+    convert_folder(r".\images\noah", [1600], include=["header_4_by_3"])
     convert_folder(r".\images\noah", [2000], include=["header.jpg"])
+    convert_folder(r".\images\noah", [400], include=["_page.jpg"])
+    convert_folder(r".\images\noah", [600], include=["_page_2_by_1.jpg"])
+    convert_folder(r".\images\noah", [1200], include=["_page_3_by_1.jpg"])
+    convert_folder(r".\images\noah", [2000], include=["_page_5_by_1.jpg"])
     # convert_folder(r".\images\noah", [1e10], exclude=["_orig", "_page"])
 
     # convert_folder(r".\images\portfolio\contact", [400], include=['affiliated_organizations'])

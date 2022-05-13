@@ -5,7 +5,7 @@ String.prototype.toProperCase = function () {
 
 let breadcrumbs = window.location.pathname.replace("/", "").replace(".html", "").split("-");
 
-if (window.location.pathname.includes('/index') || window.location.pathname == "/") {
+if (window.location.pathname == "/" || window.location.pathname.includes('/index')) {
 	$.get("./_header_html.html", null, function (text) {
 		const HTML = new DOMParser().parseFromString(text, "text/html");
 		const navbarHTML = HTML.getElementById("navbar").innerHTML;
@@ -17,7 +17,7 @@ if (window.location.pathname.includes('/index') || window.location.pathname == "
 		const menuHTML = HTML.getElementById("menu").innerHTML;
 		document.getElementById("menu").innerHTML = menuHTML;
 
-		onNavbarsLoad()
+		onNavbarsLoad(['index'])
 	});
 } else {
 	// Update page title
@@ -34,7 +34,10 @@ $("#top_portfolio").load("./_top_portfolio.html");
 $("#footer").load("./_footer.html");
 
 
-function onNavbarsLoad() {
+function onNavbarsLoad(crumbs=null) {
+	if (crumbs != null) {
+		breadcrumbs = crumbs
+	}
 	// Highlight current pages
 	for (const page of breadcrumbs) {
 		const navBarElements = document.getElementsByClassName(page);

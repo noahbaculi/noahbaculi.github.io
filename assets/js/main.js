@@ -28,7 +28,7 @@ let breadcrumbs = window.location.pathname.replace("/", "").replace(".html", "")
 
 
 // Load template HTML sections
-$("#headers").load("./_headers.html");
+$("#headers").load("./_header_html.html");
 
 $("#top_portfolio").load("./_top_portfolio.html");
 $("#footer").load("./_footer.html");

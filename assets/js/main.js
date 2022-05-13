@@ -28,22 +28,7 @@ let breadcrumbs = window.location.pathname.replace("/", "").replace(".html", "")
 
 
 // Load template HTML sections
-$("#headers").load("./_headers.html", null,
-	function () {
-		// Callback code to be executed once HTML is loaded ▼
-
-		// Insert sub nav bars and highlight current pages once loaded
-		if (window.location.pathname.includes('/about')) {
-			$("#subnavbars").load("./_about_subnavbar.html", null, onNavbarsLoad)
-		}
-		else if (window.location.pathname.includes('/portfolio')) {
-			$("#subnavbars").load("./_portfolio_subnavbar.html", null, onNavbarsLoad)
-		}
-		else { onNavbarsLoad }
-
-		// Add the side menu to the bottom of the body tag, outside of the wrapper div to avoid opacity change issues
-		$('#menu').appendTo($body)
-	});
+$("#headers").load("./_headers.html");
 
 $("#top_portfolio").load("./_top_portfolio.html");
 $("#footer").load("./_footer.html");

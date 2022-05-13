@@ -5,26 +5,26 @@ String.prototype.toProperCase = function () {
 
 let breadcrumbs = window.location.pathname.replace("/", "").replace(".html", "").split("-");
 
-// if (window.location.pathname.includes('/index') || window.location.pathname == "/") {
-// 	$.get("./_headers.html", null, function (text) {
-// 		const HTML = new DOMParser().parseFromString(text, "text/html");
-// 		const navbarHTML = HTML.getElementById("navbar").innerHTML;
-// 		document.getElementById("navbar").innerHTML = navbarHTML;
+if (window.location.pathname.includes('/index') || window.location.pathname == "/") {
+	$.get("./_header_html.html", null, function (text) {
+		const HTML = new DOMParser().parseFromString(text, "text/html");
+		const navbarHTML = HTML.getElementById("navbar").innerHTML;
+		document.getElementById("navbar").innerHTML = navbarHTML;
 
-// 		const menuButtonHTML = HTML.getElementById("header").innerHTML;
-// 		document.getElementById("header").innerHTML = menuButtonHTML;
+		const menuButtonHTML = HTML.getElementById("header").innerHTML;
+		document.getElementById("header").innerHTML = menuButtonHTML;
 
-// 		const menuHTML = HTML.getElementById("menu").innerHTML;
-// 		document.getElementById("menu").innerHTML = menuHTML;
+		const menuHTML = HTML.getElementById("menu").innerHTML;
+		document.getElementById("menu").innerHTML = menuHTML;
 
-// 		onNavbarsLoad()
-// 	});
-// } else {
-// 	// Update page title
-// 	const titleElement = document.getElementsByTagName('title')[0];
-// 	const subject = breadcrumbs[breadcrumbs.length - 1].toProperCase();
-// 	titleElement.innerText = `Noah - ${subject}`;
-// }
+		onNavbarsLoad()
+	});
+} else {
+	// Update page title
+	const titleElement = document.getElementsByTagName('title')[0];
+	const subject = breadcrumbs[breadcrumbs.length - 1].toProperCase();
+	titleElement.innerText = `Noah - ${subject}`;
+}
 
 
 // Load template HTML sections

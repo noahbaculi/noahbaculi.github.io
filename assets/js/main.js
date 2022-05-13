@@ -1,9 +1,8 @@
-
 String.prototype.toProperCase = function () {
 	return this.replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substring(1).toLowerCase(); });
 };
 
-let breadcrumbs = window.location.pathname.replace("/", "").replace(".html", "").split("-");
+const breadcrumbs = window.location.pathname.replace("/", "").replace(".html", "").split("-");
 
 if (window.location.pathname == "/" || window.location.pathname.includes('/index')) {
 	$.get("./_header_html.html", null, function (text) {
@@ -28,18 +27,33 @@ if (window.location.pathname == "/" || window.location.pathname.includes('/index
 
 
 // Load template HTML sections
-$("#headers").load("./_header_html.html");
+$("#headers").load("./_header_html.html", null,
+function () {
+	// Callback code to be executed once HTML is loaded ▼
+
+	// Insert sub nav bars and highlight current pages once loaded
+	if (window.location.pathname.includes('/about')) {
+		$("#subnavbars").load("./_about_subnavbar.html", null, onNavbarsLoad)
+	}
+	else if (window.location.pathname.includes('/portfolio')) {
+		$("#subnavbars").load("./_portfolio_subnavbar.html", null, onNavbarsLoad)
+	}
+	else { onNavbarsLoad }
+
+	// Add the side menu to the bottom of the body tag, outside of the wrapper div to avoid opacity change issues
+	$('#menu').appendTo($body)
+});
 
 $("#top_portfolio").load("./_top_portfolio.html");
 $("#footer").load("./_footer.html");
 
 
 function onNavbarsLoad(crumbs=null) {
-	if (crumbs != null) {
-		breadcrumbs = crumbs
-	}
 	// Highlight current pages
-	for (const page of breadcrumbs) {
+	if (crumbs != null) {
+		crumbs = breadcrumbs
+	}
+	for (const page of crumbs) {
 		const navBarElements = document.getElementsByClassName(page);
 		for (const navBarElement of navBarElements) {
 			navBarElement.classList.add("current_page");

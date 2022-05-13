@@ -7,90 +7,17 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<link rel="stylesheet" href="assets/css/main.css" />
 	<noscript>
-		<link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<link rel="stylesheet" href="assets/css/noscript.css" />
+	</noscript>
 	<link rel="icon" href="images/icons/favicon.png">
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css" media="all"
-		rel="stylesheet" type="text/css">
 </head>
 
 <body class="is-preload" onload="highlightNavBars(['contact'])">
 	<!-- Wrapper -->
 	<div id="wrapper">
-		<header>
-			<div>
-				<div class="page_top_div_fifteen">
-					<div class="page_top_div_zero">
-						<img srcset="
-							./images/noah/noah_baculi_header_page_400_w.webp 400w,
-							./images/noah/noah_baculi_header_page_2_by_1_600_w.webp 800w,
-							./images/noah/noah_baculi_header_page_3_by_1_1200_w.webp 1000w,
-							./images/noah/noah_baculi_header_page_5_by_1_2000_w.webp 2000w" sizes="100vw"
-							loading="lazy" decoding="async" src="./images/noah/noah_baculi_header_page.jpg"
-							class="page_header_pic" alt="Noah Header">
-					</div>
-					<div style="margin: 1em 0;">
-						<h1 class="home_entrance_title"><a href="index.html">Noah Baculi</a></h1>
-						<p id="home_entrance_tagline">Mechanical Engineering and Business Student</p>
-					</div>
-				</div>
-				<div id="navbar"></div>
-			</div>
-		</header>
-
-		<!-- Header -->
-		<header id="header">
-			<div class="inner">
-				<!-- Nav -->
-				<nav>
-					<ul>
-						<li><a href="#menu">Menu</a></li>
-					</ul>
-				</nav>
-			</div>
-		</header>
-
-		<!-- Menu -->
-		<nav id="menu">
-			<h2>Menu</h2>
-			<ul>
-				<li><a href="index.html">Home</a></li>
-				<li class="dropdown_row">
-					<a href="portfolio.html">Portfolio</a>
-					<div class="dropdown">
-						<img src="images/icons/icon_drop_down.png" class="dropdown_icon" alt="Dropdown">
-						<div class="dropdown-content">
-							<div class="dropdown-container">
-								<a href="portfolio-aldras.html">Aldras</a>
-								<a href="portfolio-asme.html">ASME</a>
-								<a href="portfolio-trane.html">Trane</a>
-								<a href="portfolio-itw.html">ITW</a>
-								<a href="portfolio-Caffinator.html">Caffinator</a>
-								<a href="portfolio-nanofluidics.html">Nanofluidics</a>
-								<a href="portfolio-sciencecamp.html">Science Camp</a>
-							</div>
-							<br />
-						</div>
-					</div>
-				</li>
-				<li class="dropdown_row">
-					<a href="about.html">About</a>
-					<div class="dropdown">
-						<img src="images/icons/icon_drop_down.png" class="dropdown_icon" alt="Dropdown">
-						<div class="dropdown-content">
-							<div class="dropdown-container">
-								<a href="about-learning.html">Learning</a>
-								<a href="about-music.html">Music</a>
-								<a href="about-swim.html">Swim</a>
-								<a href="about-travel.html">Travel</a>
-							</div>
-							<br />
-						</div>
-					</div>
-				</li>
-				<li><a href="contact.html" class="current_page">Contact</a></li>
-			</ul>
-		</nav>
-
+		<div id="headers"></div>
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css" media="all"
+			rel="stylesheet" type="text/css" lazyload>
 		<!-- Main -->
 		<div id="main">
 			<div class="inner">
@@ -123,13 +50,10 @@
 							<td>
 								<input type="checkbox" id="resume_request" name="resume_request">
 								<label for="resume_request">Resume Request</label><br />
-
 								<input type="checkbox" id="asme_inquiry" name="asme_inquiry">
 								<label for="asme_inquiry">ASME Inquiry</label><br />
-
 								<input type="checkbox" id="professional_inquiry" name="professional_inquiry">
 								<label for="professional_inquiry">Other Professional Inquiry</label><br />
-
 								<input type="checkbox" id="personal_inquiry" name="personal_inquiry">
 								<label for="personal_inquiry">Personal Inquiry</label>
 							</td>
@@ -142,23 +66,19 @@
 								<textarea name="message" maxlength="1000" cols="25" rows="6"
 									placeholder="Comment or Message"></textarea>
 							</td>
-
 						</tr>
 					</table>
 					<div data-netlify-recaptcha="true"></div><br>
 					<div class="align-center"><input type="submit" value="Submit"></div>
 				</form>
 			</div>
-
 			<br><br>
-
 			<div class="affiliated_organizations">
 				<div style="max-width: 68em; margin: auto;">
 					<br />
 					<section class="align-center">
 						<h2>Affiliated Organizations And Projects</h2>
 					</section>
-
 					<section class="tiles">
 						<article class="aldras_contact">
 							<span class="image full_opacity">
@@ -184,7 +104,8 @@
 							<span class="image full_opacity">
 								<img src="images/contact/contact_salesforce_background.png" alt="">
 							</span>
-							<a href="https://github.com/noahbaculi/salesforcegalaxy" target="_blank" style="opacity: 1;">
+							<a href="https://github.com/noahbaculi/salesforcegalaxy" target="_blank"
+								style="opacity: 1;">
 								<div class="content">
 									<h2>Salesforce Galaxy</h2>
 								</div>
@@ -211,15 +132,14 @@
 			<br />
 			<div class="row">
 				<a href="#top">
-					<img src="images/icons/icon_scroll_up.png" class="scroll_icon" alt="Scroll Up" style="position: inherit; margin-left: 90vw;">
+					<img src="images/icons/icon_scroll_up.png" class="scroll_icon" alt="Scroll Up"
+						style="position: inherit; margin-left: 90vw;">
 				</a>
 			</div>
 		</div>
-
 		<!-- Footer -->
 		<footer id="footer"></footer>
 	</div>
-
 	<!-- Scripts -->
 	<script src="assets/js/jquery.min.js"></script>
 	<script src="assets/js/browser.min.js"></script>

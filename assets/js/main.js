@@ -1,25 +1,43 @@
-// Update page title
+
 String.prototype.toProperCase = function () {
-	return this.replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
+	return this.replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substring(1).toLowerCase(); });
 };
 
 let breadcrumbs = window.location.pathname.replace("/", "").replace(".html", "").split("-");
-const titleElement = document.getElementsByTagName('title')[0];
-const subject = breadcrumbs[breadcrumbs.length - 1].toProperCase();
-titleElement.innerText = `Noah - ${subject}`;
+
+if (window.location.pathname.includes('/index')) {
+	$.get("./_headers.html", null, function (text) {
+		const HTML = new DOMParser().parseFromString(text, "text/html");
+		const navbarHTML = HTML.getElementById("navbar").innerHTML;
+		document.getElementById("navbar").innerHTML = navbarHTML;
+
+		const menuButtonHTML = HTML.getElementById("header").innerHTML;
+		document.getElementById("header").innerHTML = menuButtonHTML;
+
+		const menuHTML = HTML.getElementById("menu").innerHTML;
+		document.getElementById("menu").innerHTML = menuHTML;
+
+		onNavbarsLoad()
+	});
+} else {
+	// Update page title
+	const titleElement = document.getElementsByTagName('title')[0];
+	const subject = breadcrumbs[breadcrumbs.length - 1].toProperCase();
+	titleElement.innerText = `Noah - ${subject}`;
+}
+
 
 // Load template HTML sections
-
 $("#headers").load("./_headers.html", null,
 	function () {
 		// Callback code to be executed once HTML is loaded ▼
 
 		// Insert sub nav bars and highlight current pages once loaded
 		if (window.location.pathname.includes('/about')) {
-			$("#subnavbar").load("./_about_subnavbar.html", null, onNavbarsLoad)
+			$("#subnavbars").load("./_about_subnavbar.html", null, onNavbarsLoad)
 		}
 		else if (window.location.pathname.includes('/portfolio')) {
-			$("#subnavbar").load("./_portfolio_subnavbar.html", null, onNavbarsLoad)
+			$("#subnavbars").load("./_portfolio_subnavbar.html", null, onNavbarsLoad)
 		}
 		else { onNavbarsLoad }
 
@@ -69,9 +87,6 @@ function onNavbarsLoad() {
 		}
 	}
 }
-
-
-
 
 
 var $window = $(window),

@@ -624,7 +624,7 @@ h1.home_entrance_title>a {
 }
 
 .page_scroll_down_top_padding {
-	padding-top: 10vh !important;
+	padding-top: 7vh !important;
 }
 
 .icon_button {
@@ -2447,25 +2447,6 @@ body.is-touch .tiles article .content {
 	z-index: 10002;
 }
 
-.home-menu {
-	animation: menu-animate 0.8s ease backwards 5s;
-}
-
-@keyframes menu-animate {
-	0% {
-		transform: translateX(22em);
-	}
-
-	50% {
-		transform: translateX(21em);
-		background: #5763a7a8;
-	}
-
-	100% {
-		transform: translateX(22em);
-	}
-}
-
 #menu h2 {
 	margin: 2em 0 2em 0;
 }
@@ -2579,10 +2560,6 @@ body.is-touch .tiles article .content {
 		-ms-transform: translateX(16.5em);
 		transform: translateX(16.5em);
 		width: 16.5em;
-	}
-
-	.home-menu {
-		animation: none;
 	}
 
 	@keyframes menu-mobile-animate {

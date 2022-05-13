@@ -5,6 +5,8 @@ String.prototype.toProperCase = function () {
 
 let breadcrumbs = window.location.pathname.replace("/", "").replace(".html", "").split("-");
 
+console.log(window.location.pathname, breadcrumbs);
+
 if (window.location.pathname.includes('/index')) {
 	$.get("./_headers.html", null, function (text) {
 		const HTML = new DOMParser().parseFromString(text, "text/html");

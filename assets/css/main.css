@@ -246,6 +246,10 @@ h1.home_entrance_title {
 	color: white;
 	text-align: center;
 	margin: 0;
+	animation: home-fade-in 2s ease-in forwards 0s;
+	opacity: 0;
+	position: relative;
+	z-index: auto;
 }
 
 h1.home_entrance_title>a {
@@ -623,10 +627,6 @@ h1.home_entrance_title>a {
 	z-index: 15;
 }
 
-.page_scroll_down_top_padding {
-	padding-top: 7vh !important;
-}
-
 .icon_button {
 	width: 2.5em;
 	height: 2.5em;
@@ -673,6 +673,12 @@ img .scroll_icon {
 
 .current_page {
 	opacity: 0.5;
+}
+
+@media screen and (min-width: 736px) {
+	.page_scroll_down_top_padding {
+		padding-top: 7vh !important;
+	}
 }
 
 

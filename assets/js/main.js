@@ -28,33 +28,35 @@ if (window.location.pathname == "/" || window.location.pathname.includes('/index
 
 // Load template HTML sections
 $("#headers").load("./_header_html.html", null,
-function () {
-	// Callback code to be executed once HTML is loaded ▼
+	function () {
+		// Callback code to be executed once HTML is loaded ▼
 
-	// Insert sub nav bars and highlight current pages once loaded
-	if (window.location.pathname.includes('/about')) {
-		$("#subnavbars").load("./_about_subnavbar.html", null, onNavbarsLoad)
-	}
-	else if (window.location.pathname.includes('/portfolio')) {
-		$("#subnavbars").load("./_portfolio_subnavbar.html", null, onNavbarsLoad)
-	}
-	else { onNavbarsLoad }
+		// Insert sub nav bars and highlight current pages once loaded
+		if (window.location.pathname.includes('/about')) {
+			$("#subnavbars").load("./_about_subnavbar.html", null, onNavbarsLoad)
+		}
+		else if (window.location.pathname.includes('/portfolio')) {
+			$("#subnavbars").load("./_portfolio_subnavbar.html", null, onNavbarsLoad)
+		}
+		else { onNavbarsLoad() }
 
-	// Add the side menu to the bottom of the body tag, outside of the wrapper div to avoid opacity change issues
-	$('#menu').appendTo($body)
-});
+		// Add the side menu to the bottom of the body tag, outside of the wrapper div to avoid opacity change issues
+		$('#menu').appendTo($body)
+	});
 
 $("#top_portfolio").load("./_top_portfolio.html");
 $("#footer").load("./_footer.html");
 
 
-function onNavbarsLoad(crumbs=null) {
+function onNavbarsLoad(crumbs = null) {
 	// Highlight current pages
-	if (crumbs != null) {
-		crumbs = breadcrumbs
-	}
+	if (typeof (crumbs) != Array) { crumbs = breadcrumbs }
+
 	for (const page of crumbs) {
 		const navBarElements = document.getElementsByClassName(page);
+
+		console.log(page, navBarElements, navBarElements.length)
+
 		for (const navBarElement of navBarElements) {
 			navBarElement.classList.add("current_page");
 		}
@@ -63,21 +65,26 @@ function onNavbarsLoad(crumbs=null) {
 	// Stick navbar on scroll
 	const navbar = document.getElementById("navbar");
 	const stickThreshold = navbar.offsetTop;
+	let paddingValue = "0vh";
 	window.onscroll = function () { stickNavbar() };
 	function stickNavbar() {
 		const main = document.getElementById("main");
 		const scroll_down_elements = document.getElementsByClassName("scroll_down");  // home page
 		const scroll_down = scroll_down_elements[0];  // home page
 
-		let subnavbar = document.getElementById("portfolio_subnavbar");
-		if (!subnavbar) { subnavbar = document.getElementById("about_subnavbar"); };
+		let subnavbar = document.getElementById("subnavbar");
 
-		if (window.pageYOffset >= stickThreshold) {
+		if (window.pageYOffset >= stickThreshold & window.matchMedia('(min-width: 736px)').matches) {
 			navbar.classList.add("sticky")
-			if (subnavbar) { subnavbar.classList.add("stickysubnavbar"); };  // only for pages with subnavbars
+			if (subnavbar) { subnavbar.classList.add("stickysubnavbar"); paddingValue = "12vh"; };  // only for pages with subnavbars
+
+			if (window.location.pathname.includes('/contact')) { paddingValue = "7vh"; };
 
 			scroll_down.style.visibility = "hidden";
-			main.classList.add("page_scroll_down_top_padding");
+
+				main.style.paddingTop = paddingValue;
+			
+
 
 
 		} else {
@@ -85,7 +92,7 @@ function onNavbarsLoad(crumbs=null) {
 			if (subnavbar) { subnavbar.classList.remove("stickysubnavbar"); };  // only for pages with subnavbars
 
 			scroll_down.style.visibility = "visible";
-			main.classList.remove("page_scroll_down_top_padding");
+			main.style.paddingTop = "0vh"
 		}
 	}
 }

@@ -249,24 +249,17 @@ $menu
 
 $body
 	.on('click', 'a[href="#menu"]', function (event) {
-
 		event.stopPropagation();
 		event.preventDefault();
-
 		// Toggle.
 		$menu._toggle();
-
 	})
-	.on('click', function (event) {
-
-		// Hide.
-		$menu._hide();
-
-	})
+	// .on('click', function (event) {
+	// 	// Hide.
+	// 	$menu._hide();
+	// })
 	.on('keydown', function (event) {
-
 		// Hide on escape.
 		if (event.keyCode == 27)
 			$menu._hide();
-
 	});

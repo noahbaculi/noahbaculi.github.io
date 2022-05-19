@@ -732,7 +732,7 @@ img .scroll_icon {
 
 .dropdown_icon {
 	padding: 1.125em 0 0 0;
-	margin: 0 0 0 0.3em;
+	margin: 0 0 0 1em;
 	width: 1em;
 }
 
@@ -741,13 +741,8 @@ img .scroll_icon {
 }
 
 .dropdown-content>div {
-	/* background-color: #1f2966ef; */
 	background-color: #333853;
 	border-radius: 4px;
-	/* position: absolute; */
-	/* min-width: 160px; */
-	/* box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); */
-	/* z-index: 1; */
 }
 
 .dropdown-container>a {
@@ -775,8 +770,6 @@ img .scroll_icon {
 
 .dropdown:hover .dropdown_icon {
 	opacity: 0.7;
-	/* transform: rotate(-90deg); */
-	transform: rotate(0deg);
 }
 
 h2.subpage {
@@ -997,10 +990,9 @@ h6 {
 
 @media screen and (max-width: 736px) {
 
-	h2 {
-		padding-top: 2em;
-		padding-bottom: 2em;
-		margin: 0;
+	h2.subpage {
+		padding-top: 0.2em;
+		padding-bottom: 0.2em;
 	}
 
 	h3 {

@@ -8,9 +8,7 @@ def covert_img(file_path: str, widths: list, exclude: list, include: list) -> st
     file_name = os.path.splitext(file_path)[0]
     file_ext = os.path.splitext(file_path)[1]
 
-    if include and not any(
-        [True for include_str in include if include_str in file_path]
-    ):
+    if include and not any([True for include_str in include if include_str in file_path]):
         print(f"\tSkipping not included {file_path} with include list = {include}.")
         return ""
 
@@ -45,9 +43,7 @@ def covert_img(file_path: str, widths: list, exclude: list, include: list) -> st
     return ""
 
 
-def convert_folder(
-    base_path: str, widths: list, exclude: list = None, include: list = None
-) -> None:
+def convert_folder(base_path: str, widths: list, exclude: list = None, include: list = None) -> None:
 
     print(f"Converting images in '{base_path}'")
 
@@ -77,32 +73,14 @@ if __name__ == "__main__":
     # convert_folder(r".\images\noah")
 
     # PORTFOLIO
-    # convert_folder(
-    #     r".\images\portfolio\salesforce", [400, 800], exclude=["team_lunch_orig.png"]
-    # )
-    # convert_folder(
-    #     r".\images\portfolio\aldras",
-    #     [400, 1000],
-    #     exclude=["logo", "inspiration", "business", "application_icon"],
-    # )
-    # convert_folder(
-    #     r".\images\portfolio\aldras",
-    #     [200],
-    #     include=["logo", "inspiration", "business", "application_icon"],
-    # )
+    # convert_folder(r".\images\portfolio\salesforce", [400, 800], exclude=["team_lunch_orig.png"])
+    # convert_folder(r".\images\portfolio\aldras", [400, 1000], exclude=["logo", "inspiration", "business", "application_icon"])
+    # convert_folder(r".\images\portfolio\aldras", [200], include=["logo", "inspiration", "business", "application_icon"])
     # convert_folder(r".\images\portfolio\asme", [400, 1000])
     # convert_folder(r".\images\portfolio\trane", [400, 1000])
     # convert_folder(r".\images\portfolio\itw", [400, 1000])
-    # convert_folder(
-    #     r".\images\portfolio\caffinator",
-    #     [400],
-    #     include=["drill", "foam", "mechatronics", "shop"],
-    # )
-    # convert_folder(
-    #     r".\images\portfolio\caffinator",
-    #     [400, 1000],
-    #     exclude=["drill", "foam", "mechatronics", "shop"],
-    # )
+    # convert_folder(r".\images\portfolio\caffinator", [400], include=["drill", "foam", "mechatronics", "shop"])
+    # convert_folder(r".\images\portfolio\caffinator", [400, 1000], exclude=["drill", "foam", "mechatronics", "shop"])
     # convert_folder(r".\images\portfolio\nanofluidics", [400, 1000])
     # convert_folder(r".\images\portfolio\science_camp", [400, 1000])
     # convert_folder(r".\images\portfolio\other", [400, 1000])
@@ -116,6 +94,7 @@ if __name__ == "__main__":
     # convert_folder(r".\images\about\music", [400, 1000])
     # convert_folder(r".\images\about\swim", [400, 1000])
 
+    # HEADERS
     # convert_folder(r".\images\noah", [800], include=["header_2_by_3"])
     # convert_folder(r".\images\noah", [1200], include=["header_square"])
     # convert_folder(r".\images\noah", [1600], include=["header_4_by_3"])
@@ -125,8 +104,14 @@ if __name__ == "__main__":
     # convert_folder(r".\images\noah", [1200], include=["_page_3_by_1.jpg"])
     # convert_folder(r".\images\noah", [2000], include=["_page_5_by_1.jpg"])
 
+    # ICONS
     # convert_folder(r".\images\icons", [25, 50])
-
     # convert_folder(r".\images\portfolio\contact", [400], include=['affiliated_organizations'])
+
+    # CONTACT
+    convert_folder(r".\images\contact", [2000], include=["affiliated"])
+    convert_folder(r".\images\contact", [1], exclude=["affiliated", "salesforce"], include=["background"])
+    convert_folder(r".\images\contact", [200], include=["salesforce_background"])
+    convert_folder(r".\images\contact", [500], exclude=["affiliated", "background"])
 
     print("Done.")

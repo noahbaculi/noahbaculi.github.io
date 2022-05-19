@@ -795,6 +795,7 @@ h5.subpage {
 
 div.affiliated_organizations {
 	background-image: url("../../images/contact/affiliated_organizations_background.jpg");
+	background-image: url("../../images/contact/affiliated_organizations_background_2000_w.webp");
 	background-size: cover;
 	color: white;
 }
@@ -2121,26 +2122,37 @@ button:disabled,
 
 .tiles article.northwestern_university_contact>.image:before {
 	background-image: url("../../images/contact/contact_northwestern.jpg");
+	background-image: url("../../images/contact/contact_northwestern_500_w.webp");
 	/* background-color: #4E2A84; */
 }
 
 .tiles article.otis_contact>.image:before {
 	background-image: url("../../images/contact/contact_otis.jpg");
+	background-image: url("../../images/contact/contact_otis_500_w.webp");
 	background-color: rgb(255, 255, 255);
 }
 
 .tiles article.asme_contact>.image:before {
 	background-image: url("../../images/contact/contact_asme.jpg");
+	background-image: url("../../images/contact/contact_asme_500_w.webp");
 	background-color: #4E2A84;
 }
 
 .tiles article.aldras_contact>.image:before {
 	background-image: url("../../images/contact/contact_aldras.png");
+	background-image: url("../../images/contact/contact_aldras_500_w.webp");
 	background-color: rgb(153, 0, 0);
 	/* border-radius: 5px; */
 	/* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12); */
 	/* border: 1px solid rgb(153,0,0); */
 }
+
+.tiles article.salesforce_contact>.image:before {
+	background-image: url("../../images/contact/contact_salesforce.png");
+	background-image: url("../../images/contact/contact_salesforce_500_w.webp");
+	background-color: black;
+}
+
 
 #solo_contact {
 	max-width: 15%;
@@ -2151,12 +2163,6 @@ button:disabled,
 		max-width: 35%;
 	}
 }
-
-.tiles article.salesforce_contact>.image:before {
-	background-image: url("../../images/contact/contact_salesforce.png");
-	background-color: black;
-}
-
 .tiles article.style1>.image:before {
 	background-color: #f2849e;
 }
@@ -2221,7 +2227,7 @@ body.is-touch .tiles article .content {
 @media screen and (max-width: 1280px) {
 
 	.tiles {
-		margin: -1.25em 0 0 -1.25em;
+		margin: 0 1.25em 0 0;
 	}
 
 	.tiles article {
@@ -2233,7 +2239,7 @@ body.is-touch .tiles article .content {
 @media screen and (max-width: 980px) {
 
 	.tiles {
-		margin: -2.5em 0 0 -2.5em;
+		margin: 0 2.5em 0 0;
 	}
 
 	.tiles article {
@@ -2264,13 +2270,12 @@ body.is-touch .tiles article .content {
 @media screen and (max-width: 480px) {
 
 	.tiles {
-		margin: 0;
+		margin: 0 1.25em 1.25em 0;
 	}
 
 	.tiles article {
-		width: 48%;
-		margin: auto;
-		margin-top: 1vh;
+		/* width: calc(50% - 2*1.25em); */
+		margin: 1.25em 0 0 1.25em;
 	}
 }
 

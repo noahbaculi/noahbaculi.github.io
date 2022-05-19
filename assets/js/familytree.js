@@ -24,10 +24,16 @@ const lastHTML = `
 `
 
 
-function getImagePath(breadcrumbs, name) {
+function getImagePaths(breadcrumbs, name) {
     const firstName = name.split(' ')[0];
-    let imgPath = `./images/family_tree/${breadcrumbs}${firstName}.jpg`.toLowerCase();
-    return imgPath;
+
+    const paths = {
+        'jpg': `./images/family_tree/${breadcrumbs}${firstName}.jpg`.toLowerCase(),
+        'webp50': `./images/family_tree/${breadcrumbs}${firstName}_50_w.webp`.toLowerCase(),
+        'webp100': `./images/family_tree/${breadcrumbs}${firstName}_100_w.webp`.toLowerCase()
+    }
+
+    return paths;
 }
 
 
@@ -38,7 +44,7 @@ function getNewMemberHTML(name, partner, breadcrumbs, hasChildren = false) {
         HTMLString += `<a href="javascript:void(0);">`;
     }
 
-    let imgPath = getImagePath(breadcrumbs, name);
+    let imgPaths = getImagePaths(breadcrumbs, name);
 
     let imgPaddingStyle = '';
     if (!partner) {
@@ -48,12 +54,18 @@ function getNewMemberHTML(name, partner, breadcrumbs, hasChildren = false) {
     HTMLString += `
     <div class="member-view-box"${imgPaddingStyle}>
     <div class="member-image">
-    <img src="${imgPath}" alt="${name}">
+    <img srcset="
+        ${imgPaths['webp50']} 40w,
+        ${imgPaths['webp100']} 50w" sizes="(max-width: 900px) 8vw, 65px"
+        loading="lazy" decoding="async" src="${imgPaths['jpg']}" alt="${name}">
     `
 
     if (partner) {
-        const partnerPath = getImagePath(breadcrumbs, partner);
-        HTMLString += `<img src="${partnerPath}" class="partner-image" alt="${partner}">`;
+        const partnerPaths = getImagePaths(breadcrumbs, partner);
+        HTMLString += `<img srcset="
+            ${partnerPaths['webp50']} 40w,
+            ${partnerPaths['webp100']} 50w" sizes="(max-width: 900px) 8vw, 65px"
+            loading="lazy" decoding="async" src="${partnerPaths['jpg']}" class="partner-image" alt="${partner}">`;
     }
 
     let nameLabel = `${name}<br>`
@@ -90,13 +102,14 @@ function getNewMemberHTML(name, partner, breadcrumbs, hasChildren = false) {
 
 function parseTree(tree, breadcrumbs = '') {
     // console.log("tree", tree);
-    let begHTML = [];
-    let endHTML = [];
+    let begHTML = "";
+    let endHTML = "";
     for (const [key, family] of Object.entries(tree)) {
         highest_relative = key;
         const firstName = highest_relative.split(' ')[0]
 
-        endHTML.unshift(`</li>\n`);
+        endHTML = `</li>\n` + endHTML;
+
 
         let partner = ''
         if (family.hasOwnProperty("partner")) {
@@ -105,16 +118,24 @@ function parseTree(tree, breadcrumbs = '') {
 
         if (family.hasOwnProperty("children")) {
             let subFam = family["children"][0];
-            begHTML.push(getNewMemberHTML(highest_relative, partner, breadcrumbs, hasChildren = true));
+            begHTML += getNewMemberHTML(highest_relative, partner, breadcrumbs, hasChildren = true);
 
             const [subBegHTML, subEndHTML] = parseTree(subFam, `${breadcrumbs}${firstName}/`);
-            begHTML.push(`<ul>${subBegHTML}</ul>`);
-            endHTML.unshift(subEndHTML);
+
+
+
+            console.log(family, subBegHTML)
+
+            begHTML += `<ul>${subBegHTML}</ul>`;
+            endHTML = subEndHTML + endHTML;
         }
         else {
-            begHTML.push(getNewMemberHTML(highest_relative, partner, breadcrumbs));
+            begHTML += getNewMemberHTML(highest_relative, partner, breadcrumbs);
         }
     }
+
+
+
     return [begHTML, endHTML]
 }
 
@@ -122,15 +143,16 @@ function parseTree(tree, breadcrumbs = '') {
 // read local JSON file using jQuery
 $.getJSON("family_tree.json", function (tree) {
     // console.log(tree);
-    let begHTML = [firstHTML];
-    let endHTML = [lastHTML];
 
     const [subBegHTML, subEndHTML] = parseTree(tree)
-    begHTML.push(subBegHTML);
-    endHTML.unshift(subEndHTML);
+    begHTML = firstHTML + subBegHTML;
+    endHTML = subEndHTML + lastHTML;
 
-    totHTML = begHTML.join("") + endHTML.join("");
-    totHTML = totHTML.replace(/,/g, "");
+    console.log(begHTML)
+    console.log(endHTML)
+
+    totHTML = begHTML + endHTML;
+    // totHTML = totHTML.replace(/,/g, "");
     document.getElementById("familytreecontent").innerHTML = totHTML;
 
     familyTreeInteractions()

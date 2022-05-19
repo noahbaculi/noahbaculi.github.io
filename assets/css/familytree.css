@@ -159,8 +159,13 @@
 		height: 0;
 	}
 
+	img.page_header_pic {
+		visibility: hidden !important;
+		height: 0;
+	}
+
 	h2 {
-		margin: 0;
+		margin: 10vh 0;
 	}
 
 	.member-details h3 {

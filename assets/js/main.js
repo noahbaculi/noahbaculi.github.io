@@ -55,8 +55,6 @@ function onNavbarsLoad(crumbs = null) {
 	for (const page of crumbs) {
 		const navBarElements = document.getElementsByClassName(page);
 
-		console.log(page, navBarElements, navBarElements.length)
-
 		for (const navBarElement of navBarElements) {
 			navBarElement.classList.add("current_page");
 		}

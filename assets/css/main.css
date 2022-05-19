@@ -2126,12 +2126,6 @@ button:disabled,
 	/* background-color: #4E2A84; */
 }
 
-.tiles article.otis_contact>.image:before {
-	background-image: url("../../images/contact/contact_otis.jpg");
-	background-image: url("../../images/contact/contact_otis_500_w.webp");
-	background-color: rgb(255, 255, 255);
-}
-
 .tiles article.asme_contact>.image:before {
 	background-image: url("../../images/contact/contact_asme.jpg");
 	background-image: url("../../images/contact/contact_asme_500_w.webp");

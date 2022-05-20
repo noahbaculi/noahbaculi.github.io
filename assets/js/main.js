@@ -19,9 +19,14 @@ if (window.location.pathname == "/" || window.location.pathname.includes('/index
 		onNavbarsLoad(['index'])
 	});
 } else {
-	// Update page title
+	updatePageTitle();
+}
+
+function updatePageTitle(subject = null) {
+	if (subject == null) {
+		subject = breadcrumbs[breadcrumbs.length - 1].toProperCase();
+	}
 	const titleElement = document.getElementsByTagName('title')[0];
-	const subject = breadcrumbs[breadcrumbs.length - 1].toProperCase();
 	titleElement.innerText = `Noah - ${subject}`;
 }
 
@@ -81,9 +86,6 @@ function onNavbarsLoad(crumbs = null) {
 			scroll_down.style.visibility = "hidden";
 
 				main.style.paddingTop = paddingValue;
-			
-
-
 
 		} else {
 			navbar.classList.remove("sticky");

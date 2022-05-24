@@ -98,6 +98,13 @@
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
     </url>
+
+    <url>
+        <loc>https://noahbaculi.com/familytree</loc>
+        <lastmod>2022-05-20T20:20:55Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.4</priority>
+    </url>
     <url>
         <loc>https://noahbaculi.com/404</loc>
         <lastmod>2022-05-20T20:20:55Z</lastmod>

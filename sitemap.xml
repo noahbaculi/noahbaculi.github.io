@@ -105,9 +105,41 @@
         <changefreq>weekly</changefreq>
         <priority>0.4</priority>
     </url>
+    
     <url>
         <loc>https://noahbaculi.com/404</loc>
-        <lastmod>2022-05-20T20:20:55Z</lastmod>
+        <lastmod>2022-05-22T20:20:55Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.0</priority>
+    </url>
+    
+    <url>
+        <loc>https://noahbaculi.com/_about_subnavbar</loc>
+        <lastmod>2022-05-22T20:20:55Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.0</priority>
+    </url>
+    <url>
+        <loc>https://noahbaculi.com/_footer</loc>
+        <lastmod>2022-05-22T20:20:55Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.0</priority>
+    </url>
+    <url>
+        <loc>https://noahbaculi.com/_header_html</loc>
+        <lastmod>2022-05-22T20:20:55Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.0</priority>
+    </url>
+    <url>
+        <loc>https://noahbaculi.com/_portfolio_subnavbar</loc>
+        <lastmod>2022-05-22T20:20:55Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.0</priority>
+    </url>
+    <url>
+        <loc>https://noahbaculi.com/_top_portfolio</loc>
+        <lastmod>2022-05-22T20:20:55Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.0</priority>
     </url>

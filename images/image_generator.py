@@ -1,7 +1,6 @@
 from tkinter import image_types
 from PIL import Image
 import os
-import pillow_avif
 
 
 def covert_img(file_path: str, widths: list, exclude: list, include: list) -> str:
@@ -32,7 +31,7 @@ def covert_img(file_path: str, widths: list, exclude: list, include: list) -> st
         size_ratio = width / old_size[0]
         new_size = tuple(round(dimension * size_ratio) for dimension in old_size)
 
-        new_img = img.resize(new_size, Image.Resampling.LANCZOS)
+        new_img = img.resize(new_size, Image.LANCZOS)
         new_img.save(f"{file_name}_{width}_w.webp", "webp")
 
         if width >= old_size[0]:
@@ -52,6 +51,7 @@ def convert_folder(base_path: str, widths: list, exclude: list = None, include: 
     if not include:
         include = []
     invalid_files = []
+
     for root, _, files in list(os.walk(base_path)):
         img_types = [".jpg", ".JPG", ".jpeg", ".JPEG", ".png", ".PNG"]
         files = [x for x in files if os.path.splitext(x)[1] in img_types]
@@ -71,47 +71,47 @@ def convert_folder(base_path: str, widths: list, exclude: list = None, include: 
 
 if __name__ == "__main__":
     ## PORTFOLIO
-    # convert_folder(r".\images\portfolio\salesforce", [400, 800], exclude=["team_lunch_orig.png"])
-    # convert_folder(r".\images\portfolio\aldras", [400, 1000], exclude=["logo", "inspiration", "business", "application_icon"])
-    # convert_folder(r".\images\portfolio\aldras", [200], include=["logo", "inspiration", "business", "application_icon"])
-    # convert_folder(r".\images\portfolio\asme", [400, 1000])
-    # convert_folder(r".\images\portfolio\trane", [400, 1000])
-    # convert_folder(r".\images\portfolio\itw", [400, 1000])
-    # convert_folder(r".\images\portfolio\caffinator", [400], include=["drill", "foam", "mechatronics", "shop"])
-    # convert_folder(r".\images\portfolio\caffinator", [400, 1000], exclude=["drill", "foam", "mechatronics", "shop"])
-    # convert_folder(r".\images\portfolio\nanofluidics", [400, 1000])
-    # convert_folder(r".\images\portfolio\science_camp", [400, 1000])
-    # convert_folder(r".\images\portfolio\other", [400, 1000])
+    # convert_folder(r"portfolio\salesforce", [400, 800], exclude=["team_lunch_orig.png"])
+    # convert_folder(r"portfolio\aldras", [400, 1000], exclude=["logo", "inspiration", "business", "application_icon"])
+    # convert_folder(r"portfolio\aldras", [200], include=["logo", "inspiration", "business", "application_icon"])
+    # convert_folder(r"portfolio\asme", [400, 1000])
+    # convert_folder(r"portfolio\trane", [400, 1000])
+    # convert_folder(r"portfolio\itw", [400, 1000])
+    # convert_folder(r"portfolio\caffinator", [400], include=["drill", "foam", "mechatronics", "shop"])
+    # convert_folder(r"portfolio\caffinator", [400, 1000], exclude=["drill", "foam", "mechatronics", "shop"])
+    # convert_folder(r"portfolio\nanofluidics", [400, 1000])
+    # convert_folder(r"portfolio\science_camp", [400, 1000])
+    # convert_folder(r"portfolio\other", [400, 1000])
 
     ## ABOUT
-    # convert_folder(r".\images\about\travel", [400, 800, 1500])
-    # convert_folder(r".\images\about\principles", [500, 1000, 2000])
-    # convert_folder(r".\images\about\learning", [500, 1000, 2000], include=['background'])
-    # convert_folder(r".\images\about\learning", [400, 1000], exclude=["background"])
-    # convert_folder(r".\images\about\music", [400, 1000])
-    # convert_folder(r".\images\about\swim", [400, 1000])
+    convert_folder(r"about\travel", [400, 800, 1500])
+    # convert_folder(r"about\principles", [500, 1000, 2000])
+    # convert_folder(r"about\learning", [500, 1000, 2000], include=['background'])
+    # convert_folder(r"about\learning", [400, 1000], exclude=["background"])
+    # convert_folder(r"about\music", [400, 1000])
+    # convert_folder(r"about\swim", [400, 1000])
 
     ## HEADERS
-    # convert_folder(r".\images\noah", [800], include=["header_2_by_3"])
-    # convert_folder(r".\images\noah", [1200], include=["header_square"])
-    # convert_folder(r".\images\noah", [1600], include=["header_4_by_3"])
-    # convert_folder(r".\images\noah", [2000], include=["header.jpg"])
-    # convert_folder(r".\images\noah", [400], include=["_page.jpg"])
-    # convert_folder(r".\images\noah", [600], include=["_page_2_by_1.jpg"])
-    # convert_folder(r".\images\noah", [1200], include=["_page_3_by_1.jpg"])
-    # convert_folder(r".\images\noah", [2000], include=["_page_5_by_1.jpg"])
+    # convert_folder(r"noah", [800], include=["header_2_by_3"])
+    # convert_folder(r"noah", [1200], include=["header_square"])
+    # convert_folder(r"noah", [1600], include=["header_4_by_3"])
+    # convert_folder(r"noah", [2000], include=["header.jpg"])
+    # convert_folder(r"noah", [400], include=["_page.jpg"])
+    # convert_folder(r"noah", [600], include=["_page_2_by_1.jpg"])
+    # convert_folder(r"noah", [1200], include=["_page_3_by_1.jpg"])
+    # convert_folder(r"noah", [2000], include=["_page_5_by_1.jpg"])
 
     ## ICONS
-    # convert_folder(r".\images\icons", [25, 50])
-    # convert_folder(r".\images\portfolio\contact", [400], include=['affiliated_organizations'])
+    # convert_folder(r"icons", [25, 50])
+    # convert_folder(r"portfolio\contact", [400], include=['affiliated_organizations'])
 
     # # CONTACT
-    # convert_folder(r".\images\contact", [2000], include=["affiliated"])
-    # convert_folder(r".\images\contact", [1], exclude=["affiliated", "salesforce"], include=["background"])
-    # convert_folder(r".\images\contact", [200], include=["salesforce_background"])
-    # convert_folder(r".\images\contact", [500], exclude=["affiliated", "background"])
+    # convert_folder(r"contact", [2000], include=["affiliated"])
+    # convert_folder(r"contact", [1], exclude=["affiliated", "salesforce"], include=["background"])
+    # convert_folder(r"contact", [200], include=["salesforce_background"])
+    # convert_folder(r"contact", [500], exclude=["affiliated", "background"])
 
     ## FAMILY TREE
-    convert_folder(r".\images\family_tree", [50, 100])
+    # convert_folder(r"family_tree", [50, 100])
 
     print("Done.")

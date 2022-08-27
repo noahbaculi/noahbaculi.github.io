@@ -1,95 +1,290 @@
 <!DOCTYPE HTML>
 <html>
 
-	<head>
-		<title>Noah - Document Tool</title>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1,
+<head>
+	<title>Noah - Document Tool</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1,
 			user-scalable=no">
-		<meta name="description" content="Noah's Document Tool">
-		<link rel="stylesheet" href="assets/css/main.css">
-		<noscript>
-			<link rel="stylesheet" href="assets/css/noscript.css">
-		</noscript>
-		<link rel="icon" href="./images/icons/favicon_50_w.webp">
-	</head>
+	<meta name="description" content="Noah's Document Tool">
+	<link rel="stylesheet" href="assets/css/main.css">
+	<noscript>
+		<link rel="stylesheet" href="assets/css/noscript.css">
+	</noscript>
+	<link rel="icon" href="./images/icons/favicon_50_w.webp">
 
-	<body class="is-preload">
-		<!-- Wrapper -->
-		<div id="wrapper">
-			<div id="headers"></div>
-			<link
-				href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css"
-				media="all"
-				rel="stylesheet" type="text/css" lazyload>
-			<!-- Main -->
-			<div id="main">
-				<div class="inner">
-					<br>
-					<br>
-					<h5>Find / Replace in Word Documents</h5>
-					<br>
-					<form name="documentToolForm" id="documentToolForm">
-						<table>
-							<tbody>
-								<tr>
-									<td>
-										<label for="template_file">Template File (.docx)</label>
-									</td>
-									<td>
-										<input type="file" name="template_file" id="template_file"
-											accept=".docx" required>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<label for="replacements_file">Replacements File (.csv)</label>
-									</td>
-									<td>
-										<input type="file"
-											name="replacements_file" id="replacements_file" accept=".csv"
-											required>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<label for="output_base_fn">Output Base Filename</label>
-									</td>
-									<td>
-										<input type="text" name="output_base_fn"
-											id="output_base_fn" maxlength="50" size="30"
-											placeholder="John Doe Cover Letter">
-									</td>
-								</tr>
-							</tbody>
-						</table>
-						<div data-netlify-recaptcha="true"></div><br>
-						<div class="align-center"><input type="submit" value="Upload"></div>
-					</form>
+	<style>
+		label {
+			margin: 0;
+		}
+
+		input {
+			font-size: 12pt;
+		}
+
+		table td {
+			font-size: 12pt;
+		}
+	</style>
+</head>
+
+<body class="is-preload">
+	<!-- Wrapper -->
+	<div id="wrapper">
+		<div id="headers"></div>
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css" media="all"
+			rel="stylesheet" type="text/css" lazyload>
+		<!-- Main -->
+		<div id="main">
+			<div class="inner">
+				<br>
+				<br>
+				<div style="max-width: 15%; margin: auto;">
+					<img loading="lazy" decoding="async" src="./assets/documents/folders.png"
+						alt="Document Find/Replace Tool" width="100%">
 				</div>
-				<br><br>
-				<div class="row">
-					<a href="#top" style="margin-left: 90vw;">
-						<img srcset="
-							./images/icons/icon_scroll_up_25_w.webp 25w,
-							./images/icons/icon_scroll_up_50_w.webp 1000w" sizes="1.5em"
-							loading="lazy" decoding="async"
-							src="./images/icons/icon_scroll_up.png" class="scroll_icon" alt="Scroll
-							Up"
-							style="position: inherit;">
-					</a>
+				<br>
+				<h2 style="margin: 0;">Find / Replace in Word Documents</h2>
+				<br>
+				<form name="documentToolForm" id="documentToolForm">
+					<table>
+						<tbody>
+							<tr>
+								<td>
+									<label for="template_file">Template File (.docx)</label>
+								</td>
+								<td>
+									<input type="file" name="template_file" id="template_file" accept=".docx" required>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label for="replacements_file">Replacements File (.csv)</label>
+								</td>
+								<td>
+									<input type="file" name="replacements_file" id="replacements_file" accept=".csv"
+										required>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label for="output_base_fn">Output Base Filename</label>
+								</td>
+								<td>
+									<input type="text" name="output_base_fn" id="output_base_fn" maxlength="50"
+										size="30" placeholder="John Doe Cover Letter">
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<div data-netlify-recaptcha="true"></div><br>
+					<div class="align-center"><input type="submit" value="Upload"></div>
+				</form>
+
+				<br>
+
+				<h5>Explanation</h5>
+				<div style="
+						/* background-color: #ebf8ff; */
+						/* border-radius: 10px; */
+						/* border: solid 1px #c9c9c9; */
+						/* color: black; */
+						margin: 1em;
+						">
+					<div class="row">
+						<div class="half_text_column" style="width: 90%;">
+							<div style="display: block;">
+								This tool generates multiple output <code>.docx</code> files by
+								executing
+								multiple sets of find-replace operations.
+								<br>
+								<br>
+								The
+								<code>Template File.docx</code> is the base document
+								upon which the find-replace operations are conducted.
+								<br>
+								<br>
+								The <code>Replacements File.csv</code> specifies the
+								find-replace operations. Each row specifies a new document to
+								generate. Each column header specifies the text to replace in the
+								template. The column values specify the text to substitute during the
+								replacement.
+							</div>
+						</div>
+						<div class="half_image_column" style="width: 10%;">
+							<img loading="lazy" decoding="async" src="./assets/documents/find.png"
+								alt="Document Find/Replace Tool" width="100%">
+						</div>
+					</div>
+
 				</div>
+
+				<h5>Example Input</h5>
+				<div style="
+						background-color: #ebf8ff;
+						border-radius: 10px;
+						border: solid 1px #c9c9c9;
+						color: black;
+						margin: 2em;
+						">
+					<br>
+					<div class="row">
+						<div class="half_text_column align-center" style="width: 25%;">
+							<a href="./assets/documents/John Doe Cover Letter Template.docx" download>
+								<u>Template File</u>
+								<code>.docx</code>
+							</a>
+						</div>
+						<div class="half_text_column" style="width: 75%;">
+							<iframe src="./assets/documents/John Doe Cover Letter Template.pdf" width="100%"
+								height="250px">
+								</iframe>
+						</div>
+					</div>
+					<hr>
+					<div class="row">
+						<div class="half_text_column align-center" style="width: 25%;">
+							<a href="./assets/documents/John Doe Cover Letter Replacements.csv" download>
+								<u>Replacements File</u>
+								<code>.csv</code>
+							</a>
+						</div>
+						<div class="half_text_column" style="width: 75%;">
+							<table>
+								<tbody>
+									<tr>
+										<th>[DATE]</td>
+										<th>[COMPANY]</td>
+										<th>[INDUSTRY]</td>
+										<th>[POSITION]</td>
+									</tr>
+									<tr>
+										<td>January 1st, 2025</td>
+										<td>Apple</td>
+										<td>consumer technology</td>
+										<td>Associate Accountant</td>
+									</tr>
+									<tr>
+										<td>January 1st, 2025</td>
+										<td>Crunchyroll</td>
+										<td>anime streaming</td>
+										<td>Recruiter</td>
+									</tr>
+									<tr>
+										<td>January 1st, 2025</td>
+										<td>Twitter</td>
+										<td>social media</td>
+										<td>Marketing Specialist</td>
+									</tr>
+									<tr>
+										<td>January 1st, 2025</td>
+										<td>Nike</td>
+										<td>athletic apparel and footwear</td>
+										<td>Associate Data Scientist</td>
+									</tr>
+									<tr>
+										<td>January 1st, 2025</td>
+										<td>Columbia</td>
+										<td>sportswear</td>
+										<td>Retail Team Member</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+
+				<h5>Example Output</h5>
+				<div style="
+						background-color: #ebfff1;
+						border-radius: 10px;
+						border: solid 1px #c9c9c9;
+						color: black;
+						margin: 2em;
+						padding: 2em;">
+					Five new documents are created since there are
+					five rows in the <code>Replacements File.csv</code>.
+					<br>
+					<br>
+					The first document has the following
+					substitutions compared to <code>Template File.docx</code>:
+					<table class="data-table" style="
+							border-collapse: separate;
+							border-radius: 1em;
+							border: solid 1px #c9c9c9;
+							width: fit-content;
+							margin-left: 2em;
+							margin-top: 0.5em;
+							">
+						<tbody>
+							<tr>
+								<td>
+									[DATE] → January 1st, 2025
+									<br>
+									[COMPANY] → Apple
+									<br>
+									[INDUSTRY] → consumer technology
+									<br>
+									[POSITION] → Associate Accountant
+								</td>
+							</tr>
+						</tbody>
+					</table>
+
+					Document 1 before vs after:
+					<div class="row" style="margin-top: 1em;">
+						<div class="half_text_column align-center" style="width:30%; padding: 0;">
+							<a href="./assets/documents/John Doe Cover Letter Template.docx" download>
+								<u>John Doe Cover Letter Template.docx</u>
+							</a>
+						</div>
+						<div class="half_text_column " style="width: 70%;">
+							<iframe src="./assets/documents/John Doe Cover Letter Template.pdf" width="100%"
+								height="250px">
+							</iframe>
+						</div>
+					</div>
+					<div class="row" style="margin-bottom: 0.5em; font-size: 26px;">
+						<div class="half_text_column align-center" style="width:33%;">↓</div>
+						<div class="half_text_column align-center" style="width:33%;">↓</div>
+						<div class="half_text_column align-center" style="width:33%;">↓</div>
+					</div>
+					<div class="row">
+						<div class="half_text_column align-center" style="width:30%;">
+							<a href="./assets/documents/John Doe Cover Letter Template.docx" download>
+								<u>John Doe Cover Letter - Apple - Associate Accountant.docx</u>
+							</a>
+						</div>
+						<div class="half_text_column" style="width: 70%;">
+							<iframe src="./assets/documents/John Doe Cover Letter - Apple - Associate Accountant.pdf"
+								width="100%" height="250px">
+							</iframe>
+						</div>
+					</div>
+				</div>
+
 			</div>
-			<!-- Footer -->
-			<footer id="footer"></footer>
+			<br><br>
+			<div class="row">
+				<a href="#top" style="margin-left: 90vw;">
+					<img srcset="
+							./images/icons/icon_scroll_up_25_w.webp 25w,
+							./images/icons/icon_scroll_up_50_w.webp 1000w" sizes="1.5em" loading="lazy" decoding="async"
+						src="./images/icons/icon_scroll_up.png" class="scroll_icon" alt="Scroll
+							Up" style="position: inherit;">
+				</a>
+			</div>
 		</div>
-		<!-- Scripts -->
-		<script src="assets/js/jquery.min.js"></script>
-		<script src="assets/js/browser.min.js"></script>
-		<script src="assets/js/breakpoints.min.js"></script>
-		<script src="assets/js/util.js"></script>
-		<script src="assets/js/main.js"></script>
-		<script src="assets/js/doc_tool_form_submission.js"></script>
-	</body>
+		<!-- Footer -->
+		<footer id="footer"></footer>
+	</div>
+	<!-- Scripts -->
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/browser.min.js"></script>
+	<script src="assets/js/breakpoints.min.js"></script>
+	<script src="assets/js/util.js"></script>
+	<script src="assets/js/main.js"></script>
+	<script src="assets/js/doc_tool_form_submission.js"></script>
+</body>
 
 </html>

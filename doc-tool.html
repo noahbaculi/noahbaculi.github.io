@@ -89,65 +89,7 @@
 		<script src="assets/js/breakpoints.min.js"></script>
 		<script src="assets/js/util.js"></script>
 		<script src="assets/js/main.js"></script>
-		<script>
-			const thisForm = document.getElementById('documentToolForm');
-			thisForm.addEventListener('submit', async function (e) {
-				e.preventDefault();
-				
-				const formData = new FormData();
-				formData.append("template_file", document.getElementById('template_file').files[0]);
-				formData.append("replacements_file", document.getElementById('replacements_file').files[0]);
-				formData.append("output_base_fn", document.getElementById("output_base_fn").value);
-
-				const output_zip_fn = "generated_documents.zip"
-				formData.append("output_zip_fn", output_zip_fn);
-
-
-				const request = new XMLHttpRequest();
-				request.open("POST", "https://doc-find-replace.herokuapp.com/", true);
-				// request.onreadystatechange = () => {
-				// 	if (request.readyState === 4 && request.status === 200) {
-				// 		console.log(request.responseText);
-				// 	}
-				// };
-				request.responseType = 'blob';
-				request.onload = function (e) {
-					var blob = request.response;
-					var link=document.createElement('a');
-					link.href=window.URL.createObjectURL(blob);
-					link.download=output_zip_fn;
-					link.click();
-				}
-				request.send(formData);
-
-				// console.log(document.getElementById('template_file').files[0])
-				// for (const pair of formdata.entries()) {
-				// 	console.log(`${pair[0]}, ${pair[1]}`);
-				// }
-				// console.log(formdata)
-
-				// const requestOptions = {
-				// method: 'POST',
-				// body: formdata,
-				// redirect: 'follow'
-				// };
-
-				// fetch("https://doc-find-replace.herokuapp.com/", requestOptions)
-				// 	.then(response => response)
-				// 	.then(success => console.log(success))
-				// 	.catch(error => console.log(error));
-
-
-
-
-
-				// fetch("https://doc-find-replace.herokuapp.com/", requestOptions)
-				// 	.then(response => response.text())
-				// 	.then(result => console.log(result))
-				// 	.catch(error => console.log('error', error));
-			});
-
-		</script>
+		<script src="assets/js/doc_tool_form_submission.js"></script>
 	</body>
 
 </html>

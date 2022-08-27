@@ -57,7 +57,7 @@
 				<h2 style="margin: 0;">Find / Replace in Word Documents</h2>
 				<br>
 				<form name="documentToolForm" id="documentToolForm">
-					<table>
+					<table style="margin-bottom: 1em;">
 						<tbody>
 							<tr>
 								<td>
@@ -87,48 +87,13 @@
 							</tr>
 						</tbody>
 					</table>
+					Generate multiple output <code>.docx</code> files by
+					executing multiple sets of find-replace operations.<br>
 					<div data-netlify-recaptcha="true"></div><br>
 					<div class="align-center"><input type="submit" value="Upload"></div>
 				</form>
 
 				<br>
-
-				<h5>Explanation</h5>
-				<div style="
-						/* background-color: #ebf8ff; */
-						/* border-radius: 10px; */
-						/* border: solid 1px #c9c9c9; */
-						/* color: black; */
-						margin: 1em;
-						">
-					<div class="row">
-						<div class="half_text_column" style="width: 90%;">
-							<div style="display: block;">
-								This tool generates multiple output <code>.docx</code> files by
-								executing
-								multiple sets of find-replace operations.
-								<br>
-								<br>
-								The
-								<code>Template File.docx</code> is the base document
-								upon which the find-replace operations are conducted.
-								<br>
-								<br>
-								The <code>Replacements File.csv</code> specifies the
-								find-replace operations. Each row specifies a new document to
-								generate. Each column header specifies the text to replace in the
-								template. The column values specify the text to substitute during the
-								replacement.
-							</div>
-						</div>
-						<div class="half_image_column" style="width: 10%;">
-							<img loading="lazy" decoding="async" src="./assets/documents/find.png"
-								alt="Document Find/Replace Tool" width="100%">
-						</div>
-					</div>
-
-				</div>
-
 				<h5>Example Input</h5>
 				<div style="
 						background-color: #ebf8ff;
@@ -269,6 +234,37 @@
 							<iframe src="./assets/documents/John Doe Cover Letter - Apple - Associate Accountant.pdf"
 								width="100%" height="250px">
 							</iframe>
+						</div>
+					</div>
+				</div>
+
+				<h5>Details</h5>
+				<div style="margin: 1em;">
+					<div class="row">
+						<div class="half_text_column" style="width: 85%;">
+							<div style="display: block;">
+								The <code>Template File.docx</code> is the base document
+								from which the find-replace operations are conducted.
+								<br>
+								<br>
+								The <code>Replacements File.csv</code> specifies the
+								find-replace operations. Each row specifies a new document to
+								generate. Each column header specifies the text to replace in the
+								template. The column values specify the text to substitute during the
+								replacement.
+								<br>
+								<br>
+								The <code>Output Base Filename</code> is the
+								base filename of the generated documents.
+								<br>
+								<br>
+								Note that a maximum of 25 documents can be
+								generated at once.
+							</div>
+						</div>
+						<div class="half_image_column" style="width: 15%;">
+							<img loading="lazy" decoding="async" src="./assets/documents/find.png"
+								alt="Document Find/Replace Tool" width="100%">
 						</div>
 					</div>
 				</div>

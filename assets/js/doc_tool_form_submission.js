@@ -28,6 +28,8 @@ thisForm.addEventListener("submit", async function (e) {
 		link.href = window.URL.createObjectURL(blob);
 		link.download = output_zip_fn;
 		link.click();
+		alert("Documents generated and download started!");
+		location.reload();
 	};
 	request.send(formData);
 });

@@ -56,8 +56,10 @@
 				<br>
 				<h2 style="margin: 0;">Find / Replace in Word Documents</h2>
 				<br>
+				Generate multiple output <code>.docx</code> files by
+				executing multiple sets of find-replace operations.
 				<form name="documentToolForm" id="documentToolForm">
-					<table style="margin-bottom: 1em;">
+					<table style="margin: 1em 0;">
 						<tbody>
 							<tr>
 								<td>
@@ -87,14 +89,10 @@
 							</tr>
 						</tbody>
 					</table>
-					Generate multiple output <code>.docx</code> files by
-					executing multiple sets of find-replace operations.
-					<br>
 					<br>
 					<div class="align-center"><input type="submit" value="Generate"></div>
 				</form>
-
-				<br>
+				<hr>
 				<h5>Example Input</h5>
 				<div style="
 						background-color: #ebf8ff;
@@ -250,7 +248,7 @@
 								<br>
 								The <code>Replacements File.csv</code> specifies the
 								find-replace operations. Each row specifies a new document to
-								generate. Each column header specifies the text to replace in the
+								generate. Each column name specifies the text to replace in the
 								template. The column values specify the text to substitute during the
 								replacement.
 								<br>

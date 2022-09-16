@@ -31,7 +31,7 @@ def covert_img(file_path: str, widths: list, exclude: list, include: list) -> st
         size_ratio = width / old_size[0]
         new_size = tuple(round(dimension * size_ratio) for dimension in old_size)
 
-        new_img = img.resize(new_size, Image.LANCZOS)
+        new_img = img.resize(new_size, Image.Resampling.LANCZOS)
         new_img.save(f"{file_name}_{width}_w.webp", "webp")
 
         if width >= old_size[0]:
@@ -71,6 +71,7 @@ def convert_folder(base_path: str, widths: list, exclude: list = None, include: 
 
 if __name__ == "__main__":
     ## PORTFOLIO
+    convert_folder(r"portfolio\carium", [400, 1000], exclude=["orig"])
     # convert_folder(r"portfolio\salesforce", [400, 800], exclude=["team_lunch_orig.png"])
     # convert_folder(r"portfolio\aldras", [400, 1000], exclude=["logo", "inspiration", "business", "application_icon"])
     # convert_folder(r"portfolio\aldras", [200], include=["logo", "inspiration", "business", "application_icon"])
@@ -84,7 +85,7 @@ if __name__ == "__main__":
     # convert_folder(r"portfolio\other", [400, 1000])
 
     ## ABOUT
-    convert_folder(r"about\travel", [400, 800, 1500])
+    # convert_folder(r"about\travel", [400, 800, 1500])
     # convert_folder(r"about\principles", [500, 1000, 2000])
     # convert_folder(r"about\learning", [500, 1000, 2000], include=['background'])
     # convert_folder(r"about\learning", [400, 1000], exclude=["background"])

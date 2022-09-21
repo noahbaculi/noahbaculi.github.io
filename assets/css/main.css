@@ -244,7 +244,7 @@ h1.home_entrance_title {
 	color: white;
 	text-align: center;
 	margin: 0;
-	animation: home-fade-in 2s ease-in forwards 0s;
+	animation: home-fade-in 1s ease-in forwards 0s;
 	opacity: 0;
 	position: relative;
 	z-index: auto;
@@ -257,15 +257,16 @@ h1.home_entrance_title > a {
 #home_entrance_tagline {
 	color: white;
 	text-align: center;
-	margin: 8px 0 0 0;
 	font-size: 16pt;
 	position: relative;
 	z-index: 1;
+	animation: home-fade-in 1s ease-in forwards 0s;
+	opacity: 0;
 }
 
 @media screen and (max-width: 480px) {
 	#home_entrance_tagline {
-		font-size: 11pt;
+		font-size: 14pt;
 	}
 }
 

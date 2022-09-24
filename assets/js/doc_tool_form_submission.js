@@ -2,6 +2,13 @@ const thisForm = document.getElementById("documentToolForm");
 thisForm.addEventListener("submit", async function (e) {
 	e.preventDefault();
 
+	const submit_button = document.getElementById("doc_tool_submit");
+	if (submit_button.value != "Generate") return;
+
+	const submit_loader = document.querySelector(".loader");
+	submit_loader.classList.add("active");
+	submit_button.value = "Processing...";
+
 	const formData = new FormData();
 	formData.append(
 		"template_file",
@@ -28,8 +35,8 @@ thisForm.addEventListener("submit", async function (e) {
 		link.href = window.URL.createObjectURL(blob);
 		link.download = output_zip_fn;
 		link.click();
-		alert("Documents generated and download started!");
-		location.reload();
+		submit_button.value = "Download started!";
+		submit_loader.classList.remove("active");
 	};
 	request.send(formData);
 });

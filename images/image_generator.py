@@ -88,8 +88,8 @@ if __name__ == "__main__":
     # convert_folder(r"about\travel", [400, 800, 1500])
     # convert_folder(r"about\principles", [500, 1000, 2000])
     # convert_folder(r"about\learning", [500, 1000, 2000], include=['background'])
-    # convert_folder(r"about\learning", [400, 1000], exclude=["background"])
-    convert_folder(r"about\music", [400, 1000])
+    convert_folder(r"about\learning", [400, 1000], exclude=["background"])
+    # convert_folder(r"about\music", [400, 1000])
     # convert_folder(r"about\swim", [400, 1000])
 
     ## HEADERS

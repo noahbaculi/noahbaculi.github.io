@@ -6,24 +6,31 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 	<meta name="description" content="Guitar Tab Generator">
-	<link rel="stylesheet" href="assets/css/main.css">
-	<noscript>
-		<link rel="stylesheet" href="assets/css/noscript.css">
-	</noscript>
+	<link rel="stylesheet" href="assets/css/guitartab.css">
 	<link rel="icon" href="./images/icons/favicon_50_w.webp">
 </head>
 
 <body class="is-preload">
 	<!-- Wrapper -->
 	<div id="wrapper">
-		<div id="headers"></div>
-		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css" media="all"
-			rel="stylesheet" type="text/css" lazyload>
+		<section class="grid">
+			<div class="pitches">
+				<textarea id="pitchInput" name="pitchInput">Pitches go here!</textarea>
+			</div>
+			<div class="options">b</div>
+			<div class="tab_output">
+				<textarea id="tabOutput" name="tabOutput" readonly>Output tab goes here!</textarea>
+			</div>
+		</section>
+
+
+
+		<!-- <div id="headers"></div> -->
+		<!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css" media="all" rel="stylesheet" type="text/css" lazyload> -->
 		<!-- Main -->
-		<div id="main">
-		</div>
+		<!-- <div id="main"></div> -->
 		<!-- Footer -->
-		<footer id="footer"></footer>
+		<!-- <footer id="footer"></footer> -->
 	</div>
 	<!-- Scripts -->
 	<script src="assets/js/jquery.min.js"></script>

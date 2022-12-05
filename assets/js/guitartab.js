@@ -36,3 +36,25 @@ const output = guitar.generateTab(testNotesString);
 console.log("-----------------------------");
 console.log(output);
 print(output);
+
+function generateTab() {
+	print("Hi");
+	const tabOutput = document.getElementById("tabOutput");
+	tabOutput.value = "hi";
+}
+
+// Add event listener for the pitch input text area to regenerate updated TAB
+const pitchInput = document.getElementById("pitchInput");
+if (pitchInput.addEventListener) {
+	pitchInput.addEventListener(
+		"input",
+		function () {
+			generateTab();
+		},
+		false
+	);
+} else if (pitchInput.attachEvent) {
+	pitchInput.attachEvent("onpropertychange", function () {
+		generateTab();
+	});
+}

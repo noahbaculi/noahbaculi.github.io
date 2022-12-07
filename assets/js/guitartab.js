@@ -11,28 +11,54 @@ function print(...objs) {
 	}
 }
 
-// Add event listener for the pitch input text area to regenerate updated TAB
+// Add event listener for the pitch input text area to deactivate TAB output
 const pitchInput = document.getElementById("pitchInput");
 if (pitchInput.addEventListener) {
 	pitchInput.addEventListener(
 		"input",
 		function () {
+			deactivateTabOutput();
+		},
+		false
+	);
+	pitchInput.addEventListener(
+		"change",
+		function () {
 			generateTab();
 		},
 		false
 	);
-} else if (pitchInput.attachEvent) {
-	pitchInput.attachEvent("onpropertychange", function () {
-		generateTab();
-	});
+}
+
+function deactivateTabOutput() {
+	const tabOutput = document.getElementById("tabOutput");
+	tabOutput.disabled = true;
 }
 
 function generateTab() {
 	const tabOutput = document.getElementById("tabOutput");
-	tabOutput.value = "hi";
-}
+	const pitchInput = document.getElementById("pitchInput");
 
-const guitar = new exports.Guitar("");
+	// Get settings
+	const guitarTuning = document.getElementById("guitarTuning");
+	print(guitarTuning.value);
+
+	const guitar = new exports.Guitar(guitarTuning.value);
+
+	let tabData;
+	try {
+		tabData = guitar.generateTab(pitchInput.value);
+	} catch (error) {
+		tabOutput.value = error;
+		console.error(error);
+		return;
+	}
+
+	const tabString = generateTabString(tabData, 9);
+
+	tabOutput.disabled = false;
+	tabOutput.value = tabString;
+}
 
 const testNotesString = `E4
 Eb4
@@ -49,9 +75,6 @@ A3
 C3
 E3
 A3`;
-const output = guitar.generateTab(testNotesString);
-print(output);
-console.log("-----------------------------");
 
 /**
  * Format TAB data to plain text string
@@ -108,6 +131,7 @@ function generateTabString(tabData, lineLength = 80, numBeatSeparators = 1) {
 		for (const stringNum of tabStringData.keys()) {
 			// Add dash separators
 			outputString += beatSeparator;
+			// ! TODO fix bug where fret values longer than one character are being interrupted
 			outputString += tabStringData
 				.get(stringNum)
 				.substring(0, lineLength)
@@ -127,5 +151,3 @@ function generateTabString(tabData, lineLength = 80, numBeatSeparators = 1) {
 
 	return outputString;
 }
-
-print(generateTabString(output, 9, 2));

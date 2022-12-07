@@ -119,54 +119,53 @@ function generateTabString(tabData, lineLength = 80, numBeatSeparators = 1) {
 	 */
 	function generateTabStringData(tabData) {
 		const stringOutputs = new Map([
-			[1, ""],
-			[2, ""],
-			[3, ""],
-			[4, ""],
-			[5, ""],
-			[6, ""],
+			[1, []],
+			[2, []],
+			[3, []],
+			[4, []],
+			[5, []],
+			[6, []],
 		]);
 
 		for (const beatData of tabData) {
 			let beatStrings = new Set(stringOutputs.keys());
 			if (beatData === "break") {
 				for (const stringNum of beatStrings) {
-					stringOutputs.set(stringNum, stringOutputs.get(stringNum) + "|");
+					stringOutputs.get(stringNum).push("|");
 				}
 			} else {
 				// Add the fret numbers for each of the fingerings for the beat
 				for (const stringDatum of beatData) {
 					const stringNum = stringDatum["stringNum"];
-					stringOutputs.set(stringNum, stringOutputs.get(stringNum) + stringDatum["fret"]);
+					stringOutputs.get(stringNum).push(stringDatum["fret"]);
 					beatStrings.delete(stringNum);
 				}
 
 				// Add dashes for remaining guitar strings in the beat
 				for (const remainingStringNum of beatStrings) {
-					stringOutputs.set(remainingStringNum, stringOutputs.get(remainingStringNum) + "-");
+					stringOutputs.get(remainingStringNum).push("-");
 				}
 			}
 		}
 		return stringOutputs;
 	}
-
 	const tabStringData = generateTabStringData(tabData);
 
-	let outputString = "";
+	// Add dash separators
 	const beatSeparator = "-".repeat(numBeatSeparators); // to customize spacing
+	let tabCombinedStrings = new Map();
+	tabStringData.forEach((value, key) => {
+		tabCombinedStrings.set(key, beatSeparator + value.join(beatSeparator) + beatSeparator);
+	});
 
-	while (tabStringData.get(1).length > 0) {
-		for (const stringNum of tabStringData.keys()) {
-			// Add dash separators
-			outputString += beatSeparator;
-			// ! TODO fix bug where fret values longer than one character are being interrupted
-			outputString += tabStringData
-				.get(stringNum)
-				.substring(0, lineLength)
-				.replace(/(.{1})/g, `$&${beatSeparator}`);
+	// Apply line length
+	let outputString = "";
+	while (tabCombinedStrings.get(1).length > 0) {
+		for (const stringNum of tabCombinedStrings.keys()) {
+			outputString += tabCombinedStrings.get(stringNum).substring(0, lineLength);
 
 			// Remove handled beats
-			tabStringData.set(stringNum, tabStringData.get(stringNum).slice(lineLength));
+			tabCombinedStrings.set(stringNum, tabCombinedStrings.get(stringNum).slice(lineLength));
 			outputString += "\n";
 			if (stringNum === 6) {
 				outputString += "\n";

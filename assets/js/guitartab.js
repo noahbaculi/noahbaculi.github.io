@@ -28,7 +28,7 @@ for (const settingSelectId of ["guitarTuning", "guitarCapo"]) {
 // Add event listeners to reformat TAB string output after changes
 for (const displaySettingId of ["tabLineLength", "numBeatSeparators"]) {
 	document.getElementById(displaySettingId).addEventListener("input", () => {
-		// generateTab();
+		updateLineLengthLabel();
 		if (tabData !== undefined) {
 			displayTab(tabData);
 		}
@@ -72,6 +72,17 @@ function generateTab() {
 		return;
 	}
 	displayTab(tabData);
+}
+
+function updateLineLengthLabel() {
+	let tabLineLength = 80;
+	try {
+		tabLineLength = parseInt(document.getElementById("tabLineLength").value);
+	} catch (error) {
+		console.warn(`Something went wrong... Using default tabLineLength = ${tabLineLength} | Error = ${error}`);
+	}
+
+	document.getElementById("tabLineLengthLabel").innerHTML = `Line Length - ${tabLineLength}`;
 }
 
 function displayTab(tabData) {
@@ -175,3 +186,5 @@ function generateTabString(tabData, lineLength = 80, numBeatSeparators = 1) {
 
 	return outputString;
 }
+
+updateLineLengthLabel();

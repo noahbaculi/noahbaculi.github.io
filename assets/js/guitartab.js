@@ -1,6 +1,3 @@
-// import { Guitar } from "./guitar_object.js";
-// import { Guitar } from "https:///cdn.jsdelivr.net/gh/noahbaculi/guitar-tab/src/guitar_object.js";
-
 /**
  * Console Log objects to full depth
  * @param objs Objects to print
@@ -11,23 +8,26 @@ function print(...objs) {
 	}
 }
 
-// Add event listener for the pitch input text area to deactivate TAB output
 const pitchInput = document.getElementById("pitchInput");
-if (pitchInput.addEventListener) {
-	pitchInput.addEventListener(
-		"input",
-		function () {
-			deactivateTabOutput();
-		},
-		false
-	);
-	pitchInput.addEventListener(
-		"change",
-		function () {
-			generateTab();
-		},
-		false
-	);
+
+// Add event listener for the pitch input text area to deactivate TAB output
+pitchInput.addEventListener(
+	"input",
+	function () {
+		deactivateTabOutput();
+	},
+	false
+);
+
+// Add event listeners to generate TAB output after changes
+pitchInput.addEventListener("change", () => {
+	generateTab();
+});
+
+for (const settingSelectId of ["guitarTuning"]) {
+	document.getElementById(settingSelectId).addEventListener("change", () => {
+		generateTab();
+	});
 }
 
 function deactivateTabOutput() {
@@ -41,7 +41,6 @@ function generateTab() {
 
 	// Get settings
 	const guitarTuning = document.getElementById("guitarTuning");
-	print(guitarTuning.value);
 
 	const guitar = new exports.Guitar(guitarTuning.value);
 

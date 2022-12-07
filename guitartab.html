@@ -19,7 +19,7 @@
 			</div>
 			<div class="options">
 				<select id="guitarTuning" name="guitarTuning">
-					<option value="standard">Standard</option>
+					<option value="standard" selected>Standard</option>
 					<option value="dsus4">Dsus4 / DADgad</option>
 					<option value="c6">C6</option>
 					<option value="openc">Open C</option>
@@ -32,7 +32,7 @@
 				</select>
 
 				<select id="guitarCapo" name="guitarCapo">
-					<option value="0">No Capo</option>
+					<option value="0" selected>No Capo</option>
 					<option value="1">1</option>
 					<option value="2">2</option>
 					<option value="3">3</option>
@@ -48,6 +48,13 @@
 
 				<input type="range" min="1" max="120" value="60" class="slider" id="tabLineLength">
 
+				<select id="numBeatSeparators" name="numBeatSeparators">
+					<option value="0">0</option>
+					<option value="1" selected>1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+				</select>
 			</div>
 			<div class="tab_output">
 				<textarea id="tabOutput" name="tabOutput" readonly wrap="off">Output TAB goes here!

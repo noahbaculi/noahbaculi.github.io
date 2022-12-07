@@ -24,7 +24,7 @@ pitchInput.addEventListener("change", () => {
 	generateTab();
 });
 
-for (const settingSelectId of ["guitarTuning"]) {
+for (const settingSelectId of ["guitarTuning", "guitarCapo"]) {
 	document.getElementById(settingSelectId).addEventListener("change", () => {
 		generateTab();
 	});
@@ -40,23 +40,23 @@ function generateTab() {
 	const pitchInput = document.getElementById("pitchInput");
 
 	// Get settings
-	const guitarTuning = document.getElementById("guitarTuning");
+	const guitarTuning = document.getElementById("guitarTuning").value;
+	const guitarCapo = parseInt(document.getElementById("guitarCapo").value);
 
-	const guitar = new exports.Guitar(guitarTuning.value);
-
+	const guitar = new exports.Guitar(guitarTuning, guitarCapo);
 	let tabData;
 	try {
 		tabData = guitar.generateTab(pitchInput.value);
 	} catch (error) {
-		tabOutput.value = error;
 		console.error(error);
+		tabOutput.value = error;
+		tabOutput.disabled = true;
 		return;
 	}
 
 	const tabString = generateTabString(tabData, 9);
-
-	tabOutput.disabled = false;
 	tabOutput.value = tabString;
+	tabOutput.disabled = false;
 }
 
 const testNotesString = `E4

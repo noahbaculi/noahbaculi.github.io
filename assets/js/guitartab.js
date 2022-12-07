@@ -11,22 +11,27 @@ function print(...objs) {
 const pitchInput = document.getElementById("pitchInput");
 
 // Add event listener for the pitch input text area to deactivate TAB output
-pitchInput.addEventListener(
-	"input",
-	function () {
-		deactivateTabOutput();
-	},
-	false
-);
+pitchInput.addEventListener("input", () => {
+	deactivateTabOutput();
+});
 
 // Add event listeners to generate TAB output after changes
 pitchInput.addEventListener("change", () => {
 	generateTab();
 });
-
 for (const settingSelectId of ["guitarTuning", "guitarCapo"]) {
 	document.getElementById(settingSelectId).addEventListener("change", () => {
 		generateTab();
+	});
+}
+
+// Add event listeners to reformat TAB string output after changes
+for (const displaySettingId of ["tabLineLength"]) {
+	document.getElementById(displaySettingId).addEventListener("input", () => {
+		// generateTab();
+		if (tabData !== undefined) {
+			displayTab(tabData);
+		}
 	});
 }
 
@@ -35,16 +40,29 @@ function deactivateTabOutput() {
 	tabOutput.disabled = true;
 }
 
+// Maintain latest tabData so formatting settings can update output without
+// recomputing tabData
+let tabData;
 function generateTab() {
 	const tabOutput = document.getElementById("tabOutput");
 	const pitchInput = document.getElementById("pitchInput");
 
 	// Get settings
-	const guitarTuning = document.getElementById("guitarTuning").value;
-	const guitarCapo = parseInt(document.getElementById("guitarCapo").value);
+	let guitarTuning = "standard";
+	try {
+		guitarTuning = document.getElementById("guitarTuning").value;
+	} catch (error) {
+		console.warn(`Something went wrong... Using default guitarTuning = ${guitarTuning} | Error = ${error}`);
+	}
+
+	let guitarCapo = 0;
+	try {
+		guitarCapo = parseInt(document.getElementById("guitarCapo").value);
+	} catch (error) {
+		console.warn(`Something went wrong... Using default guitarCapo = ${guitarCapo} | Error = ${error}`);
+	}
 
 	const guitar = new exports.Guitar(guitarTuning, guitarCapo);
-	let tabData;
 	try {
 		tabData = guitar.generateTab(pitchInput.value);
 	} catch (error) {
@@ -53,8 +71,18 @@ function generateTab() {
 		tabOutput.disabled = true;
 		return;
 	}
+	displayTab(tabData);
+}
 
-	const tabString = generateTabString(tabData, 9);
+function displayTab(tabData) {
+	let tabLineLength = 80;
+	try {
+		tabLineLength = parseInt(document.getElementById("tabLineLength").value);
+	} catch (error) {
+		console.warn(`Something went wrong... Using default tabLineLength = ${tabLineLength} | Error = ${error}`);
+	}
+
+	const tabString = generateTabString(tabData, tabLineLength);
 	tabOutput.value = tabString;
 	tabOutput.disabled = false;
 }
@@ -102,19 +130,13 @@ function generateTabString(tabData, lineLength = 80, numBeatSeparators = 1) {
 				// Add the fret numbers for each of the fingerings for the beat
 				for (const stringDatum of beatData) {
 					const stringNum = stringDatum["stringNum"];
-					stringOutputs.set(
-						stringNum,
-						stringOutputs.get(stringNum) + stringDatum["fret"]
-					);
+					stringOutputs.set(stringNum, stringOutputs.get(stringNum) + stringDatum["fret"]);
 					beatStrings.delete(stringNum);
 				}
 
 				// Add dashes for remaining guitar strings in the beat
 				for (const remainingStringNum of beatStrings) {
-					stringOutputs.set(
-						remainingStringNum,
-						stringOutputs.get(remainingStringNum) + "-"
-					);
+					stringOutputs.set(remainingStringNum, stringOutputs.get(remainingStringNum) + "-");
 				}
 			}
 		}
@@ -137,10 +159,7 @@ function generateTabString(tabData, lineLength = 80, numBeatSeparators = 1) {
 				.replace(/(.{1})/g, `$&${beatSeparator}`);
 
 			// Remove handled beats
-			tabStringData.set(
-				stringNum,
-				tabStringData.get(stringNum).slice(lineLength)
-			);
+			tabStringData.set(stringNum, tabStringData.get(stringNum).slice(lineLength));
 			outputString += "\n";
 			if (stringNum === 6) {
 				outputString += "\n";

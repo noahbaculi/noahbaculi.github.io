@@ -167,6 +167,11 @@ function deactivateTabOutput() {
 	tabOutput.disabled = true;
 }
 
+function playGuitarAudio(noteName) {
+	const audio = new Audio("./assets/guitar_notes/" + noteName.trim() + ".mp3");
+	audio.play();
+}
+
 const pitchInput = document.getElementById("pitchInput");
 // Add event listener for the pitch input text area to deactivate TAB output
 pitchInput.addEventListener("input", () => {
@@ -193,7 +198,10 @@ for (const displaySettingId of ["tabLineLength", "numBeatSeparators"]) {
 	});
 }
 
-document.getElementById("generateTabButton").addEventListener("click", generateTab);
+document.getElementById("generateTabButton").addEventListener("click", () => {
+	playGuitarAudio("E2");
+	generateTab();
+});
 
 const testNotesString = `E4
 Eb4

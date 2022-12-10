@@ -12,7 +12,7 @@
 		"options tabOutput";
 
 	grid-template-rows: 75% auto;
-	grid-template-columns: 200px auto;
+	grid-template-columns: 150px auto;
 }
 
 .grid > div {

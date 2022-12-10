@@ -8,13 +8,13 @@ function print(...objs) {
 	}
 }
 
-// Maintain latest tabData so formatting settings can update output without
-// recomputing tabData
-let tabData;
-function generateTab() {
-	const tabOutput = document.getElementById("tabOutput");
-	const pitchInput = document.getElementById("pitchInput");
 
+
+
+// Maintain latest guitar so formatting settings can update output without
+// recomputing tabData
+let guitar;
+function createGuitar() {
 	// Get settings
 	let guitarTuning = "standard";
 	try {
@@ -30,9 +30,19 @@ function generateTab() {
 		console.warn(`Something went wrong... Using default guitarCapo = ${guitarCapo} | Error = ${error}`);
 	}
 
-	const guitar = new exports.Guitar(guitarTuning, guitarCapo);
+	guitar = new exports.Guitar(guitarTuning, guitarCapo);
+}
+
+// Maintain latest tabData so formatting settings can update output without
+// recomputing tabData
+let tabData;
+function createArrangement() {
+	const tabOutput = document.getElementById("tabOutput");
+	const pitchInput = document.getElementById("pitchInput");
+
 	try {
-		tabData = guitar.generateTab(pitchInput.value);
+		const arrangement = new exports.Arrangement(guitar, pitchInput.value);
+		tabData = arrangement.bestFingerings;
 	} catch (error) {
 		console.error(error);
 		tabOutput.value = error;
@@ -53,94 +63,7 @@ function updateLineLengthLabel() {
 	document.getElementById("tabLineLengthLabel").innerHTML = `Line Length - ${tabLineLength}`;
 }
 
-/**
- * Format TAB data to plain text string
- */
-function generateTabString(tabData, lineLength = 80, numBeatSeparators = 1) {
-	/**
-	 * Create single long bare TAB plain text string
-	 */
-	function generateTabStringData(tabData) {
-		const stringOutputs = new Map([
-			[1, []],
-			[2, []],
-			[3, []],
-			[4, []],
-			[5, []],
-			[6, []],
-		]);
 
-		const beatStrings = new Set(stringOutputs.keys());
-		for (const beatData of tabData) {
-			if (beatData === "break") {
-				for (const stringNum of beatStrings) {
-					stringOutputs.get(stringNum).push("|");
-				}
-			} else {
-				// Add the fret numbers for each of the fingerings for the beat
-
-				const maxFingeringWidth = beatData.reduce(
-					(max, stringDatum) => Math.max(max, stringDatum["fret"].toString().length),
-					0
-				);
-
-				const beatStringToFret = beatData.reduce(
-					(map, stringDatum) => map.set(stringDatum["stringNum"], stringDatum["fret"].toString()),
-					new Map([
-						[1, null],
-						[2, null],
-						[3, null],
-						[4, null],
-						[5, null],
-						[6, null],
-					])
-				);
-
-				beatStringToFret.forEach((fret, stringNum) => {
-					let fretOutput = "";
-					if (fret === null) {
-						// If no fret for that string
-						fretOutput = "-".repeat(maxFingeringWidth);
-					} else {
-						fretOutput += fret;
-
-						// Add additional dashes if there is a wider fingering
-						// in the same beat
-						const currFretWidthDelta = maxFingeringWidth - fret.length;
-						fretOutput += "-".repeat(currFretWidthDelta);
-					}
-					stringOutputs.get(stringNum).push(fretOutput);
-				});
-			}
-		}
-		return stringOutputs;
-	}
-	const tabStringData = generateTabStringData(tabData);
-
-	// Add dash separators
-	const beatSeparator = "-".repeat(numBeatSeparators); // to customize spacing
-	let tabCombinedStrings = new Map();
-	tabStringData.forEach((value, key) => {
-		tabCombinedStrings.set(key, beatSeparator + value.join(beatSeparator) + beatSeparator);
-	});
-
-	// Apply line length
-	let outputString = "";
-	while (tabCombinedStrings.get(1).length > 0) {
-		for (const stringNum of tabCombinedStrings.keys()) {
-			outputString += tabCombinedStrings.get(stringNum).substring(0, lineLength);
-
-			// Remove handled beats
-			tabCombinedStrings.set(stringNum, tabCombinedStrings.get(stringNum).slice(lineLength));
-			outputString += "\n";
-			if (stringNum === 6) {
-				outputString += "\n";
-			}
-		}
-	}
-
-	return outputString;
-}
 
 function displayTab(tabData) {
 	let tabLineLength = 80;
@@ -155,6 +78,96 @@ function displayTab(tabData) {
 		numBeatSeparators = parseInt(document.getElementById("numBeatSeparators").value);
 	} catch (error) {
 		console.warn(`Something went wrong... Using default numBeatSeparators = ${numBeatSeparators} | Error = ${error}`);
+	}
+
+	/**
+	 * Format TAB data to plain text string
+	 */
+	function generateTabString(tabData, lineLength = 80, numBeatSeparators = 1) {
+		/**
+		 * Create single long bare TAB plain text string
+		 */
+		function generateTabStringData(tabData) {
+			const stringOutputs = new Map([
+				[1, []],
+				[2, []],
+				[3, []],
+				[4, []],
+				[5, []],
+				[6, []],
+			]);
+
+			const beatStrings = new Set(stringOutputs.keys());
+			for (const beatData of tabData) {
+				if (beatData === "break") {
+					for (const stringNum of beatStrings) {
+						stringOutputs.get(stringNum).push("|");
+					}
+				} else {
+					// Add the fret numbers for each of the fingerings for the beat
+
+					const maxFingeringWidth = beatData.reduce(
+						(max, stringDatum) => Math.max(max, stringDatum["fret"].toString().length),
+						0
+					);
+
+					const beatStringToFret = beatData.reduce(
+						(map, stringDatum) => map.set(stringDatum["stringNum"], stringDatum["fret"].toString()),
+						new Map([
+							[1, null],
+							[2, null],
+							[3, null],
+							[4, null],
+							[5, null],
+							[6, null],
+						])
+					);
+
+					beatStringToFret.forEach((fret, stringNum) => {
+						let fretOutput = "";
+						if (fret === null) {
+							// If no fret for that string
+							fretOutput = "-".repeat(maxFingeringWidth);
+						} else {
+							fretOutput += fret;
+
+							// Add additional dashes if there is a wider fingering
+							// in the same beat
+							const currFretWidthDelta = maxFingeringWidth - fret.length;
+							fretOutput += "-".repeat(currFretWidthDelta);
+						}
+						stringOutputs.get(stringNum).push(fretOutput);
+					});
+				}
+			}
+			return stringOutputs;
+		}
+		debugger;
+		const tabStringData = generateTabStringData(tabData);
+
+		// Add dash separators
+		const beatSeparator = "-".repeat(numBeatSeparators); // to customize spacing
+		let tabCombinedStrings = new Map();
+		tabStringData.forEach((value, key) => {
+			tabCombinedStrings.set(key, beatSeparator + value.join(beatSeparator) + beatSeparator);
+		});
+
+		// Apply line length
+		let outputString = "";
+		while (tabCombinedStrings.get(1).length > 0) {
+			for (const stringNum of tabCombinedStrings.keys()) {
+				outputString += tabCombinedStrings.get(stringNum).substring(0, lineLength);
+
+				// Remove handled beats
+				tabCombinedStrings.set(stringNum, tabCombinedStrings.get(stringNum).slice(lineLength));
+				outputString += "\n";
+				if (stringNum === 6) {
+					outputString += "\n";
+				}
+			}
+		}
+
+		return outputString;
 	}
 
 	const tabString = generateTabString(tabData, tabLineLength, numBeatSeparators);
@@ -180,11 +193,12 @@ pitchInput.addEventListener("input", () => {
 
 // Add event listeners to generate TAB output after changes
 pitchInput.addEventListener("change", () => {
-	generateTab();
+	createArrangement();
 });
 for (const settingSelectId of ["guitarTuning", "guitarCapo"]) {
 	document.getElementById(settingSelectId).addEventListener("change", () => {
-		generateTab();
+		createGuitar();
+		createArrangement();
 	});
 }
 
@@ -199,9 +213,11 @@ for (const displaySettingId of ["tabLineLength", "numBeatSeparators"]) {
 }
 
 document.getElementById("generateTabButton").addEventListener("click", () => {
-	playGuitarAudio("E2");
-	generateTab();
+	// playGuitarAudio("E2");
+	createArrangement();
 });
+
+createGuitar()
 
 const testNotesString = `E4
 Eb4

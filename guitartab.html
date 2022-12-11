@@ -1,143 +1,94 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
+    <head>
+        <title>Guitar Tab Generator</title>
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1,
+			user-scalable=no"
+        />
+        <meta name="description" content="Guitar Tab Generator" />
+        <link rel="stylesheet" href="assets/css/guitartab.css" />
+        <link rel="icon" href="./images/icons/favicon_50_w.webp" />
+    </head>
 
-<head>
-	<title>Guitar Tab Generator</title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-	<meta name="description" content="Guitar Tab Generator">
-	<link rel="stylesheet" href="assets/css/guitartab.css">
-	<link rel="icon" href="./images/icons/favicon_50_w.webp">
-</head>
-
-<body class="is-preload">
-	<!-- Wrapper -->
-	<div id="wrapper">
-		<section class="grid">
-			<div class="pitches">
-				<textarea id="pitchInput" name="pitchInput">// Pitches go here!
-
-E4
-Eb4
-E4
-Eb4
-E4
-B3
-D4
-C4
-
-A2A3
-E3
-A3
-C3
-E3
-A3
-				</textarea>
-			</div>
-			<div class="options">
-				<label for="guitarTuning">Guitar Tuning</label>
-				<select id="guitarTuning" name="guitarTuning">
-					<option value="standard" selected>Standard</option>
-					<option value="dsus4">Dsus4 / DADgad</option>
-					<option value="c6">C6</option>
-					<option value="openc">Open C</option>
-					<option value="opend">Open D</option>
-					<option value="opene">Open E</option>
-					<option value="openg">Open G</option>
-					<option value="dropb">Drop B</option>
-					<option value="dropc">Drop C</option>
-					<option value="dropd">Drop D</option>
-				</select>
-
-				<br><br>
-
-				<label for="guitarCapo">Guitar Capo</label>
-				<select id="guitarCapo" name="guitarCapo">
-					<option value="0" selected>No Capo</option>
-					<option value="1">1</option>
-					<option value="2">2</option>
-					<option value="3">3</option>
-					<option value="4">4</option>
-					<option value="5">5</option>
-					<option value="6">6</option>
-					<option value="7">7</option>
-					<option value="8">8</option>
-					<option value="9">9</option>
-					<option value="10">10</option>
-					<option value="11">11</option>
-				</select>
-
-				<br><br>
-
-				<label for="tabLineLength" id="tabLineLengthLabel"></label>
-				<input type="range" min="1" max="150" value="60" class="slider" id="tabLineLength">
-
-				<br><br>
-
-				<label for="numBeatSeparators">Spacing</label>
-				<select id="numBeatSeparators" name="numBeatSeparators">
-					<option value="0">0</option>
-					<option value="1" selected>1</option>
-					<option value="2">2</option>
-					<option value="3">3</option>
-					<option value="4">4</option>
-				</select>
-
-				<br><br>
-
-				<button type="button" id="generateTabButton">Generate</button>
-			</div>
-			<div class="tab_output">
-				<textarea id="tabOutput" name="tabOutput" readonly wrap="off">
-Output TAB goes here!
-
-e: -0-----0-----0-----------|--------------------|-------------
-B: ----4-----4-----0--3--1--|--------------------|--0----------
-G: -------------------------|--2-----2--------2--|--------1----
-D: -------------------------|-----2--------2-----|--2--2-----2-
-A: -------------------------|--0--------3--------|-------------
-E: -------------------------|--------------------|-------------
-
-e: -------|--------------|--0-----0-----0-----------|----------
-B: ----0--|--1-----------|-----4-----4-----0--3--1--|----------
-G: -1-----|--------2-----|--------------------------|--2-----2-
-D: -------|-----2-----2--|--------------------------|-----2----
-A: -------|--0-----------|--------------------------|--0-------
-E: -------|--------------|--------------------------|----------
-
-e: ----------|-----------------------|--------------1--0--0----
-B: ----------|--0-----------1--0-----|--1--1--1--1-----------3-
-G: -------2--|--------1-----------2--|-------------------------
-D: ----2-----|--2--2-----2-----------|-------------------------
-A: -3--------|-----------------------|-------------------------
-E: ----------|-----------------------|-------------------------
-
-e: -|--6--5--5--3--1--0--------|-----------------------|-------
-B: -|--------------------3--1--|--------------------1--|--3--4-
-G: -|--------------------------|--3--3--2--0--2--3-----|-------
-D: -|--------------------------|-----------------------|-------
-A: -|--------------------------|-----------------------|-------
-E: -|--------------------------|-----------------------|-------
-				</textarea>
-			</div>
-		</section>
-
-		<!-- <div id="headers"></div> -->
-		<!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css" media="all" rel="stylesheet" type="text/css" lazyload> -->
-		<!-- Main -->
-		<!-- <div id="main"></div> -->
-		<!-- Footer -->
-		<!-- <footer id="footer"></footer> -->
-	</div>
-	<!-- Scripts -->
-	<script src="assets/js/jquery.min.js"></script>
-	<script src="assets/js/browser.min.js"></script>
-	<script src="assets/js/breakpoints.min.js"></script>
-	<script src="assets/js/util.js"></script>
-	<script src="assets/js/main.js"></script>
-	<script>var exports = {};</script>
-	<script type="module" src="https:///cdn.jsdelivr.net/gh/noahbaculi/guitar-tab/src/guitar_object.js"></script>
-	<script type="module" src="assets/js/guitartab.js"></script>
-</body>
-
+    <body class="is-preload">
+        <!-- Wrapper -->
+        <div id="wrapper">
+            <section class="grid">
+                <div class="pitches">
+                    <textarea id="pitchInput" name="pitchInput">// Pitches go here!</textarea>
+                </div>
+                <div class="options">
+                    <label for="guitarTuning">Guitar Tuning</label>
+                    <select id="guitarTuning" name="guitarTuning">
+                        <option value="standard" selected>Standard</option>
+                        <option value="dsus4">Dsus4 / DADgad</option>
+                        <option value="c6">C6</option>
+                        <option value="openc">Open C</option>
+                        <option value="opend">Open D</option>
+                        <option value="opene">Open E</option>
+                        <option value="openg">Open G</option>
+                        <option value="dropb">Drop B</option>
+                        <option value="dropc">Drop C</option>
+                        <option value="dropd">Drop D</option>
+                    </select>
+                    <br /><br />
+                    <label for="guitarCapo">Guitar Capo</label>
+                    <select id="guitarCapo" name="guitarCapo">
+                        <option value="0" selected>No Capo</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                    </select>
+                    <br /><br />
+                    <label for="tabLineLength" id="tabLineLengthLabel"></label>
+                    <input type="range" min="1" max="150" value="60" class="slider" id="tabLineLength" />
+                    <br /><br />
+                    <label for="numBeatSeparators">Spacing</label>
+                    <select id="numBeatSeparators" name="numBeatSeparators">
+                        <option value="0">0</option>
+                        <option value="1" selected>1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                    <br /><br />
+                    <button type="button" id="generateTabButton">Generate</button>
+                </div>
+                <div class="tab_output">
+                    <textarea id="tabOutput" name="tabOutput" readonly wrap="off">
+						Output TAB
+						goes here!</textarea
+                    >
+                </div>
+            </section>
+            <!-- <div id="headers"></div> -->
+            <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css" media="all" rel="stylesheet" type="text/css" lazyload> -->
+            <!-- Main -->
+            <!-- <div id="main"></div> -->
+            <!-- Footer -->
+            <!-- <footer id="footer"></footer> -->
+        </div>
+        <!-- Scripts -->
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/js/browser.min.js"></script>
+        <script src="assets/js/breakpoints.min.js"></script>
+        <script src="assets/js/util.js"></script>
+        <script src="assets/js/main.js"></script>
+        <script>
+            var exports = {}; // instatiate exports variable to pull guitar exports
+        </script>
+        <script type="module" src="https:///cdn.jsdelivr.net/gh/noahbaculi/guitar-tab/src/guitar_object.js"></script>
+        <script type="module" src="assets/js/guitartab.js"></script>
+    </body>
 </html>

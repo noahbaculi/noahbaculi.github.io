@@ -8,10 +8,11 @@
 
 	/* Explicit grid */
 	grid-template-areas:
+		"examples tabOutput"
 		"pitches tabOutput"
 		"options tabOutput";
 
-	grid-template-rows: 75% auto;
+	grid-template-rows: auto 75% auto;
 	grid-template-columns: 150px auto;
 }
 

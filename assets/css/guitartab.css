@@ -64,6 +64,13 @@
 	overflow: hidden;
 	min-width: 0; /* for Firefox */
 }
+#pitchInput {
+	font-family: monospace;
+}
+#tabOutput {
+	/* font-family: "Courier New", Courier, monospace; */
+	font-family: monospace;
+}
 
 textarea {
 	-webkit-box-sizing: border-box;

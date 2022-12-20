@@ -1,75 +1,46 @@
 :root {
 	--header-height: 10%;
-	--main-height: 90%;
+	--main-height: calc(100% - var(--header-height));
 	--lightest-bg-color: #f0f9ff;
 	--lighter-bg-color: #e0f2fe;
 	--darkest-text-color: #0c4a6e;
 }
 
-/* Header */
-.header-grid {
-	height: 10%;
-
-	display: grid;
-	gap: 1rem;
-
-	/* Explicit grid */
-	grid-template-areas: "exit header export";
-	grid-template-columns: 1fr 5fr 1fr;
-	align-items: center;
-}
-.exit {
-	grid-area: exit;
-}
-.header {
-	grid-area: header;
-	text-align: center;
-}
-.export {
-	grid-area: export;
-	text-align: right;
+@media screen and (max-width: 736px) {
+	:root {
+		--header-height: 15%;
+		--main-height: calc(100% - var(--header-height));
+	}
 }
 
-/* Main UI */
-.main-grid {
-	height: 90%;
-
-	display: grid;
-	gap: 1rem;
-
-	/* Explicit grid */
-	grid-template-areas:
-		"examples tabOutput"
-		"pitches tabOutput"
-		"options tabOutput";
-
-	grid-template-rows: min-content auto min-content;
-	grid-template-columns: 150px auto;
-	min-height: 0; /* NEW */
-	min-width: 0; /* NEW; needed for Firefox */
+/* General styling */
+body {
+	margin: 0;
+	height: 100vh;
+	background-color: var(--lightest-bg-color);
+	color: var(--darkest-text-color);
+	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.pitches {
-	grid-area: pitches;
-	overflow: hidden;
-	min-width: 0; /* for Firefox */
+@media screen and (min-width: 737px) {
+	body,
+	input,
+	select {
+		font-size: 11pt;
+	}
 }
-.options {
-	grid-area: options;
-	overflow: hidden;
-	min-width: 0; /* for Firefox */
+@media screen and (max-width: 736px) {
+	body,
+	input,
+	select {
+		font-size: 10pt;
+	}
 }
-.tab_output {
-	grid-area: tabOutput;
-	overflow: hidden;
-	min-width: 0; /* for Firefox */
-}
-#pitchInput {
-	font-family: monospace;
-}
-#tabOutput {
-	/* font-family: "Courier New", Courier, monospace; */
-	font-family: monospace;
+
+select,
+option {
+	color: var(--darkest-text-color);
+	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 textarea {
@@ -86,23 +57,116 @@ textarea {
 	color: var(--darkest-text-color);
 }
 
-/* General styling */
-body {
-	margin: 0;
-	height: 100vh;
-	background-color: var(--lightest-bg-color);
-	color: var(--darkest-text-color);
-	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-}
-
-select,
-option {
-	color: var(--darkest-text-color);
-	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-}
-
 #wrapper {
 	height: 95%;
+	width: 90%;
 	max-width: 60em;
 	margin: 0 auto;
+}
+
+/* Header */
+.header-grid {
+	height: var(--header-height);
+
+	display: grid;
+	gap: 1rem;
+
+	/* Explicit grid */
+	grid-template-areas: "exit header export";
+	grid-template-columns: 1fr 5fr 1fr;
+	align-items: center;
+}
+
+.exit {
+	grid-area: exit;
+}
+.header {
+	grid-area: header;
+	text-align: center;
+}
+.export {
+	grid-area: export;
+	text-align: right;
+}
+
+/* Main UI */
+.main-grid {
+	height: var(--main-height);
+
+	display: grid;
+	gap: 1rem;
+
+	/* Explicit grid */
+	grid-template-areas:
+		"examples tabOutput"
+		"pitches tabOutput"
+		"options tabOutput";
+
+	grid-template-rows: min-content auto min-content;
+	grid-template-columns: 150px auto;
+	min-height: 0; /* NEW */
+	min-width: 0; /* NEW; needed for Firefox */
+}
+
+.examples {
+	grid-area: examples;
+	overflow: hidden;
+	min-width: 0; /* for Firefox */
+}
+.pitches {
+	grid-area: pitches;
+	overflow: hidden;
+	min-width: 0; /* for Firefox */
+}
+.options {
+	grid-area: options;
+	overflow: hidden;
+	min-width: 0; /* for Firefox */
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	align-self: flex-end;
+	gap: 10px;
+}
+.tab_output {
+	grid-area: tabOutput;
+	overflow: hidden;
+	min-width: 0; /* for Firefox */
+}
+#pitchInput {
+	font-family: monospace;
+}
+#tabOutput {
+	/* font-family: "Courier New", Courier, monospace; */
+	font-family: monospace;
+}
+
+@media screen and (max-width: 736px) {
+	.main-grid {
+		grid-template-areas:
+			"examples examples"
+			"pitches options"
+			"tabOutput tabOutput";
+
+		grid-template-rows: min-content min-content auto;
+		grid-template-columns: auto min-content;
+	}
+
+	.examples {
+		display: flex;
+		justify-content: flex-end;
+	}
+
+	#wrapper {
+		height: auto;
+	}
+
+	.pitches {
+		height: 50vh;
+	}
+
+	.tab_output {
+		max-height: 80vh;
+		min-height: 20vh;
+	}
 }

@@ -158,6 +158,9 @@ function displayTab(tabData) {
 	const tabString = generateTabString(tabData, tabLineLength, numBeatSeparators);
 	document.getElementById("tabOutput").value = tabString;
 	document.getElementById("tabOutput").disabled = false;
+
+	document.getElementById("tabOutput").style.height = "auto";
+	document.getElementById("tabOutput").style.height = document.getElementById("tabOutput").scrollHeight + 3 + "px";
 }
 
 function deactivateTabOutput() {
@@ -464,7 +467,10 @@ for (const displaySettingId of ["tabLineLength", "numBeatSeparators"]) {
 	});
 }
 
-document.getElementById("generateTabButton").addEventListener("click", createArrangement);
+document.getElementById("generateTabButton").addEventListener("click", () => {
+	createArrangement();
+	document.getElementById("tabOutput").scrollIntoView(false);
+});
 
 const testNotesString = `E4
 Eb4

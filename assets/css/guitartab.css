@@ -75,11 +75,31 @@ textarea {
 	grid-template-areas: "exit header export";
 	grid-template-columns: 1fr 5fr 1fr;
 	align-items: center;
+	row-gap: 0;
 }
 
 .exit {
 	grid-area: exit;
 }
+
+.radius-button {
+	background: #075985;
+	white-space: nowrap;
+	text-decoration: none;
+	color: #fff;
+	cursor: pointer;
+	display: inline-block;
+	font-size: 10px;
+	font-weight: 400;
+	letter-spacing: 0.8px;
+	margin-bottom: 0;
+	padding: 10px 14px;
+	border-radius: 10px;
+	position: relative;
+	z-index: 1;
+	border: 0;
+}
+
 .header {
 	grid-area: header;
 	text-align: center;
@@ -87,6 +107,17 @@ textarea {
 .export {
 	grid-area: export;
 	text-align: right;
+}
+
+#exportButton {
+	height: 3vh;
+}
+
+.radius-button:hover,
+#exportButton:hover {
+	opacity: 0.5;
+	cursor: pointer;
+	transition: opacity 0.2s linear;
 }
 
 /* Main UI */
@@ -141,15 +172,21 @@ textarea {
 	font-family: "Roboto Mono", monospace;
 }
 
-#exportButton {
-	height: 3vh;
-}
-#exportButton:hover {
-	opacity: 0.5;
-	cursor: pointer;
-}
-
 @media screen and (max-width: 736px) {
+	.header-grid {
+		margin-top: 2vh;
+		margin-bottom: 5vh;
+		grid-template-areas:
+			"exit exit exit"
+			"_blank header export";
+
+		/* grid-template-rows: min-content min-content auto; */
+		/* grid-template-columns: auto min-content; */
+	}
+	.radius-button {
+		padding: 5px 10px;
+	}
+
 	.main-grid {
 		grid-template-areas:
 			"examples examples"
@@ -174,7 +211,7 @@ textarea {
 	}
 
 	.tab_output {
-		max-height: 80vh;
+		max-height: 90vh;
 		min-height: 20vh;
 	}
 }

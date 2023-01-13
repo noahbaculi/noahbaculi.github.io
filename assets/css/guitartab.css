@@ -179,9 +179,6 @@ textarea {
 		grid-template-areas:
 			"exit exit exit"
 			"_blank header export";
-
-		/* grid-template-rows: min-content min-content auto; */
-		/* grid-template-columns: auto min-content; */
 	}
 	.radius-button {
 		padding: 5px 10px;

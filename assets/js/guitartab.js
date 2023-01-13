@@ -472,18 +472,33 @@ document.getElementById("generateTabButton").addEventListener("click", () => {
 	document.getElementById("tabOutput").scrollIntoView(false);
 });
 
-const testNotesString = `E4
-Eb4
-E4
-Eb4
-E4
-B3
-D4
-C4
+// Add event listener to export tab output when export button is pressed
+document.getElementById("exportButton").addEventListener("click", () => {
+	// Download tab output
+	const fileContent = document.getElementById("tabOutput").value;
+	const temporaryDownloadElement = document.createElement("a");
+	temporaryDownloadElement.setAttribute("href", "data:text/plain;charset=utf-8," + encodeURIComponent(fileContent));
+	temporaryDownloadElement.setAttribute("download", "guitar_tab_output");
+	temporaryDownloadElement.style.display = "none";
+	document.body.appendChild(temporaryDownloadElement);
+	temporaryDownloadElement.click();
+	document.body.removeChild(temporaryDownloadElement);
 
-A2A3
-E3
-A3
-C3
-E3
-A3`;
+	alert("Tab output saved to your downloads! 🎉");
+});
+
+// const testNotesString = `E4
+// Eb4
+// E4
+// Eb4
+// E4
+// B3
+// D4
+// C4
+
+// A2A3
+// E3
+// A3
+// C3
+// E3
+// A3`;

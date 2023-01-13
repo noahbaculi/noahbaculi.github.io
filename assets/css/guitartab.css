@@ -141,6 +141,14 @@ textarea {
 	font-family: "Roboto Mono", monospace;
 }
 
+#exportButton {
+	height: 3vh;
+}
+#exportButton:hover {
+	opacity: 0.5;
+	cursor: pointer;
+}
+
 @media screen and (max-width: 736px) {
 	.main-grid {
 		grid-template-areas:

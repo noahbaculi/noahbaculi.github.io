@@ -159,8 +159,8 @@ function displayTab(tabData) {
 	document.getElementById("tabOutput").value = tabString;
 	document.getElementById("tabOutput").disabled = false;
 
-	document.getElementById("tabOutput").style.height = "auto";
-	document.getElementById("tabOutput").style.height = document.getElementById("tabOutput").scrollHeight + 3 + "px";
+	// document.getElementById("tabOutput").style.height = "auto";
+	// document.getElementById("tabOutput").style.height = document.getElementById("tabOutput").scrollHeight + 3 + "px";
 }
 
 function deactivateTabOutput() {

@@ -19,7 +19,7 @@ body {
 	height: 100vh;
 	background-color: var(--lightest-bg-color);
 	color: var(--darkest-text-color);
-	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+	font-family: "Nunito", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 @media screen and (min-width: 737px) {
@@ -40,7 +40,7 @@ body {
 select,
 option {
 	color: var(--darkest-text-color);
-	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+	font-family: "Nunito", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 textarea {
@@ -134,11 +134,11 @@ textarea {
 	min-width: 0; /* for Firefox */
 }
 #pitchInput {
-	font-family: monospace;
+	font-family: "Roboto Mono", monospace;
 }
 #tabOutput {
 	/* font-family: "Courier New", Courier, monospace; */
-	font-family: monospace;
+	font-family: "Roboto Mono", monospace;
 }
 
 @media screen and (max-width: 736px) {

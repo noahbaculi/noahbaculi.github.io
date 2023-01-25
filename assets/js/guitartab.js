@@ -470,11 +470,6 @@ for (const displaySettingId of ["tabLineLength", "numBeatSeparators"]) {
 	});
 }
 
-document.getElementById("generateTabButton").addEventListener("click", () => {
-	createArrangement();
-	document.getElementById("tabOutput").scrollIntoView(false);
-});
-
 // Add event listener to export tab output when export button is pressed
 document.getElementById("exportButton").addEventListener("click", () => {
 	// Download tab output

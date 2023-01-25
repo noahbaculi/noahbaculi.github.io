@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html hidden>
 
 <head>
     <title>Guitar Tab Generator</title>
@@ -11,26 +11,55 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto Mono" />
     <link rel="stylesheet" href="assets/css/guitartab.css" />
     <link rel="icon" href="./images/icons/favicon_50_w.webp" />
+    <script type="module" src="https://cdn.skypack.dev/twind/shim"></script>
 </head>
 
-<body class="is-preload">
+<body class="bg-white">
     <!-- Wrapper -->
     <div id="wrapper">
         <section class="header-grid">
             <div class="exit">
-                <a class="radius-button" href="./index.html">
-                    < &nbsp; noahbaculi.com </a>
+                <nav class="flex" aria-label="Breadcrumb">
+                    <ol class="inline-flex items-center space-x-1 md:space-x-1">
+                        <li class="inline-flex items-center">
+                            <a href="./index.html"
+                                class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
+                                <svg aria-hidden="true" class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z">
+                                    </path>
+                                </svg>
+                                Home
+                            </a>
+                        </li>
+                        <li>
+                            <div class="flex items-center">
+                                <svg aria-hidden="true" class="w-6 h-6 text-gray-400" fill="currentColor"
+                                    viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+                                        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
+                                <a href="./portfolio.html"
+                                    class="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ml-1 dark:text-gray-400 dark:hover:text-white">Projects</a>
+                            </div>
+                        </li>
+                    </ol>
+                </nav>
             </div>
             <div class="header">
-                <h1>Guitar Tab Generator</h1>
+                <h1 class="text-2xl">Guitar Tab Generator</h1>
             </div>
             <div class="export">
-                <img src="./images/guitar_tab_generator/share_icon.svg" alt="Export" id="exportButton">
+                <img src="./images/guitar_tab_generator/share_icon.svg" alt="Export" id="exportButton"
+                    style="display: inline;">
             </div>
         </section>
         <section class="main-grid">
             <div class="examples">
-                <select id="exampleSongs" name="exampleSongs">
+                <select id="exampleSongs"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option value="examples" selected>ᐁ Load Example</option>
                     <option value="Fur Elise">Fur Elise</option>
                     <option value="Greensleeves">Greensleeves</option>
@@ -40,11 +69,20 @@
                 </select>
             </div>
             <div class="pitches">
-                <textarea id="pitchInput" name="pitchInput">// Pitches go here!</textarea>
+                <textarea id="pitchInput" name="pitchInput" class="p-2.5 text-sm
+               resize-none text-gray-900 bg-blue-50 rounded-lg border
+                border-gray-300 dark:bg-gray-700 dark:border-gray-600
+                dark:placeholder-gray-400 dark:text-white">// Pitches go here!</textarea>
             </div>
             <div class="options">
-                <label for="guitarTuning">Guitar Tuning</label>
-                <select id="guitarTuning" name="guitarTuning">
+                <label for="guitarTuning" class="block mb-2 text-sm font-medium
+                text-gray-900 dark:text-white">Guitar Tuning</label>
+                <select id="guitarTuning" name="guitarTuning" class="bg-gray-50
+                border border-gray-300 text-gray-900 text-sm
+                rounded-lg focus:ring-blue-500 focus:border-blue-500 block
+                w-full p-2.5 dark:bg-gray-700 dark:border-gray-600
+                dark:placeholder-gray-400 dark:text-white
+                dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option value="standard" selected>Standard</option>
                     <option value="dsus4">DADGAD</option>
                     <option value="c6">C6</option>
@@ -56,8 +94,15 @@
                     <option value="dropc">Drop C</option>
                     <option value="dropd">Drop D</option>
                 </select>
-                <label for="guitarCapo">Guitar Capo</label>
-                <select id="guitarCapo" name="guitarCapo">
+
+                <label for="guitarCapo" class="block mb-2 text-sm font-medium
+                text-gray-900 dark:text-white">Guitar Capo</label>
+                <select id="guitarCapo" name="guitarCapo" class="bg-gray-50
+                border border-gray-300 text-gray-900 text-sm
+                rounded-lg focus:ring-blue-500 focus:border-blue-500 block
+                w-full p-2.5 dark:bg-gray-700 dark:border-gray-600
+                dark:placeholder-gray-400 dark:text-white
+                dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option value="0" selected>None</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -71,20 +116,33 @@
                     <option value="10">10</option>
                     <option value="11">11</option>
                 </select>
-                <label for="tabLineLength" id="tabLineLengthLabel"></label>
-                <input type="range" min="30" max="150" value="60" class="slider" id="tabLineLength" />
-                <label for="numBeatSeparators">Spacing</label>
-                <select id="numBeatSeparators" name="numBeatSeparators">
+
+                <label for="tabLineLength" id="tabLineLengthLabel"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"></label>
+                <input type="range" min="30" max="150" value="60" id="tabLineLength"
+                    class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700" />
+
+                <label for="numBeatSeparators" class="block mb-2 text-sm font-medium
+                text-gray-900 dark:text-white">Spacing</label>
+                <select id="numBeatSeparators" name="numBeatSeparators" class="bg-gray-50
+                border border-gray-300 text-gray-900 text-sm
+                rounded-lg focus:ring-blue-500 focus:border-blue-500 block
+                w-full p-2.5 dark:bg-gray-700 dark:border-gray-600
+                dark:placeholder-gray-400 dark:text-white
+                dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option value="0">0</option>
                     <option value="1" selected>1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
                     <option value="4">4</option>
                 </select>
-                <button type="button" id="generateTabButton">Generate</button>
+                <!-- <button type="button" id="generateTabButton">Generate</button> -->
             </div>
             <div class="tab_output">
-                <textarea id="tabOutput" name="tabOutput" readonly wrap="off">Output TAB goes here!</textarea>
+                <textarea id="tabOutput" readonly wrap="off" class="p-2.5
+                text-sm resize-none text-gray-900 bg-blue-50 rounded-lg border
+                border-gray-300 dark:bg-gray-700 dark:border-gray-600
+                dark:placeholder-gray-400 dark:text-white">Output TAB goes here!</textarea>
             </div>
         </section>
         <!-- <div id="headers"></div> -->

@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1,
 			user-scalable=no" />
     <meta name="description" content="Guitar Tab Generator" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto Mono" />
     <link rel="stylesheet" href="assets/css/guitartab.css" />
     <link rel="icon" href="./images/icons/favicon_50_w.webp" />
@@ -20,7 +19,7 @@
         <section class="header-grid">
             <div class="exit">
                 <nav class="flex" aria-label="Breadcrumb">
-                    <ol class="inline-flex items-center space-x-1 md:space-x-1">
+                    <ol class="inline-flex items-center space-x-1 mb-5 md:mb-0">
                         <li class="inline-flex items-center">
                             <a href="./index.html"
                                 class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
@@ -51,9 +50,24 @@
             <div class="header">
                 <h1 class="text-2xl">Guitar Tab Generator</h1>
             </div>
-            <div class="export">
-                <img src="./images/guitar_tab_generator/share_icon.svg" alt="Export" id="exportButton"
-                    style="display: inline;">
+            <div class="export flex justify-end">
+                <button type="button" id="exportButton" data-tooltip-target="tooltip-download"
+                    data-tooltip-placement="left" class="flex justify-center
+                    items-center w-[52px] h-[52px]
+                    text-gray-500 hover:text-gray-900 bg-white rounded-full border
+                    border-gray-200 dark:border-gray-600 shadow-sm
+                    dark:hover:text-white dark:text-gray-400 hover:bg-gray-50
+                    dark:bg-gray-700 dark:hover:bg-gray-600 focus:ring-4
+                    focus:ring-gray-300 focus:outline-none
+                    dark:focus:ring-gray-400">
+                    <svg aria-hidden="true" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path clip-rule="evenodd"
+                            d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V8a2 2 0 00-2-2h-5L9 4H4zm7 5a1 1 0 00-2 0v1.586l-.293-.293a.999.999 0 10-1.414 1.414l2 2a.999.999 0 001.414 0l2-2a.999.999 0 10-1.414-1.414l-.293.293V9z"
+                            fill-rule="evenodd"></path>
+                    </svg>
+                    <span class="sr-only">Download</span>
+                </button>
             </div>
         </section>
         <section class="main-grid">
@@ -145,12 +159,6 @@
                 dark:placeholder-gray-400 dark:text-white">Output TAB goes here!</textarea>
             </div>
         </section>
-        <!-- <div id="headers"></div> -->
-        <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css" media="all" rel="stylesheet" type="text/css" lazyload> -->
-        <!-- Main -->
-        <!-- <div id="main"></div> -->
-        <!-- Footer -->
-        <!-- <footer id="footer"></footer> -->
     </div>
     <!-- Scripts -->
     <script src="assets/js/jquery.min.js"></script>
@@ -159,7 +167,7 @@
     <script src="assets/js/util.js"></script>
     <script src="assets/js/main.js"></script>
     <script>
-        var exports = {}; // instatiate exports variable to pull guitar exports
+        var exports = {}; // instantiate exports variable to pull guitar exports
     </script>
     <script type="module" src="https:///cdn.jsdelivr.net/gh/noahbaculi/guitar-tab/src/guitar_object.js"></script>
     <script type="module" src="assets/js/guitartab.js"></script>

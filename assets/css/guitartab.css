@@ -109,17 +109,6 @@ textarea {
 	text-align: right;
 }
 
-#exportButton {
-	height: 3vh;
-}
-
-.radius-button:hover,
-#exportButton:hover {
-	opacity: 0.5;
-	cursor: pointer;
-	transition: opacity 0.2s linear;
-}
-
 /* Main UI */
 .main-grid {
 	height: var(--main-height);
@@ -191,7 +180,7 @@ textarea {
 			"tabOutput tabOutput";
 
 		grid-template-rows: min-content min-content auto;
-		grid-template-columns: auto min-content;
+		grid-template-columns: fit-content fit-content;
 	}
 
 	.examples {
@@ -208,7 +197,6 @@ textarea {
 	}
 
 	.tab_output {
-		max-height: 90vh;
-		min-height: 20vh;
+		height: 90vh;
 	}
 }

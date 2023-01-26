@@ -303,7 +303,66 @@ function loadExampleSong() {
 						A2A3
 						A2A3
 						`,
-		"Silent Night": `E2`,
+		"Silent Night": `C3G3
+						A3
+						G3
+						C3E3
+
+						C3G3
+						A3
+						G3
+						C3E3
+
+						G2D4
+						D4
+						B3
+
+						C3C4
+						C4
+						E3G3
+
+						F3A3
+						A3
+						C4
+						B3
+						A3
+
+						C3G3
+						A3
+						G3
+						C3E3
+
+						C3A3
+						A3
+						C4
+						B3
+						A3
+
+						C3G3
+						A3
+						C3G3
+						A3
+						G3
+						C3D3
+						E3
+
+						G2D4
+						D4
+						F4
+						D4
+						B3
+
+						C3C4
+						E2A2E3A3C4E4
+
+						C3C4
+						G3
+						E3
+						G3
+
+						F3
+						D3
+						C3`,
 		"Twinkle Twinkle": `G3
 							G3
 							D4

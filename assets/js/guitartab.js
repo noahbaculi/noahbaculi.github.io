@@ -261,7 +261,48 @@ function loadExampleSong() {
 					D4
 					B3
 					C4`,
-		Greensleeves: `E2`,
+		Greensleeves: `A3
+						A2C4
+						A3D4
+						E4
+						F4
+						E4
+						G2G3D4
+						B3
+						G3
+						A3
+						B3
+						A2C4
+
+						A3
+						A3
+						G#3
+						A3
+						B3
+						G#3
+						E3
+
+						A3
+						A2C4
+						A3D4
+						E4
+						F#4
+						E4
+						G2G3D4
+						B3
+						G3
+						A3
+						B3
+						A2C4
+						B3
+
+						A3
+						A2G#3
+						F#3
+						G#3
+						A2A3
+						A2A3
+						`,
 		"Silent Night": `E2`,
 		"Twinkle Twinkle": `G3
 							G3

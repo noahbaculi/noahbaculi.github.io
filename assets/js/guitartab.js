@@ -9,6 +9,7 @@ function print(...objs) {
 }
 
 let playbackBeatNumber = -1;
+let allowPlayback = false;
 
 // Maintain latest guitar so formatting settings can update output without
 // recomputing tabData
@@ -39,26 +40,32 @@ let tabData;
 function createArrangement() {
 	const pitchInput = document.getElementById("pitchInput");
 
+	playbackBeatNumber = -1;
+	stopPlayback();
+
 	try {
 		const arrangement = new exports.Arrangement(guitar, pitchInput.value);
 		tabData = arrangement.bestFingerings;
-		print("Create arrangement");
 	} catch (error) {
 		console.error(error);
 		document.getElementById("tabOutput").value = error;
 		document.getElementById("tabOutput").disabled = true;
+		document.getElementById("playbackMenu").hidden = true;
 		return;
 	}
-	playbackBeatNumber = -1;
 	displayTab(tabData);
-	playTabAudio();
+	document.getElementById("playbackMenu").hidden = false;
 }
 
 async function playTabAudio() {
-	playbackBeatNumber = -1;
-	for (const beatData of tabData) {
+	while (playbackBeatNumber < tabData.length) {
 		// Iterate beat number
-		playbackBeatNumber += 1;
+		playbackBeatNumber++;
+		const beatData = tabData[playbackBeatNumber];
+
+		if (!allowPlayback) {
+			return;
+		}
 
 		// Skip breaks
 		if (beatData === "break") {
@@ -67,14 +74,21 @@ async function playTabAudio() {
 
 		const beatPitches = beatData.get("pitches");
 		for (const beatPitch of beatPitches) {
-			print(beatPitch);
 			playPitchAudio(beatPitch.replaceAll("#", "sharp"));
 		}
 
 		displayTab(tabData, playbackBeatNumber);
 
-		const delayDurationMillisecond = 800;
-		await new Promise((r) => setTimeout(r, delayDurationMillisecond));
+		// Execute delay in chunks to check for `allowPlayback` flag to prevent
+		// errors from rapid input
+		const delayDurationMillisecond = 1000;
+		const subDelayDurationMillisecond = 100;
+		for (let i = 0; i < delayDurationMillisecond; i += subDelayDurationMillisecond) {
+			if (!allowPlayback) {
+				return;
+			}
+			await new Promise((r) => setTimeout(r, subDelayDurationMillisecond));
+		}
 	}
 }
 
@@ -180,7 +194,6 @@ function displayTab(tabData, currentlyPlayingIndex = -1) {
 		});
 
 		// Apply line length
-		const numBeatsPerLine = Math.floor(lineLength / (numBeatSeparators + 1));
 		let outputString = "";
 		while (tabCombinedStrings.get(1).length > 0) {
 			for (const stringNum of tabCombinedStrings.keys()) {
@@ -192,8 +205,6 @@ function displayTab(tabData, currentlyPlayingIndex = -1) {
 
 				if (stringNum === "playbackIndicator") {
 					outputString += "\n\n";
-					startBeatLineIndex += numBeatsPerLine;
-					endBeatLineIndex += numBeatsPerLine;
 				}
 			}
 		}
@@ -201,11 +212,7 @@ function displayTab(tabData, currentlyPlayingIndex = -1) {
 		return outputString;
 	}
 
-	const start = performance.now();
 	const tabString = generateTabString(tabData, tabLineLength, numBeatSeparators, currentlyPlayingIndex);
-	const end = performance.now();
-	console.log(`Execution time: ${end - start} ms`);
-
 	document.getElementById("tabOutput").value = tabString;
 	document.getElementById("tabOutput").disabled = false;
 }
@@ -587,6 +594,13 @@ function playPitchAudio(noteName) {
 	audio.play();
 }
 
+function stopPlayback() {
+	allowPlayback = false;
+	document.getElementById("resetPlaybackButton").disabled = false;
+	document.getElementById("pauseButton").style.display = "none";
+	document.getElementById("playButton").style.display = "flex";
+}
+
 const pitchInput = document.getElementById("pitchInput");
 // Add event listener for the pitch input text area to deactivate TAB output
 pitchInput.addEventListener("input", deactivateTabOutput);
@@ -627,4 +641,28 @@ document.getElementById("exportButton").addEventListener("click", () => {
 	document.body.removeChild(temporaryDownloadElement);
 
 	alert("Tab output saved to your downloads! 🎉");
+});
+
+// Add event listener to export tab output when export button is pressed
+document.getElementById("playButton").addEventListener("click", () => {
+	if (!(Symbol.iterator in Object(tabData))) {
+		return;
+	}
+	document.getElementById("resetPlaybackButton").disabled = false;
+	document.getElementById("pauseButton").style.display = "flex";
+	document.getElementById("playButton").style.display = "none";
+	allowPlayback = true;
+	playTabAudio();
+});
+
+// Add event listener to export tab output when export button is pressed
+document.getElementById("pauseButton").addEventListener("click", () => {
+	stopPlayback();
+});
+
+// Add event listener to export tab output when export button is pressed
+document.getElementById("resetPlaybackButton").addEventListener("click", () => {
+	playbackBeatNumber = -1;
+	stopPlayback();
+	displayTab(tabData);
 });

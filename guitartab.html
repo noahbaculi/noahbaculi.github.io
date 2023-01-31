@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="assets/css/guitartab.css" />
     <link rel="icon" href="./images/icons/favicon_50_w.webp" />
     <script type="module" src="https://cdn.skypack.dev/twind/shim"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.min.css" rel="stylesheet" />
 </head>
 
 <body class="bg-white">
@@ -52,14 +53,8 @@
             </div>
             <div class="export flex justify-end">
                 <button type="button" id="exportButton" data-tooltip-target="tooltip-download"
-                    data-tooltip-placement="left" class="flex justify-center
-                    items-center w-[52px] h-[52px]
-                    text-gray-500 hover:text-gray-900 bg-white rounded-full border
-                    border-gray-200 dark:border-gray-600 shadow-sm
-                    dark:hover:text-white dark:text-gray-400 hover:bg-gray-50
-                    dark:bg-gray-700 dark:hover:bg-gray-600 focus:ring-4
-                    focus:ring-gray-300 focus:outline-none
-                    dark:focus:ring-gray-400">
+                    data-tooltip-placement="left"
+                    class="flex justify-center items-center w-[52px] h-[52px] text-gray-500 hover:text-gray-900 bg-white rounded-full border border-gray-200 dark:border-gray-600 shadow-sm dark:hover:text-white dark:text-gray-400 hover:bg-gray-50 dark:bg-gray-700 dark:hover:bg-gray-600 focus:ring-4 focus:ring-gray-300 focus:outline-none dark:focus:ring-gray-400">
                     <svg aria-hidden="true" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
                         xmlns="http://www.w3.org/2000/svg">
                         <path clip-rule="evenodd"
@@ -83,20 +78,15 @@
                 </select>
             </div>
             <div class="pitches">
-                <textarea id="pitchInput" name="pitchInput" class="p-2.5 text-sm
-               resize-none text-gray-900 bg-blue-50 rounded-lg border
-                border-gray-300 dark:bg-gray-700 dark:border-gray-600
-                dark:placeholder-gray-400 dark:text-white">// Pitches go here!</textarea>
+                <textarea id="pitchInput" name="pitchInput"
+                    class="p-2.5 text-sm resize-none text-gray-900 bg-blue-50 rounded-lg border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">
+                    // Pitches go here!</textarea>
             </div>
             <div class="options">
-                <label for="guitarTuning" class="block mb-2 text-sm font-medium
-                text-gray-900 dark:text-white">Guitar Tuning</label>
-                <select id="guitarTuning" name="guitarTuning" class="bg-gray-50
-                border border-gray-300 text-gray-900 text-sm
-                rounded-lg focus:ring-blue-500 focus:border-blue-500 block
-                w-full p-2.5 dark:bg-gray-700 dark:border-gray-600
-                dark:placeholder-gray-400 dark:text-white
-                dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <label for="guitarTuning" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Guitar
+                    Tuning</label>
+                <select id="guitarTuning" name="guitarTuning"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option value="standard" selected>Standard</option>
                     <option value="dsus4">DADGAD</option>
                     <option value="c6">C6</option>
@@ -109,14 +99,10 @@
                     <option value="dropd">Drop D</option>
                 </select>
 
-                <label for="guitarCapo" class="block mb-2 text-sm font-medium
-                text-gray-900 dark:text-white">Guitar Capo</label>
-                <select id="guitarCapo" name="guitarCapo" class="bg-gray-50
-                border border-gray-300 text-gray-900 text-sm
-                rounded-lg focus:ring-blue-500 focus:border-blue-500 block
-                w-full p-2.5 dark:bg-gray-700 dark:border-gray-600
-                dark:placeholder-gray-400 dark:text-white
-                dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <label for="guitarCapo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Guitar
+                    Capo</label>
+                <select id="guitarCapo" name="guitarCapo"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option value="0" selected>None</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -136,14 +122,10 @@
                 <input type="range" min="30" max="150" value="60" id="tabLineLength"
                     class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700" />
 
-                <label for="numBeatSeparators" class="block mb-2 text-sm font-medium
-                text-gray-900 dark:text-white">Spacing</label>
-                <select id="numBeatSeparators" name="numBeatSeparators" class="bg-gray-50
-                border border-gray-300 text-gray-900 text-sm
-                rounded-lg focus:ring-blue-500 focus:border-blue-500 block
-                w-full p-2.5 dark:bg-gray-700 dark:border-gray-600
-                dark:placeholder-gray-400 dark:text-white
-                dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <label for="numBeatSeparators"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Spacing</label>
+                <select id="numBeatSeparators" name="numBeatSeparators"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option value="0">0</option>
                     <option value="1" selected>1</option>
                     <option value="2">2</option>
@@ -152,11 +134,110 @@
                 </select>
                 <!-- <button type="button" id="generateTabButton">Generate</button> -->
             </div>
-            <div class="tab_output">
+            <div class="tab_output relative">
                 <textarea id="tabOutput" readonly wrap="off" class="p-2.5
-                text-sm resize-none text-gray-900 bg-blue-50 rounded-lg border
-                border-gray-300 dark:bg-gray-700 dark:border-gray-600
-                dark:placeholder-gray-400 dark:text-white">Output TAB goes here!</textarea>
+                text-sm resize-none text-gray-900 bg-blue-50
+                rounded-lg border border-gray-300 dark:bg-gray-700
+                dark:border-gray-600 dark:placeholder-gray-400
+                dark:text-white">Output TAB goes here!
+                </textarea>
+                <div data-dial-init id="playbackMenu" class="absolute right-6
+                bottom-6 group" hidden>
+                    <div id="speed-dial-menu-default" class="flex flex-col
+                    items-center hidden mb-4 space-y-2">
+                        <button type="button" id="resetPlaybackButton" data-tooltip-target="tooltip-reset-playback"
+                            data-tooltip-placement="left" disabled
+                            class="flex justify-center items-center w-[52px] h-[52px] text-gray-500 hover:text-gray-900 bg-white rounded-full border border-gray-200 dark:border-gray-600 dark:hover:text-white shadow-sm dark:text-gray-400 hover:bg-gray-50 dark:bg-gray-700 dark:hover:bg-gray-600 focus:ring-4 focus:ring-gray-300 focus:outline-none dark:focus:ring-gray-400">
+                            <svg aria-hidden="true" class="w-4 h-4" fill="currentColor" viewBox="-1 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path d="m21.108 23.855-18.708-10.494v10.038.002c0
+                                .331-.268.599-.599.599-.001 0-.001 0-.002
+                                0h-1.2c-.001 0-.001 0-.002 0-.331
+                                0-.599-.268-.599-.599 0-.001 0-.001
+                                0-.002v-22.799-.001c0-.331.268-.599.599-.599h.001
+                                1.2.001c.331 0 .599.268.599.599v.001
+                                10.038l18.708-10.493c.159-.089.348-.141.549-.141.631
+                                0 1.142.511 1.142 1.142v.024-.001 21.665.015c0
+                                .634-.511 1.149-1.143
+                                1.155h-.001c-.202-.002-.39-.057-.552-.152l.005.003z" </path>
+                            </svg>
+                            <span class="sr-only">Reset Playback</span>
+                        </button>
+                        <div id="tooltip-reset-playback" role="tooltip"
+                            class="absolute z-10 invisible inline-block w-auto px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                            Reset Playback
+                            <div class="tooltip-arrow" data-popper-arrow></div>
+                        </div>
+
+                        <button type="button" id="pauseButton" data-tooltip-target="tooltip-pause"
+                            data-tooltip-placement="left"
+                            class="hidden justify-center items-center w-[52px] h-[52px] text-gray-500 hover:text-gray-900 bg-white rounded-full border border-gray-200 dark:border-gray-600 dark:hover:text-white shadow-sm dark:text-gray-400 hover:bg-gray-50 dark:bg-gray-700 dark:hover:bg-gray-600 focus:ring-4 focus:ring-gray-300 focus:outline-none dark:focus:ring-gray-400">
+                            <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="-3 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path d="m4.801
+                                23.999h-3.6c-.662-.001-1.199-.537-1.2-1.2v-21.6c0-.663.537-1.2
+                                1.2-1.201h3.6c.662.001 1.199.537 1.2 1.2v21.6c0
+                                .663-.537 1.2-1.2 1.201z" />
+                                <path d="m16.8 23.999h-3.6c-.663
+                                0-1.2-.537-1.2-1.2v-21.6-.001c0-.663.537-1.2
+                                1.2-1.2h3.6c.663 0 1.2.537 1.2 1.2v21.6c0
+                                .663-.537 1.2-1.2 1.2z" />
+                            </svg>
+                            <span class="sr-only">Pause</span>
+                        </button>
+                        <div id="tooltip-pause" role="tooltip"
+                            class="absolute z-10 invisible inline-block w-auto px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                            Pause
+                            <div class="tooltip-arrow" data-popper-arrow></div>
+                        </div>
+                        <button type="button" id="playButton" data-tooltip-target="tooltip-play"
+                            data-tooltip-placement="left" class="flex justify-center items-center w-[52px]
+                        h-[52px] text-gray-500 hover:text-gray-900 bg-white
+                        rounded-full border border-gray-200 dark:border-gray-600
+                        dark:hover:text-white shadow-sm dark:text-gray-400
+                        hover:bg-gray-50 dark:bg-gray-700 dark:hover:bg-gray-600
+                        focus:ring-4 focus:ring-gray-300 focus:outline-none
+                        dark:focus:ring-gray-400">
+                            <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="-1 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path d="m.001 1.165v21.669c.052.661.601 1.177 1.271
+                                                                                1.177.225 0 .436-.058.62-.16l-.006.003
+                                                                                21.442-10.8c.4-.192.671-.593.671-1.058s-.271-.867-.664-1.055l-.007-.003-21.442-10.8c-.177-.099-.388-.157-.613-.157-.672
+                                                                                0-1.223.521-1.27 1.181v.004z" </path>
+                            </svg>
+                            <span class="sr-only">Play</span>
+                        </button>
+                        <div id="tooltip-play" role="tooltip"
+                            class="absolute z-10 invisible inline-block w-auto px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                            Play
+                            <div class="tooltip-arrow" data-popper-arrow></div>
+                        </div>
+                    </div>
+                    <button type="button" data-dial-toggle="speed-dial-menu-default"
+                        aria-controls="speed-dial-menu-default" aria-expanded="false"
+                        class="flex items-center justify-center text-white bg-blue-700 rounded-full w-14 h-14 hover:bg-blue-800 dark:bg-blue-600 dark:hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:focus:ring-blue-800">
+                        <svg aria-hidden="true" class="w-6 h-6 transition-transform group-hover:scale-110"
+                            fill="currentColor" viewBox="-2 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="m18.07.169c-.148-.106-.333-.169-.532-.169-.111
+                            0-.217.02-.316.055l.006-.002-11.077
+                            3.938c-.361.131-.613.471-.613.869v.001 2.193.042
+                            10.604c-.534-.295-1.169-.469-1.846-.471h-.001c-.043-.002-.093-.003-.143-.003-1.904
+                            0-3.458 1.497-3.549 3.379v.008c.091 1.89 1.645 3.388
+                            3.549 3.388.05 0
+                            .1-.001.15-.003h-.007c.043.002.093.003.143.003 1.904
+                            0 3.458-1.497
+                            3.549-3.379v-.008-12.883l9.23-3.223v8.973c-.534-.294-1.17-.468-1.846-.47h-.001c-.043-.002-.094-.003-.144-.003-1.904
+                            0-3.457 1.498-3.547 3.379v.008c.09 1.89 1.644 3.388
+                            3.548 3.388.051 0
+                            .101-.001.151-.003h-.007c.031.001.068.002.105.002
+                            1.696 0 3.12-1.166
+                            3.513-2.74l.005-.025c.042-.101.068-.217.069-.34v-15.754c0-.31-.153-.585-.388-.752l-.003-.002z">
+                            </path>
+                        </svg>
+                        <span class="sr-only">Open actions menu</span>
+                    </button>
+                </div>
             </div>
         </section>
     </div>
@@ -171,6 +252,7 @@
     </script>
     <script type="module" src="https:///cdn.jsdelivr.net/gh/noahbaculi/guitar-tab/src/guitar_object.js"></script>
     <script type="module" src="assets/js/guitartab.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.min.js"></script>
 </body>
 
 </html>

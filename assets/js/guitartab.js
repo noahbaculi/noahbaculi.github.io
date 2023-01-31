@@ -8,6 +8,8 @@ function print(...objs) {
 	}
 }
 
+let playbackBeatNumber = -1;
+
 // Maintain latest guitar so formatting settings can update output without
 // recomputing tabData
 let guitar;
@@ -47,16 +49,16 @@ function createArrangement() {
 		document.getElementById("tabOutput").disabled = true;
 		return;
 	}
+	playbackBeatNumber = -1;
 	displayTab(tabData);
 	playTabAudio();
 }
 
 async function playTabAudio() {
-	print(tabData);
-	let beatNumber = -1;
+	playbackBeatNumber = -1;
 	for (const beatData of tabData) {
 		// Iterate beat number
-		beatNumber += 1;
+		playbackBeatNumber += 1;
 
 		// Skip breaks
 		if (beatData === "break") {
@@ -69,7 +71,7 @@ async function playTabAudio() {
 			playPitchAudio(beatPitch.replaceAll("#", "sharp"));
 		}
 
-		displayTab(tabData, beatNumber);
+		displayTab(tabData, playbackBeatNumber);
 
 		const delayDurationMillisecond = 800;
 		await new Promise((r) => setTimeout(r, delayDurationMillisecond));
@@ -110,7 +112,7 @@ function displayTab(tabData, currentlyPlayingIndex = -1) {
 		/**
 		 * Create single long bare TAB plain text string
 		 */
-		function generateTabStringData(tabData) {
+		function generateTabStringData(tabData, currentlyPlayingIndex = -1) {
 			const stringOutputs = new Map([
 				[1, []],
 				[2, []],
@@ -118,16 +120,18 @@ function displayTab(tabData, currentlyPlayingIndex = -1) {
 				[4, []],
 				[5, []],
 				[6, []],
+				["playbackIndicator", []],
 			]);
 
-			const beatStrings = new Set(stringOutputs.keys());
-			for (const beatData of tabData) {
+			// for (const beatData of tabData) {
+			tabData.forEach((beatData, beatIndex) => {
 				// Add measure breaks
 				if (beatData === "break") {
-					for (const stringNum of beatStrings) {
+					for (const stringNum of [1, 2, 3, 4, 5, 6]) {
 						stringOutputs.get(stringNum).push("|");
 					}
-					continue;
+					stringOutputs.get("playbackIndicator").push(" ");
+					return;
 				}
 
 				// Calculate the max width of the fret fingerings
@@ -152,22 +156,31 @@ function displayTab(tabData, currentlyPlayingIndex = -1) {
 					}
 					stringOutputs.get(stringNum).push(fretOutput);
 				});
-			}
+
+				let playbackIndicatorOutput = " ".repeat(maxFretValueLength);
+				if (beatIndex === currentlyPlayingIndex) {
+					playbackIndicatorOutput = " ".repeat(maxFretValueLength - 1) + "↑";
+				}
+				stringOutputs.get("playbackIndicator").push(playbackIndicatorOutput);
+			});
 			return stringOutputs;
 		}
-		const tabStringData = generateTabStringData(tabData);
+		const tabStringData = generateTabStringData(tabData, currentlyPlayingIndex);
 
 		// Add dash separators
 		const beatSeparator = "-".repeat(numBeatSeparators); // to customize spacing
+		const playbackBeatSeparator = " ".repeat(numBeatSeparators); // to customize spacing
 		let tabCombinedStrings = new Map();
 		tabStringData.forEach((value, key) => {
-			tabCombinedStrings.set(key, beatSeparator + value.join(beatSeparator) + beatSeparator);
+			if (key === "playbackIndicator") {
+				tabCombinedStrings.set(key, playbackBeatSeparator + value.join(playbackBeatSeparator) + playbackBeatSeparator);
+			} else {
+				tabCombinedStrings.set(key, beatSeparator + value.join(beatSeparator) + beatSeparator);
+			}
 		});
 
 		// Apply line length
-		let startBeatLineIndex = 0;
 		const numBeatsPerLine = Math.floor(lineLength / (numBeatSeparators + 1));
-		let endBeatLineIndex = numBeatsPerLine - 1;
 		let outputString = "";
 		while (tabCombinedStrings.get(1).length > 0) {
 			for (const stringNum of tabCombinedStrings.keys()) {
@@ -176,14 +189,8 @@ function displayTab(tabData, currentlyPlayingIndex = -1) {
 				// Remove handled beats
 				tabCombinedStrings.set(stringNum, tabCombinedStrings.get(stringNum).slice(lineLength));
 				outputString += "\n";
-				if (stringNum === 6) {
-					if (startBeatLineIndex <= currentlyPlayingIndex && currentlyPlayingIndex <= endBeatLineIndex) {
-						const currentlyPlayingIndexInLine = currentlyPlayingIndex % numBeatsPerLine;
-						const numSpaces =
-							numBeatSeparators + currentlyPlayingIndexInLine + currentlyPlayingIndexInLine * numBeatSeparators;
-						console.log(startBeatLineIndex, currentlyPlayingIndex, endBeatLineIndex);
-						outputString += " ".repeat(numSpaces) + "↑";
-					}
+
+				if (stringNum === "playbackIndicator") {
 					outputString += "\n\n";
 					startBeatLineIndex += numBeatsPerLine;
 					endBeatLineIndex += numBeatsPerLine;
@@ -201,12 +208,6 @@ function displayTab(tabData, currentlyPlayingIndex = -1) {
 
 	document.getElementById("tabOutput").value = tabString;
 	document.getElementById("tabOutput").disabled = false;
-
-	// // Resize tabOutput if on mobile
-	// if (document.body.clientWidth < 736) {
-	// 	document.getElementById("tabOutput").style.height = "auto";
-	// 	document.getElementById("tabOutput").style.height = document.getElementById("tabOutput").scrollHeight + 3 + "px";
-	// }
 }
 
 function deactivateTabOutput() {
@@ -608,7 +609,7 @@ for (const displaySettingId of ["tabLineLength", "numBeatSeparators"]) {
 	document.getElementById(displaySettingId).addEventListener("input", () => {
 		updateLineLengthLabel();
 		if (tabData !== undefined) {
-			displayTab(tabData);
+			displayTab(tabData, playbackBeatNumber);
 		}
 	});
 }
@@ -627,19 +628,3 @@ document.getElementById("exportButton").addEventListener("click", () => {
 
 	alert("Tab output saved to your downloads! 🎉");
 });
-
-// const testNotesString = `E4
-// Eb4
-// E4
-// Eb4
-// E4
-// B3
-// D4
-// C4
-
-// A2A3
-// E3
-// A3
-// C3
-// E3
-// A3`;

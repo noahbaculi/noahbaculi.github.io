@@ -8,6 +8,9 @@ function print(...objs) {
 	}
 }
 
+let playbackBeatNumber = -1;
+let allowPlayback = false;
+
 // Maintain latest guitar so formatting settings can update output without
 // recomputing tabData
 let guitar;
@@ -37,6 +40,9 @@ let tabData;
 function createArrangement() {
 	const pitchInput = document.getElementById("pitchInput");
 
+	playbackBeatNumber = -1;
+	stopPlayback();
+
 	try {
 		const arrangement = new exports.Arrangement(guitar, pitchInput.value);
 		tabData = arrangement.bestFingerings;
@@ -44,9 +50,46 @@ function createArrangement() {
 		console.error(error);
 		document.getElementById("tabOutput").value = error;
 		document.getElementById("tabOutput").disabled = true;
+		document.getElementById("playbackMenu").hidden = true;
 		return;
 	}
 	displayTab(tabData);
+	document.getElementById("playbackMenu").hidden = false;
+}
+
+async function playTabAudio() {
+	while (playbackBeatNumber < tabData.length) {
+		// Iterate beat number
+		playbackBeatNumber++;
+		const beatData = tabData[playbackBeatNumber];
+
+		if (!allowPlayback) {
+			return;
+		}
+
+		// Skip breaks
+		if (beatData === "break") {
+			continue;
+		}
+
+		const beatPitches = beatData.get("pitches");
+		for (const beatPitch of beatPitches) {
+			playPitchAudio(beatPitch.replaceAll("#", "sharp"));
+		}
+
+		displayTab(tabData, playbackBeatNumber);
+
+		// Execute delay in chunks to check for `allowPlayback` flag to prevent
+		// errors from rapid input
+		const delayDurationMillisecond = 500;
+		const subDelayDurationMillisecond = 100;
+		for (let i = 0; i < delayDurationMillisecond; i += subDelayDurationMillisecond) {
+			if (!allowPlayback) {
+				return;
+			}
+			await new Promise((r) => setTimeout(r, subDelayDurationMillisecond));
+		}
+	}
 }
 
 function updateLineLengthLabel() {
@@ -61,7 +104,7 @@ function updateLineLengthLabel() {
 }
 updateLineLengthLabel(); // update line length label with initial default value
 
-function displayTab(tabData) {
+function displayTab(tabData, currentlyPlayingIndex = -1) {
 	let tabLineLength = 80;
 	try {
 		tabLineLength = parseInt(document.getElementById("tabLineLength").value);
@@ -79,11 +122,11 @@ function displayTab(tabData) {
 	/**
 	 * Format TAB data to plain text string
 	 */
-	function generateTabString(tabData, lineLength = 80, numBeatSeparators = 1) {
+	function generateTabString(tabData, lineLength = 80, numBeatSeparators = 1, currentlyPlayingIndex = -1) {
 		/**
 		 * Create single long bare TAB plain text string
 		 */
-		function generateTabStringData(tabData) {
+		function generateTabStringData(tabData, currentlyPlayingIndex = -1) {
 			const stringOutputs = new Map([
 				[1, []],
 				[2, []],
@@ -91,16 +134,18 @@ function displayTab(tabData) {
 				[4, []],
 				[5, []],
 				[6, []],
+				["playbackIndicator", []],
 			]);
 
-			const beatStrings = new Set(stringOutputs.keys());
-			for (const beatData of tabData) {
+			// for (const beatData of tabData) {
+			tabData.forEach((beatData, beatIndex) => {
 				// Add measure breaks
 				if (beatData === "break") {
-					for (const stringNum of beatStrings) {
+					for (const stringNum of [1, 2, 3, 4, 5, 6]) {
 						stringOutputs.get(stringNum).push("|");
 					}
-					continue;
+					stringOutputs.get("playbackIndicator").push(" ");
+					return;
 				}
 
 				// Calculate the max width of the fret fingerings
@@ -120,21 +165,33 @@ function displayTab(tabData) {
 
 						// Add additional dashes if there is a wider fingering
 						// in the same beat
-						const currFretWidthDelta = maxFretValueLength - fret.length;
+						const currFretWidthDelta = maxFretValueLength - fretOutput.length;
+
 						fretOutput += "-".repeat(currFretWidthDelta);
 					}
 					stringOutputs.get(stringNum).push(fretOutput);
 				});
-			}
+
+				let playbackIndicatorOutput = " ".repeat(maxFretValueLength);
+				if (beatIndex === currentlyPlayingIndex) {
+					playbackIndicatorOutput = " ".repeat(maxFretValueLength - 1) + "↑";
+				}
+				stringOutputs.get("playbackIndicator").push(playbackIndicatorOutput);
+			});
 			return stringOutputs;
 		}
-		const tabStringData = generateTabStringData(tabData);
+		const tabStringData = generateTabStringData(tabData, currentlyPlayingIndex);
 
 		// Add dash separators
 		const beatSeparator = "-".repeat(numBeatSeparators); // to customize spacing
+		const playbackBeatSeparator = " ".repeat(numBeatSeparators); // to customize spacing
 		let tabCombinedStrings = new Map();
 		tabStringData.forEach((value, key) => {
-			tabCombinedStrings.set(key, beatSeparator + value.join(beatSeparator) + beatSeparator);
+			if (key === "playbackIndicator") {
+				tabCombinedStrings.set(key, playbackBeatSeparator + value.join(playbackBeatSeparator) + playbackBeatSeparator);
+			} else {
+				tabCombinedStrings.set(key, beatSeparator + value.join(beatSeparator) + beatSeparator);
+			}
 		});
 
 		// Apply line length
@@ -146,8 +203,9 @@ function displayTab(tabData) {
 				// Remove handled beats
 				tabCombinedStrings.set(stringNum, tabCombinedStrings.get(stringNum).slice(lineLength));
 				outputString += "\n";
-				if (stringNum === 6) {
-					outputString += "\n";
+
+				if (stringNum === "playbackIndicator") {
+					outputString += "\n\n";
 				}
 			}
 		}
@@ -155,15 +213,9 @@ function displayTab(tabData) {
 		return outputString;
 	}
 
-	const tabString = generateTabString(tabData, tabLineLength, numBeatSeparators);
+	const tabString = generateTabString(tabData, tabLineLength, numBeatSeparators, currentlyPlayingIndex);
 	document.getElementById("tabOutput").value = tabString;
 	document.getElementById("tabOutput").disabled = false;
-
-	// // Resize tabOutput if on mobile
-	// if (document.body.clientWidth < 736) {
-	// 	document.getElementById("tabOutput").style.height = "auto";
-	// 	document.getElementById("tabOutput").style.height = document.getElementById("tabOutput").scrollHeight + 3 + "px";
-	// }
 }
 
 function deactivateTabOutput() {
@@ -538,9 +590,16 @@ function loadExampleSong() {
 	createArrangement();
 }
 
-function playGuitarAudio(noteName) {
+function playPitchAudio(noteName) {
 	const audio = new Audio("./assets/guitar_notes/" + noteName.trim() + ".mp3");
 	audio.play();
+}
+
+function stopPlayback() {
+	allowPlayback = false;
+	document.getElementById("resetPlaybackButton").disabled = false;
+	document.getElementById("pauseButton").style.display = "none";
+	document.getElementById("playButton").style.display = "flex";
 }
 
 const pitchInput = document.getElementById("pitchInput");
@@ -565,7 +624,7 @@ for (const displaySettingId of ["tabLineLength", "numBeatSeparators"]) {
 	document.getElementById(displaySettingId).addEventListener("input", () => {
 		updateLineLengthLabel();
 		if (tabData !== undefined) {
-			displayTab(tabData);
+			displayTab(tabData, playbackBeatNumber);
 		}
 	});
 }
@@ -585,18 +644,26 @@ document.getElementById("exportButton").addEventListener("click", () => {
 	alert("Tab output saved to your downloads! 🎉");
 });
 
-// const testNotesString = `E4
-// Eb4
-// E4
-// Eb4
-// E4
-// B3
-// D4
-// C4
+// Add event listener to export tab output when export button is pressed
+document.getElementById("playButton").addEventListener("click", () => {
+	if (!(Symbol.iterator in Object(tabData))) {
+		return;
+	}
+	document.getElementById("resetPlaybackButton").disabled = false;
+	document.getElementById("pauseButton").style.display = "flex";
+	document.getElementById("playButton").style.display = "none";
+	allowPlayback = true;
+	playTabAudio();
+});
 
-// A2A3
-// E3
-// A3
-// C3
-// E3
-// A3`;
+// Add event listener to export tab output when export button is pressed
+document.getElementById("pauseButton").addEventListener("click", () => {
+	stopPlayback();
+});
+
+// Add event listener to export tab output when export button is pressed
+document.getElementById("resetPlaybackButton").addEventListener("click", () => {
+	playbackBeatNumber = -1;
+	stopPlayback();
+	displayTab(tabData);
+});

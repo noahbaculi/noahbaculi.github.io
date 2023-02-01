@@ -165,7 +165,8 @@ function displayTab(tabData, currentlyPlayingIndex = -1) {
 
 						// Add additional dashes if there is a wider fingering
 						// in the same beat
-						const currFretWidthDelta = maxFretValueLength - fret.length;
+						const currFretWidthDelta = maxFretValueLength - fretOutput.length;
+
 						fretOutput += "-".repeat(currFretWidthDelta);
 					}
 					stringOutputs.get(stringNum).push(fretOutput);

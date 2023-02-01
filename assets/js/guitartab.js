@@ -81,7 +81,7 @@ async function playTabAudio() {
 
 		// Execute delay in chunks to check for `allowPlayback` flag to prevent
 		// errors from rapid input
-		const delayDurationMillisecond = 1000;
+		const delayDurationMillisecond = 500;
 		const subDelayDurationMillisecond = 100;
 		for (let i = 0; i < delayDurationMillisecond; i += subDelayDurationMillisecond) {
 			if (!allowPlayback) {

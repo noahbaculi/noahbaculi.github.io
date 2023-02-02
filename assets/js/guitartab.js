@@ -58,7 +58,7 @@ function createArrangement() {
 }
 
 async function playTabAudio() {
-	while (playbackBeatNumber < tabData.length) {
+	if (playbackBeatNumber < tabData.length) {
 		// Iterate beat number
 		playbackBeatNumber++;
 		const beatData = tabData[playbackBeatNumber];
@@ -69,28 +69,49 @@ async function playTabAudio() {
 
 		// Skip breaks
 		if (beatData === "break") {
-			continue;
+			playTabAudio();
+			return;
 		}
 
-		const beatPitches = beatData.get("pitches");
-		for (const beatPitch of beatPitches) {
-			playPitchAudio(beatPitch.replaceAll("#", "sharp"));
-		}
+		let beatPitches = beatData.get("pitches");
+		beatPitches = beatPitches.map((pitchString) => {
+			return pitchString.replaceAll("#", "sharp");
+		});
+		// for (const beatPitch of beatPitches) {
+		// 	playPitchAudio(beatPitch);
+		// }
+		// playPitchAudio(beatPitches);
 
 		displayTab(tabData, playbackBeatNumber);
 
-		// Execute delay in chunks to check for `allowPlayback` flag to prevent
-		// errors from rapid input
-		const delayDurationMillisecond = 500;
-		const subDelayDurationMillisecond = 100;
-		for (let i = 0; i < delayDurationMillisecond; i += subDelayDurationMillisecond) {
-			if (!allowPlayback) {
-				return;
+		beatPitches.forEach((noteName, index, arr) => {
+			const audio = new Audio("./assets/guitar_notes/" + noteName.trim() + ".mp3");
+			audio.playbackRate = 10;
+			audio.play();
+			if (index === arr.length - 1) {
+				audio.addEventListener("ended", playTabAudio);
 			}
-			await new Promise((r) => setTimeout(r, subDelayDurationMillisecond));
-		}
+		});
+
+		// await new Promise((r) => setTimeout(r, 500));
+
+		// // Execute delay in chunks to check for `allowPlayback` flag to prevent
+		// // errors from rapid input
+		// const delayDurationMillisecond = 600;
+		// const subDelayDurationMillisecond = 200;
+		// for (let i = 0; i < delayDurationMillisecond; i += subDelayDurationMillisecond) {
+		// 	if (!allowPlayback) {
+		// 		return;
+		// 	}
+		// 	await new Promise((r) => setTimeout(r, subDelayDurationMillisecond));
+		// 	// setTimeout(() => {
+		// 	// 	console.log("we waited 100 ms to run this code, oh boy!");
+		// 	// }, subDelayDurationMillisecond * i);
+		// }
 	}
 }
+
+function playPitchAudio(noteNames) {}
 
 function updateLineLengthLabel() {
 	let tabLineLength = 80;
@@ -588,11 +609,6 @@ function loadExampleSong() {
 	pitchInput.value = `${pitchInput.value}\n\n// Example\n// ${exSongInputName}\n${exSongNotes}`;
 
 	createArrangement();
-}
-
-function playPitchAudio(noteName) {
-	const audio = new Audio("./assets/guitar_notes/" + noteName.trim() + ".mp3");
-	audio.play();
 }
 
 function stopPlayback() {

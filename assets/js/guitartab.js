@@ -205,15 +205,30 @@ const pitchToFrequency = {
 	Eb8: 4978.03,
 };
 
+// Play single note
+// const plucky = new exports.Tone.PluckSynth();
+const plucky = new exports.Tone.PluckSynth().toDestination();
+plucky.set({ attackNoise: 0.8, dampening: 2000, resonance: 0.95, release: 1 });
+// plucky.triggerAttackRelease("E3", "2n", 1);
+// plucky.triggerAttackRelease("G3", "4n", 1.01);
+plucky.triggerAttack("C4", "+0.5");
+plucky.triggerAttack("C3", "+1");
+plucky.triggerAttack("C2", "+1.5");
+plucky.triggerAttack("E2", "+1.8");
+
+// Play multiple notes
+
+const synth = new exports.Tone.PolySynth().toDestination();
+// set the attributes across all the voices using 'set'
+synth.set({ detune: -1200 });
+// play a chord
+synth.triggerAttackRelease(["E3", "G3", "B3", "E4"], "8n", 5);
+synth.triggerAttackRelease(["C3"], "8n", 2);
+synth.triggerAttackRelease(["G3"], "8n", 2 + 0.5);
+synth.triggerAttackRelease(["B3"], "8n", 2 + 1.0);
+synth.triggerAttackRelease(["E4"], "8n", 2 + 1.5);
+
 let noteAudioOscillator = null;
-
-// noteAudioOscillator.frequency.setValueAtTime(pitchToFrequency["E2"]);
-// pitchAudioOscillator.frequency.setValueAtTime(110, 1); // value in hertz
-// pitchAudioOscillator.frequency.setValueAtTime(440, 2); // value in hertz
-// pitchAudioOscillator.frequency.setValueAtTime(110, 3); // value in hertz
-// noteAudioOscillator.connect(audioContext.destination);
-// pitchAudioOscillator.start();
-
 function playTabAudio() {
 	noteAudioOscillator = audioContext.createOscillator();
 	noteAudioOscillator.connect(audioContext.destination);

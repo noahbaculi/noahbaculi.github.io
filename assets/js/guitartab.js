@@ -78,8 +78,8 @@ function playBeatAudio() {
 }
 
 let playbackBeatNumber = -1;
-let playbackSynth;
-let currentlyPlayingAudioFunctionRepeatInterval;
+let playbackSynth = null;
+let currentlyPlayingAudioFunctionRepeatInterval = null;
 function playTabAudio() {
 	// // Pluck single note
 	// const plucky = new exports.Tone.PluckSynth().toDestination();
@@ -597,7 +597,9 @@ function stopPlayback() {
 	document.getElementById("playButton").style.display = "flex";
 
 	// Silence the synth
-	playbackSynth.releaseAll();
+	if (playbackSynth !== null) {
+		playbackSynth.releaseAll();
+	}
 	// Stop updating the TAB with the visual playing indicator
 	clearInterval(currentlyPlayingAudioFunctionRepeatInterval);
 }

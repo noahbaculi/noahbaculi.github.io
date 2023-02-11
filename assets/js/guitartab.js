@@ -8,8 +8,6 @@ function print(...objs) {
 	}
 }
 
-let playbackBeatNumber = -1;
-
 // Maintain latest guitar so formatting settings can update output without
 // recomputing tabData
 let guitar;
@@ -79,14 +77,18 @@ function playBeatAudio() {
 	displayTab(tabData, playbackBeatNumber);
 }
 
-const playbackSynth = new exports.Tone.PolySynth().toDestination();
-playbackSynth.set({ detune: -1200 });
+let playbackBeatNumber = -1;
+let playbackSynth;
 let currentlyPlayingAudioFunctionRepeatInterval;
 function playTabAudio() {
 	// // Pluck single note
 	// const plucky = new exports.Tone.PluckSynth().toDestination();
 	// plucky.set({ attackNoise: 0.8, dampening: 2000, resonance: 0.95, release:
 	// 1 });
+
+	// Create playbackSynth if it does not exist
+	playbackSynth ??= new exports.Tone.PolySynth().toDestination();
+	playbackSynth.set({ detune: -1200 });
 
 	currentlyPlayingAudioFunctionRepeatInterval = setInterval(playBeatAudio, 500);
 }

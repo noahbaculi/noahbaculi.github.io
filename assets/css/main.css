@@ -917,6 +917,11 @@ a:hover {
 	transition: 0.2s;
 }
 
+a > div.row:hover {
+	border: 1px solid red;
+	border-radius: 4px;
+}
+
 p > a {
 	border-bottom: dotted 1px rgb(176, 176, 176);
 }

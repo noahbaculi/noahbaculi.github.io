@@ -917,11 +917,6 @@ a:hover {
 	transition: 0.2s;
 }
 
-a > div.row:hover {
-	border: 1px solid red;
-	border-radius: 4px;
-}
-
 p > a {
 	border-bottom: dotted 1px rgb(176, 176, 176);
 }
@@ -1070,6 +1065,22 @@ hr {
 	align-items: stretch;
 	margin: 0.5em;
 	margin-top: 0;
+}
+
+a > div.row:hover {
+	border: 1px solid #0369a1;
+	border-radius: 4px;
+	transition: 0.2s;
+}
+
+.portfolio_row ul {
+	margin: 0;
+}
+
+.portfolio_row {
+	border: 1px solid transparent;
+	padding: 1em;
+	margin: 0;
 }
 
 div.inner.subpage > div.row {

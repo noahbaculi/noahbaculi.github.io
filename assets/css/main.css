@@ -1086,6 +1086,7 @@ a > div.row:hover {
 .portfolio_more {
 	text-align: right;
 	width: 90%;
+	margin-top: 1svh;
 }
 
 .portfolio_more > a {
@@ -1202,6 +1203,10 @@ div.inner.subpage > div.row {
 	.row > .text_column {
 		width: 100% !important;
 		padding: 1em 0 2em 0.5em;
+	}
+
+	.portfolio_row > .text_column {
+		padding: 0 !important;
 	}
 
 	.row > .one_third_gallery {

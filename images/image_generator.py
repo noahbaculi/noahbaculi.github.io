@@ -53,7 +53,7 @@ def convert_folder(base_path: str, widths: list, exclude: list = None, include: 
     invalid_files = []
 
     for root, _, files in list(os.walk(base_path)):
-        img_types = [".jpg", ".JPG", ".jpeg", ".JPEG", ".png", ".PNG"]
+        img_types = [".jpg", ".JPG", ".jpeg", ".JPEG", ".png", ".PNG", ".HEIC"]
         files = [x for x in files if os.path.splitext(x)[1] in img_types]
         files = [x for x in files if "_w." not in x]
         print(files)
@@ -72,6 +72,7 @@ def convert_folder(base_path: str, widths: list, exclude: list = None, include: 
 if __name__ == "__main__":
     ## PORTFOLIO
     # convert_folder(r"portfolio\carium", [400, 1000], exclude=["orig"])
+    convert_folder(r"images\portfolio\pet_feeder", [400, 1000])
     # convert_folder(r"portfolio\salesforce", [400, 800], exclude=["team_lunch_orig.png"])
     # convert_folder(r"portfolio\aldras", [400, 1000], exclude=["logo", "inspiration", "business", "application_icon"])
     # convert_folder(r"portfolio\aldras", [200], include=["logo", "inspiration", "business", "application_icon"])
@@ -88,7 +89,7 @@ if __name__ == "__main__":
     # convert_folder(r"about\travel", [400, 800, 1500])
     # convert_folder(r"about\principles", [500, 1000, 2000])
     # convert_folder(r"about\learning", [500, 1000, 2000], include=['background'])
-    convert_folder(r"about\learning", [400, 1000], exclude=["background"])
+    # convert_folder(r"about\learning", [400, 1000], exclude=["background"])
     # convert_folder(r"about\music", [400, 1000])
     # convert_folder(r"about\swim", [400, 1000])
 

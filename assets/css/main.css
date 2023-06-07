@@ -1058,9 +1058,11 @@ hr {
 /* Project Tiles */
 
 div.project_tiles_row {
-	margin: 0;
+	flex-wrap: wrap;
 	justify-content: center;
+	align-items: flex-start;
 	gap: 1vh;
+	margin: 0;
 }
 
 div.project_tile {
@@ -1113,7 +1115,6 @@ div.project_tile_end_logo {
 	display: flex;
 	flex-wrap: wrap;
 	box-sizing: border-box;
-	align-items: stretch;
 	margin-bottom: -0.8em;
 
 	& a {

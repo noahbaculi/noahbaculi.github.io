@@ -1168,7 +1168,8 @@ div.project_tile_end_logo {
 	margin-top: 0;
 
 	@media screen and (max-width: 480px) {
-		.image_column {
+		.image_column,
+		.half_image_column {
 			max-width: 75svw;
 		}
 
@@ -1183,6 +1184,12 @@ div.project_tile_end_logo {
 		& li {
 			font-size: small;
 		}
+	}
+}
+
+@media only screen and (min-width: 980px) {
+	.reverse_on_desktop {
+		flex-direction: row-reverse;
 	}
 }
 
@@ -1346,7 +1353,7 @@ div.inner.subpage > div.row {
 	}
 
 	.row > .half_image_column img {
-		margin: 1em 0;
+		padding: 1em 0;
 	}
 
 	.row > .text_column {
@@ -1375,7 +1382,6 @@ div.inner.subpage > div.row {
 @media screen and (max-width: 440px) {
 	.row > .half_image_column {
 		width: 48%;
-		height: 14em;
 	}
 
 	.row > .one_fourth_image_column {

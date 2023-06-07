@@ -1055,11 +1055,103 @@ hr {
 	text-align: right;
 }
 
+/* Project Tiles */
+
+div.project_tiles_row {
+	margin: 0;
+	justify-content: center;
+	gap: 1vh;
+}
+
+div.project_tile {
+	max-width: 20rem;
+	background-color: #ffffff;
+	border: 1px solid #c4c4c4;
+	border-radius: 0.5rem;
+	box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+
+	/* --horizontal-padding: 1%;
+	width: calc(33.33% - calc(2 * var(--horizontal-padding)));
+	margin: 0 var(--horizontal-padding); */
+
+	& a > img {
+		border-top-left-radius: 0.5rem;
+		border-top-right-radius: 0.5rem;
+		max-width: 100%;
+	}
+
+	& div > a > h5 {
+		margin-bottom: 0.5rem;
+		font-size: 1.5rem;
+	}
+
+	/* @media screen and (max-width: 980px) {
+		width: calc(33.33% - calc(2 * var(--horizontal-padding)));
+	}
+
+	@media screen and (max-width: 736px) {
+		width: calc(50% - calc(2 * var(--horizontal-padding)));
+	}
+
+	@media screen and (max-width: 480px) {
+		width: calc(100% - calc(2 * var(--horizontal-padding)));
+	} */
+}
+
+div.project_tile > div {
+	padding: 0 1.25rem 1.25rem 1.25rem;
+}
+
+div.project_tile > div > p {
+	margin-bottom: 0.75rem;
+	font-weight: normal;
+	color: rgb(55, 65, 81);
+}
+
+div.project_tile_end_logo {
+	direction: rtl;
+	display: flex;
+	flex-wrap: wrap;
+	box-sizing: border-box;
+	align-items: stretch;
+	margin-bottom: -0.8em;
+
+	& a {
+		max-width: 10%;
+
+		& img {
+			max-width: 100%;
+		}
+	}
+}
+
+div.project_tile_tech_used {
+	display: flex;
+	flex-wrap: wrap;
+	box-sizing: border-box;
+	align-items: stretch;
+	justify-content: flex-end;
+	gap: 0.5em;
+	margin-bottom: 0.5em;
+
+	& div {
+		display: flex;
+		flex-wrap: wrap;
+		box-sizing: border-box;
+		align-items: center;
+		gap: 0.5em;
+
+		& img {
+			max-height: 1.5em;
+		}
+	}
+}
+
 /* Row */
 
 .row {
 	display: flex;
-	flex-wrap: wrap;
+	flex-wrap: wrap-reverse;
 	box-sizing: border-box;
 	align-items: stretch;
 	margin: 0.5em;
@@ -1089,7 +1181,8 @@ a > div.row:hover {
 	margin-top: 1svh;
 }
 
-.portfolio_more > a {
+.portfolio_more > a,
+.project_tile_more {
 	font-weight: 500;
 	background-color: rgb(26 86 219);
 	color: white;

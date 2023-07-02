@@ -1064,7 +1064,7 @@ hr {
 div.project_tiles_row {
 	flex-wrap: wrap;
 	justify-content: center;
-	align-items: center;
+	align-items: start;
 	gap: 1vh;
 	margin: 0;
 }

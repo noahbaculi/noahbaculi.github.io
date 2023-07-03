@@ -1,0 +1,134 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<title>Noah - Pet Feeder</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<meta name="description" content="Noah's Personal Project | Pet Feeder | 2023">
+	<link rel="stylesheet" href="assets/css/main.css">
+	<noscript>
+		<link rel="stylesheet" href="assets/css/noscript.css">
+	</noscript>
+	<link rel="icon" href="./images/icons/favicon_50_w.webp">
+</head>
+
+<body class="is-preload" onload="updatePageTitle('Pet Feeder')">
+	<!-- Wrapper -->
+	<div id="wrapper">
+		<div id="headers"></div>
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css" media="all"
+			rel="stylesheet" type="text/css" lazyload>
+		<!-- Main -->
+		<div id="main">
+			<div class="inner subpage">
+				<div class="row">
+					<img srcset="
+							./images/portfolio/pet_feeder/pet_feeder_final_400_w.webp 400w,
+							./images/portfolio/pet_feeder/pet_feeder_final_1000_w.webp 800w" sizes="50vw" loading="lazy" decoding="async"
+						src="./images/portfolio/pet_feeder/pet_feeder_final.jpg"
+						style="max-width: 50vw; max-height: 30vh; border-radius: 0.5rem;" alt="Pet Feeder">
+				</div>
+				<h2 class="align-center subpage" style="margin-top: 1em;">Automatic Pet Feeder</h2>
+				<h5 class="align-center subpage">Designer and Engineer, <i>2023</i></h5>
+				<div class="row reverse_on_desktop">
+					<div class="half_image_column">
+						<img srcset="
+							./images/portfolio/pet_feeder/pet_feeder_electronics_400_w.webp 400w,
+							./images/portfolio/pet_feeder/pet_feeder_electronics_1000_w.webp 800w" sizes="(max-width: 980px) 100vw, 55vw"
+							loading="lazy" decoding="async"
+							src="./images/portfolio/pet_feeder/pet_feeder_electronics.jpg" alt="Pet Feeder Electronics">
+					</div>
+					<div class="half_text_column">
+						<p>
+							My family had three cats, all with different feeding
+							schedules. After seeing the price of commercial
+							automatic feeders, I set out to design my own. I
+							first experimented with different ideas for the
+							sensing and to ensure the electronics would work as
+							expected.
+						</p>
+						<p style="padding-top: 1em;">
+							I ended up settling on using an ESP32 WROOM
+							microcontroller and the proximity of a bluetooth tag
+							from Blue Charm Beacons to trigger the opening and
+							closing of the door. I wrote the Arduino (C++) code
+							to manage the logic and it is hosted on my
+							<a href="https://github.com/noahbaculi/arduino-pet-feeder" target="_blank">Github</a>.
+						</p>
+						</p>
+					</div>
+				</div>
+				<hr class="mobile_only">
+				<div class="row">
+					<p>
+						I then designed the enclosure and door mechanism in CAD
+						to validate the mechanical interactions. Explore the CAD
+						model below:
+					</p>
+					<iframe class="fusion_embed" style="padding-top: 1em;"
+						src="https://myhub.autodesk360.com/ue2dc7010/shares/public/SHd38bfQT1fb47330c995fec54a71d792dc1?mode=embed"
+						width="1024" height="768" allowfullscreen="true" webkitallowfullscreen="true"
+						mozallowfullscreen="true" frameborder="0" loading="lazy"></iframe>
+				</div>
+				<hr class="mobile_only">
+				<div class="row">
+					<p>
+						Next, I started prototyping and manufacturing the
+						physical design using plywood, aluminum L-channel, and
+						acrylic before assembling the mechatronics into the
+						enclosure:
+					</p>
+					<div class="image_gallery" style="padding-top: 1em;">
+						<div class="half_column">
+							<img srcset="
+								./images/portfolio/pet_feeder/pet_feeder_materials_400_w.webp 400w,
+								./images/portfolio/pet_feeder/pet_feeder_materials_1000_w.webp 800w" sizes="(max-width: 980px) 100vw, 55vw"
+								loading="lazy" decoding="async"
+								src="./images/portfolio/pet_feeder/pet_feeder_materials.HEIC"
+								alt="Pet Feeder Materials">
+							<img srcset="
+								./images/portfolio/pet_feeder/pet_feeder_cut_400_w.webp 400w,
+								./images/portfolio/pet_feeder/pet_feeder_cut_1000_w.webp 800w" sizes="(max-width: 980px) 100vw, 55vw"
+								loading="lazy" decoding="async" src="./images/portfolio/pet_feeder/pet_feeder_cut.HEIC"
+								alt="Pet Feeder Cut">
+						</div>
+						<div class="half_column">
+							<img srcset="
+								./images/portfolio/pet_feeder/pet_feeder_calculations_400_w.webp 400w,
+								./images/portfolio/pet_feeder/pet_feeder_calculations_1000_w.webp 800w" sizes="(max-width: 980px) 100vw, 55vw"
+								loading="lazy" decoding="async"
+								src="./images/portfolio/pet_feeder/pet_feeder_calculations.HEIC"
+								alt="Pet Feeder Calculations">
+							<img srcset="
+								./images/portfolio/pet_feeder/pet_feeder_electronics_assembly_400_w.webp 400w,
+								./images/portfolio/pet_feeder/pet_feeder_electronics_assembly_1000_w.webp 800w"
+								sizes="(max-width: 980px) 100vw, 55vw" loading="lazy" decoding="async"
+								src="./images/portfolio/pet_feeder/pet_feeder_electronics_assembly.JPG"
+								alt="Pet Feeder Electronics Assembly">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<a href="#top" style="margin-left: 90vw;">
+					<img srcset="
+						./images/icons/icon_scroll_up_25_w.webp 25w,
+						./images/icons/icon_scroll_up_50_w.webp 1000w" sizes="1.5em" loading="lazy" decoding="async"
+						src="./images/icons/icon_scroll_up.png" class="scroll_icon" alt="Scroll Up"
+						style="position: inherit;">
+				</a>
+			</div>
+		</div>
+		<!-- Footer -->
+		<footer id="footer"></footer>
+	</div>
+	<!-- Scripts -->
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/browser.min.js"></script>
+	<script src="assets/js/breakpoints.min.js"></script>
+	<script src="assets/js/util.js"></script>
+	<script src="assets/js/main.js"></script>
+</body>
+
+</html>

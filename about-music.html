@@ -23,7 +23,13 @@
 		<div id="main">
 			<div class="inner subpage">
 				<h2 class="align-center subpage">Music</h2>
-				<div class="row">
+				<div class="row reverse_on_desktop">
+					<div class="half_image_column">
+						<img srcset="
+												./images/about/music/choir_400_w.webp 400w,
+												./images/about/music/choir_600_w.webp 800w" sizes="(max-width: 980px) 100vw, 55vw" loading="lazy"
+							decoding="async" src="./images/about/music/choir.jpeg" alt="Choir">
+					</div>
 					<div class="half_text_column">
 						<h3>Singing My Heart Out</h3>
 						<p>After some basic piano lessons in elementary school, I joined the school choir in seventh
@@ -33,14 +39,8 @@
 							choir routinely competed in the Oregon State Choir Championships and our choir placed first
 							when I was in eleventh grade.</p>
 					</div>
-					<div class="half_image_column">
-						<img srcset="
-							./images/about/music/choir_400_w.webp 400w,
-							./images/about/music/choir_600_w.webp 800w" sizes="(max-width: 980px) 100vw, 55vw" loading="lazy"
-							decoding="async" src="./images/about/music/choir.jpeg" alt="Choir">
-					</div>
 				</div>
-				<br>
+				<hr class="mobile_only">
 				<div class="row">
 					<h3>Picking Up Guitar</h3>
 					<p>In addition to singing, I started teaching myself guitar in tenth grade. I found myself very

@@ -53,7 +53,7 @@ def convert_folder(base_path: str, widths: list, exclude: list = None, include: 
     invalid_files = []
 
     for root, _, files in list(os.walk(base_path)):
-        img_types = [".jpg", ".JPG", ".jpeg", ".JPEG", ".png", ".PNG"]
+        img_types = [".jpg", ".JPG", ".jpeg", ".JPEG", ".png", ".PNG", ".heic", ".HEIC"]
         files = [x for x in files if os.path.splitext(x)[1] in img_types]
         files = [x for x in files if "_w." not in x]
         print(files)
@@ -71,7 +71,7 @@ def convert_folder(base_path: str, widths: list, exclude: list = None, include: 
 
 if __name__ == "__main__":
     ## PORTFOLIO
-    # convert_folder(r"portfolio\carium", [400, 1000], exclude=["orig"])
+    # convert_folder(r"portfolio\carium", [400, 1000], exclude=["_orig"])
     # convert_folder(r"portfolio\salesforce", [400, 800], exclude=["team_lunch_orig.png"])
     # convert_folder(r"portfolio\aldras", [400, 1000], exclude=["logo", "inspiration", "business", "application_icon"])
     # convert_folder(r"portfolio\aldras", [200], include=["logo", "inspiration", "business", "application_icon"])
@@ -83,12 +83,18 @@ if __name__ == "__main__":
     # convert_folder(r"portfolio\nanofluidics", [400, 1000])
     # convert_folder(r"portfolio\science_camp", [400, 1000])
     # convert_folder(r"portfolio\other", [400, 1000])
+    convert_folder(r"portfolio\guitar_tab_generator", [600])
+    # convert_folder(r"portfolio\pet_feeder", [400, 1000])
+    convert_folder(r"portfolio\pet_feeder", [600], include=["pet_feeder_final.JPG"])
+    convert_folder(r"portfolio\busca", [600])
+    convert_folder(r"portfolio\aldras", [600], include=["aldras.png"])
+    convert_folder(r"portfolio\independent_projects", [600], include=["salesforce_galaxy"])
 
     ## ABOUT
     # convert_folder(r"about\travel", [400, 800, 1500])
     # convert_folder(r"about\principles", [500, 1000, 2000])
     # convert_folder(r"about\learning", [500, 1000, 2000], include=['background'])
-    convert_folder(r"about\learning", [400, 1000], exclude=["background"])
+    # convert_folder(r"about\learning", [400, 1000], exclude=["background"])
     # convert_folder(r"about\music", [400, 1000])
     # convert_folder(r"about\swim", [400, 1000])
 

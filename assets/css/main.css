@@ -931,7 +931,11 @@ i {
 
 p {
 	margin: 0 0 0 0;
-	font-size: 0.8em;
+	font-size: medium;
+
+	@media screen and (max-width: 480px) {
+		line-height: normal;
+	}
 }
 
 h1,
@@ -975,7 +979,7 @@ h4 {
 }
 
 h5 {
-	font-size: 1.5em;
+	font-size: large;
 }
 
 h6 {
@@ -1041,7 +1045,6 @@ pre code {
 hr {
 	border: 0;
 	border-bottom: solid 1px #c9c9c9;
-	margin: 2em 0;
 }
 
 .align-left {
@@ -1056,6 +1059,103 @@ hr {
 	text-align: right;
 }
 
+/* Project Tiles */
+
+div.project_tiles_row {
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: start;
+	gap: 1vh;
+	margin: 0;
+}
+
+div.project_tile {
+	max-width: 20rem;
+	background-color: #ffffff;
+	border: 1px solid #c4c4c4;
+	border-radius: 0.5rem;
+	box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+
+	& a > img {
+		border-top-left-radius: 0.5rem;
+		border-top-right-radius: 0.5rem;
+		max-width: 100%;
+	}
+
+	& div > a > h5 {
+		margin-bottom: 0.5rem;
+		font-size: large;
+		font-weight: bold;
+	}
+
+	@media screen and (max-width: 480px) {
+		max-width: 45svw;
+	}
+}
+
+div.project_tile > div {
+	padding: 0 1.25rem 1.25rem 1.25rem;
+
+	@media screen and (max-width: 480px) {
+		padding: 0 0.5rem 0.5rem 0.5rem;
+	}
+}
+
+div.project_tile > div > p {
+	margin-bottom: 0.75rem;
+	color: rgb(55, 65, 81);
+
+	@media screen and (max-width: 480px) {
+		font-size: small;
+	}
+}
+
+div.project_tile_tech_used {
+	display: flex;
+	flex-wrap: wrap;
+	box-sizing: border-box;
+	align-items: stretch;
+	justify-content: flex-end;
+	gap: 0.5em;
+	margin-bottom: 0.5em;
+
+	& p {
+		font-size: small;
+
+		@media screen and (max-width: 480px) {
+			display: none;
+		}
+	}
+
+	& div {
+		display: flex;
+		flex-wrap: wrap;
+		box-sizing: border-box;
+		align-items: center;
+		gap: 0.5em;
+
+		& img {
+			max-height: 1.5em;
+		}
+	}
+}
+
+div.project_tile_end_logo {
+	display: flex;
+	justify-content: flex-end;
+	flex-wrap: wrap;
+	box-sizing: border-box;
+	margin-bottom: -0.8em;
+
+	& a {
+		max-width: 10%;
+
+		& img {
+			max-width: 100%;
+		}
+	}
+}
+
 /* Row */
 
 .row {
@@ -1063,8 +1163,96 @@ hr {
 	flex-wrap: wrap;
 	box-sizing: border-box;
 	align-items: stretch;
+	justify-content: center;
 	margin: 0.5em;
 	margin-top: 0;
+
+	@media screen and (max-width: 480px) {
+		.image_column,
+		.half_image_column {
+			max-width: 75svw;
+		}
+
+		& h3 {
+			font-size: large;
+		}
+
+		& h4 {
+			font-size: medium;
+		}
+
+		& li {
+			font-size: small;
+		}
+	}
+}
+
+@media only screen and (min-width: 980px) {
+	.reverse_on_desktop {
+		flex-direction: row-reverse;
+	}
+}
+
+a > div.row:hover {
+	border: 1px solid #0369a1;
+	border-radius: 4px;
+	transition: 0.2s;
+}
+
+.portfolio_row ul {
+	margin: 0;
+}
+
+.portfolio_row {
+	border: 1px solid transparent;
+	padding: 1em;
+	margin: 0;
+	align-items: center;
+
+	@media screen and (max-width: 480px) {
+		margin-bottom: 2svh;
+	}
+}
+
+div.portfolio_more {
+	margin-top: 1svh;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.2em;
+	justify-content: flex-end;
+}
+
+div.project_tile_more {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.2em;
+	justify-content: center;
+}
+
+.portfolio_more > a,
+.project_tile_more > a {
+	font-weight: 500;
+	background-color: #1d4ed8;
+	color: white;
+	font-size: small;
+	border-radius: 0.5rem;
+	padding: 0.4rem 1rem;
+	text-align: right;
+}
+
+div.full_section_btn {
+	display: flex;
+	justify-content: center;
+	padding-top: 1em;
+
+	& a {
+		font-weight: 500;
+		background-color: #bfdbfe;
+		color: #334155;
+		font-size: large;
+		border-radius: 0.5rem;
+		padding: 1.2rem 1.5rem;
+	}
 }
 
 div.inner.subpage > div.row {
@@ -1165,12 +1353,16 @@ div.inner.subpage > div.row {
 	}
 
 	.row > .half_image_column img {
-		margin: 1em 0;
+		padding: 1em 0;
 	}
 
 	.row > .text_column {
 		width: 100% !important;
 		padding: 1em 0 2em 0.5em;
+	}
+
+	.portfolio_row > .text_column {
+		padding: 0 !important;
 	}
 
 	.row > .one_third_gallery {
@@ -1190,7 +1382,6 @@ div.inner.subpage > div.row {
 @media screen and (max-width: 440px) {
 	.row > .half_image_column {
 		width: 48%;
-		height: 14em;
 	}
 
 	.row > .one_fourth_image_column {
@@ -1337,7 +1528,7 @@ ul {
 
 ul li {
 	padding-left: 0.5em;
-	font-size: 0.9em;
+	font-size: medium;
 }
 
 dl dt {
@@ -2748,6 +2939,6 @@ body.is-menu-visible #menu .close {
 
 @media screen and (max-width: 736px) {
 	#wrapper > * > .inner {
-		padding: 0 1.25em;
+		padding: 0 0.25em;
 	}
 }

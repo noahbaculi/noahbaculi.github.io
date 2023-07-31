@@ -1,0 +1,23 @@
+{
+  "name": "guitar-tab-generator",
+  "collaborators": [
+    "Noah Baculi <noahbaculi@gmail.com>"
+  ],
+  "description": "Generate fingerstyle guitar tabs based on the difficulty of different finger positions",
+  "version": "1.1.3",
+  "license": "GPL-3.0-only",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/noahbaculi/guitar-tab-generator"
+  },
+  "files": [
+    "guitar_tab_generator_bg.wasm",
+    "guitar_tab_generator.js",
+    "guitar_tab_generator.d.ts"
+  ],
+  "module": "guitar_tab_generator.js",
+  "types": "guitar_tab_generator.d.ts",
+  "sideEffects": [
+    "./snippets/*"
+  ]
+}

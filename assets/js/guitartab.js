@@ -17,29 +17,6 @@ async function run() {
 }
 run();
 
-// Maintain latest guitar so formatting settings can update output without
-// recomputing tabData
-let guitar;
-function createGuitar() {
-	// Get settings
-	let guitarTuning = "standard";
-	try {
-		guitarTuning = document.getElementById("guitarTuning").value;
-	} catch (error) {
-		console.warn(`Something went wrong... Using default guitarTuning = ${guitarTuning} | Error = ${error}`);
-	}
-
-	let guitarCapo = 0;
-	try {
-		guitarCapo = parseInt(document.getElementById("guitarCapo").value);
-	} catch (error) {
-		console.warn(`Something went wrong... Using default guitarCapo = ${guitarCapo} | Error = ${error}`);
-	}
-
-	guitar = new exports.Guitar(guitarTuning, guitarCapo);
-}
-createGuitar(); // create default standard guitar
-
 function playBeatAudio(pitches) {
 	// Iterate beat number
 	if (playbackBeatNumber === null) {

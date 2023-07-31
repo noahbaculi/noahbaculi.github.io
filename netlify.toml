@@ -12,6 +12,5 @@ package = "netlify-plugin-checklinks"
 [plugins.inputs]
 entryPoints = ["*.html"]
 skipPatterns = ["svg"]
-recursive = false
-pretty = false
-checkExternal = false
+pretty = true
+checkExternal = true

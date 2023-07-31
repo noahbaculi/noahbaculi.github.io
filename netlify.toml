@@ -11,6 +11,6 @@ package = "netlify-plugin-checklinks"
 
 [plugins.inputs]
 entryPoints = ["*.html"]
-skipPatterns = [".*svg.*"]
+skipPatterns = ["guitartab.html"]
 pretty = true
 checkExternal = true

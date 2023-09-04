@@ -600,7 +600,7 @@ function getInput() {
 		pitches: pitchInput,
 		tuning_name: guitarTuning,
 		guitar_num_frets: 18,
-		guitar_capo: 0,
+		guitar_capo: guitarCapo,
 		num_arrangements: 1,
 		width: tabLineLength,
 		padding: tabPadding,

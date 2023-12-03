@@ -7,7 +7,9 @@ def covert_img(file_path: str, widths: list, exclude: list, include: list) -> st
     file_name = os.path.splitext(file_path)[0]
     file_ext = os.path.splitext(file_path)[1]
 
-    if include and not any([True for include_str in include if include_str in file_path]):
+    if include and not any(
+        [True for include_str in include if include_str in file_path]
+    ):
         print(f"\tSkipping not included {file_path} with include list = {include}.")
         return ""
 
@@ -42,8 +44,9 @@ def covert_img(file_path: str, widths: list, exclude: list, include: list) -> st
     return ""
 
 
-def convert_folder(base_path: str, widths: list, exclude: list = None, include: list = None) -> None:
-
+def convert_folder(
+    base_path: str, widths: list, exclude: list = None, include: list = None
+) -> None:
     print(f"Converting images in '{base_path}'")
 
     if not exclude:
@@ -91,7 +94,7 @@ if __name__ == "__main__":
     # convert_folder(r"portfolio\independent_projects", [600], include=["salesforce_galaxy"])
 
     ## ABOUT
-    convert_folder(r"about\travel", [400, 800, 1500])
+    # convert_folder(r"about\travel", [400, 800, 1500])
     # convert_folder(r"about\principles", [500, 1000, 2000])
     # convert_folder(r"about\learning", [500, 1000, 2000], include=['background'])
     # convert_folder(r"about\learning", [400, 1000], exclude=["background"])
@@ -119,6 +122,6 @@ if __name__ == "__main__":
     # convert_folder(r"contact", [500], exclude=["affiliated", "background"])
 
     ## FAMILY TREE
-    # convert_folder(r"family_tree", [50, 100])
+    convert_folder(r"family_tree", [50, 100])
 
     print("Done.")

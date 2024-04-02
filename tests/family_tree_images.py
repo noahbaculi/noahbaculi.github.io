@@ -2,10 +2,11 @@ import json
 import os
 
 
-def check_path(breadcrumbs, name_str) -> str:
-    path = f"./images/family_tree/{breadcrumbs}{name_str}.jpg".lower()
-    if not os.path.isfile(path):
-        return f"File not found: {path}"
+def check_path(breadcrumbs, name_str) -> str | None:
+    jpg_path = f"./images/family_tree/{breadcrumbs}{name_str}.jpg".lower()
+    jpeg_path = f"./images/family_tree/{breadcrumbs}{name_str}.jpeg".lower()
+    if (not os.path.isfile(jpg_path)) and (not os.path.isfile(jpeg_path)):
+        return f"File not found: {jpg_path} or {jpeg_path}"
 
 
 def check_top_tree_level(tree, breadcrumbs):
@@ -29,7 +30,6 @@ def check_top_tree_level(tree, breadcrumbs):
 
 
 if __name__ == "__main__":
-
     tree = json.load(open("./family_tree.json", "r"))
 
     error_log = set()

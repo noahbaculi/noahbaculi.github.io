@@ -24,14 +24,13 @@ jobs:
 
   prettier:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: ${{ github.head_ref }}
-
-      - name: Prettify code
-        uses: creyD/prettier_action@v4.3
+      - uses: actions/setup-node@v4
         with:
-          dry: True
-          prettier_options: --check
+          node-version: 18
+      - run: npx prettier . --check

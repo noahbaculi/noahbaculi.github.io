@@ -15,9 +15,23 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  tests:
+  family_tree_images:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - name: Test images
         run: python3 ./tests/family_tree_images.py
+
+  prettier:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}
+
+      - name: Prettify code
+        uses: creyD/prettier_action@v4.3
+        with:
+          dry: True
+          prettier_options: --check

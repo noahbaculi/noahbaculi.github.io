@@ -1,159 +1,251 @@
-<!DOCTYPE html>
+<!doctype html>
 <html hidden>
-
-<head>
+  <head>
     <title>Guitar Tab Generator</title>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1,
-			user-scalable=no"/>
-    <meta name="description" content="Guitar Tab Generator and Composition Tool | Input pitches to calculate the optimal fingerstyle compositions | Open source Rust + Typescript">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto Mono"/>
-    <link rel="stylesheet" href="assets/css/guitartab.css"/>
-    <link rel="icon" href="./images/icons/favicon_50_w.webp"/>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1,
+			user-scalable=no"
+    />
+    <meta
+      name="description"
+      content="Guitar Tab Generator and Composition Tool | Input pitches to calculate the optimal fingerstyle compositions | Open source Rust + Typescript"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto Mono"
+    />
+    <link rel="stylesheet" href="assets/css/guitartab.css" />
+    <link rel="icon" href="./images/icons/favicon_50_w.webp" />
     <script type="module" src="https://cdn.skypack.dev/twind/shim"></script>
-</head>
+  </head>
 
-<body class="bg-white">
+  <body class="bg-white">
     <!-- Wrapper -->
     <div id="wrapper">
-        <section class="header-grid">
-            <div class="exit">
-                <nav class="flex" aria-label="Breadcrumb">
-                    <ol class="inline-flex items-center space-x-1 mb-5 md:mb-0">
-                        <li class="inline-flex items-center">
-                            <a href="./index.html"
-                                class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
-                                <svg aria-hidden="true" class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z">
-                                    </path>
-                                </svg>
-                                Home
-                            </a>
-                        </li>
-                        <li>
-                            <div class="flex items-center">
-                                <svg aria-hidden="true" class="w-6 h-6 text-gray-400" fill="currentColor"
-                                    viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd"
-                                        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                        clip-rule="evenodd"></path>
-                                </svg>
-                                <a href="./portfolio.html"
-                                    class="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ml-1 dark:text-gray-400 dark:hover:text-white">Projects</a>
-                            </div>
-                        </li>
-                    </ol>
-                </nav>
-            </div>
-            <div class="header">
-                <h1 class="text-2xl">Guitar Tab Generator</h1>
-            </div>
-            <div class="export flex justify-end">
-                <button type="button" id="exportButton" data-tooltip-target="tooltip-download"
-                    data-tooltip-placement="left"
-                    class="flex justify-center items-center w-[52px] h-[52px] text-gray-500 hover:text-gray-900 bg-white rounded-full border border-gray-200 dark:border-gray-600 shadow-sm dark:hover:text-white dark:text-gray-400 hover:bg-gray-50 dark:bg-gray-700 dark:hover:bg-gray-600 focus:ring-4 focus:ring-gray-300 focus:outline-none dark:focus:ring-gray-400">
-                    <svg aria-hidden="true" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path clip-rule="evenodd"
-                            d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V8a2 2 0 00-2-2h-5L9 4H4zm7 5a1 1 0 00-2 0v1.586l-.293-.293a.999.999 0 10-1.414 1.414l2 2a.999.999 0 001.414 0l2-2a.999.999 0 10-1.414-1.414l-.293.293V9z"
-                            fill-rule="evenodd"></path>
-                    </svg>
-                    <span class="sr-only">Download</span>
-                </button>
-                <div id="tooltip-download" role="tooltip"
-                    class="absolute z-10 invisible inline-block w-auto px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 dark:bg-gray-700">
-                    Download
+      <section class="header-grid">
+        <div class="exit">
+          <nav class="flex" aria-label="Breadcrumb">
+            <ol class="inline-flex items-center space-x-1 mb-5 md:mb-0">
+              <li class="inline-flex items-center">
+                <a
+                  href="./index.html"
+                  class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="w-4 h-4 mr-2"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"
+                    ></path>
+                  </svg>
+                  Home
+                </a>
+              </li>
+              <li>
+                <div class="flex items-center">
+                  <svg
+                    aria-hidden="true"
+                    class="w-6 h-6 text-gray-400"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                      clip-rule="evenodd"
+                    ></path>
+                  </svg>
+                  <a
+                    href="./portfolio.html"
+                    class="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ml-1 dark:text-gray-400 dark:hover:text-white"
+                    >Projects</a
+                  >
                 </div>
-            </div>
-        </section>
-        <section class="main-grid">
-            <div class="examples">
-                <select id="exampleSongs"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option value="examples" selected>ᐁ Examples</option>
-                    <option value="Fur Elise">Fur Elise</option>
-                    <option value="Greensleeves">Greensleeves</option>
-                    <option value="Silent Night">Silent Night</option>
-                    <option value="Twinkle Twinkle">Twinkle Twinkle</option>
-                    <option value="Hey Jude">Hey Jude</option>
-                </select>
-            </div>
-            <div class="pitches">
-                <textarea id="pitchInput" name="pitchInput" class="p-2.5 text-sm resize-none text-gray-900 bg-blue-50
-                rounded-lg border border-gray-300 dark:bg-gray-700
-                dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">// Pitches go here!</textarea>
-            </div>
-            <div class="options">
-                <label for="guitarTuning" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Guitar
-                    Tuning</label>
-                <select id="guitarTuning" name="guitarTuning"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option value="standard" selected>Standard</option>
-                    <option value="dsus4">DADGAD</option>
-                    <option value="c6">C6</option>
-                    <option value="openc">Open C</option>
-                    <option value="opend">Open D</option>
-                    <option value="opene">Open E</option>
-                    <option value="openg">Open G</option>
-                    <option value="dropb">Drop B</option>
-                    <option value="dropc">Drop C</option>
-                    <option value="dropd">Drop D</option>
-                </select>
+              </li>
+            </ol>
+          </nav>
+        </div>
+        <div class="header">
+          <h1 class="text-2xl">Guitar Tab Generator</h1>
+        </div>
+        <div class="export flex justify-end">
+          <button
+            type="button"
+            id="exportButton"
+            data-tooltip-target="tooltip-download"
+            data-tooltip-placement="left"
+            class="flex justify-center items-center w-[52px] h-[52px] text-gray-500 hover:text-gray-900 bg-white rounded-full border border-gray-200 dark:border-gray-600 shadow-sm dark:hover:text-white dark:text-gray-400 hover:bg-gray-50 dark:bg-gray-700 dark:hover:bg-gray-600 focus:ring-4 focus:ring-gray-300 focus:outline-none dark:focus:ring-gray-400"
+          >
+            <svg
+              aria-hidden="true"
+              class="w-6 h-6"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clip-rule="evenodd"
+                d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V8a2 2 0 00-2-2h-5L9 4H4zm7 5a1 1 0 00-2 0v1.586l-.293-.293a.999.999 0 10-1.414 1.414l2 2a.999.999 0 001.414 0l2-2a.999.999 0 10-1.414-1.414l-.293.293V9z"
+                fill-rule="evenodd"
+              ></path>
+            </svg>
+            <span class="sr-only">Download</span>
+          </button>
+          <div
+            id="tooltip-download"
+            role="tooltip"
+            class="absolute z-10 invisible inline-block w-auto px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 dark:bg-gray-700"
+          >
+            Download
+          </div>
+        </div>
+      </section>
+      <section class="main-grid">
+        <div class="examples">
+          <select
+            id="exampleSongs"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          >
+            <option value="examples" selected>ᐁ Examples</option>
+            <option value="Fur Elise">Fur Elise</option>
+            <option value="Greensleeves">Greensleeves</option>
+            <option value="Silent Night">Silent Night</option>
+            <option value="Twinkle Twinkle">Twinkle Twinkle</option>
+            <option value="Hey Jude">Hey Jude</option>
+          </select>
+        </div>
+        <div class="pitches">
+          <textarea
+            id="pitchInput"
+            name="pitchInput"
+            class="p-2.5 text-sm resize-none text-gray-900 bg-blue-50 rounded-lg border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+          >
+// Pitches go here!</textarea
+          >
+        </div>
+        <div class="options">
+          <label
+            for="guitarTuning"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >Guitar Tuning</label
+          >
+          <select
+            id="guitarTuning"
+            name="guitarTuning"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          >
+            <option value="standard" selected>Standard</option>
+            <option value="dsus4">DADGAD</option>
+            <option value="c6">C6</option>
+            <option value="openc">Open C</option>
+            <option value="opend">Open D</option>
+            <option value="opene">Open E</option>
+            <option value="openg">Open G</option>
+            <option value="dropb">Drop B</option>
+            <option value="dropc">Drop C</option>
+            <option value="dropd">Drop D</option>
+          </select>
 
-                <label for="guitarCapo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Guitar
-                    Capo</label>
-                <select id="guitarCapo" name="guitarCapo"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option value="0" selected>None</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                    <option value="11">11</option>
-                </select>
+          <label
+            for="guitarCapo"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >Guitar Capo</label
+          >
+          <select
+            id="guitarCapo"
+            name="guitarCapo"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          >
+            <option value="0" selected>None</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+          </select>
 
-                <label for="tabLineLength" id="tabLineLengthLabel"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"></label>
-                <input type="range" min="30" max="150" value="60" id="tabLineLength"
-                    class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700" />
+          <label
+            for="tabLineLength"
+            id="tabLineLengthLabel"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          ></label>
+          <input
+            type="range"
+            min="30"
+            max="150"
+            value="60"
+            id="tabLineLength"
+            class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
+          />
 
-                <label for="tabPadding"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Spacing</label>
-                <select id="tabPadding" name="tabPadding"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option value="0">0</option>
-                    <option value="1" selected>1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                </select>
-                <!-- <button type="button" id="generateTabButton">Generate</button> -->
-            </div>
-            <div class="tab_output relative">
-                <textarea id="tabOutput" readonly wrap="off" class="p-2.5
-                text-sm resize-none text-gray-900 bg-blue-50
-                rounded-lg border border-gray-300 dark:bg-gray-700
-                dark:border-gray-600 dark:placeholder-gray-400
-                dark:text-white">Output TAB goes here!
-                </textarea>
-                <div data-dial-init id="playbackMenu" class="absolute right-6
-                bottom-6 group" hidden>
-                    <div id="speed-dial-menu-default" class="flex flex-col
-                    items-center hidden mb-4 space-y-2">
-                        <button type="button" id="resetPlaybackButton" data-tooltip-target="tooltip-reset-playback"
-                            data-tooltip-placement="left" disabled
-                            class="flex justify-center items-center w-[52px] h-[52px] text-gray-500 hover:text-gray-900 bg-white rounded-full border border-gray-200 dark:border-gray-600 dark:hover:text-white shadow-sm dark:text-gray-400 hover:bg-gray-50 dark:bg-gray-700 dark:hover:bg-gray-600 focus:ring-4 focus:ring-gray-300 focus:outline-none dark:focus:ring-gray-400">
-                            <svg aria-hidden="true" class="w-4 h-4" fill="currentColor" viewBox="-1 0 24 24"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path d="m21.108 23.855-18.708-10.494v10.038.002c0
+          <label
+            for="tabPadding"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >Spacing</label
+          >
+          <select
+            id="tabPadding"
+            name="tabPadding"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          >
+            <option value="0">0</option>
+            <option value="1" selected>1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+          </select>
+          <!-- <button type="button" id="generateTabButton">Generate</button> -->
+        </div>
+        <div class="tab_output relative">
+          <textarea
+            id="tabOutput"
+            readonly
+            wrap="off"
+            class="p-2.5 text-sm resize-none text-gray-900 bg-blue-50 rounded-lg border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+          >
+Output TAB goes here!
+                </textarea
+          >
+          <div
+            data-dial-init
+            id="playbackMenu"
+            class="absolute right-6 bottom-6 group"
+            hidden
+          >
+            <div
+              id="speed-dial-menu-default"
+              class="flex flex-col items-center hidden mb-4 space-y-2"
+            >
+              <button
+                type="button"
+                id="resetPlaybackButton"
+                data-tooltip-target="tooltip-reset-playback"
+                data-tooltip-placement="left"
+                disabled
+                class="flex justify-center items-center w-[52px] h-[52px] text-gray-500 hover:text-gray-900 bg-white rounded-full border border-gray-200 dark:border-gray-600 dark:hover:text-white shadow-sm dark:text-gray-400 hover:bg-gray-50 dark:bg-gray-700 dark:hover:bg-gray-600 focus:ring-4 focus:ring-gray-300 focus:outline-none dark:focus:ring-gray-400"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="w-4 h-4"
+                  fill="currentColor"
+                  viewBox="-1 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="m21.108 23.855-18.708-10.494v10.038.002c0
                                 .331-.268.599-.599.599-.001 0-.001 0-.002
                                 0h-1.2c-.001 0-.001 0-.002 0-.331
                                 0-.599-.268-.599-.599 0-.001 0-.001
@@ -162,64 +254,102 @@
                                 10.038l18.708-10.493c.159-.089.348-.141.549-.141.631
                                 0 1.142.511 1.142 1.142v.024-.001 21.665.015c0
                                 .634-.511 1.149-1.143
-                                1.155h-.001c-.202-.002-.39-.057-.552-.152l.005.003z" </path>
-                            </svg>
-                            <span class="sr-only">Reset Playback</span>
-                        </button>
-                        <div id="tooltip-reset-playback" role="tooltip"
-                            class="absolute z-10 invisible inline-block w-auto px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 dark:bg-gray-700">
-                            Reset Playback
-                        </div>
+                                1.155h-.001c-.202-.002-.39-.057-.552-.152l.005.003z"
+                  ></path>
+                </svg>
+                <span class="sr-only">Reset Playback</span>
+              </button>
+              <div
+                id="tooltip-reset-playback"
+                role="tooltip"
+                class="absolute z-10 invisible inline-block w-auto px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 dark:bg-gray-700"
+              >
+                Reset Playback
+              </div>
 
-                        <button type="button" id="pauseButton" data-tooltip-target="tooltip-pause"
-                            data-tooltip-placement="left"
-                            class="hidden justify-center items-center w-[52px] h-[52px] text-gray-500 hover:text-gray-900 bg-white rounded-full border border-gray-200 dark:border-gray-600 dark:hover:text-white shadow-sm dark:text-gray-400 hover:bg-gray-50 dark:bg-gray-700 dark:hover:bg-gray-600 focus:ring-4 focus:ring-gray-300 focus:outline-none dark:focus:ring-gray-400">
-                            <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="-3 0 24 24"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path d="m4.801
+              <button
+                type="button"
+                id="pauseButton"
+                data-tooltip-target="tooltip-pause"
+                data-tooltip-placement="left"
+                class="hidden justify-center items-center w-[52px] h-[52px] text-gray-500 hover:text-gray-900 bg-white rounded-full border border-gray-200 dark:border-gray-600 dark:hover:text-white shadow-sm dark:text-gray-400 hover:bg-gray-50 dark:bg-gray-700 dark:hover:bg-gray-600 focus:ring-4 focus:ring-gray-300 focus:outline-none dark:focus:ring-gray-400"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="w-5 h-5"
+                  fill="currentColor"
+                  viewBox="-3 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="m4.801
                                 23.999h-3.6c-.662-.001-1.199-.537-1.2-1.2v-21.6c0-.663.537-1.2
                                 1.2-1.201h3.6c.662.001 1.199.537 1.2 1.2v21.6c0
-                                .663-.537 1.2-1.2 1.201z" />
-                                <path d="m16.8 23.999h-3.6c-.663
+                                .663-.537 1.2-1.2 1.201z"
+                  />
+                  <path
+                    d="m16.8 23.999h-3.6c-.663
                                 0-1.2-.537-1.2-1.2v-21.6-.001c0-.663.537-1.2
                                 1.2-1.2h3.6c.663 0 1.2.537 1.2 1.2v21.6c0
-                                .663-.537 1.2-1.2 1.2z" />
-                            </svg>
-                            <span class="sr-only">Pause</span>
-                        </button>
-                        <div id="tooltip-pause" role="tooltip"
-                            class="absolute z-10 invisible inline-block w-auto px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 dark:bg-gray-700">
-                            Pause
-                        </div>
-                        <button type="button" id="playButton" data-tooltip-target="tooltip-play"
-                            data-tooltip-placement="left" class="flex justify-center items-center w-[52px]
-                        h-[52px] text-gray-500 hover:text-gray-900 bg-white
-                        rounded-full border border-gray-200 dark:border-gray-600
-                        dark:hover:text-white shadow-sm dark:text-gray-400
-                        hover:bg-gray-50 dark:bg-gray-700 dark:hover:bg-gray-600
-                        focus:ring-4 focus:ring-gray-300 focus:outline-none
-                        dark:focus:ring-gray-400">
-                            <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="-1 0 24 24"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path d="m.001 1.165v21.669c.052.661.601 1.177 1.271
-                                                                                1.177.225 0 .436-.058.62-.16l-.006.003
-                                                                                21.442-10.8c.4-.192.671-.593.671-1.058s-.271-.867-.664-1.055l-.007-.003-21.442-10.8c-.177-.099-.388-.157-.613-.157-.672
-                                                                                0-1.223.521-1.27 1.181v.004z" </path>
-                            </svg>
-                            <span class="sr-only">Play</span>
-                        </button>
-                        <div id="tooltip-play" role="tooltip"
-                            class="absolute z-10 invisible inline-block w-auto px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 dark:bg-gray-700">
-                            Play
-                        </div>
-                    </div>
-                    <button type="button" data-dial-toggle="speed-dial-menu-default"
-                        aria-controls="speed-dial-menu-default" aria-expanded="false"
-                        class="flex items-center justify-center text-white bg-blue-700 rounded-full w-14 h-14 hover:bg-blue-800 dark:bg-blue-600 dark:hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:focus:ring-blue-800">
-                        <svg aria-hidden="true" class="w-6 h-6 transition-transform group-hover:scale-110"
-                            fill="currentColor" viewBox="-2 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="m18.07.169c-.148-.106-.333-.169-.532-.169-.111
+                                .663-.537 1.2-1.2 1.2z"
+                  />
+                </svg>
+                <span class="sr-only">Pause</span>
+              </button>
+              <div
+                id="tooltip-pause"
+                role="tooltip"
+                class="absolute z-10 invisible inline-block w-auto px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 dark:bg-gray-700"
+              >
+                Pause
+              </div>
+              <button
+                type="button"
+                id="playButton"
+                data-tooltip-target="tooltip-play"
+                data-tooltip-placement="left"
+                class="flex justify-center items-center w-[52px] h-[52px] text-gray-500 hover:text-gray-900 bg-white rounded-full border border-gray-200 dark:border-gray-600 dark:hover:text-white shadow-sm dark:text-gray-400 hover:bg-gray-50 dark:bg-gray-700 dark:hover:bg-gray-600 focus:ring-4 focus:ring-gray-300 focus:outline-none dark:focus:ring-gray-400"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="w-5 h-5"
+                  fill="currentColor"
+                  viewBox="-1 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="m.001 1.165v21.669c.052.661.601 1.177 1.271
+                    1.177.225 0 .436-.058.62-.16l-.006.003
+                    21.442-10.8c.4-.192.671-.593.671-1.058s-.271-.867-.664-1.055l-.007-.003-21.442-10.8c-.177-.099-.388-.157-.613-.157-.672
+                    0-1.223.521-1.27 1.181v.004z"
+                  ></path>
+                </svg>
+                <span class="sr-only">Play</span>
+              </button>
+              <div
+                id="tooltip-play"
+                role="tooltip"
+                class="absolute z-10 invisible inline-block w-auto px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 dark:bg-gray-700"
+              >
+                Play
+              </div>
+            </div>
+            <button
+              type="button"
+              data-dial-toggle="speed-dial-menu-default"
+              aria-controls="speed-dial-menu-default"
+              aria-expanded="false"
+              class="flex items-center justify-center text-white bg-blue-700 rounded-full w-14 h-14 hover:bg-blue-800 dark:bg-blue-600 dark:hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:focus:ring-blue-800"
+            >
+              <svg
+                aria-hidden="true"
+                class="w-6 h-6 transition-transform group-hover:scale-110"
+                fill="currentColor"
+                viewBox="-2 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="m18.07.169c-.148-.106-.333-.169-.532-.169-.111
                             0-.217.02-.316.055l.006-.002-11.077
                             3.938c-.361.131-.613.471-.613.869v.001 2.193.042
                             10.604c-.534-.295-1.169-.469-1.846-.471h-.001c-.043-.002-.093-.003-.143-.003-1.904
@@ -232,14 +362,14 @@
                             3.548 3.388.051 0
                             .101-.001.151-.003h-.007c.031.001.068.002.105.002
                             1.696 0 3.12-1.166
-                            3.513-2.74l.005-.025c.042-.101.068-.217.069-.34v-15.754c0-.31-.153-.585-.388-.752l-.003-.002z">
-                            </path>
-                        </svg>
-                        <span class="sr-only">Open actions menu</span>
-                    </button>
-                </div>
-            </div>
-        </section>
+                            3.513-2.74l.005-.025c.042-.101.068-.217.069-.34v-15.754c0-.31-.153-.585-.388-.752l-.003-.002z"
+                ></path>
+              </svg>
+              <span class="sr-only">Open actions menu</span>
+            </button>
+          </div>
+        </div>
+      </section>
     </div>
     <!-- Scripts -->
     <script src="assets/js/jquery.min.js"></script>
@@ -248,12 +378,11 @@
     <script src="assets/js/util.js"></script>
     <script src="assets/js/main.js"></script>
     <script>
-        var exports = {}; // instantiate exports variable to pull guitar exports
+      var exports = {}; // instantiate exports variable to pull guitar exports
     </script>
     <!-- <script type="module" src="https:///cdn.jsdelivr.net/gh/noahbaculi/guitar-tab/src/guitar_object.js"></script> -->
     <script type="module" src="https://unpkg.com/tone"></script>
     <script type="module" src="assets/js/guitartab.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.min.js"></script>
-</body>
-
+  </body>
 </html>

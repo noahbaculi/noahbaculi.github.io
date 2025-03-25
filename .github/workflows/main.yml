@@ -1,5 +1,3 @@
-# This is a basic workflow to help you get started with Actions
-
 name: CI
 
 # Controls when the workflow will run
@@ -22,13 +20,20 @@ jobs:
       - name: Test images
         run: python3 ./tests/family_tree_images.py
 
+  broken_links:
+    name: Broken Link Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Broken Link Check
+        uses: technote-space/broken-link-checker-action@v2
+
   prettier:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           ref: ${{ github.head_ref }}
       - uses: oven-sh/setup-bun@v2
-      - run: bun x prettier . --check
+      - name: Prettier check
+        run: bun x prettier . --check

@@ -14,6 +14,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   family_tree_images:
+    name: Check Family Tree Images
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -21,13 +22,14 @@ jobs:
         run: python3 ./tests/family_tree_images.py
 
   broken_links:
-    name: Broken Link Check
+    name: Check Broken Links
     runs-on: ubuntu-latest
     steps:
-      - name: Broken Link Check
+      - name: Check Broken Links
         uses: technote-space/broken-link-checker-action@v2
 
   prettier:
+    name: Prettier Check
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

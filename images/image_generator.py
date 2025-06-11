@@ -49,6 +49,9 @@ def convert_folder(
 ) -> None:
     print(f"Converting images in '{base_path}'")
 
+    if not os.path.isdir(base_path):
+        raise ValueError(f"{base_path} is not a valid directory")
+
     if not exclude:
         exclude = []
     if not include:
@@ -74,7 +77,7 @@ def convert_folder(
 
 if __name__ == "__main__":
     ## PORTFOLIO
-    # convert_folder(r"portfolio\enterprisedb", [400, 1000], exclude=["_orig"])
+    convert_folder(r"portfolio/enterprisedb", [400, 1000], exclude=["_orig"])
     # convert_folder(r"portfolio\carium", [400, 1000], exclude=["_orig"])
     # convert_folder(r"portfolio\salesforce", [400, 800], exclude=["team_lunch_orig.png"])
     # convert_folder(r"portfolio\aldras", [400, 1000], exclude=["logo", "inspiration", "business", "application_icon"])
@@ -123,6 +126,6 @@ if __name__ == "__main__":
     # convert_folder(r"contact", [500], exclude=["affiliated", "background"])
 
     ## FAMILY TREE
-    convert_folder(r"family_tree", [50, 100])
+    # convert_folder(r"family_tree", [50, 100])
 
     print("Done.")

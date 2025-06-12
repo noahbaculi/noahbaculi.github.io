@@ -19,7 +19,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Test images
-        run: python3 ./tests/family_tree_images.py
+        run: uv run python ./tests/family_tree_images.py
 
   broken_links:
     name: Check Broken Links

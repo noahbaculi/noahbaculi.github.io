@@ -2,7 +2,7 @@
 
 Created by Noah Baculi.
 
-December 2018
+Started December 2018
 
 Modern website and portfolio with responsive design and interface: [noahbaculi.com](https://noahbaculi.com/)
 

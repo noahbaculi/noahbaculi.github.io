@@ -40,4 +40,4 @@ jobs:
           ref: ${{ github.head_ref }}
       - uses: oven-sh/setup-bun@v2
       - name: Prettier check
-        run: bun x prettier . --check
+        run: bunx prettier . --check

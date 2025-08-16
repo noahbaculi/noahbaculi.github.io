@@ -287,238 +287,129 @@ h1.home_entrance_title > a {
 
 /* Animated Tagline Characters */
 
+#animated-tagline path {
+  stroke-dasharray: 180;
+  stroke-dashoffset: 180;
+  animation: line-animate 2s ease forwards;
+  animation-delay: calc(0.6s + 0.08s * (var(--path-index, 0)));
+}
+
 #animated-tagline path:nth-child(1) {
-  stroke-dasharray: 180;
-  stroke-dashoffset: 180;
-  animation: line-animate 6s ease forwards 2s;
+  --path-index: 0;
 }
-
 #animated-tagline path:nth-child(2) {
-  stroke-dasharray: 180;
-  stroke-dashoffset: 180;
-  animation: line-animate 6s ease forwards 2.04s;
+  --path-index: 1;
 }
-
 #animated-tagline path:nth-child(3) {
-  stroke-dasharray: 180;
-  stroke-dashoffset: 180;
-  animation: line-animate 6s ease forwards 2.08s;
+  --path-index: 2;
 }
-
 #animated-tagline path:nth-child(4) {
-  stroke-dasharray: 180;
-  stroke-dashoffset: 180;
-  animation: line-animate 6s ease forwards 2.12s;
+  --path-index: 3;
 }
-
 #animated-tagline path:nth-child(5) {
-  stroke-dasharray: 180;
-  stroke-dashoffset: 180;
-  animation: line-animate 6s ease forwards 2.16s;
+  --path-index: 4;
 }
-
 #animated-tagline path:nth-child(6) {
-  stroke-dasharray: 180;
-  stroke-dashoffset: 180;
-  animation: line-animate 6s ease forwards 2.2s;
+  --path-index: 5;
 }
-
 #animated-tagline path:nth-child(7) {
-  stroke-dasharray: 180;
-  stroke-dashoffset: 180;
-  animation: line-animate 6s ease forwards 2.24s;
+  --path-index: 6;
 }
-
 #animated-tagline path:nth-child(8) {
-  stroke-dasharray: 180;
-  stroke-dashoffset: 180;
-  animation: line-animate 6s ease forwards 2.28s;
+  --path-index: 7;
 }
-
 #animated-tagline path:nth-child(9) {
-  stroke-dasharray: 180;
-  stroke-dashoffset: 180;
-  animation: line-animate 6s ease forwards 2.32s;
+  --path-index: 8;
 }
-
 #animated-tagline path:nth-child(10) {
-  stroke-dasharray: 180;
-  stroke-dashoffset: 180;
-  animation: line-animate 6s ease forwards 2.36s;
+  --path-index: 9;
 }
-
 #animated-tagline path:nth-child(11) {
-  stroke-dasharray: 180;
-  stroke-dashoffset: 180;
-  animation: line-animate 6s ease forwards 2.4s;
+  --path-index: 10;
 }
-
 #animated-tagline path:nth-child(12) {
-  stroke-dasharray: 180;
-  stroke-dashoffset: 180;
-  animation: line-animate 6s ease forwards 2.44s;
+  --path-index: 11;
 }
-
 #animated-tagline path:nth-child(13) {
-  stroke-dasharray: 180;
-  stroke-dashoffset: 180;
-  animation: line-animate 6s ease forwards 2.48s;
+  --path-index: 12;
 }
-
 #animated-tagline path:nth-child(14) {
-  stroke-dasharray: 180;
-  stroke-dashoffset: 180;
-  animation: line-animate 6s ease forwards 2.52s;
+  --path-index: 13;
 }
-
 #animated-tagline path:nth-child(15) {
-  stroke-dasharray: 180;
-  stroke-dashoffset: 180;
-  animation: line-animate 6s ease forwards 2.56s;
+  --path-index: 14;
 }
-
 #animated-tagline path:nth-child(16) {
-  stroke-dasharray: 180;
-  stroke-dashoffset: 180;
-  animation: line-animate 6s ease forwards 2.6s;
+  --path-index: 15;
 }
-
 #animated-tagline path:nth-child(17) {
-  stroke-dasharray: 180;
-  stroke-dashoffset: 180;
-  animation: line-animate 6s ease forwards 2.64s;
+  --path-index: 16;
 }
-
 #animated-tagline path:nth-child(18) {
-  stroke-dasharray: 180;
-  stroke-dashoffset: 180;
-  animation: line-animate 6s ease forwards 2.68s;
+  --path-index: 17;
 }
-
 #animated-tagline path:nth-child(19) {
-  stroke-dasharray: 180;
-  stroke-dashoffset: 180;
-  animation: line-animate 6s ease forwards 2.72s;
+  --path-index: 18;
 }
-
 #animated-tagline path:nth-child(20) {
-  stroke-dasharray: 180;
-  stroke-dashoffset: 180;
-  animation: line-animate 6s ease forwards 2.76s;
+  --path-index: 19;
 }
-
 #animated-tagline path:nth-child(21) {
-  stroke-dasharray: 180;
-  stroke-dashoffset: 180;
-  animation: line-animate 6s ease forwards 2.8s;
+  --path-index: 20;
 }
-
 #animated-tagline path:nth-child(22) {
-  stroke-dasharray: 180;
-  stroke-dashoffset: 180;
-  animation: line-animate 6s ease forwards 2.84s;
+  --path-index: 21;
 }
-
 #animated-tagline path:nth-child(23) {
-  stroke-dasharray: 180;
-  stroke-dashoffset: 180;
-  animation: line-animate 6s ease forwards 2.88s;
+  --path-index: 22;
 }
-
 #animated-tagline path:nth-child(24) {
-  stroke-dasharray: 180;
-  stroke-dashoffset: 180;
-  animation: line-animate 6s ease forwards 2.92s;
+  --path-index: 23;
 }
-
 #animated-tagline path:nth-child(25) {
-  stroke-dasharray: 180;
-  stroke-dashoffset: 180;
-  animation: line-animate 6s ease forwards 2.96s;
+  --path-index: 24;
 }
-
 #animated-tagline path:nth-child(26) {
-  stroke-dasharray: 180;
-  stroke-dashoffset: 180;
-  animation: line-animate 6s ease forwards 3s;
+  --path-index: 25;
 }
-
 #animated-tagline path:nth-child(27) {
-  stroke-dasharray: 180;
-  stroke-dashoffset: 180;
-  animation: line-animate 6s ease forwards 3.04s;
+  --path-index: 26;
 }
-
 #animated-tagline path:nth-child(28) {
-  stroke-dasharray: 180;
-  stroke-dashoffset: 180;
-  animation: line-animate 6s ease forwards 3.08s;
+  --path-index: 27;
 }
-
 #animated-tagline path:nth-child(29) {
-  stroke-dasharray: 180;
-  stroke-dashoffset: 180;
-  animation: line-animate 6s ease forwards 3.12s;
+  --path-index: 28;
 }
-
 #animated-tagline path:nth-child(30) {
-  stroke-dasharray: 180;
-  stroke-dashoffset: 180;
-  animation: line-animate 6s ease forwards 3.16s;
+  --path-index: 29;
 }
-
 #animated-tagline path:nth-child(31) {
-  stroke-dasharray: 180;
-  stroke-dashoffset: 180;
-  animation: line-animate 6s ease forwards 3.2s;
+  --path-index: 30;
 }
-
 #animated-tagline path:nth-child(32) {
-  stroke-dasharray: 180;
-  stroke-dashoffset: 180;
-  animation: line-animate 6s ease forwards 3.24s;
+  --path-index: 31;
 }
-
 #animated-tagline path:nth-child(33) {
-  stroke-dasharray: 180;
-  stroke-dashoffset: 180;
-  animation: line-animate 6s ease forwards 3.28s;
+  --path-index: 32;
 }
-
 #animated-tagline path:nth-child(34) {
-  stroke-dasharray: 180;
-  stroke-dashoffset: 180;
-  animation: line-animate 6s ease forwards 3.32s;
+  --path-index: 33;
 }
-
 #animated-tagline path:nth-child(35) {
-  stroke-dasharray: 180;
-  stroke-dashoffset: 180;
-  animation: line-animate 6s ease forwards 3.36s;
+  --path-index: 34;
 }
-
 #animated-tagline path:nth-child(36) {
-  stroke-dasharray: 180;
-  stroke-dashoffset: 180;
-  animation: line-animate 6s ease forwards 3.4s;
+  --path-index: 35;
 }
-
 #animated-tagline path:nth-child(37) {
-  stroke-dasharray: 180;
-  stroke-dashoffset: 180;
-  animation: line-animate 6s ease forwards 3.44s;
+  --path-index: 36;
 }
-
 #animated-tagline path:nth-child(38) {
-  stroke-dasharray: 180;
-  stroke-dashoffset: 180;
-  animation: line-animate 6s ease forwards 3.48s;
+  --path-index: 37;
 }
-
 #animated-tagline path:nth-child(39) {
-  stroke-dasharray: 180;
-  stroke-dashoffset: 180;
-  animation: line-animate 6s ease forwards 3.52s;
+  --path-index: 38;
 }
 
 @keyframes line-animate {

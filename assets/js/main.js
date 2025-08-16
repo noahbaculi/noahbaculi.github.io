@@ -51,7 +51,7 @@ $("#independent_projects").load("./_independent_projects.html");
 
 function onNavbarsLoad(crumbs = null) {
   // Highlight current pages
-  if (typeof crumbs != Array) {
+  if (!Array.isArray(crumbs)) {
     crumbs = breadcrumbs;
   }
 

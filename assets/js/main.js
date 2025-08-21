@@ -13,9 +13,27 @@ const breadcrumbs = window.location.pathname
   .replace(".html", "")
   .split("-");
 
+/**
+ * Asynchronously loads an HTML fragment into the given element.
+ *
+ * If the element matching `selector` exists, its content will be replaced
+ * with the contents of the file at `url`. The returned Promise resolves
+ * when the load succeeds, and rejects if the request fails. If no matching
+ * element is found, the Promise resolves immediately with no action taken.
+ *
+ * @param {string} selector - jQuery selector for the target element.
+ * @param {string} url - Path or URL of the HTML file to load.
+ * @returns {Promise<void>} Promise that resolves when the section is loaded.
+ */
 function loadSection(selector, url) {
   return new Promise((resolve, reject) => {
-    $(selector).load(url, function (response, status) {
+    const $el = $(selector);
+    if ($el.length === 0) {
+      resolve(); // nothing to do
+      return;
+    }
+
+    $el.load(url, function (response, status) {
       if (status === "error") {
         reject(new Error(`Failed to load ${url}`));
       } else {

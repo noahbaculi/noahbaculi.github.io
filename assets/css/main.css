@@ -1279,7 +1279,7 @@ div.inner.subpage > div.row {
   height: 17.5em;
 }
 
-.row > .half_image_column img {
+.row > .half_image_column > * {
   width: 100%;
   border-radius: 8px / 4px;
   padding: 0 4px;
@@ -1349,7 +1349,7 @@ div.inner.subpage > div.row {
     height: auto;
   }
 
-  .row > .half_image_column img {
+  .row > .half_image_column {
     padding: 1em 0;
   }
 

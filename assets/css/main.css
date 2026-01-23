@@ -686,7 +686,11 @@ img .scroll_icon {
   }
 
   h1.home_entrance_title {
-    margin-top: 1em;
+    margin-top: 2rem;
+  }
+
+  img.page_header_pic {
+    height: 15vh;
   }
 
   #navbar {
@@ -770,11 +774,11 @@ img .scroll_icon {
 }
 
 h2.subpage {
-  margin: 2em 0;
+  margin: 4rem 0;
 }
 
 h5.subpage {
-  margin: 0 0 4em 0;
+  margin: 0 0 4rem 0;
 }
 
 .no_vertical_align {
@@ -985,8 +989,9 @@ h6 {
 
 @media screen and (max-width: 736px) {
   h2.subpage {
-    padding-top: 0.2em;
-    padding-bottom: 0.2em;
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+    margin: 2rem 0;
   }
 
   h3 {

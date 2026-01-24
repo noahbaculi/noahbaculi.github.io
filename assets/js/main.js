@@ -4,60 +4,73 @@ String.prototype.toProperCase = function () {
   });
 };
 
+$("#top_portfolio").load("./_top_portfolio.html");
+$("#footer").load("./_footer.html");
+$("#independent_projects").load("./_independent_projects.html");
+
 const breadcrumbs = window.location.pathname
   .replace("/", "")
   .replace(".html", "")
   .split("-");
 
-if (
-  window.location.pathname == "/" ||
-  window.location.pathname.includes("/index")
-) {
-  $.get("./_header_html.html", null, function (text) {
-    const HTML = new DOMParser().parseFromString(text, "text/html");
-    const navbarHTML = HTML.getElementById("navbar").innerHTML;
-    document.getElementById("navbar").innerHTML = navbarHTML;
+var $window = $(window),
+  $body = $("body");
 
-    const menuButtonHTML = HTML.getElementById("header").innerHTML;
-    document.getElementById("header").innerHTML = menuButtonHTML;
+/**
+ * Asynchronously loads an HTML fragment into the given element.
+ *
+ * If the element matching `selector` exists, its content will be replaced
+ * with the contents of the file at `url`. The returned Promise resolves
+ * when the load succeeds, and rejects if the request fails. If no matching
+ * element is found, the Promise resolves immediately with no action taken.
+ *
+ * @param {string} selector - jQuery selector for the target element.
+ * @param {string} url - Path or URL of the HTML file to load.
+ * @returns {Promise<void>} Promise that resolves when the section is loaded.
+ */
+function loadSection(selector, url) {
+  return new Promise((resolve, reject) => {
+    const $el = $(selector);
+    if ($el.length === 0) {
+      resolve(); // nothing to do
+      return;
+    }
 
-    const menuHTML = HTML.getElementById("menu").innerHTML;
-    document.getElementById("menu").innerHTML = menuHTML;
-
-    onNavbarsLoad(["index"]);
+    $el.load(url, function (response, status) {
+      if (status === "error") {
+        reject(new Error(`Failed to load ${url}`));
+      } else {
+        resolve();
+      }
+    });
   });
 }
 
-// Load template HTML sections
-$("#headers").load("./_header_html.html", null, function () {
-  // Callback code to be executed once HTML is loaded ▼
+async function initNavbars(crumbs) {
+  try {
+    // Always load header
+    await loadSection("#headers", "./_header_html.html");
 
-  // Insert sub nav bars and highlight current pages once loaded
-  if (window.location.pathname.includes("/about")) {
-    $("#subnavbars").load("./_about_subnavbar.html", null, onNavbarsLoad);
-  } else if (window.location.pathname.includes("/portfolio")) {
-    $("#subnavbars").load("./_portfolio_subnavbar.html", null, onNavbarsLoad);
-  } else {
-    onNavbarsLoad();
+    // Optionally load subnavbars
+    if (window.location.pathname.includes("/about")) {
+      await loadSection("#subnavbars", "./_about_subnavbar.html");
+    } else if (window.location.pathname.includes("/portfolio")) {
+      await loadSection("#subnavbars", "./_portfolio_subnavbar.html");
+    }
+
+    // Move menu to body
+    $("#menu").appendTo($("body"));
+
+    // Finally highlight once
+    highlightCurrentPages(crumbs);
+  } catch (error) {
+    console.error("Error loading navigation:", error);
   }
+}
 
-  // Add the side menu to the bottom of the body tag, outside of the wrapper div to avoid opacity change issues
-  $("#menu").appendTo($body);
-});
-
-$("#top_portfolio").load("./_top_portfolio.html");
-$("#footer").load("./_footer.html");
-$("#independent_projects").load("./_independent_projects.html");
-
-function onNavbarsLoad(crumbs = null) {
-  // Highlight current pages
-  if (typeof crumbs != Array) {
-    crumbs = breadcrumbs;
-  }
-
+function highlightCurrentPages(crumbs) {
   for (const page of crumbs) {
     const navBarElements = document.getElementsByClassName(page);
-
     for (const navBarElement of navBarElements) {
       navBarElement.classList.add("current_page");
     }
@@ -106,8 +119,7 @@ function onNavbarsLoad(crumbs = null) {
   }
 }
 
-var $window = $(window),
-  $body = $("body");
+initNavbars(breadcrumbs);
 
 // Breakpoints.
 breakpoints({

@@ -13,6 +13,9 @@ const breadcrumbs = window.location.pathname
   .replace(".html", "")
   .split("-");
 
+var $window = $(window),
+  $body = $("body");
+
 /**
  * Asynchronously loads an HTML fragment into the given element.
  *
@@ -56,7 +59,7 @@ async function initNavbars(crumbs) {
     }
 
     // Move menu to body
-    $("#menu").appendTo($("body")); // Assuming $body was document.body
+    $("#menu").appendTo($("body"));
 
     // Finally highlight once
     highlightCurrentPages(crumbs);
@@ -117,9 +120,6 @@ function highlightCurrentPages(crumbs) {
 }
 
 initNavbars(breadcrumbs);
-
-var $window = $(window),
-  $body = $("body");
 
 // Breakpoints.
 breakpoints({

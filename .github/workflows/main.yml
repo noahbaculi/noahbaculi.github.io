@@ -27,14 +27,14 @@ jobs:
     name: Check Broken Links
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
-
       - name: Restore lychee cache
         uses: actions/cache@v4
         with:
           path: .lycheecache
           key: cache-lychee
           restore-keys: cache-lychee
+
+      - uses: actions/checkout@v5
 
       - name: Link Checker
         uses: lycheeverse/lychee-action@v2

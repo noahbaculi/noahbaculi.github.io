@@ -30,7 +30,7 @@ bunx live-server
 Run image generator script:
 
 ```shell
-uv run python ./images/image_generator.py
+uv run python /images/image_generator.py
 ```
 
 Check family tree images:
@@ -48,5 +48,5 @@ bunx prettier --check .
 Check for broken links with [Lychee](https://github.com/lycheeverse/lychee):
 
 ```shell
-lychee --accept '200..=204, 401, 999' --cache .
+lychee --root-dir . --accept '200..=204, 401, 999' --cache .
 ```

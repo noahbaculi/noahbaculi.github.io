@@ -4,9 +4,9 @@ String.prototype.toProperCase = function () {
   });
 };
 
-$("#top_portfolio").load("./_top_portfolio.html");
-$("#footer").load("./_footer.html");
-$("#independent_projects").load("./_independent_projects.html");
+$("#top_portfolio").load("/_top_portfolio.html");
+$("#footer").load("/_footer.html");
+$("#independent_projects").load("/_independent_projects.html");
 
 const breadcrumbs = window.location.pathname
   .replace("/", "")
@@ -49,13 +49,13 @@ function loadSection(selector, url) {
 async function initNavbars(crumbs) {
   try {
     // Always load header
-    await loadSection("#headers", "./_header_html.html");
+    await loadSection("#headers", "/_header_html.html");
 
     // Optionally load subnavbars
     if (window.location.pathname.includes("/about")) {
-      await loadSection("#subnavbars", "./_about_subnavbar.html");
+      await loadSection("#subnavbars", "/_about_subnavbar.html");
     } else if (window.location.pathname.includes("/portfolio")) {
-      await loadSection("#subnavbars", "./_portfolio_subnavbar.html");
+      await loadSection("#subnavbars", "/_portfolio_subnavbar.html");
     }
 
     // Move menu to body

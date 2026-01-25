@@ -5,7 +5,7 @@ const firstHTML = `<div class="body genealogy-body genealogy-scroll">
       <a href="javascript:void(0);">
         <div class="member-view-box" style="padding: 0;">
           <div class="member-image">
-            <img src="./images/family_tree/family.png" style="background-color: white;" alt="Family">
+            <img src="/images/family_tree/family.png" style="background-color: white;" alt="Family">
             <div class="member-details">
               <h3></h3>
             </div>

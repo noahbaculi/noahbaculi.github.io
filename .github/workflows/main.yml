@@ -35,7 +35,6 @@ jobs:
           restore-keys: cache-lychee
 
       - uses: actions/checkout@v5
-
       - name: Link Checker
         uses: lycheeverse/lychee-action@v2
         with:

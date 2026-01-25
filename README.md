@@ -48,5 +48,5 @@ bunx prettier --check .
 Check for broken links with [Lychee](https://github.com/lycheeverse/lychee):
 
 ```shell
-lychee .
+lychee --accept '200..=204, 401, 999' --cache .
 ```

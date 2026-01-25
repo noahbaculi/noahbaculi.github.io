@@ -17,7 +17,7 @@ jobs:
     name: Check Family Tree Images
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: Install uv
         uses: astral-sh/setup-uv@v6
       - name: Test images
@@ -31,9 +31,10 @@ jobs:
         uses: actions/cache@v5
         with:
           path: .lycheecache
-          key: cache-lychee
+          key: cache-lychee-${{ github.sha }}
+          restore-keys: cache-lychee-
 
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Link Checker
         uses: lycheeverse/lychee-action@v2
@@ -45,7 +46,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           ref: ${{ github.head_ref }}
       - uses: oven-sh/setup-bun@v2

@@ -44,3 +44,9 @@ Check formatting with Prettier:
 ```shell
 bunx prettier --check .
 ```
+
+Check for broken links with [Lychee](https://github.com/lycheeverse/lychee):
+
+```shell
+lychee .
+```

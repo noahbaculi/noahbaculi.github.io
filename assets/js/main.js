@@ -4,9 +4,9 @@ String.prototype.toProperCase = function () {
   });
 };
 
-$("#top_professional").load("/_top_portfolio.html");
-$("#footer").load("/_footer.html");
-$("#independent_projects").load("/_independent_projects.html");
+$("#top_professional").load("/assets/html/top_professional.html");
+$("#footer").load("/assets/html/footer.html");
+$("#independent_projects").load("/assets/html/top_projects.html");
 
 const breadcrumbs = window.location.pathname
   .replace("/", "")
@@ -49,16 +49,20 @@ function loadSection(selector, url) {
 async function initNavbars(crumbs) {
   try {
     // Always load header
-    await loadSection("#headers", "/_header_html.html");
-    await loadSection("#navbar", "/navbar.html");
-    await loadSection("#side-menu", "/_side_menu.html");
+    await loadSection("#headers", "/assets/html/header.html");
+    await loadSection("#navbar", "/assets/html/navbar.html");
 
     // Optionally load subnavbars
     if (window.location.pathname.includes("/about")) {
-      await loadSection("#subnavbars", "/_about_subnavbar.html");
-    } else if (window.location.pathname.includes("/portfolio")) {
-      await loadSection("#subnavbars", "/_portfolio_subnavbar.html");
+      await loadSection("#subnavbar", "/assets/html/subnavbar_about.html");
+    } else if (window.location.pathname.includes("/professional")) {
+      await loadSection(
+        "#subnavbar",
+        "/assets/html/subnavbar_professional.html",
+      );
     }
+
+    await loadSection("#side-menu", "/assets/html/side_menu.html");
 
     // Move menu to body
     $("#menu").appendTo($("body"));

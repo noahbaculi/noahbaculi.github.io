@@ -26,7 +26,6 @@ jobs:
   broken_links:
     name: Check Broken Links
     runs-on: ubuntu-latest
-    permissions:
     steps:
       - uses: actions/checkout@v5
       - name: Link Checker

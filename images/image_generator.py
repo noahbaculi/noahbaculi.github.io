@@ -75,26 +75,27 @@ def convert_folder(
 
 
 if __name__ == "__main__":
-    ## PORTFOLIO
-    convert_folder(r"portfolio/enterprisedb", [400, 1000], exclude=["_orig"])
-    # convert_folder(r"portfolio\carium", [400, 1000], exclude=["_orig"])
-    # convert_folder(r"portfolio\salesforce", [400, 800], exclude=["team_lunch_orig.png"])
-    # convert_folder(r"portfolio\aldras", [400, 1000], exclude=["logo", "inspiration", "business", "application_icon"])
-    # convert_folder(r"portfolio\aldras", [200], include=["logo", "inspiration", "business", "application_icon"])
-    # convert_folder(r"portfolio\asme", [400, 1000])
-    # convert_folder(r"portfolio\trane", [400, 1000])
-    # convert_folder(r"portfolio\itw", [400, 1000])
-    # convert_folder(r"portfolio\caffinator", [400], include=["drill", "foam", "mechatronics", "shop"])
-    # convert_folder(r"portfolio\caffinator", [400, 1000], exclude=["drill", "foam", "mechatronics", "shop"])
-    # convert_folder(r"portfolio\nanofluidics", [400, 1000])
-    # convert_folder(r"portfolio\science_camp", [400, 1000])
-    # convert_folder(r"portfolio\other", [400, 1000])
-    # convert_folder(r"portfolio\guitar_tab_generator", [600])
-    # convert_folder(r"portfolio\pet_feeder", [400, 1000])
-    # convert_folder(r"portfolio\pet_feeder", [600], include=["pet_feeder_final.JPG"])
-    # convert_folder(r"portfolio\busca", [600])
-    # convert_folder(r"portfolio\aldras", [600], include=["aldras.png"])
-    # convert_folder(r"portfolio\independent_projects", [600], include=["salesforce_galaxy"])
+    ## PROFESSIONAL
+    convert_folder(r"professional/enterprisedb", [400, 1000], exclude=["_orig"])
+    # convert_folder(r"professional\carium", [400, 1000], exclude=["_orig"])
+    # convert_folder(r"professional\salesforce", [400, 800], exclude=["team_lunch_orig.png"])
+    # convert_folder(r"professional\aldras", [400, 1000], exclude=["logo", "inspiration", "business", "application_icon"])
+    # convert_folder(r"professional\aldras", [200], include=["logo", "inspiration", "business", "application_icon"])
+    # convert_folder(r"professional\asme", [400, 1000])
+    # convert_folder(r"professional\trane", [400, 1000])
+    # convert_folder(r"professional\itw", [400, 1000])
+    # convert_folder(r"professional\caffinator", [400], include=["drill", "foam", "mechatronics", "shop"])
+    # convert_folder(r"professional\caffinator", [400, 1000], exclude=["drill", "foam", "mechatronics", "shop"])
+    # convert_folder(r"professional\nanofluidics", [400, 1000])
+    # convert_folder(r"professional\science_camp", [400, 1000])
+    # convert_folder(r"professional\other", [400, 1000])
+
+    ## PROJECTS
+    # convert_folder(r"projects\guitar_tab_generator", [600])
+    # convert_folder(r"projects\pet_feeder", [400, 1000])
+    # convert_folder(r"projects\pet_feeder", [600], include=["pet_feeder_final.JPG"])
+    # convert_folder(r"projects\busca", [600])
+    # convert_folder(r"projects\other", [600], include=["salesforce_galaxy"])
 
     ## ABOUT
     # convert_folder(r"about\travel", [400, 800, 1500])
@@ -116,7 +117,7 @@ if __name__ == "__main__":
 
     ## ICONS
     # convert_folder(r"icons", [25, 50])
-    # convert_folder(r"portfolio\contact", [400], include=['affiliated_organizations'])
+    # convert_folder(r"professional\contact", [400], include=['affiliated_organizations'])
 
     # # CONTACT
     # convert_folder(r"contact", [2000], include=["affiliated"])

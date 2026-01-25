@@ -39,7 +39,7 @@ jobs:
       - name: Link Checker
         uses: lycheeverse/lychee-action@v2
         with:
-          args: '-v --root-dir "$(pwd)" --accept ''200..=204, 401, 999'' --cache --max-cache-age 1d .'
+          args: '--root-dir "$(pwd)" --accept ''200..=204, 401, 999'' --cache --max-cache-age 1d .'
 
   prettier:
     name: Prettier Check

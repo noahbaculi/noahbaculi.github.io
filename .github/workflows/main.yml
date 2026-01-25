@@ -32,7 +32,6 @@ jobs:
         with:
           path: .lycheecache
           key: cache-lychee
-          restore-keys: cache-lychee
 
       - uses: actions/checkout@v5
       - name: Link Checker

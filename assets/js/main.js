@@ -4,7 +4,7 @@ String.prototype.toProperCase = function () {
   });
 };
 
-$("#top_portfolio").load("/_top_portfolio.html");
+$("#top_professional").load("/_top_portfolio.html");
 $("#footer").load("/_footer.html");
 $("#independent_projects").load("/_independent_projects.html");
 

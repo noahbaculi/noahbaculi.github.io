@@ -1107,6 +1107,14 @@ a > div.row:hover {
   }
 }
 
+div.professional_more {
+  margin-top: 1svh;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2em;
+  justify-content: flex-end;
+}
+
 div.project_tile_more {
   display: flex;
   flex-wrap: wrap;
@@ -1114,6 +1122,7 @@ div.project_tile_more {
   justify-content: center;
 }
 
+.professional_more > a,
 .project_tile_more > a {
   font-weight: 500;
   background-color: #1d4ed8;

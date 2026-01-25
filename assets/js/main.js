@@ -50,6 +50,8 @@ async function initNavbars(crumbs) {
   try {
     // Always load header
     await loadSection("#headers", "/_header_html.html");
+    await loadSection("#navbar", "/navbar.html");
+    await loadSection("#side-menu", "/_side_menu.html");
 
     // Optionally load subnavbars
     if (window.location.pathname.includes("/about")) {

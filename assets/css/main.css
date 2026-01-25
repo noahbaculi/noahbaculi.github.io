@@ -1092,11 +1092,11 @@ a > div.row:hover {
   transition: 0.2s;
 }
 
-.portfolio_row ul {
+.professional_row ul {
   margin: 0;
 }
 
-.portfolio_row {
+.professional_row {
   border: 1px solid transparent;
   padding: 1em;
   margin: 0;
@@ -1107,14 +1107,6 @@ a > div.row:hover {
   }
 }
 
-div.portfolio_more {
-  margin-top: 1svh;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.2em;
-  justify-content: flex-end;
-}
-
 div.project_tile_more {
   display: flex;
   flex-wrap: wrap;
@@ -1122,7 +1114,6 @@ div.project_tile_more {
   justify-content: center;
 }
 
-.portfolio_more > a,
 .project_tile_more > a {
   font-weight: 500;
   background-color: #1d4ed8;
@@ -1254,7 +1245,7 @@ div.inner.subpage > div.row {
     padding: 1em 0 2em 0.5em;
   }
 
-  .portfolio_row > .text_column {
+  .professional_row > .text_column {
     padding: 0 !important;
   }
 

@@ -2801,7 +2801,7 @@ body.is-menu-visible #menu .close {
 
 #wrapper > * > .inner {
   width: 100%;
-  max-width: 60em;
+  max-width: 75rem;
   margin: 0 auto;
   padding: 0 2.5em;
   font-size: 14pt;
@@ -2809,7 +2809,7 @@ body.is-menu-visible #menu .close {
 
 #wrapper > * > .inner.subpage {
   width: 100%;
-  max-width: 60em !important;
+  max-width: 75rem !important;
   margin: 0 auto;
 }
 

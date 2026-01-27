@@ -5,8 +5,13 @@ String.prototype.toProperCase = function () {
 };
 
 $("#top_professional").load("/assets/html/top_professional.html");
+
+// Replace element with data instead of inserting into element
+$.get("/assets/html/top_projects.html", function (data) {
+  $("#top_projects").replaceWith(data);
+});
+
 $("#footer").load("/assets/html/footer.html");
-$("#independent_projects").load("/assets/html/top_projects.html");
 
 var $window = $(window),
   $body = $("body");

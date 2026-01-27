@@ -8,11 +8,6 @@ $("#top_professional").load("/assets/html/top_professional.html");
 $("#footer").load("/assets/html/footer.html");
 $("#independent_projects").load("/assets/html/top_projects.html");
 
-const breadcrumbs = window.location.pathname
-  .replace("/", "")
-  .replace(".html", "")
-  .split("-");
-
 var $window = $(window),
   $body = $("body");
 
@@ -46,7 +41,7 @@ function loadSection(selector, url) {
   });
 }
 
-async function initNavbars(crumbs) {
+async function initNavbars() {
   try {
     // Always load header
     await loadSection("#headers", "/assets/html/header.html");
@@ -68,19 +63,25 @@ async function initNavbars(crumbs) {
     $("#menu").appendTo($("body"));
 
     // Finally highlight once
-    highlightCurrentPages(crumbs);
+    highlightCurrentPages();
   } catch (error) {
     console.error("Error loading navigation:", error);
   }
 }
 
-function highlightCurrentPages(crumbs) {
-  for (const page of crumbs) {
+function highlightCurrentPages() {
+  const crumbs = window.location.pathname.replace(".html", "").split("/");
+  crumbs.shift(); // Remove first empty element
+
+  console.log("crumbs", crumbs);
+  crumbs.forEach((page, idx) => {
+    // Only add current_page to 'index' if it's the first element
+    if (page === "index" && idx !== 0) return;
     const navBarElements = document.getElementsByClassName(page);
     for (const navBarElement of navBarElements) {
       navBarElement.classList.add("current_page");
     }
-  }
+  });
 
   // Stick navbar on scroll
   const navbar = document.getElementById("navbar");
@@ -125,7 +126,7 @@ function highlightCurrentPages(crumbs) {
   }
 }
 
-initNavbars(breadcrumbs);
+initNavbars();
 
 // Breakpoints.
 breakpoints({

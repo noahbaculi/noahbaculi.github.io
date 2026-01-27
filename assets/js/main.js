@@ -53,8 +53,8 @@ async function initNavbars(crumbs) {
     await loadSection("#navbar", "/assets/html/navbar.html");
 
     // Optionally load subnavbars
-    if (window.location.pathname.includes("/about")) {
-      await loadSection("#subnavbar", "/assets/html/subnavbar_about.html");
+    if (window.location.pathname.includes("/hobbies")) {
+      await loadSection("#subnavbar", "/assets/html/subnavbar_hobbies.html");
     } else if (window.location.pathname.includes("/professional")) {
       await loadSection(
         "#subnavbar",

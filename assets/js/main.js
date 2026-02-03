@@ -54,10 +54,10 @@ async function initNavbars() {
 
     // Optionally load subnavbars
     if (window.location.pathname.includes("/hobbies")) {
-      await loadSection("#subnavbar", "/assets/html/subnavbar_hobbies.html");
+      await loadSection("#subnavbars", "/assets/html/subnavbar_hobbies.html");
     } else if (window.location.pathname.includes("/professional")) {
       await loadSection(
-        "#subnavbar",
+        "#subnavbars",
         "/assets/html/subnavbar_professional.html",
       );
     }

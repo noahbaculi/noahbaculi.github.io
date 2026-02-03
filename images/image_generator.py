@@ -99,10 +99,10 @@ if __name__ == "__main__":
 
     ## ABOUT
     # convert_folder(r"images/hobbies/music", [400, 1000])
-    # convert_folder(r"images/hobbies/travel", [400, 800, 1500])
+    # convert_folder(r"images/hobbies/travel", [400, 1000])
     convert_folder(r"images/hobbies/diy", [400, 1000])
     convert_folder(r"images/hobbies/tech", [400, 1000])
-    # convert_folder(r"images/hobbies/principles", [500, 1000, 2000])
+    # convert_folder(r"images/hobbies/principles", [400, 1000])
     # convert_folder(r"images/hobbies/swim", [400, 1000])
 
     ## HEADERS

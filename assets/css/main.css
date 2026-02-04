@@ -963,11 +963,11 @@ div.tiles_row {
 }
 
 div.project_tile {
-  max-width: min(20rem, 45svw);
+  max-width: min(20rem, 42svw);
 }
 
 div.hobbies_tile {
-  max-width: min(30rem, 45svw);
+  max-width: min(25rem, 42svw);
 }
 
 div.project_tile,

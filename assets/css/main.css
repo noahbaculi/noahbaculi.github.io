@@ -954,7 +954,7 @@ hr {
 
 /* Project Tiles */
 
-div.project_tiles_row {
+div.tiles_row {
   flex-wrap: wrap;
   justify-content: center;
   align-items: start;
@@ -963,7 +963,15 @@ div.project_tiles_row {
 }
 
 div.project_tile {
-  max-width: 20rem;
+  max-width: min(20rem, 45svw);
+}
+
+div.hobbies_tile {
+  max-width: min(30rem, 45svw);
+}
+
+div.project_tile,
+div.hobbies_tile {
   background-color: #ffffff;
   border: 1px solid #c4c4c4;
   border-radius: 0.5rem;
@@ -978,12 +986,14 @@ div.project_tile {
   & div > a > h5 {
     margin-bottom: 0.5rem;
     font-size: large;
-    font-weight: bold;
   }
+}
 
-  @media screen and (max-width: 480px) {
-    max-width: 45svw;
-  }
+div.project_tile h5 {
+  font-weight: bold;
+}
+div.hobbies_tile h5 {
+  font-weight: 400;
 }
 
 div.project_tile > div {

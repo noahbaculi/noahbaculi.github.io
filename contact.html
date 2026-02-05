@@ -23,7 +23,7 @@
         <div class="inner">
           <br />
           <br />
-          <h5>Send Me A Message!</h5>
+          <h2 style="margin: 0">Send Me A Message!</h2>
           <br />
           <form
             name="contact"
@@ -41,8 +41,8 @@
                     type="text"
                     name="name"
                     maxlength="50"
-                    size="30"
                     placeholder="Name"
+                    required
                   />
                 </td>
               </tr>
@@ -52,11 +52,12 @@
                 </td>
                 <td>
                   <input
-                    type="text"
+                    type="email"
                     name="email"
-                    maxlength="80"
+                    maxlength="100"
                     size="30"
                     placeholder="Email"
+                    required
                   />
                 </td>
               </tr>
@@ -65,37 +66,51 @@
                   <label for="category">Category</label>
                 </td>
                 <td>
-                  <input
-                    type="checkbox"
-                    id="resume_request"
-                    name="resume_request"
-                  />
-                  <label for="resume_request">Resume Request</label><br />
-                  <input
-                    type="checkbox"
-                    id="asme_inquiry"
-                    name="asme_inquiry"
-                  />
-                  <label for="asme_inquiry">ASME Inquiry</label><br />
-                  <input
-                    type="checkbox"
-                    id="professional_inquiry"
-                    name="professional_inquiry"
-                  />
-                  <label for="professional_inquiry"
-                    >Other Professional Inquiry</label
-                  ><br />
-                  <input
-                    type="checkbox"
-                    id="personal_inquiry"
-                    name="personal_inquiry"
-                  />
-                  <label for="personal_inquiry">Personal Inquiry</label>
+                  <div class="check-row">
+                    <input
+                      type="checkbox"
+                      id="resume_request"
+                      name="resume_request"
+                    />
+                    <label for="resume_request">Resume Request</label>
+                  </div>
+                  <div class="check-row">
+                    <input
+                      type="checkbox"
+                      id="career_coaching"
+                      name="career_coaching"
+                    />
+                    <label for="career_coaching">Career Coaching</label>
+                  </div>
+                  <div class="check-row">
+                    <input
+                      type="checkbox"
+                      id="rust_coaching"
+                      name="rust_coaching"
+                    />
+                    <label for="rust_coaching">Rust Coaching</label>
+                  </div>
+                  <div class="check-row">
+                    <input
+                      type="checkbox"
+                      id="personal_inquiry"
+                      name="personal_inquiry"
+                    />
+                    <label for="personal_inquiry">Personal Inquiry</label>
+                  </div>
+                  <div class="check-row">
+                    <input
+                      type="checkbox"
+                      id="asme_inquiry"
+                      name="asme_inquiry"
+                    />
+                    <label for="asme_inquiry">ASME Inquiry</label>
+                  </div>
                 </td>
               </tr>
               <tr>
                 <td>
-                  <label for="message">Comment or Message *</label>
+                  <label for="message">Message *</label>
                 </td>
                 <td>
                   <textarea
@@ -104,15 +119,16 @@
                     cols="25"
                     rows="6"
                     placeholder="Comment or Message"
+                    required
                   ></textarea>
                 </td>
               </tr>
             </table>
             <div data-netlify-recaptcha="true"></div>
-            <br />
             <div class="align-center">
               <input type="submit" value="Submit" />
             </div>
+            <br />
           </form>
         </div>
         <br /><br />

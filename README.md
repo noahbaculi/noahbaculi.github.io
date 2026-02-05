@@ -49,3 +49,17 @@ Check for broken links with [Lychee](https://github.com/lycheeverse/lychee):
 ```shell
 lychee --root-dir . --accept '200..=204, 401, 999' --cache .
 ```
+
+Convert a folder of `.HEIC` photos to `.jpg` on MacOS using fish shell:
+
+```fish
+mkdir -p jpg
+for f in *.heic *.HEIC
+  if not test -e "$f"
+      continue
+  end
+  set base (string replace -r '\.[^.]+$' '' -- "$f")
+  # quality: 0–100 (higher = larger). 80–90 is usually a good range.
+  sips -s format jpeg -s formatOptions 85 "$f" --out "jpg/$base.jpg" >/dev/null
+end
+```

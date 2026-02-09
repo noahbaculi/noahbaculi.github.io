@@ -3,3 +3,5 @@ bun = "latest"
 python = "3.14"
 uv = "latest"
 lychee = "latest" # HTML Link checker
+ruff = "latest"   # Python linter and code formatter
+ty = "latest"     # Python type checker and LSP

@@ -35,7 +35,7 @@ def find_actual_webp_files(base_path: str, images_root: Path) -> list[int]:
     # /images/icons/icon_scroll_up -> images/icons/icon_scroll_up
     fs_base = base_path.lstrip("/")
 
-    parent = images_root / Path(fs_base).parent
+    parent = Path(fs_base).parent
     stem = Path(fs_base).name
 
     if not parent.exists():
@@ -73,22 +73,24 @@ def transform_img_tag(img_tag: str, images_root: Path) -> str:
 
     base_path, _ = first_entry
 
+    # Find actual widths on disk
+    actual_widths = find_actual_webp_files(base_path, images_root)
+
+    print(
+        f"Found {len(actual_widths)} actual webp files for base path '{base_path}': {actual_widths}"
+    )
+
     # Determine widths to use
     if is_standard_folder(base_path):
-        # Use standard widths, but check which ones actually exist
-        actual_widths = find_actual_webp_files(base_path, images_root)
         if actual_widths:
-            # Use standard widths that exist, or closest matches
-            widths = [w for w in STANDARD_WIDTHS if w <= max(actual_widths)]
-            if not widths:
-                widths = [min(actual_widths)]
-            # Add the max actual width if it's not a standard width
-            max_actual = max(actual_widths)
-            if max_actual not in STANDARD_WIDTHS and max_actual > max(widths):
-                widths.append(max_actual)
-            widths = sorted(set(widths))
+            max_available = max(actual_widths)
+            # Use standard widths up to the widest available
+            widths = [w for w in STANDARD_WIDTHS if w <= max_available]
+            # Include the max if it's not a standard width (e.g., 1100)
+            if max_available not in STANDARD_WIDTHS:
+                widths.append(max_available)
         else:
-            # Fall back to existing srcset widths
+            # No files found—fall back to existing srcset widths
             widths = sorted(
                 set(
                     get_base_image_name(line)[1]
@@ -109,13 +111,12 @@ def transform_img_tag(img_tag: str, images_root: Path) -> str:
         return img_tag
 
     # Build new srcset with dash naming and correct width descriptors
-    max_width = max(str(w) for w in widths)
-    width_padding = len(max_width)
+    max_width_str_len = len(str(max(widths)))
 
     new_srcset_lines = []
     for w in widths:
         path = f"{base_path}-{w}_w.webp"
-        new_srcset_lines.append(f"{path} {w:>{width_padding}}w")
+        new_srcset_lines.append(f"{path} {w:>{max_width_str_len}}w")
 
     # Preserve original indentation
     indent_match = re.search(r'srcset="\s*\n?(\s*)', img_tag)

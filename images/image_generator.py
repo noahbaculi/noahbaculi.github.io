@@ -135,16 +135,18 @@ if __name__ == "__main__":
     convert_folder(r"images/hobbies", DEFAULT_IMAGE_WIDTHS)
 
     ## HEADERS
-    # convert_folder(r"images/noah", [800], include=["header_2_by_3"])
-    # convert_folder(r"images/noah", [1200], include=["header_square"])
-    # convert_folder(r"images/noah", [1600], include=["header_4_by_3"])
-    # convert_folder(r"images/noah", [2000], include=["header.jpg"])
-    # convert_folder(r"images/noah", [400], include=["_page.jpg"])
-    # convert_folder(r"images/noah", [600], include=["_page_2_by_1.jpg"])
-    # convert_folder(r"images/noah", [1200], include=["_page_3_by_1.jpg"])
-    # convert_folder(r"images/noah", [2000], include=["_page_5_by_1.jpg"])
+    convert_folder(r"images/noah", [400, 2400], include=["noah_baculi_header_page.jpg"])
+    convert_folder(
+        r"images/noah", [600], include=["noah_baculi_header_page_2_by_1.jpg"]
+    )
+    convert_folder(
+        r"images/noah", [1200], include=["noah_baculi_header_page_3_by_1.jpg"]
+    )
+    convert_folder(
+        r"images/noah", [2000], include=["noah_baculi_header_page_5_by_1.jpg"]
+    )
 
-    ## ICONS
+    # ICONS
     convert_folder(r"images/icons", [25, 50])
 
     # FAMILY TREE

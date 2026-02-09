@@ -29,7 +29,7 @@ bunx live-server
 Run image generator script:
 
 ```shell
-uv run python /images/image_generator.py
+uv run python ./images/image_generator.py
 ```
 
 Check family tree images:

@@ -4,10 +4,10 @@ import os
 
 def check_path(breadcrumbs, name_str) -> str | None:
     for file_extension in ("jpg", "jpeg", "png"):
-        path = f"/images/family_tree/{breadcrumbs}{name_str}.{file_extension}".lower()
+        path = f"./images/family_tree/{breadcrumbs}{name_str}.{file_extension}".lower()
         if os.path.isfile(path):
             return
-    return f"File not found: {path}"
+    return f"No file found for: {breadcrumbs}{name_str}"
 
 
 def check_top_tree_level(tree, breadcrumbs):

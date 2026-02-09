@@ -83,9 +83,10 @@ def convert_img(
         if is_final_width:
             break
 
-    print(
-        f"\tGenerated {num_generated_files} images and skipped {num_existing_files} images for '{file_path}'."
-    )
+    if num_generated_files != 0:
+        print(
+            f"\tGenerated {num_generated_files} images and skipped {num_existing_files} images for '{file_path}'."
+        )
     return None
 
 
@@ -96,7 +97,6 @@ def convert_folder(
     include: list[str] | None = None,
 ) -> None:
     """Convert all images in a directory to responsive WebP sizes."""
-    print(f"Converting images in '{base_path}'")
 
     base = Path(base_path)
 
@@ -113,7 +113,7 @@ def convert_folder(
         if Path(f).suffix.lower() in IMAGE_EXTENSIONS and "_w." not in f
     ]
 
-    print(f"Found {len(image_files)} images to process")
+    print(f"Generating scaled images in for {len(image_files)} in '{base_path}'...")
 
     worker = partial(convert_img, widths=widths, exclude=exclude, include=include)
     with ProcessPoolExecutor() as executor:

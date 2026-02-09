@@ -1,4 +1,7 @@
+from concurrent.futures import ProcessPoolExecutor
+from functools import partial
 from pathlib import Path
+
 from PIL import Image
 
 
@@ -21,7 +24,7 @@ from PIL import Image
 # The `sizes` attribute tells the browser the display size, and it
 # picks the smallest srcset image that still looks sharp at that size
 # multiplied by the device's pixel ratio.
-IMAGE_WIDTHS = [400, 800, 1600, 2400]
+DEFAULT_IMAGE_WIDTHS = sorted([400, 800, 1600, 2400])
 
 IMAGE_EXTENSIONS = {".jpg", ".jpeg", ".png", ".heic"}
 
@@ -55,31 +58,34 @@ def convert_img(
 
     original_width, original_height = img.size
 
+    num_existing_files = 0
+    num_generated_files = 0
     for width in widths:
-        if width > original_width:
-            width = original_width
+        is_final_width = width > original_width
 
-        output_path = file_path.with_name(f"{file_path.stem}_{width}_w.webp")
+        if is_final_width:
+            width = round_down_to_nearest(original_width, 100)
 
-        if output_path.exists():
-            # Skip existing output file
-            if width >= original_width:
-                break
-            continue
+        output_path = file_path.with_name(f"{file_path.stem}-{width}_w.webp")
 
-        size_ratio = width / original_width
-        new_size = (
-            round(original_width * size_ratio),
-            round(original_height * size_ratio),
-        )
+        if not output_path.exists():
+            size_ratio = width / original_width
+            new_size = (
+                round(original_width * size_ratio),
+                round(original_height * size_ratio),
+            )
+            new_img = img.resize(new_size, Image.Resampling.LANCZOS)
+            new_img.save(output_path, "webp")
+            num_generated_files += 1
+        else:
+            num_existing_files += 1
 
-        new_img = img.resize(new_size, Image.Resampling.LANCZOS)
-        new_img.save(output_path, "webp")
-
-        if width >= original_width:
+        if is_final_width:
             break
 
-    print(f"\tGenerated images for '{file_path}'.")
+    print(
+        f"\tGenerated {num_generated_files} images and skipped {num_existing_files} images for '{file_path}'."
+    )
     return None
 
 
@@ -99,57 +105,34 @@ def convert_folder(
 
     exclude = exclude or []
     include = include or []
-    invalid_files = {}
 
-    for root, _, files in base.walk():
-        image_files = [
-            f
-            for f in files
-            if Path(f).suffix.lower() in IMAGE_EXTENSIONS and "_w." not in f
-        ]
-        print(image_files)
+    image_files = [
+        root / f
+        for root, _, files in base.walk()
+        for f in files
+        if Path(f).suffix.lower() in IMAGE_EXTENSIONS and "_w." not in f
+    ]
 
-        for file in image_files:
-            file_path = root / file
-            result = convert_img(file_path, widths, exclude, include)
-            if result:
-                invalid_files.append(result)
+    print(f"Found {len(image_files)} images to process")
 
+    worker = partial(convert_img, widths=widths, exclude=exclude, include=include)
+    with ProcessPoolExecutor() as executor:
+        results = list(executor.map(worker, image_files))
+
+    invalid_files = {r for r in results if r is not None}
     if invalid_files:
         raise ValueError("Failed to convert:\n\t" + "\n\t".join(invalid_files))
 
 
+def round_down_to_nearest(value: int, multiple: int) -> int:
+    """Round value down to the nearest multiple."""
+    return (value // multiple) * multiple
+
+
 if __name__ == "__main__":
-    convert_folder(r"images/hobbies/diy", IMAGE_WIDTHS)
-
-    ## PROFESSIONAL
-    # convert_folder(r"images/professional/enterprisedb", [400, 1000], exclude=["_orig"])
-    # convert_folder(r"images/professional/carium", [400, 1000], exclude=["_orig"])
-    # convert_folder(r"images/professional/salesforce", [400, 800], exclude=["team_lunch_orig.png"])
-    # convert_folder(r"images/professional/aldras", [400, 1000], exclude=["logo", "inspiration", "business", "application_icon"])
-    # convert_folder(r"images/professional/aldras", [200], include=["logo", "inspiration", "business", "application_icon"])
-    # convert_folder(r"images/professional/asme", [400, 1000])
-    # convert_folder(r"images/professional/trane", [400, 1000])
-    # convert_folder(r"images/professional/itw", [400, 1000])
-    # convert_folder(r"images/professional/caffinator", [400], include=["drill", "foam", "mechatronics", "shop"])
-    # convert_folder(r"images/professional/caffinator", [400, 1000], exclude=["drill", "foam", "mechatronics", "shop"])
-    # convert_folder(r"images/professional/nanofluidics", [400, 1000])
-    # convert_folder(r"images/professional/science_camp", [400, 1000])
-    # convert_folder(r"images/professional/other", [400, 1000])
-
-    ## PROJECTS
-    # convert_folder(r"images/projects/guitar_tab_generator", [600])
-    # convert_folder(r"images/projects/pet_feeder", [400, 1000])
-    # convert_folder(r"images/projects/pet_feeder", [600], include=["pet_feeder_final.JPG"])
-    # convert_folder(r"images/projects/busca", [600])
-    # convert_folder(r"images/projects/other", [600], include=["salesforce_galaxy"])
-
-    ## ABOUT
-    # convert_folder(r"images/hobbies/music", [400, 1000])
-    # convert_folder(r"images/hobbies/travel", [400, 1000])
-    # convert_folder(r"images/hobbies/tech", [400, 1000])
-    # convert_folder(r"images/hobbies/principles", [400, 1000])
-    # convert_folder(r"images/hobbies/swim", [400, 1000])
+    convert_folder(r"images/professional", DEFAULT_IMAGE_WIDTHS)
+    convert_folder(r"images/projects", DEFAULT_IMAGE_WIDTHS)
+    convert_folder(r"images/hobbies", DEFAULT_IMAGE_WIDTHS)
 
     ## HEADERS
     # convert_folder(r"images/noah", [800], include=["header_2_by_3"])
@@ -162,16 +145,9 @@ if __name__ == "__main__":
     # convert_folder(r"images/noah", [2000], include=["_page_5_by_1.jpg"])
 
     ## ICONS
-    # convert_folder(r"images/icons", [25, 50])
-    # convert_folder(r"images/professional/contact", [400], include=['affiliated_organizations'])
+    convert_folder(r"images/icons", [25, 50])
 
-    # # CONTACT
-    # convert_folder(r"images/contact", [2000], include=["affiliated"])
-    # convert_folder(r"images/contact", [1], exclude=["affiliated", "salesforce"], include=["background"])
-    # convert_folder(r"images/contact", [200], include=["salesforce_background"])
-    # convert_folder(r"images/contact", [500], exclude=["affiliated", "background"])
-
-    ## FAMILY TREE
-    # convert_folder(r"images/family_tree", [50, 100])
+    # FAMILY TREE
+    convert_folder(r"images/family_tree", [50, 100])
 
     print("Done.")

@@ -7,12 +7,19 @@ Update <img> tags in HTML files:
 4. Standardize widths to [400, 800, 1600, 2400] for standard image folders
 """
 
+# WARN: This was developed with AI (Claude Opus 4.5 in Feb 2026).
+# It seems to do what I want but I haven't dissected every edge case - especially the regular expressions.
+# ALWAYS USE SOURCE CONTROL TO MITIGATE SCRIPTED CHANGES
+
 import re
 from pathlib import Path
 
 # Folders that should use standard widths [400, 800, 1600, 2400]
 STANDARD_FOLDERS = {"images/hobbies", "images/professional", "images/projects"}
 STANDARD_WIDTHS = [400, 800, 1600, 2400]
+
+# Images containing these substrings will be skipped
+IGNORE_PATTERNS = {"noah_baculi_header"}
 
 
 def get_base_image_name(srcset_line: str) -> tuple[str, int] | None:
@@ -27,6 +34,11 @@ def get_base_image_name(srcset_line: str) -> tuple[str, int] | None:
 def is_standard_folder(path: str) -> bool:
     """Check if path is in a standard folder."""
     return any(folder in path for folder in STANDARD_FOLDERS)
+
+
+def should_ignore(path: str) -> bool:
+    """Check if path should be ignored."""
+    return any(pattern in path for pattern in IGNORE_PATTERNS)
 
 
 def find_actual_webp_files(base_path: str, images_root: Path) -> list[int]:
@@ -51,6 +63,64 @@ def find_actual_webp_files(base_path: str, images_root: Path) -> list[int]:
     return sorted(widths)
 
 
+def get_expected_widths(
+    base_path: str, srcset_lines: list[str], images_root: Path
+) -> list[int]:
+    """Determine what widths should be used for this image."""
+    actual_widths = find_actual_webp_files(base_path, images_root)
+
+    if is_standard_folder(base_path):
+        if actual_widths:
+            max_available = max(actual_widths)
+            widths = [w for w in STANDARD_WIDTHS if w <= max_available]
+            if max_available not in STANDARD_WIDTHS:
+                widths.append(max_available)
+        else:
+            widths = sorted(
+                set(
+                    get_base_image_name(line)[1]
+                    for line in srcset_lines
+                    if get_base_image_name(line)
+                )
+            )
+    else:
+        widths = []
+        for line in srcset_lines:
+            entry = get_base_image_name(line)
+            if entry:
+                widths.append(entry[1])
+        widths = sorted(set(widths))
+
+    return widths
+
+
+def is_already_correct(img_tag: str, base_path: str, widths: list[int]) -> bool:
+    """Check if the img tag already has correct formatting."""
+    # Check srcset uses dash naming with correct widths
+    for w in widths:
+        # Match the path-width pattern with flexible whitespace
+        if not re.search(rf"{re.escape(base_path)}-{w}_w\.webp\s+{w}w", img_tag):
+            return False
+
+    # Check we don't have extra widths in srcset
+    srcset_match = re.search(r'srcset="([^"]*)"', img_tag, re.DOTALL)
+    if srcset_match:
+        srcset_content = srcset_match.group(1)
+        # Count how many entries are in the srcset
+        entries = [line.strip() for line in srcset_content.split(",") if line.strip()]
+        if len(entries) != len(widths):
+            return False
+
+    # Check src attribute (for standard folders)
+    if is_standard_folder(base_path):
+        highest_width = max(widths)
+        expected_src = f"{base_path}-{highest_width}_w.webp"
+        if f'src="{expected_src}"' not in img_tag:
+            return False
+
+    return True
+
+
 def transform_img_tag(img_tag: str, images_root: Path) -> str:
     """Transform a single <img> tag."""
     # Extract srcset content
@@ -73,42 +143,37 @@ def transform_img_tag(img_tag: str, images_root: Path) -> str:
 
     base_path, _ = first_entry
 
-    # Find actual widths on disk
-    actual_widths = find_actual_webp_files(base_path, images_root)
-
-    print(
-        f"Found {len(actual_widths)} actual webp files for base path '{base_path}': {actual_widths}"
-    )
+    # Skip ignored patterns
+    if should_ignore(base_path):
+        return img_tag
 
     # Determine widths to use
-    if is_standard_folder(base_path):
-        if actual_widths:
-            max_available = max(actual_widths)
-            # Use standard widths up to the widest available
-            widths = [w for w in STANDARD_WIDTHS if w <= max_available]
-            # Include the max if it's not a standard width (e.g., 1100)
-            if max_available not in STANDARD_WIDTHS:
-                widths.append(max_available)
-        else:
-            # No files found—fall back to existing srcset widths
-            widths = sorted(
-                set(
-                    get_base_image_name(line)[1]
-                    for line in srcset_lines
-                    if get_base_image_name(line)
-                )
-            )
-    else:
-        # Non-standard folder: keep existing widths, just fix descriptors
-        widths = []
-        for line in srcset_lines:
-            entry = get_base_image_name(line)
-            if entry:
-                widths.append(entry[1])
-        widths = sorted(set(widths))
+    widths = get_expected_widths(base_path, srcset_lines, images_root)
 
     if not widths:
         return img_tag
+
+    # Skip if already correct
+    if is_already_correct(img_tag, base_path, widths):
+        return img_tag
+
+    print(f"Updating: {base_path}")
+
+    # Detect original indentation from first srcset line
+    indent_match = re.search(r'srcset="\s*\n(\s*)', img_tag)
+    if indent_match:
+        line_indent = indent_match.group(1)
+    else:
+        # Fallback: try to detect from the img tag's own indentation
+        tag_indent_match = re.match(r"^(\s*)<img", img_tag)
+        line_indent = (tag_indent_match.group(1) if tag_indent_match else "") + "    "
+
+    # Detect closing quote indentation
+    close_indent_match = re.search(r'\n(\s*)"', srcset_match.group(0))
+    if close_indent_match:
+        close_indent = close_indent_match.group(1)
+    else:
+        close_indent = line_indent[:-2] if len(line_indent) >= 2 else ""
 
     # Build new srcset with dash naming and correct width descriptors
     max_width_str_len = len(str(max(widths)))
@@ -116,30 +181,23 @@ def transform_img_tag(img_tag: str, images_root: Path) -> str:
     new_srcset_lines = []
     for w in widths:
         path = f"{base_path}-{w}_w.webp"
-        new_srcset_lines.append(f"{path} {w:>{max_width_str_len}}w")
+        new_srcset_lines.append(f"{line_indent}{path} {w:>{max_width_str_len}}w")
 
-    # Preserve original indentation
-    indent_match = re.search(r'srcset="\s*\n?(\s*)', img_tag)
-    line_indent = indent_match.group(1) if indent_match else "                "
-
-    new_srcset = ",\n".join(f"{line_indent}{line}" for line in new_srcset_lines)
-    new_srcset = f'srcset="\n{new_srcset}\n{line_indent[:-2]}"'
+    new_srcset_content = ",\n".join(new_srcset_lines)
+    new_srcset = f'srcset="\n{new_srcset_content}\n{close_indent}"'
 
     # Replace srcset
     new_img_tag = re.sub(r'srcset="[^"]*"', new_srcset, img_tag, flags=re.DOTALL)
 
     # Update src attribute
     if is_standard_folder(base_path):
-        # Use highest resolution webp as src
         highest_width = max(widths)
         new_src = f"{base_path}-{highest_width}_w.webp"
         new_img_tag = re.sub(r'src="[^"]*"', f'src="{new_src}"', new_img_tag)
     else:
-        # Keep original src but update naming if it's a webp
         src_match = re.search(r'src="([^"]*)"', new_img_tag)
         if src_match:
             old_src = src_match.group(1)
-            # Update underscore to dash in webp files
             if "_w.webp" in old_src:
                 new_src = re.sub(r"_(\d+)_w\.webp", r"-\1_w.webp", old_src)
                 new_img_tag = re.sub(r'src="[^"]*"', f'src="{new_src}"', new_img_tag)

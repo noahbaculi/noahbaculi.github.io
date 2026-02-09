@@ -63,3 +63,16 @@ for f in *.heic *.HEIC
   sips -s format jpeg -s formatOptions 85 "$f" --out "jpg/$base.jpg" >/dev/null
 end
 ```
+
+Re-generate the image tags in the HTML files with responsive webp thumbnails.
+
+```shell
+# Run script with dry-run first
+uv run python ./images/update_img_tags.py ./images --dry_run
+
+# Execute the main HTML regex
+uv run python ./images/update_img_tags.py ./images
+
+# Format with prettier
+bunx prettier --check . --write
+```

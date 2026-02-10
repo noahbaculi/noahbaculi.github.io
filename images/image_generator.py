@@ -1,3 +1,10 @@
+# /// script
+# requires-python = ">=3.12"
+# dependencies = [
+#     "pillow",
+# ]
+# ///
+
 from concurrent.futures import ProcessPoolExecutor
 from functools import partial
 from pathlib import Path

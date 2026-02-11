@@ -261,3 +261,57 @@ $body
     // Hide on escape.
     if (event.keyCode == 27) $menu._hide();
   });
+
+// Image click-to-enlarge modal (only for images in .image_gallery or .image_column)
+(function initImageModal() {
+  const SELECTOR = ".image_gallery img, .half_image_column > img";
+
+  $(document).on("click", SELECTOR, function () {
+    const src = $(this).attr("src");
+    if (!src) return;
+
+    // Clean up any existing modal + handler
+    $(".fade-in-img").remove();
+    $("body").off("keyup.modal-close");
+
+    const maxWidth = "90vw";
+
+    const imgHtml = `<img
+      loading="lazy"
+      decoding="async"
+      src="${src}"
+      style="
+        max-width: ${maxWidth};
+        max-height: 90vh;
+        border-radius: 5px;
+      "
+    />`;
+
+    const $modal = $(`<div class="fade-in-img">${imgHtml}</div>`)
+      .css({
+        background: "RGBA(0,0,0,.8)",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        width: "100%",
+        height: "100%",
+        position: "fixed",
+        zIndex: 10000,
+        top: 0,
+        left: 0,
+        cursor: "zoom-out",
+      })
+      .appendTo("body");
+
+    function removeModal() {
+      $modal.remove();
+      $("body").off("keyup.modal-close");
+    }
+
+    $modal.on("click", removeModal);
+
+    $("body").on("keyup.modal-close", function (e) {
+      if (e.key === "Escape") removeModal();
+    });
+  });
+})();

@@ -62,7 +62,7 @@ body.is-preload *::after {
 
 .page_header_pic {
   width: 100%;
-  height: 20vh;
+  height: clamp(15vh, 3vh + 14vh, 20vh);
   object-fit: cover;
   object-position: 50% 50%;
 }
@@ -93,6 +93,7 @@ body.is-preload *::after {
 
 #home_entrance_tagline {
   font-size: clamp(14pt, 1.2vw + 12pt, 16pt);
+  margin-top: clamp(0rem, 2rem - 3vw, 2rem);
 }
 
 #animated-tagline {
@@ -101,6 +102,8 @@ body.is-preload *::after {
   height: 20px;
   position: relative;
   z-index: 1;
+  width: clamp(80%, 60vw, 100%);
+  margin: clamp(0px, 1vw, 8px) auto 0;
 }
 
 /* Animated Tagline Characters */
@@ -240,112 +243,70 @@ body.is-preload *::after {
   }
 }
 
-#animated-scroll {
-  display: block;
-  margin: auto;
-  height: 35px;
-  position: relative;
-  z-index: 1;
-  margin-top: 15px;
-  visibility: hidden;
-}
-
-#animated-scroll > path {
-  stroke-dasharray: 25;
-  stroke-dashoffset: 25;
-  animation: scroll-icon-animate 2s ease forwards 5s;
-}
-
-@keyframes scroll-icon-animate {
-  from {
-    stroke-dashoffset: 25;
-  }
-
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-
 /* Navbar */
 
-#navbar {
-  overflow: hidden;
-  position: relative;
-  background-color: white;
-  margin: 0;
-  height: 7vh;
-  border-bottom: 1px solid #eeeeee;
-  text-align: center;
-  top: 0;
-}
-
-#navbar li {
-  display: inline-block;
-  padding: 0em 1em;
-  line-height: 7vh;
-  /* font-size: inherit; */
-  font-size: 110%;
-}
-
-#navbar a {
-  color: #4f4f4f;
-  font-size: 0.8em;
-  font-weight: 600;
-  border-bottom: none;
-}
-
+#navbar,
 #subnavbar {
-  overflow: hidden;
   position: relative;
-  background-color: white;
-  margin: 0;
-  height: 5vh;
-  border-bottom: 1px solid #eeeeee;
-  text-align: center;
   top: 0;
+  margin: 0;
+  text-align: center;
+  background: #fff;
+  border-bottom: 1px solid #eee;
+}
+
+#navbar {
+  height: 7vh;
+}
+#subnavbar {
+  height: 5vh;
   font-size: 115%;
 }
 
+#navbar li,
 #subnavbar li {
   display: inline-block;
-  padding: 0em 1em;
+  padding: 0 1em;
+}
+
+#navbar li {
+  line-height: 7vh;
+  font-size: 110%;
+}
+#subnavbar li {
   line-height: 5vh;
 }
 
+#navbar a,
 #subnavbar a {
   color: #4f4f4f;
-  font-size: 0.7em;
-  font-weight: 400;
-  border-bottom: none;
+  border-bottom: 0;
 }
 
-.sticky {
-  position: fixed !important;
+#navbar a {
+  font-size: 0.8em;
+  font-weight: 600;
+}
+#subnavbar a {
+  font-size: 0.7em;
+  font-weight: 400;
+}
+
+#navbar.sticky {
+  position: fixed;
   top: 0;
   width: 100%;
   z-index: 10;
 }
 
-.stickysubnavbar {
-  position: fixed !important;
-  top: 7vh !important;
+#subnavbar.stickysubnavbar {
+  position: fixed;
+  top: 7vh;
   width: 100%;
   z-index: 15;
 }
 
-.icon_button {
-  width: 2.5em;
-  height: 2.5em;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 2em;
-  margin-bottom: 2em;
-}
-
-.icon_button:hover {
-  opacity: 0.5;
-}
+/* Buttons/icons */
 
 .scroll_icon {
   width: 1.5em;
@@ -353,65 +314,22 @@ body.is-preload *::after {
   position: absolute;
   right: 1em;
   top: 0.5em;
-}
-
-.row_scroll {
-  flex-wrap: wrap;
-  box-sizing: border-box;
-  align-items: stretch;
-  position: relative;
-}
-
-img .scroll_icon {
   vertical-align: middle;
   margin: 1px;
 }
 
-.row_scroll .icon_button {
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 0;
-  margin-bottom: 0;
-  float: center;
+.row_scroll {
+  flex-wrap: wrap;
+  align-items: stretch;
+  position: relative;
+  margin: 0 auto;
 }
 
 .current_page {
   opacity: 0.5;
 }
 
-@media screen and (min-width: 736px) {
-  .page_scroll_down_top_padding {
-    padding-top: 7vh !important;
-  }
-}
-
-@media screen and (max-width: 736px) {
-  h1.home_entrance_title {
-    margin-top: 2rem;
-  }
-
-  img.page_header_pic {
-    height: 15vh;
-  }
-
-  #navbar {
-    visibility: hidden !important;
-    height: 0;
-  }
-
-  #subnavbar {
-    visibility: hidden !important;
-  }
-
-  #animated-tagline {
-    width: 80%;
-    margin-top: 0;
-  }
-
-  #animated-scroll {
-    visibility: visible;
-  }
-}
+/*---------------------------------------------------------------------------*/
 
 .dropdown {
   padding: 0;

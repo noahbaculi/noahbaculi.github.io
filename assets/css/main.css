@@ -1400,6 +1400,7 @@ div.inner.subpage > div.row {
   column-gap: var(--masonry-gap);
   line-height: 0;
   padding: 0 4px;
+  /* column-fill: balance; */
 }
 
 .masonry--4 {

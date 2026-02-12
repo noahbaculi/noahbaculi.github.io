@@ -1044,6 +1044,7 @@ div.full_section_btn {
     font-size: large;
     border-radius: 0.5rem;
     padding: 1.2rem 1.5rem;
+    max-width: 75%;
   }
 }
 

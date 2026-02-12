@@ -460,10 +460,6 @@ h1.home_entrance_title > a {
   border-bottom: none;
 }
 
-.scroll_down {
-  animation: home-fade-in 1.5s ease-in backwards 4.5s;
-}
-
 #subnavbar {
   overflow: hidden;
   position: relative;
@@ -526,11 +522,9 @@ h1.home_entrance_title > a {
 }
 
 .row_scroll {
-  /* display: flex; */
   flex-wrap: wrap;
   box-sizing: border-box;
   align-items: stretch;
-  /* margin: 0.5em; */
   position: relative;
 }
 
@@ -639,8 +633,6 @@ img .scroll_icon {
   text-decoration: none;
   display: block;
 }
-
-/* .dropdown-content a:hover {background-color: #ddd;} */
 
 .dropdown:hover .dropdown-content {
   display: block;

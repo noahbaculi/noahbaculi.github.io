@@ -264,14 +264,14 @@ $body
 
 // Image click-to-enlarge modal (only for images in .image_gallery or .image_column)
 (function initImageModal() {
-  const SELECTOR = ".image_gallery img, .half_image_column > img";
+  const SELECTOR =
+    ".image_gallery img, .half_image_column > img, .masonry > img";
 
   $(document).on("click", SELECTOR, function () {
     const src = $(this).attr("src");
     if (!src) return;
 
     // Clean up any existing modal + handler
-    $(".fade-in-img").remove();
     $("body").off("keyup.modal-close");
 
     const maxWidth = "90vw";
@@ -287,7 +287,7 @@ $body
       "
     />`;
 
-    const $modal = $(`<div class="fade-in-img">${imgHtml}</div>`)
+    const $modal = $(`<div>${imgHtml}</div>`)
       .css({
         background: "RGBA(0,0,0,.8)",
         display: "flex",

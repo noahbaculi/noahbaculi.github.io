@@ -1819,32 +1819,17 @@ table.alt tfoot {
   margin-bottom: 0;
 }
 
-/* Image backgrounds */
-.tiles article.northwestern_university_contact > .image:before {
-  background-image: url("../../images/contact/contact_northwestern.jpg");
-  background-image: url("../../images/contact/contact_northwestern_500_w.webp");
-  /* background-color: #4E2A84; */
-}
-
 .tiles article.asme_contact > .image:before {
   background-image: url("../../images/contact/contact_asme.jpg");
-  background-image: url("../../images/contact/contact_asme_500_w.webp");
   background-color: #4e2a84;
 }
 
 .tiles article.aldras_contact > .image:before {
   background-image: url("../../images/contact/contact_aldras.png");
-  background-image: url("../../images/contact/contact_aldras_500_w.webp");
   background-color: rgb(153, 0, 0);
   /* border-radius: 5px; */
   /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12); */
   /* border: 1px solid rgb(153,0,0); */
-}
-
-.tiles article.salesforce_contact > .image:before {
-  background-image: url("../../images/contact/contact_salesforce.png");
-  background-image: url("../../images/contact/contact_salesforce_500_w.webp");
-  background-color: black;
 }
 
 /* Solo contact */
@@ -1856,31 +1841,6 @@ table.alt tfoot {
   #solo_tile {
     max-width: 35%;
   }
-}
-
-/* Color style variants (as provided) */
-.tiles article.style1 > .image:before {
-  background-color: #f2849e;
-}
-
-.tiles article.style2 > .image:before {
-  background-color: #7ecaf6;
-}
-
-.tiles article.style3 > .image:before {
-  background-color: #7bd0c1;
-}
-
-.tiles article.style4 > .image:before {
-  background-color: #c75b9b;
-}
-
-.tiles article.style5 > .image:before {
-  background-color: #ae85ca;
-}
-
-.tiles article.style6 > .image:before {
-  background-color: #8499e7;
 }
 
 /* Hover interactions */

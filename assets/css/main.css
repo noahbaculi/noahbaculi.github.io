@@ -248,8 +248,8 @@ body.is-preload *::after {
 /* Navbar */
 
 :root {
-  --navbar-h: 7vh;
-  --subnavbar-h: 5vh;
+  --navbar-height: 7vh;
+  --subnavbar-height: 5vh;
   --navbar-link: #4f4f4f;
 }
 
@@ -263,17 +263,19 @@ body.is-preload *::after {
   z-index: 10;
 }
 
-/* Heights */
 #navbar {
   top: 0;
-  height: var(--navbar-h);
+  height: var(--navbar-height);
 }
 
 #subnavbar {
-  top: var(--navbar-h);
-  height: var(--subnavbar-h);
+  top: var(--navbar-height);
+  height: var(--subnavbar-height);
   font-size: 115%;
   z-index: 15;
+}
+#subnavbar:empty {
+  display: none;
 }
 
 #navbar li,
@@ -283,12 +285,12 @@ body.is-preload *::after {
 }
 
 #navbar li {
-  line-height: var(--navbar-h);
+  line-height: var(--navbar-height);
   font-size: 110%;
 }
 
 #subnavbar li {
-  line-height: var(--subnavbar-h);
+  line-height: var(--subnavbar-height);
 }
 
 #navbar a,

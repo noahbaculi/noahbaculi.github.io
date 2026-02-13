@@ -381,70 +381,35 @@ body.is-preload *::after {
 
 /*---------------------------------------------------------------------------*/
 
-h2.subpage {
-  margin: 4rem 0;
-}
-
-h5.subpage {
-  margin: 0 0 4rem 0;
-}
-
-.no_vertical_align {
-  position: static !important;
-  transform: translateY(0%) !important;
-}
-
-@media screen and (min-width: 980px) {
-  .row > div > img {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-}
-
 .mobile_only {
-  visibility: hidden;
-  margin: 0;
+  display: none;
 }
-
 .desktop_only {
-  visibility: visible;
-  margin: 0;
+  display: none;
 }
 
-@media screen and (max-width: 980px) {
+@media (max-width: 980px) {
   .mobile_only {
-    visibility: visible;
+    display: revert;
   }
-
+}
+@media (min-width: 981px) {
   .desktop_only {
-    visibility: hidden;
-    height: 0;
-  }
-
-  .fusion_embed {
-    max-height: 55vh !important;
+    display: revert;
   }
 }
 
-@media screen and (min-width: 980px) {
-  .mobile_only {
-    height: 0;
-  }
-}
-
+.fusion_embed,
 .asme_video {
-  width: 100%;
   display: block;
-  margin: auto;
-  max-height: 80vh;
+  width: 100%;
+  max-height: 75vh;
 }
 
-.fusion_embed {
-  width: 100%;
-  display: block;
-  margin: auto;
-  max-height: 75vh;
+@media (max-width: 980px) {
+  .fusion_embed {
+    max-height: 55vh;
+  }
 }
 
 /* Type */
@@ -553,6 +518,14 @@ h5 {
 
 h6 {
   font-size: 0.8em;
+}
+
+h2.subpage {
+  margin: 4rem 0;
+}
+
+h5.subpage {
+  margin: 0 0 4rem 0;
 }
 
 @media screen and (max-width: 736px) {

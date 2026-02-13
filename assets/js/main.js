@@ -107,9 +107,7 @@ function highlightCurrentPages() {
       if (subnavbar) {
         subnavbar.classList.add("stickysubnavbar");
         paddingValue = "12vh";
-      } // only for pages with subnavbars
-
-      if (window.location.pathname.includes("/contact")) {
+      } else {
         paddingValue = "7vh";
       }
 
@@ -118,7 +116,7 @@ function highlightCurrentPages() {
       navbar.classList.remove("sticky");
       if (subnavbar) {
         subnavbar.classList.remove("stickysubnavbar");
-      } // only for pages with subnavbars
+      }
 
       main.style.paddingTop = "0vh";
     }

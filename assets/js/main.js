@@ -97,9 +97,6 @@ function highlightCurrentPages() {
   };
   function stickNavbar() {
     const main = document.getElementById("main");
-    const scroll_down_elements = document.getElementsByClassName("scroll_down"); // home page
-    const scroll_down = scroll_down_elements[0]; // home page
-
     let subnavbar = document.getElementById("subnavbar");
 
     if (
@@ -116,8 +113,6 @@ function highlightCurrentPages() {
         paddingValue = "7vh";
       }
 
-      scroll_down.style.visibility = "hidden";
-
       main.style.paddingTop = paddingValue;
     } else {
       navbar.classList.remove("sticky");
@@ -125,7 +120,6 @@ function highlightCurrentPages() {
         subnavbar.classList.remove("stickysubnavbar");
       } // only for pages with subnavbars
 
-      scroll_down.style.visibility = "visible";
       main.style.paddingTop = "0vh";
     }
   }

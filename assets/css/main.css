@@ -247,22 +247,33 @@ body.is-preload *::after {
 
 /* Navbar */
 
+:root {
+  --navbar-h: 7vh;
+  --subnavbar-h: 5vh;
+  --navbar-link: #4f4f4f;
+}
+
 #navbar,
 #subnavbar {
-  position: relative;
-  top: 0;
+  position: sticky;
   margin: 0;
   text-align: center;
   background: #fff;
   border-bottom: 1px solid #eee;
+  z-index: 10;
 }
 
+/* Heights */
 #navbar {
-  height: 7vh;
+  top: 0;
+  height: var(--navbar-h);
 }
+
 #subnavbar {
-  height: 5vh;
+  top: var(--navbar-h);
+  height: var(--subnavbar-h);
   font-size: 115%;
+  z-index: 15;
 }
 
 #navbar li,
@@ -272,11 +283,12 @@ body.is-preload *::after {
 }
 
 #navbar li {
-  line-height: 7vh;
+  line-height: var(--navbar-h);
   font-size: 110%;
 }
+
 #subnavbar li {
-  line-height: 5vh;
+  line-height: var(--subnavbar-h);
 }
 
 #navbar a,
@@ -289,23 +301,10 @@ body.is-preload *::after {
   font-size: 0.8em;
   font-weight: 600;
 }
+
 #subnavbar a {
   font-size: 0.7em;
   font-weight: 400;
-}
-
-#navbar.sticky {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 10;
-}
-
-#subnavbar.stickysubnavbar {
-  position: fixed;
-  top: 7vh;
-  width: 100%;
-  z-index: 15;
 }
 
 /* Buttons/icons */

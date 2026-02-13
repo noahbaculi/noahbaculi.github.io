@@ -87,40 +87,6 @@ function highlightCurrentPages() {
       navBarElement.classList.add("current_page");
     }
   });
-
-  // Stick navbar on scroll
-  const navbar = document.getElementById("navbar");
-  const stickThreshold = navbar.offsetTop;
-  let paddingValue = "0vh";
-  window.onscroll = function () {
-    stickNavbar();
-  };
-  function stickNavbar() {
-    const main = document.getElementById("main");
-    let subnavbar = document.getElementById("subnavbar");
-
-    if (
-      (window.pageYOffset >= stickThreshold) &
-      window.matchMedia("(min-width: 736px)").matches
-    ) {
-      navbar.classList.add("sticky");
-      if (subnavbar) {
-        subnavbar.classList.add("stickysubnavbar");
-        paddingValue = "12vh";
-      } else {
-        paddingValue = "7vh";
-      }
-
-      main.style.paddingTop = paddingValue;
-    } else {
-      navbar.classList.remove("sticky");
-      if (subnavbar) {
-        subnavbar.classList.remove("stickysubnavbar");
-      }
-
-      main.style.paddingTop = "0vh";
-    }
-  }
 }
 
 initNavbars();

@@ -52,12 +52,14 @@ body.is-preload *::after {
 
 /* ---- Custom Edits ---- */
 
-.page_top_div_zero {
-  height: 0;
+.hero_image_container {
+  position: relative;
+  overflow: hidden;
 }
 
-.page_top_div_fifteen {
-  min-height: 13vh;
+.hero_image_background {
+  position: absolute;
+  inset: 0;
 }
 
 .page_header_pic {

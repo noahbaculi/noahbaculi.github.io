@@ -821,6 +821,12 @@ div.full_section_btn {
 .row__text {
   grid-area: text;
 }
+.row__text > img,
+.row__text > svg {
+  width: 20%;
+  display: block;
+  margin: auto;
+}
 
 .row--1fr-2fr {
   grid-template-columns: 1fr 2fr;

@@ -676,12 +676,12 @@ div.project_tile_end_logo {
   grid-template-columns: 1fr 1fr;
   gap: 0.5rem;
   max-width: 40rem;
-  margin: 0 auto; /* Center grid horizontally */
+  margin: 0 auto;
 }
 
 .hobby-card {
   position: relative;
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 6 / 5;
   overflow: hidden;
   border-radius: 8px;
   text-decoration: none;

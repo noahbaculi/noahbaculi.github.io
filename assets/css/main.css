@@ -1,3 +1,7 @@
+/* TODO: Revamp font? Apparently the current implementation is suboptimal. */
+/* TODO: Move more values to variables like colors, breakpoints */
+/* TODO: Implement dark mode */
+
 /* @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,700,900"); */
 /* @import url("https://fonts.googleapis.com/css?family=Quicksand&display=swap"); */
 @import url("https://fonts.googleapis.com/css?family=Nunito+Sans:300,400&display=swap");
@@ -802,12 +806,46 @@ div.full_section_btn {
 /* Row */
 
 .row {
-  display: flex;
-  flex-wrap: wrap;
-  box-sizing: border-box;
+  display: grid;
   align-items: center;
-  justify-content: center;
+  gap: clamp(0.75rem, 2vw, 1.5rem);
   padding: 1em;
+  box-sizing: border-box;
+}
+
+.row__media {
+  grid-area: media;
+}
+.row__text {
+  grid-area: text;
+}
+
+.row--1fr-2fr {
+  grid-template-columns: 1fr 2fr;
+  grid-template-areas: "media text";
+}
+.row--1fr-1fr {
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: "media text";
+}
+
+@media (min-width: 740px) {
+  .row--reverse_on_desktop {
+    grid-template-areas: "text media";
+  }
+}
+
+@media (max-width: 740px) {
+  .row {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "media"
+      "text";
+  }
+
+  .row__text {
+    padding: 0;
+  }
 }
 
 .row h3 {
@@ -816,87 +854,16 @@ div.full_section_btn {
 .row h4 {
   font-size: clamp(0.95rem, 1.8vw, 1.1rem);
 }
-.row li {
+.row li,
+.row p {
   font-size: clamp(0.85rem, 1.8vw, 1rem);
 }
 
-@media only screen and (min-width: 980px) {
-  .reverse_on_desktop {
-    flex-direction: row-reverse;
-  }
-}
-
-.row > div {
-  position: relative;
-}
-
-/* Widths */
-.row > .image_column {
-  width: 33.33333333333%;
-}
-
-.row > .text_column {
-  width: 66.6666666667%;
-  padding: 0 0 0 2em;
-}
-
-.row > .half_image_column {
-  width: 48%;
-  height: 17.5em;
-}
-.row > .icon_image_column {
-  width: 16%;
+.row__media img {
+  width: 100%;
   height: auto;
-  min-height: 2.5em;
-}
-.row > .half_text_column {
-  width: 52%;
-  padding: 0 1.2em;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-}
-
-/* Shared image styling */
-.row > .image_column img {
-  width: 100%;
-  border-radius: 4px;
-}
-
-.row > .half_image_column img,
-.row > .icon_image_column img {
-  width: 100%;
-  border-radius: 8px / 4px;
-  padding: 0 4px;
-}
-
-/* Responsive overrides */
-@media screen and (max-width: 980px) {
-  .row > .image_column,
-  .row > .half_image_column,
-  .row > .half_text_column {
-    width: 100% !important;
-    height: auto;
-  }
-
-  .row > .half_image_column {
-    padding: 1em 0;
-  }
-
-  .row > .text_column {
-    width: 100% !important;
-    padding: 1em 0 2em 0.5em;
-  }
-
-  .row > .half_text_column {
-    padding: 0;
-  }
-}
-
-@media screen and (max-width: 440px) {
-  .row > .half_image_column {
-    width: 48%;
-  }
+  display: block;
+  border-radius: 8px;
 }
 
 /* Image gallery */
@@ -937,7 +904,7 @@ div.full_section_btn {
 }
 
 .image_gallery img:hover,
-.half_image_column > img:hover,
+.half_row__media > img:hover,
 .masonry > img:hover {
   opacity: 70%;
   cursor: pointer;

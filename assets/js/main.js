@@ -220,10 +220,9 @@ $body
     if (event.keyCode == 27) $menu._hide();
   });
 
-// Image click-to-enlarge modal (only for images in .image_gallery or .image_column)
+// Image click-to-enlarge modal (only for images in .image_gallery or .row__media)
 (function initImageModal() {
-  const SELECTOR =
-    ".image_gallery img, .half_image_column > img, .masonry > img";
+  const SELECTOR = ".image_gallery img, .half_row__media > img, .masonry > img";
 
   $(document).on("click", SELECTOR, function () {
     const src = $(this).attr("src");

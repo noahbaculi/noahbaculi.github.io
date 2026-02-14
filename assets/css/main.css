@@ -585,9 +585,11 @@ hr {
 /* Project Tiles */
 
 div.tiles_row {
+  display: flex;
+  flex-wrap: wrap;
   align-items: flex-start;
+  justify-content: center;
   gap: 1vh;
-  margin: 0;
 }
 div.project_tile,
 div.hobbies_tile {
@@ -904,7 +906,7 @@ div.full_section_btn {
 }
 
 .image_gallery img:hover,
-.half_row__media > img:hover,
+.row--1fr-1fr > .row__media > img:hover,
 .masonry > img:hover {
   opacity: 70%;
   cursor: pointer;

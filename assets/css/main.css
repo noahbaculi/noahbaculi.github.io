@@ -581,24 +581,12 @@ hr {
 /* Project Tiles */
 
 div.tiles_row {
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: start;
+  align-items: flex-start;
   gap: 1vh;
   margin: 0;
 }
-
-div.project_tile {
-  max-width: min(20rem, 42svw);
-}
-
-div.hobbies_tile {
-  max-width: min(25rem, 42svw);
-}
-
 div.project_tile,
 div.hobbies_tile {
-  background-color: #ffffff;
   border: 1px solid #c4c4c4;
   border-radius: 0.5rem;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
@@ -609,10 +597,16 @@ div.hobbies_tile {
     max-width: 100%;
   }
 
-  & div > a > h5 {
+  & > div > h5 {
     margin-bottom: 0.5rem;
     font-size: large;
   }
+}
+div.project_tile {
+  max-width: min(20rem, 42svw);
+}
+div.hobbies_tile {
+  max-width: min(25rem, 42svw);
 }
 
 div.project_tile h5 {
@@ -629,7 +623,6 @@ div.project_tile > div {
     padding: 0 0.5rem 0.5rem 0.5rem;
   }
 }
-
 div.project_tile > div > p {
   margin-bottom: 0.75rem;
   color: rgb(55, 65, 81);
@@ -668,7 +661,6 @@ div.project_tile_tech_used {
     }
   }
 }
-
 div.project_tile_end_logo {
   display: flex;
   justify-content: flex-end;
@@ -727,6 +719,13 @@ div.project_tile_end_logo {
   transition: background 0.3s ease;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .hobby-card-image,
+  .hobby-card-overlay {
+    transition: none;
+  }
+}
+
 .hobby-card-title {
   position: absolute;
   top: 50%;
@@ -737,7 +736,6 @@ div.project_tile_end_logo {
   text-align: center;
   margin: 0;
   padding: 0.5rem 1rem;
-  z-index: 1;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
@@ -751,7 +749,7 @@ div.project_tile_end_logo {
   background: rgba(0, 0, 0, 0.3);
 }
 
-.hobby-card:focus {
+.hobby-card:focus-visible {
   outline: 3px solid #4a90d9;
   outline-offset: 2px;
 }
@@ -2045,8 +2043,8 @@ form[name="contact"] textarea::placeholder {
   color: var(--muted);
 }
 
-form[name="contact"] input[type="text"]:focus,
-form[name="contact"] textarea:focus {
+form[name="contact"] input[type="text"]:focus-visible,
+form[name="contact"] textarea:focus-visible {
   border-color: var(--focus);
   box-shadow: 0 0 0 4px var(--ring);
 }

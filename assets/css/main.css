@@ -108,7 +108,7 @@ i {
 }
 
 p {
-  margin: 0 0 0 0;
+  margin: 0;
   font-size: medium;
 
   @media screen and (max-width: 480px) {
@@ -363,29 +363,17 @@ hr {
   background: #f6f6f6;
   padding: 2em 0;
 }
-
 #footer h2 {
   margin: 1em 0 0.6em;
 }
-
 #footer > .inner {
   display: flex;
   flex-wrap: wrap;
 }
-
-#footer ul {
-  padding: 0;
-}
-
 #footer .icons {
   margin-bottom: 1em;
-}
-
-/* Consider replacing nth-child with a class if possible */
-#footer > .inner section:first-child {
   flex: 0 0 100%;
 }
-
 #footer > .inner .copyright {
   flex: 0 0 100%;
   list-style: none;
@@ -394,6 +382,9 @@ hr {
   font-size: 0.8em;
   color: rgb(88 88 88 / 100%);
 }
+#footer ul {
+  padding: 0;
+}
 
 /* Header styling */
 
@@ -401,26 +392,15 @@ hr {
   position: relative;
   overflow: hidden;
 }
-
 .hero_image_background {
   position: absolute;
   inset: 0;
 }
-
 .page_header_pic {
   width: 100%;
   height: clamp(15vh, 3vh + 14vh, 20vh);
   object-fit: cover;
   object-position: 50% 50%;
-}
-
-@keyframes home-fade-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
 }
 
 .home_entrance_title,
@@ -432,6 +412,14 @@ hr {
   z-index: 1;
   margin: 0;
   animation: home-fade-in 1s ease-in forwards;
+}
+@keyframes home-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .home_entrance_title > a {

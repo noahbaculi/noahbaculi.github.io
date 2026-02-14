@@ -320,25 +320,19 @@ hr {
   line-height: var(--subnavbar-height);
 }
 
-/* Shared link styles */
 #navbar a,
 #subnavbar a {
   color: #4f4f4f;
   border-bottom: 0;
 }
-
-/* Individual link styles */
 #navbar a {
   font-size: 0.8em;
   font-weight: 600;
 }
-
 #subnavbar a {
   font-size: 0.7em;
   font-weight: 400;
 }
-
-/* ---- Buttons/icons ---- */
 
 .scroll_icon {
   width: 1.5em;
@@ -348,13 +342,6 @@ hr {
   top: 0.5em;
   vertical-align: middle;
   margin: 1px;
-}
-
-.row_scroll {
-  flex-wrap: wrap;
-  align-items: stretch;
-  position: relative;
-  margin: 0 auto;
 }
 
 .current_page {
@@ -826,6 +813,7 @@ div.full_section_btn {
   width: 20%;
   display: block;
   margin: auto;
+  padding-bottom: 1em;
 }
 
 .row--1fr-2fr {

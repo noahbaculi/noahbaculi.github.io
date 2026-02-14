@@ -919,10 +919,6 @@ div.inner.subpage > div.row {
     padding: 1em 0 2em 0.5em;
   }
 
-  .professional_row > .text_column {
-    padding: 0 !important;
-  }
-
   .row > .one_third_gallery {
     width: 100% !important;
   }

@@ -754,40 +754,6 @@ div.project_tile_end_logo {
   outline-offset: 2px;
 }
 
-/* Row */
-
-.row {
-  display: flex;
-  flex-wrap: wrap;
-  box-sizing: border-box;
-  align-items: center;
-  justify-content: center;
-  padding: 1em;
-}
-
-.row h3 {
-  font-size: clamp(1rem, 1.8vw, 1.3rem);
-}
-.row h4 {
-  font-size: clamp(0.95rem, 1.8vw, 1.1rem);
-}
-.row li {
-  font-size: clamp(0.85rem, 1.8vw, 1rem);
-}
-
-@media only screen and (min-width: 980px) {
-  .reverse_on_desktop {
-    flex-direction: row-reverse;
-  }
-}
-
-/* Hover state when the row is wrapped in a link */
-a > div.row:hover {
-  border: 1px solid #0369a1;
-  border-radius: 4px;
-  transition: 0.2s;
-}
-
 /* "More" buttons */
 div.professional_more,
 div.project_tile_more {
@@ -833,10 +799,33 @@ div.full_section_btn {
   }
 }
 
-div.inner.subpage > div.row {
+/* Row */
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+  padding: 1em;
 }
 
-/* Column basics */
+.row h3 {
+  font-size: clamp(1rem, 1.8vw, 1.3rem);
+}
+.row h4 {
+  font-size: clamp(0.95rem, 1.8vw, 1.1rem);
+}
+.row li {
+  font-size: clamp(0.85rem, 1.8vw, 1rem);
+}
+
+@media only screen and (min-width: 980px) {
+  .reverse_on_desktop {
+    flex-direction: row-reverse;
+  }
+}
+
 .row > div {
   position: relative;
 }
@@ -868,18 +857,6 @@ div.inner.subpage > div.row {
   flex-direction: column;
 }
 
-.row > .one_fourth_image_column {
-  width: 25%;
-  height: 17.5em;
-}
-.row > .full_width_image_column {
-  width: 100%;
-  height: 17.5em;
-}
-.row > .one_third_gallery {
-  width: 33.3333333333%;
-}
-
 /* Shared image styling */
 .row > .image_column img {
   width: 100%;
@@ -887,18 +864,10 @@ div.inner.subpage > div.row {
 }
 
 .row > .half_image_column img,
-.row > .half_image_column div,
-.row > .icon_image_column img,
-.row > .one_fourth_image_column img,
-.row > .full_width_image_column img {
+.row > .icon_image_column img {
   width: 100%;
   border-radius: 8px / 4px;
   padding: 0 4px;
-}
-
-.row > .one_third_gallery img {
-  width: 100%;
-  padding: 0.2em;
 }
 
 /* Responsive overrides */
@@ -919,22 +888,13 @@ div.inner.subpage > div.row {
     padding: 1em 0 2em 0.5em;
   }
 
-  .row > .one_third_gallery {
-    width: 100% !important;
-  }
-
-  .row > .one_third_gallery img {
-    padding: 0 !important;
-  }
-
   .row > .half_text_column {
     padding: 0;
   }
 }
 
 @media screen and (max-width: 440px) {
-  .row > .half_image_column,
-  .row > .one_fourth_image_column {
+  .row > .half_image_column {
     width: 48%;
   }
 }

@@ -80,11 +80,11 @@ function highlightCurrentPages() {
 
   console.log("crumbs", crumbs);
   crumbs.forEach((page, idx) => {
-    // Only add current_page to 'index' if it's the first element
+    // Only add current-page to 'index' if it's the first element
     if (page === "index" && idx !== 0) return;
     const navBarElements = document.getElementsByClassName(page);
     for (const navBarElement of navBarElements) {
-      navBarElement.classList.add("current_page");
+      navBarElement.classList.add("current-page");
     }
   });
 }
@@ -222,7 +222,7 @@ $body
 
 (function initImageModal() {
   const SELECTOR =
-    ".image_gallery img, .row--1fr-1fr > .row__media > img, .masonry > img";
+    ".image-gallery img, .row--1fr-1fr > .row__media > img, .masonry > img";
 
   $(document).on("click", SELECTOR, function () {
     const src = $(this).attr("src");

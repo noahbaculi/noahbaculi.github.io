@@ -318,19 +318,19 @@ table {
 }
 
 /* Responsive visibility */
-.mobile_only,
-.desktop_only {
+.mobile-only,
+.desktop-only {
   display: none;
 }
 
 @media (max-width: 980px) {
-  .mobile_only {
+  .mobile-only {
     display: revert;
   }
 }
 
 @media (min-width: 981px) {
-  .desktop_only {
+  .desktop-only {
     display: revert;
   }
 }
@@ -395,17 +395,7 @@ table {
   font-weight: 400;
 }
 
-.scroll_icon {
-  width: 1.5em;
-  height: 1.5em;
-  position: absolute;
-  right: 1em;
-  top: 0.5em;
-  vertical-align: middle;
-  margin: 1px;
-}
-
-.current_page {
+.current-page {
   opacity: 0.5;
 }
 
@@ -466,23 +456,23 @@ table {
 
 /* Header styling */
 
-.hero_image_container {
+.hero-image-container {
   position: relative;
   overflow: hidden;
 }
-.hero_image_background {
+.hero-image-background {
   position: absolute;
   inset: 0;
 }
-.page_header_pic {
+.page-header-pic {
   width: 100%;
   height: clamp(15vh, 3vh + 14vh, 20vh);
   object-fit: cover;
   object-position: 50% 50%;
 }
 
-.home_entrance_title,
-#home_entrance_tagline {
+.home-entrance-title,
+#home-entrance-tagline {
   color: #fff;
   text-align: center;
   opacity: 0;
@@ -500,11 +490,11 @@ table {
   }
 }
 
-.home_entrance_title > a {
+.home-entrance-title > a {
   color: inherit;
 }
 
-#home_entrance_tagline {
+#home-entrance-tagline {
   font-size: clamp(14pt, 1.2vw + 12pt, 16pt);
   margin-top: clamp(0rem, 2rem - 3vw, 2rem);
 }
@@ -657,7 +647,7 @@ table {
 }
 
 /* Full section button */
-div.full_section_btn {
+div.full-section-btn {
   display: flex;
   justify-content: center;
   padding-top: 1em;
@@ -742,56 +732,56 @@ div.full_section_btn {
 }
 
 /* Media embeds */
-.fusion_embed,
-.asme_video {
+.fusion-embed,
+.asme-video {
   display: block;
   width: 100%;
   max-height: 75vh;
 }
 
 @media (max-width: 980px) {
-  .fusion_embed {
+  .fusion-embed {
     max-height: 55vh;
   }
 }
 
 /* Image gallery */
-.image_gallery {
+.image-gallery {
   display: flex;
   flex-wrap: wrap;
   padding: 0 4px;
 }
-.image_gallery > .quarter_column {
+.image-gallery > .quarter-column {
   flex: 25%;
   max-width: 25%;
   padding: 0 0.1em;
 }
-.image_gallery > .half_column {
+.image-gallery > .half-column {
   flex: 50%;
   max-width: 50%;
   padding: 0 0.1em;
 }
-.image_gallery > .third_column {
+.image-gallery > .third-column {
   flex: 33.33%;
   max-width: 33.33%;
   padding: 0 0.1em;
 }
-.image_gallery > .quarter_column img,
-.image_gallery > .half_column img,
-.image_gallery > .third_column img {
+.image-gallery > .quarter-column img,
+.image-gallery > .half-column img,
+.image-gallery > .third-column img {
   border-radius: 4px;
   margin-top: 0.2em;
   vertical-align: middle;
   width: 100%;
 }
 @media screen and (max-width: 736px) {
-  .image_gallery > .quarter_column {
+  .image-gallery > .quarter-column {
     flex: 50%;
     max-width: 50%;
   }
 }
 
-.image_gallery img:hover,
+.image-gallery img:hover,
 .row--1fr-1fr > .row__media > img:hover,
 .masonry > img:hover {
   opacity: 70%;
@@ -844,14 +834,14 @@ div.full_section_btn {
 }
 
 /* Project cards */
-div.tiles_or_card_row {
+div.tiles-or-card-row {
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
   justify-content: center;
   gap: 1vh;
 }
-div.project_card {
+div.project-card {
   border: 1px solid #c4c4c4;
   border-radius: 0.5rem;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
@@ -867,20 +857,20 @@ div.project_card {
     font-size: large;
   }
 }
-div.project_card {
+div.project-card {
   max-width: min(20rem, 42svw);
 }
-div.project_card h5 {
+div.project-card h5 {
   font-weight: bold;
 }
-div.project_card > div {
+div.project-card > div {
   padding: 0 1.25rem 1.25rem 1.25rem;
 
   @media screen and (max-width: 480px) {
     padding: 0 0.5rem 0.5rem 0.5rem;
   }
 }
-div.project_card > div > p {
+div.project-card > div > p {
   margin-bottom: 0.75rem;
   color: rgb(55, 65, 81);
 
@@ -888,7 +878,7 @@ div.project_card > div > p {
     font-size: small;
   }
 }
-div.project_card_tech_used {
+div.project-card__tech-used {
   display: flex;
   flex-wrap: wrap;
   box-sizing: border-box;
@@ -917,7 +907,7 @@ div.project_card_tech_used {
     }
   }
 }
-div.project_card_end_logo {
+div.project-card__end-logo {
   display: flex;
   justify-content: flex-end;
   flex-wrap: wrap;
@@ -934,24 +924,24 @@ div.project_card_end_logo {
 }
 
 /* "More" buttons */
-div.professional_more,
-div.project_card_more {
+div.professional-more-btn,
+div.project-card__more-btn {
   display: flex;
   flex-wrap: wrap;
   gap: 0.2em;
 }
 
-div.professional_more {
+div.professional-more-btn {
   margin-top: 1svh;
   justify-content: flex-end;
 }
 
-div.project_card_more {
+div.project-card__more-btn {
   justify-content: center;
 }
 
-.professional_more > a,
-.project_card_more > a {
+.professional-more-btn > a,
+.project-card__more-btn > a {
   font-weight: 500;
   background-color: #1d4ed8;
   color: white;
@@ -1032,7 +1022,7 @@ div.project_card_more {
 
 /* Tiles */
 
-.tiles {
+.affiliated-tiles-grid {
   display: grid;
   gap: 2.5em;
 
@@ -1042,14 +1032,14 @@ div.project_card_more {
   grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
 }
 
-.tiles article {
+.affiliated-tiles-grid article {
   position: relative;
   transition:
     transform 0.5s ease,
     opacity 0.5s ease;
 }
 
-.tiles article > .image {
+.affiliated-tiles-grid article > .image {
   position: relative;
   display: block;
   width: 100%;
@@ -1059,8 +1049,8 @@ div.project_card_more {
 }
 
 /* Make the tile size consistent */
-.tiles > article {
-  width: min(420px, 90vw); /* optional, if you're centering single tiles */
+.affiliated-tiles-grid > article {
+  width: min(420px, 90vw);
   margin: auto;
   position: relative;
   border-radius: 4px;
@@ -1068,14 +1058,14 @@ div.project_card_more {
 }
 
 /* The image frame controls height, not the image file */
-.tiles > article > .image {
+.affiliated-tiles-grid > article > .image {
   display: block;
   position: relative;
   width: 100%;
   aspect-ratio: 1;
 }
 
-.tiles > article > .image img {
+.affiliated-tiles-grid > article > .image img {
   width: 100%;
   height: 100%;
   display: block;
@@ -1083,12 +1073,12 @@ div.project_card_more {
   object-position: center;
 }
 
-.tiles article > .image img {
+.affiliated-tiles-grid article > .image img {
   display: block;
   width: 100%;
 }
 
-.tiles article > .image:before {
+.affiliated-tiles-grid article > .image:before {
   pointer-events: none;
   content: "";
   display: block;
@@ -1105,11 +1095,11 @@ div.project_card_more {
     opacity 0.5s ease;
 }
 
-.tiles article > .image.full_opacity:before {
+.affiliated-tiles-grid article > .image.full-opacity:before {
   opacity: 1;
 }
 
-.tiles article > .image:after {
+.affiliated-tiles-grid article > .image:after {
   pointer-events: none;
   content: "";
   display: block;
@@ -1126,7 +1116,7 @@ div.project_card_more {
   transition: opacity 0.5s ease;
 }
 
-.tiles article > a {
+.affiliated-tiles-grid article > a {
   position: absolute;
   top: 0;
   left: 0;
@@ -1148,20 +1138,20 @@ div.project_card_more {
     transform 0.5s ease;
 }
 
-.tiles article > a > :last-child {
+.affiliated-tiles-grid article > a > :last-child {
   margin: 0;
 }
 
-.tiles article > a:hover {
+.affiliated-tiles-grid article > a:hover {
   color: #ffffff !important;
 }
 
-.tiles article > a h2 {
+.affiliated-tiles-grid article > a h2 {
   margin: 0;
   font-size: 1.2em;
 }
 
-.tiles article > a .content {
+.affiliated-tiles-grid article > a .content {
   width: 100%;
   max-height: 0;
   line-height: 1.5;
@@ -1173,62 +1163,62 @@ div.project_card_more {
     opacity 0.5s ease;
 }
 
-.tiles article > a .content > :last-child {
+.affiliated-tiles-grid article > a .content > :last-child {
   margin-bottom: 0;
 }
 
-.tiles article.asme_contact > .image:before {
+.affiliated-tiles-grid article.asme_contact > .image:before {
   background-image: url("../../images/contact/contact_asme.jpg");
   background-color: #4e2a84;
 }
 
-.tiles article.aldras_contact > .image:before {
+.affiliated-tiles-grid article.aldras_contact > .image:before {
   background-image: url("../../images/contact/contact_aldras.png");
   background-color: rgb(153, 0, 0);
 }
 
 /* Solo contact */
-#solo_tile {
+#solo-tile {
   max-width: 15%;
 }
 
 @media screen and (max-width: 980px) {
-  #solo_tile {
+  #solo-tile {
     max-width: 35%;
   }
 }
 
 /* Hover interactions */
-body:not(.is-touch) .tiles article:hover > .image {
+body:not(.is-touch) .affiliated-tiles-grid article:hover > .image {
   transform: scale(1.1);
 }
 
-body:not(.is-touch) .tiles article:hover > .image:before {
+body:not(.is-touch) .affiliated-tiles-grid article:hover > .image:before {
   opacity: 0;
 }
 
-body:not(.is-touch) .tiles article:hover > .image:after {
+body:not(.is-touch) .affiliated-tiles-grid article:hover > .image:after {
   opacity: 0;
 }
 
-body:not(.is-touch) .tiles article:hover .content {
+body:not(.is-touch) .affiliated-tiles-grid article:hover .content {
   max-height: 15em;
   opacity: 1;
 }
 
 /* Spacing around tiles */
-* + .tiles {
+* + .affiliated-tiles-grid {
   margin-bottom: 2em;
 }
 
 /* Preload */
-body.is-preload .tiles article {
+body.is-preload .affiliated-tiles-grid article {
   transform: scale(0.9);
   opacity: 0;
 }
 
 /* Touch behavior */
-body.is-touch .tiles article .content {
+body.is-touch .affiliated-tiles-grid article .content {
   max-height: 15em;
   opacity: 0;
 }
@@ -1405,7 +1395,7 @@ body.is-touch .tiles article .content {
   margin: 2em 0 2em 0;
 }
 
-#menu .project_item {
+#menu .project-item {
   margin-left: 1em;
 }
 
@@ -1596,7 +1586,7 @@ body.is-menu-visible #menu .close {
   align-items: stretch;
 }
 
-.dropdown_icon {
+.dropdown-icon {
   padding: 1.125em 0 0 0;
   margin: 0 0 0 1em;
   width: 1em;
@@ -1632,7 +1622,7 @@ body.is-menu-visible #menu .close {
   display: block;
 }
 
-.dropdown:hover .dropdown_icon {
+.dropdown:hover .dropdown-icon {
   opacity: 0.7;
 }
 

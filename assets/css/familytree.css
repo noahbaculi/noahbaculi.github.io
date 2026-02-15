@@ -154,12 +154,12 @@
 }
 
 @media screen and (max-width: 736px) {
-  .home_entrance_title {
+  .home-entrance-title {
     visibility: hidden !important;
     height: 0;
   }
 
-  img.page_header_pic {
+  img.page-header-pic {
     visibility: hidden !important;
     height: 0;
   }

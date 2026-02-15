@@ -353,28 +353,54 @@ hr {
 #footer {
   background: #f6f6f6;
   padding: 2em 0;
-}
-#footer h2 {
-  margin: 1em 0 0.6em;
-}
-#footer > .inner {
-  display: flex;
-  flex-wrap: wrap;
-}
-#footer .icons {
-  margin-bottom: 1em;
-  flex: 0 0 100%;
-}
-#footer > .inner .copyright {
-  flex: 0 0 100%;
-  list-style: none;
-  margin: 0;
-  text-align: center;
-  font-size: 0.8em;
-  color: rgb(88 88 88 / 100%);
-}
-#footer ul {
-  padding: 0;
+  .inner {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .ul,
+  .li {
+    padding: 0;
+  }
+
+  .copyright {
+    margin: auto;
+    color: rgba(88, 88, 88, 1);
+  }
+
+  .icons {
+    display: flex;
+    flex: 0 0 100%;
+    gap: 15px;
+    justify-content: center;
+    list-style: none;
+    margin-bottom: 1em;
+  }
+  .icons a {
+    width: 50px;
+    height: 50px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: solid 1px #c9c9c9;
+    border-radius: 4px;
+    transition:
+      background-color 0.2s ease-in-out,
+      color 0.2s ease-in-out,
+      border-color 0.2s ease-in-out;
+  }
+
+  .icons img {
+    width: 25px; /* icon size */
+    height: 25px;
+    display: block;
+  }
+
+  .icons a:hover,
+  .icons a:focus-visible {
+    border-color: #4b7bec;
+    background: rgba(75, 123, 236, 0.08);
+    outline: none;
+  }
 }
 
 /* Header styling */
@@ -825,13 +851,13 @@ div.full_section_btn {
   grid-template-areas: "media text";
 }
 
-@media (min-width: 740px) {
+@media (min-width: 737px) {
   .row--reverse_on_desktop {
     grid-template-areas: "text media";
   }
 }
 
-@media (max-width: 740px) {
+@media (max-width: 736px) {
   .row {
     grid-template-columns: 1fr;
     grid-template-areas:
@@ -961,54 +987,6 @@ div.full_section_btn {
   .fusion_embed {
     max-height: 55vh;
   }
-}
-
-/* Icon */
-
-.icons {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 15px;
-}
-
-.icons li {
-  margin: 0;
-  padding: 0;
-}
-
-.icons a {
-  width: 50px;
-  height: 50px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-
-  border: solid 1px #c9c9c9;
-  border-radius: 4px;
-  background: transparent;
-  text-decoration: none;
-
-  transition:
-    background-color 0.2s ease-in-out,
-    color 0.2s ease-in-out,
-    border-color 0.2s ease-in-out;
-}
-
-.icons img {
-  width: 25px; /* icon size */
-  height: 25px;
-  display: block;
-}
-
-.icons a:hover,
-.icons a:focus-visible {
-  border-color: #4b7bec;
-  background: rgba(75, 123, 236, 0.08);
-  outline: none;
 }
 
 /* List */

@@ -305,16 +305,11 @@ table {
   text-align: center;
 }
 
-/* Wrapper */
-#wrapper > * > .inner {
+.inner {
   max-width: 75rem;
   margin: 0 auto;
   padding: 0 clamp(0.25em, 2vw, 2.5em);
   font-size: 14pt;
-}
-
-#main {
-  padding-bottom: 1em;
 }
 
 /* Responsive visibility */
@@ -1173,14 +1168,6 @@ body.is-preload .affiliated-tiles-grid .affiliated-tile {
   #side-menu-btn nav ul li a[href="#menu"]:after {
     background-size: 1.5em 1.5em;
   }
-}
-
-#wrapper {
-  -moz-transition: opacity 0.45s ease;
-  -webkit-transition: opacity 0.45s ease;
-  -ms-transition: opacity 0.45s ease;
-  transition: opacity 0.45s ease;
-  opacity: 1;
 }
 
 #menu {

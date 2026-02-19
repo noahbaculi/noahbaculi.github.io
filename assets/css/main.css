@@ -282,23 +282,6 @@ table {
   }
 }
 
-/* Table */
-table {
-  width: 100%;
-
-  tbody tr {
-    border: solid 1px #c9c9c9;
-    border-left: 0;
-    border-right: 0;
-  }
-  tbody tr:nth-child(2n + 1) {
-    background-color: rgba(144, 144, 144, 0.075);
-  }
-  td {
-    padding: 0.75em 0.75em;
-  }
-}
-
 /* ---- Layout helpers ---- */
 
 .align-center {
@@ -332,7 +315,6 @@ table {
 
 /* ---- Navbar ---- */
 
-/* Shared navbar/subnavbar styles */
 #navbar,
 #subnavbar {
   position: sticky;
@@ -342,36 +324,28 @@ table {
   border-bottom: 1px solid #eee;
   z-index: 10;
 }
-
-/* Individual bars */
 #navbar {
   top: 0;
   height: var(--navbar-height);
 }
-
 #subnavbar {
   top: var(--navbar-height);
   height: var(--subnavbar-height);
   z-index: 15;
 }
-
 #subnavbar:empty {
   display: none;
 }
 
-/* Shared list items */
 #navbar li,
 #subnavbar li {
   display: inline-block;
   padding: 0 1em;
 }
-
-/* Individual list items */
 #navbar li {
   line-height: var(--navbar-height);
   font-size: 110%;
 }
-
 #subnavbar li {
   line-height: var(--subnavbar-height);
 }
@@ -812,7 +786,6 @@ div.full-section-btn {
   margin: 0 0 var(--masonry-gap);
 }
 
-/* responsive overrides */
 @media (max-width: 1100px) {
   .masonry--4,
   .masonry--3 {
@@ -1457,7 +1430,6 @@ form[name="contact"] {
 
 /* Table layout -> spaced rows */
 form[name="contact"] table {
-  width: 100%;
   border-collapse: separate;
   border-spacing: 0 0.9rem;
 }

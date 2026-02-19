@@ -1360,7 +1360,6 @@ body.is-menu-visible #menu .close {
 }
 
 /* Contact form */
-
 form[name="contact"] {
   --bg: #fff;
   --text: #111827;

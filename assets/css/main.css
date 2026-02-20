@@ -1291,23 +1291,49 @@ body.is-preload .affiliated-tiles-grid .affiliated-tile {
   }
 }
 
-body.is-menu-visible #wrapper {
+/* Overlay the rest of the page when the menu is open */
+/* We set the ::before pseudo element with default hidden visibility so we can animate the opacity */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.9);
+  z-index: 10001;
+
+  /* Hide by default */
+  opacity: 0;
+  visibility: hidden;
   pointer-events: none;
-  cursor: default;
-  opacity: 0.25;
+
+  transition:
+    opacity 0.45s ease,
+    visibility 0.45s ease;
 }
 
+/* When menu is visible, fade in the body overlay */
+body.is-menu-visible::before {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
 body.is-menu-visible #menu {
   transform: translateX(0);
 }
-
 body.is-menu-visible #menu > * {
   opacity: 1;
 }
-
 body.is-menu-visible #menu .close {
   transform: scale(1) rotate(0deg);
   opacity: 1;
+}
+
+/* Disable interaction with background content while menu is open */
+body.is-menu-visible #headers,
+body.is-menu-visible #navbar,
+body.is-menu-visible #subnavbar,
+body.is-menu-visible .inner,
+body.is-menu-visible footer {
+  pointer-events: none;
 }
 
 .dropdown {

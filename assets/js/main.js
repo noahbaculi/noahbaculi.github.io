@@ -222,7 +222,7 @@ $body
 
 (function initImageModal() {
   const SELECTOR =
-    ".image-gallery img, .row--1fr-1fr > .row__media > img, .masonry > img";
+    ".image-gallery img, .row--1fr-1fr > .row__media > img, .masonry > img, img.enlargeable";
 
   $(document).on("click", SELECTOR, function () {
     const src = $(this).attr("src");
@@ -231,22 +231,20 @@ $body
     // Clean up any existing modal + handler
     $("body").off("keyup.modal-close");
 
-    const maxWidth = "90vw";
-
     const imgHtml = `<img
       loading="lazy"
       decoding="async"
       src="${src}"
       style="
-        max-width: ${maxWidth};
-        max-height: 90vh;
+        max-width: 95vw;
+        max-height: 95vh;
         border-radius: 5px;
       "
     />`;
 
     const $modal = $(`<div>${imgHtml}</div>`)
       .css({
-        background: "RGBA(0,0,0,.8)",
+        background: "RGBA(0,0,0,0.8)",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",

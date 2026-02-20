@@ -714,6 +714,15 @@ div.full-section-btn {
   }
 }
 
+/* Enlargeable images - must match JS */
+.image-gallery img:hover,
+.row--1fr-1fr > .row__media > img:hover,
+.masonry > img:hover,
+img.enlargeable:hover {
+  opacity: 70%;
+  cursor: pointer;
+}
+
 /* Image gallery */
 .image-gallery {
   display: flex;
@@ -748,13 +757,6 @@ div.full-section-btn {
     flex: 50%;
     max-width: 50%;
   }
-}
-
-.image-gallery img:hover,
-.row--1fr-1fr > .row__media > img:hover,
-.masonry > img:hover {
-  opacity: 70%;
-  cursor: pointer;
 }
 
 /* Masonry gallery */

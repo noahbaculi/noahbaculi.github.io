@@ -1305,7 +1305,6 @@ body::before {
   /* Hide by default */
   opacity: 0;
   visibility: hidden;
-  pointer-events: none;
 
   transition:
     opacity 0.45s ease,
@@ -1316,7 +1315,6 @@ body::before {
 body.is-menu-visible::before {
   opacity: 1;
   visibility: visible;
-  pointer-events: auto;
 }
 body.is-menu-visible #menu {
   transform: translateX(0);
@@ -1327,15 +1325,6 @@ body.is-menu-visible #menu > * {
 body.is-menu-visible #menu .close {
   transform: scale(1) rotate(0deg);
   opacity: 1;
-}
-
-/* Disable interaction with background content while menu is open */
-body.is-menu-visible #headers,
-body.is-menu-visible #navbar,
-body.is-menu-visible #subnavbar,
-body.is-menu-visible .inner,
-body.is-menu-visible footer {
-  pointer-events: none;
 }
 
 .dropdown {

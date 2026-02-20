@@ -27,11 +27,10 @@ function getImagePaths(breadcrumbs, name) {
   const firstName = name.split(" ")[0];
 
   const paths = {
-    jpg: `./images/family_tree/${breadcrumbs}${firstName}.jpg`.toLowerCase(),
     webp50:
-      `./images/family_tree/${breadcrumbs}${firstName}_50_w.webp`.toLowerCase(),
+      `./images/family_tree/${breadcrumbs}${firstName}-50_w.webp`.toLowerCase(),
     webp100:
-      `./images/family_tree/${breadcrumbs}${firstName}_100_w.webp`.toLowerCase(),
+      `./images/family_tree/${breadcrumbs}${firstName}-100_w.webp`.toLowerCase(),
   };
 
   return paths;
@@ -57,7 +56,7 @@ function getNewMemberHTML(name, partner, breadcrumbs, hasChildren = false) {
     <img srcset="
         ${imgPaths["webp50"]} 40w,
         ${imgPaths["webp100"]} 50w" sizes="(max-width: 900px) 8vw, 65px"
-        loading="lazy" decoding="async" src="${imgPaths["jpg"]}" alt="${name}">
+        loading="lazy" decoding="async" src="${imgPaths["webp100"]}" alt="${name}">
     `;
 
   if (partner) {
@@ -65,7 +64,7 @@ function getNewMemberHTML(name, partner, breadcrumbs, hasChildren = false) {
     HTMLString += `<img srcset="
             ${partnerPaths["webp50"]} 40w,
             ${partnerPaths["webp100"]} 50w" sizes="(max-width: 900px) 8vw, 65px"
-            loading="lazy" decoding="async" src="${partnerPaths["jpg"]}" class="partner-image" alt="${partner}">`;
+            loading="lazy" decoding="async" src="${partnerPaths["webp100"]}" class="partner-image" alt="${partner}">`;
   }
 
   let nameLabel = `${name}<br>`;

@@ -98,7 +98,6 @@ function getNewMemberHTML(name, partner, breadcrumbs, hasChildren = false) {
 }
 
 function parseTree(tree, breadcrumbs = "") {
-  // console.log("tree", tree);
   let begHTML = "";
   let endHTML = "";
   for (const [key, family] of Object.entries(tree)) {
@@ -126,8 +125,6 @@ function parseTree(tree, breadcrumbs = "") {
         `${breadcrumbs}${firstName}/`,
       );
 
-      console.log(family, subBegHTML);
-
       begHTML += `<ul>${subBegHTML}</ul>`;
       endHTML = subEndHTML + endHTML;
     } else {
@@ -140,17 +137,11 @@ function parseTree(tree, breadcrumbs = "") {
 
 // read local JSON file using jQuery
 $.getJSON("family_tree.json", function (tree) {
-  // console.log(tree);
-
   const [subBegHTML, subEndHTML] = parseTree(tree);
   begHTML = firstHTML + subBegHTML;
   endHTML = subEndHTML + lastHTML;
 
-  console.log(begHTML);
-  console.log(endHTML);
-
   totHTML = begHTML + endHTML;
-  // totHTML = totHTML.replace(/,/g, "");
   document.getElementById("familytreecontent").innerHTML = totHTML;
 
   familyTreeInteractions();

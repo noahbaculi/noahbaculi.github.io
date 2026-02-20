@@ -4,46 +4,33 @@ String.prototype.toProperCase = function () {
   });
 };
 
-$("#top_professional").load("/assets/html/top_professional.html");
-
-// Replace element with data instead of inserting into element
-$.get("/assets/html/top_projects.html", function (data) {
-  $("#top_projects").replaceWith(data);
-});
-
-$("#footer").load("/assets/html/footer.html");
-
-var $window = $(window),
-  $body = $("body");
+const body = document.body;
 
 /**
  * Asynchronously loads an HTML fragment into the given element.
- *
- * If the element matching `selector` exists, its content will be replaced
- * with the contents of the file at `url`. The returned Promise resolves
- * when the load succeeds, and rejects if the request fails. If no matching
- * element is found, the Promise resolves immediately with no action taken.
- *
- * @param {string} selector - jQuery selector for the target element.
- * @param {string} url - Path or URL of the HTML file to load.
- * @returns {Promise<void>} Promise that resolves when the section is loaded.
  */
-function loadSection(selector, url) {
-  return new Promise((resolve, reject) => {
-    const $el = $(selector);
-    if ($el.length === 0) {
-      resolve(); // nothing to do
-      return;
-    }
+async function loadSection(selector, url) {
+  const el = document.querySelector(selector);
+  if (!el) return;
 
-    $el.load(url, function (response, status) {
-      if (status === "error") {
-        reject(new Error(`Failed to load ${url}`));
-      } else {
-        resolve();
-      }
-    });
-  });
+  const response = await fetch(url);
+  if (response.ok) {
+    el.innerHTML = await response.text();
+  }
+}
+
+/**
+ * Replaces an element with fetched HTML content.
+ */
+async function replaceWithSection(selector, url) {
+  const el = document.querySelector(selector);
+  if (!el) return;
+
+  const response = await fetch(url);
+  if (response.ok) {
+    const html = await response.text();
+    el.outerHTML = html;
+  }
 }
 
 async function initNavbars() {
@@ -65,10 +52,16 @@ async function initNavbars() {
     await loadSection("#side-menu", "/assets/html/side_menu.html");
 
     // Move menu to body
-    $("#menu").appendTo($("body"));
+    const menu = document.getElementById("menu");
+    if (menu) {
+      body.appendChild(menu);
+    }
 
     // Finally highlight once
     highlightCurrentPages();
+
+    // Initialize menu after it's loaded
+    initMenu();
   } catch (error) {
     console.error("Error loading navigation:", error);
   }
@@ -78,7 +71,6 @@ function highlightCurrentPages() {
   const crumbs = window.location.pathname.replace(".html", "").split("/");
   crumbs.shift(); // Remove first empty element
 
-  console.log("crumbs", crumbs);
   crumbs.forEach((page, idx) => {
     // Only add current-page to 'index' if it's the first element
     if (page === "index" && idx !== 0) return;
@@ -89,9 +81,17 @@ function highlightCurrentPages() {
   });
 }
 
+// Load homepage sections
+async function loadHomepageSections() {
+  await loadSection("#top_professional", "/assets/html/top_professional.html");
+  await replaceWithSection("#top_projects", "/assets/html/top_projects.html");
+  await loadSection("#footer", "/assets/html/footer.html");
+}
+
+loadHomepageSections();
 initNavbars();
 
-// Breakpoints.
+// Breakpoints (requires breakpoints.min.js)
 breakpoints({
   xlarge: ["1281px", "1680px"],
   large: ["981px", "1280px"],
@@ -102,136 +102,146 @@ breakpoints({
 });
 
 // Play initial animations on page load.
-$window.on("load", function () {
+window.addEventListener("load", function () {
   window.setTimeout(function () {
-    $body.removeClass("is-preload");
+    body.classList.remove("is-preload");
   }, 100);
 });
 
-// Touch?
-if (browser.mobile) $body.addClass("is-touch");
+// Touch detection (requires browser.min.js)
+if (browser.mobile) body.classList.add("is-touch");
 
-// Forms.
-var $form = $("form");
+// Auto-resizing textareas
+document.querySelectorAll("form textarea").forEach(function (textarea) {
+  const wrapper = document.createElement("div");
+  wrapper.className = "textarea-wrapper";
+  textarea.parentNode.insertBefore(wrapper, textarea);
+  wrapper.appendChild(textarea);
 
-// Auto-resizing textareas.
-$form.find("textarea").each(function () {
-  var $this = $(this),
-    $wrapper = $('<div class="textarea-wrapper"></div>'),
-    $submits = $this.find('input[type="submit"]');
+  textarea.setAttribute("rows", 1);
+  textarea.style.overflow = "hidden";
+  textarea.style.resize = "none";
 
-  $this
-    .wrap($wrapper)
-    .attr("rows", 1)
-    .css("overflow", "hidden")
-    .css("resize", "none")
-    .on("keydown", function (event) {
-      if (event.keyCode == 13 && event.ctrlKey) {
-        event.preventDefault();
-        event.stopPropagation();
+  function autoResize() {
+    wrapper.style.height = textarea.offsetHeight + "px";
+    textarea.style.height = "auto";
+    textarea.style.height = textarea.scrollHeight + "px";
+  }
 
-        $(this).blur();
-      }
-    })
-    .on("blur focus", function () {
-      $this.val($.trim($this.val()));
-    })
-    .on("input blur focus --init", function () {
-      $wrapper.css("height", $this.height());
+  textarea.addEventListener("keydown", function (event) {
+    if (event.keyCode === 13 && event.ctrlKey) {
+      event.preventDefault();
+      event.stopPropagation();
+      textarea.blur();
+    }
+  });
 
-      $this
-        .css("height", "auto")
-        .css("height", $this.prop("scrollHeight") + "px");
-    })
-    .on("keyup", function (event) {
-      if (event.keyCode == 9) $this.select();
-    })
-    .triggerHandler("--init");
+  textarea.addEventListener("blur", function () {
+    textarea.value = textarea.value.trim();
+  });
 
-  // Fix.
-  if (browser.name == "ie" || browser.mobile)
-    $this.css("max-height", "10em").css("overflow-y", "auto");
+  textarea.addEventListener("focus", function () {
+    textarea.value = textarea.value.trim();
+  });
+
+  textarea.addEventListener("input", autoResize);
+  textarea.addEventListener("blur", autoResize);
+  textarea.addEventListener("focus", autoResize);
+
+  textarea.addEventListener("keyup", function (event) {
+    if (event.keyCode === 9) textarea.select();
+  });
+
+  // Initial resize
+  autoResize();
+
+  // Fix for IE/mobile
+  if (browser.name === "ie" || browser.mobile) {
+    textarea.style.maxHeight = "10em";
+    textarea.style.overflowY = "auto";
+  }
 });
 
-// Menu.
-var $menu = $("#menu");
+// Menu functionality
+function initMenu() {
+  const menu = document.getElementById("menu");
+  if (!menu) return;
 
-$menu._locked = false;
+  let menuLocked = false;
 
-$menu._lock = function () {
-  if ($menu._locked) return false;
+  function lockMenu() {
+    if (menuLocked) return false;
+    menuLocked = true;
+    window.setTimeout(function () {
+      menuLocked = false;
+    }, 350);
+    return true;
+  }
 
-  $menu._locked = true;
+  function showMenu() {
+    if (lockMenu()) body.classList.add("is-menu-visible");
+  }
 
-  window.setTimeout(function () {
-    $menu._locked = false;
-  }, 350);
+  function hideMenu() {
+    if (lockMenu()) body.classList.remove("is-menu-visible");
+  }
 
-  return true;
-};
+  function toggleMenu() {
+    if (lockMenu()) body.classList.toggle("is-menu-visible");
+  }
 
-$menu._show = function () {
-  if ($menu._lock()) $body.addClass("is-menu-visible");
-};
-
-$menu._hide = function () {
-  if ($menu._lock()) $body.removeClass("is-menu-visible");
-};
-
-$menu._toggle = function () {
-  if ($menu._lock()) $body.toggleClass("is-menu-visible");
-};
-
-$menu
-  .appendTo($body)
-  .on("click", function (event) {
+  // Menu click handling
+  menu.addEventListener("click", function (event) {
     event.stopPropagation();
-  })
-  .on("click", "a", function (event) {
-    var href = $(this).attr("href");
+  });
 
+  menu.addEventListener("click", function (event) {
+    const target = event.target.closest("a");
+    if (!target) return;
+
+    const href = target.getAttribute("href");
     event.preventDefault();
     event.stopPropagation();
 
-    // Hide.
-    $menu._hide();
+    hideMenu();
 
-    // Redirect.
-    if (href == "#menu") return;
+    if (href === "#menu") return;
 
     window.setTimeout(function () {
       window.location.href = href;
     }, 350);
   });
 
-$body
-  .on("click", 'a[href="#menu"]', function (event) {
+  // Menu toggle button
+  document.body.addEventListener("click", function (event) {
+    const target = event.target.closest('a[href="#menu"]');
+    if (!target) return;
+
     event.stopPropagation();
     event.preventDefault();
-    // Toggle.
-    $menu._toggle();
-  })
-  // .on('click', function (event) {
-  // 	// Hide.
-  // 	$menu._hide();
-  // })
-  .on("keydown", function (event) {
-    // Hide on escape.
-    if (event.keyCode == 27) $menu._hide();
+    toggleMenu();
   });
 
+  // Escape key to close menu
+  document.body.addEventListener("keydown", function (event) {
+    if (event.keyCode === 27) hideMenu();
+  });
+}
+
+// Image modal
 (function initImageModal() {
   const SELECTOR =
     ".image-gallery img, .row--1fr-1fr > .row__media > img, .masonry > img, img.enlargeable";
 
-  $(document).on("click", SELECTOR, function () {
-    const src = $(this).attr("src");
+  document.addEventListener("click", function (event) {
+    const target = event.target.closest(SELECTOR);
+    if (!target) return;
+
+    const src = target.getAttribute("src");
     if (!src) return;
 
-    // Clean up any existing modal + handler
-    $("body").off("keyup.modal-close");
-
-    const imgHtml = `<img
+    const modal = document.createElement("div");
+    modal.innerHTML = `<img
       loading="lazy"
       decoding="async"
       src="${src}"
@@ -242,31 +252,32 @@ $body
       "
     />`;
 
-    const $modal = $(`<div>${imgHtml}</div>`)
-      .css({
-        background: "RGBA(0,0,0,0.8)",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        width: "100%",
-        height: "100%",
-        position: "fixed",
-        zIndex: 10000,
-        top: 0,
-        left: 0,
-        cursor: "zoom-out",
-      })
-      .appendTo("body");
+    Object.assign(modal.style, {
+      background: "RGBA(0,0,0,0.8)",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      width: "100%",
+      height: "100%",
+      position: "fixed",
+      zIndex: 10000,
+      top: 0,
+      left: 0,
+      cursor: "zoom-out",
+    });
+
+    document.body.appendChild(modal);
 
     function removeModal() {
-      $modal.remove();
-      $("body").off("keyup.modal-close");
+      modal.remove();
+      document.body.removeEventListener("keyup", handleEscape);
     }
 
-    $modal.on("click", removeModal);
-
-    $("body").on("keyup.modal-close", function (e) {
+    function handleEscape(e) {
       if (e.key === "Escape") removeModal();
-    });
+    }
+
+    modal.addEventListener("click", removeModal);
+    document.body.addEventListener("keyup", handleEscape);
   });
 })();

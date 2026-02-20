@@ -98,9 +98,6 @@ window.addEventListener("load", function () {
   }, 100);
 });
 
-// Touch detection (requires browser.min.js)
-if (browser.mobile) body.classList.add("is-touch");
-
 // Auto-resizing textareas
 document.querySelectorAll("form textarea").forEach(function (textarea) {
   const wrapper = document.createElement("div");

@@ -621,7 +621,6 @@ div.full-section-btn {
   justify-content: center;
   gap: clamp(0.75rem, 2vw, 1.5rem);
   padding: 1em;
-  box-sizing: border-box;
 }
 .row__media {
   grid-area: media;

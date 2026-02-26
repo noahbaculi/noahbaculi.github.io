@@ -348,7 +348,6 @@ table {
   font-weight: 600;
 }
 #subnavbar a {
-  font-size: 0.7em;
   font-size: x-small;
 }
 
@@ -798,7 +797,7 @@ div.full-section-btn {
 div.tiles-or-card-row {
   display: flex;
   flex-wrap: wrap;
-  align-items: flex-start;
+  align-items: stretch;
   justify-content: center;
   gap: 1vh;
 }
@@ -873,7 +872,6 @@ div.project-card__end-logo {
   justify-content: flex-end;
   flex-wrap: wrap;
   box-sizing: border-box;
-  margin-bottom: -0.8em;
 
   & a {
     max-width: 10%;

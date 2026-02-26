@@ -359,7 +359,9 @@ table {
 
 #footer {
   background: #f6f6f6;
-  padding: 2em 0;
+  padding: 1.5em 0;
+  margin-top: 3em;
+
   .inner {
     display: flex;
     flex-wrap: wrap;
@@ -606,7 +608,7 @@ table {
 div.full-section-btn {
   display: flex;
   justify-content: center;
-  padding-top: 1em;
+  padding-top: 3em;
 
   & a {
     font-weight: 500;
@@ -623,6 +625,7 @@ div.full-section-btn {
 .row {
   display: grid;
   align-items: center;
+  justify-content: center;
   gap: clamp(0.75rem, 2vw, 1.5rem);
   padding: 1em;
   box-sizing: border-box;

@@ -332,23 +332,19 @@ table {
 }
 #navbar li {
   line-height: var(--navbar-height);
-  font-size: large;
+  font-size: medium;
+  font-weight: 600;
 }
 #subnavbar li {
   line-height: var(--subnavbar-height);
+  font-size: small;
+  font-weight: 400;
 }
 
 #navbar a,
 #subnavbar a {
   color: #4f4f4f;
   border-bottom: 0;
-}
-#navbar a {
-  font-size: small;
-  font-weight: 600;
-}
-#subnavbar a {
-  font-size: x-small;
 }
 
 .current-page {

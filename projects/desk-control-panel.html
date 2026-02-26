@@ -1,0 +1,222 @@
+<!doctype html>
+<!doctype html>
+<html>
+  <head>
+    <title>Noah - Desk Control Panel</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=no"
+    />
+    <meta
+      name="description"
+      content="Noah's Personal Project | Desk Control Panel | 2025"
+    />
+    <link rel="stylesheet" href="/assets/css/main.css" />
+    <link rel="icon" href="/images/icons/favicon-50_w.webp" />
+  </head>
+  <body class="is-preload">
+    <div id="headers"></div>
+    <div id="navbar" class="desktop-only"></div>
+    <div id="subnavbar" class="desktop-only"></div>
+    <div class="inner subpage">
+      <img
+        srcset="
+          /images/projects/desk_control_panel/front_module-400_w.webp   400w,
+          /images/projects/desk_control_panel/front_module-800_w.webp   800w,
+          /images/projects/desk_control_panel/front_module-1600_w.webp 1600w,
+          /images/projects/desk_control_panel/front_module-2400_w.webp 2400w
+        "
+        sizes="(max-width: 980px) 100vw, 55vw"
+        loading="lazy"
+        decoding="async"
+        src="/images/projects/desk_control_panel/front_module-2400_w.webp"
+        alt="Desk Control Panel Front Module"
+        class="enlargeable"
+        style="
+          max-width: 50vw;
+          max-height: 30vh;
+          border-radius: 0.5rem;
+          display: block;
+          margin: auto;
+          margin-top: 2em;
+        "
+      />
+      <h2 class="align-center subpage" style="margin-top: 1em">
+        Desk Control Panel
+      </h2>
+      <h5 class="align-center subpage">Designer and Engineer, <i>2025</i></h5>
+      <div class="row row--1fr-1fr row--reverse_on_desktop">
+        <div class="row__media">
+          <img
+            srcset="
+              /images/projects/desk_control_panel/interface-400_w.webp   400w,
+              /images/projects/desk_control_panel/interface-800_w.webp   800w,
+              /images/projects/desk_control_panel/interface-1600_w.webp 1600w,
+              /images/projects/desk_control_panel/interface-2400_w.webp 2400w
+            "
+            sizes="50vw"
+            loading="lazy"
+            decoding="async"
+            src="/images/projects/desk_control_panel/interface-2400_w.webp"
+            alt="Desk Control Panel Interface"
+          />
+        </div>
+        <div class="row__text">
+          <p>
+            Working with multiple computers at my desk, I wanted a way to
+            seamlessly switch between them without constantly reaching behind
+            monitors or fumbling with separate switches. I designed this
+            under-desk control panel to act as a centralized KVM (Keyboard,
+            Video, Mouse) hub with controls for additional peripherals.
+          </p>
+          <p style="padding-top: 1em">
+            The panel manages dual HDMI switches, a USB hub switch for shared
+            peripherals, speaker channel routing between computers, and
+            MOSFET-controlled USB power for accessories like an audio mixer and
+            a meeting countdown sign.
+          </p>
+        </div>
+      </div>
+      <hr class="mobile-only" />
+      <div class="row row--1fr-1fr">
+        <div class="row__media">
+          <img
+            srcset="
+              /images/projects/desk_control_panel/front_enclosure-400_w.webp   400w,
+              /images/projects/desk_control_panel/front_enclosure-800_w.webp   800w,
+              /images/projects/desk_control_panel/front_enclosure-1600_w.webp 1600w,
+              /images/projects/desk_control_panel/front_enclosure-2400_w.webp 2400w
+            "
+            sizes="(max-width: 980px) 100vw, 55vw"
+            loading="lazy"
+            decoding="async"
+            src="/images/projects/desk_control_panel/front_enclosure-2400_w.webp"
+            alt="Desk Control Panel Front Enclosure"
+          />
+        </div>
+        <div class="row__text">
+          <p>
+            <strong>Front Interface Module:</strong> The user-facing module
+            houses the ESP32-C3 microcontroller and all input/output controls. A
+            0.96" OLED screen displays the current state of connected
+            peripherals. Latching switches control the HDMI sources, while a
+            momentary button toggles the USB hub between computers. Toggle
+            switches route left and right speaker channels, and a rotary encoder
+            provides additional input for menu navigation and settings.
+          </p>
+          <p style="padding-top: 1em">
+            The firmware is written in Rust using a
+            <code>no_std</code> environment with the <code>esp-hal</code> crate
+            and <a href="https://embassy.dev/">Embassy</a> async framework. The
+            control panel also integrates with a companion
+            <a href="https://github.com/noahbaculi/embedded-meeting-sign"
+              >Meeting Sign</a
+            >
+            project via UART for timer control. View the full source code and
+            technical documentation on
+            <a href="https://github.com/noahbaculi/desk-control-panel">GitHub</a
+            >.
+          </p>
+        </div>
+      </div>
+      <hr class="mobile-only" />
+      <div class="row row--1fr-1fr row--reverse_on_desktop">
+        <div class="row__media">
+          <img
+            srcset="
+              /images/projects/desk_control_panel/back_module-400_w.webp   400w,
+              /images/projects/desk_control_panel/back_module-800_w.webp   800w,
+              /images/projects/desk_control_panel/back_module-1600_w.webp 1600w,
+              /images/projects/desk_control_panel/back_module-2400_w.webp 2400w
+            "
+            sizes="(max-width: 980px) 100vw, 55vw"
+            loading="lazy"
+            decoding="async"
+            src="/images/projects/desk_control_panel/back_module-2400_w.webp"
+            alt="Desk Control Panel Back Module"
+          />
+        </div>
+        <div class="row__text">
+          <p>
+            <strong>Back Peripheral Module:</strong> Located behind the desk,
+            this module houses the custom distribution PCB I designed that
+            connects to all the peripherals. The front and back modules
+            communicate via CAT5 ethernet cables, which provide a standardized
+            connection with plenty of conductors for power, ground, and signal
+            lines. This modular design streamlined installation and maintenance.
+          </p>
+        </div>
+      </div>
+      <hr class="mobile-only" />
+      <div class="row">
+        <p>
+          The simple custom PCB handles signal distribution and power switching.
+          I used P-Channel MOSFETs (IRLML6402) to control USB power, with gate
+          resistors and pull-ups to ensure safe behavior during MCU boot.
+          Voltage dividers step down 5V signals to 3.3V for the ESP32 GPIO pins
+          to monitor USB hub state:
+        </p>
+      </div>
+      <div class="image-gallery" style="padding-top: 1em">
+        <div class="half-column">
+          <img
+            srcset="
+              /images/projects/desk_control_panel/back_pcb-400_w.webp   400w,
+              /images/projects/desk_control_panel/back_pcb-800_w.webp   800w,
+              /images/projects/desk_control_panel/back_pcb-1600_w.webp 1600w,
+              /images/projects/desk_control_panel/back_pcb-2400_w.webp 2400w
+            "
+            sizes="(max-width: 980px) 100vw, 55vw"
+            loading="lazy"
+            decoding="async"
+            src="/images/projects/desk_control_panel/back_pcb-2400_w.webp"
+            alt="Desk Control Panel Custom PCB"
+          />
+        </div>
+        <div class="half-column">
+          <img
+            srcset="
+              /images/projects/desk_control_panel/back_module_ports-400_w.webp   400w,
+              /images/projects/desk_control_panel/back_module_ports-800_w.webp   800w,
+              /images/projects/desk_control_panel/back_module_ports-1600_w.webp 1600w,
+              /images/projects/desk_control_panel/back_module_ports-2400_w.webp 2400w
+            "
+            sizes="(max-width: 980px) 100vw, 55vw"
+            loading="lazy"
+            decoding="async"
+            src="/images/projects/desk_control_panel/back_module_ports-2400_w.webp"
+            alt="Desk Control Panel Back Module Ports"
+          />
+        </div>
+      </div>
+      <hr class="mobile-only" />
+      <div class="row">
+        <p class="align-center">
+          I designed both enclosures in CAD, optimizing for under-desk mounting
+          with all inputs and outputs oriented on the same side. Explore the CAD
+          models below:
+        </p>
+        <!-- TODO: Fusion 360 embed link for the enclosure -->
+        <iframe
+          class="fusion-embed"
+          style="padding-top: 1em"
+          src="TODO"
+          width="1024"
+          height="768"
+          allowfullscreen="true"
+          webkitallowfullscreen="true"
+          mozallowfullscreen="true"
+          frameborder="0"
+          loading="lazy"
+        ></iframe>
+      </div>
+      <hr class="mobile-only" />
+      <div class="row">
+        <p class="align-center"></p>
+      </div>
+    </div>
+    <footer id="footer"></footer>
+    <script src="/assets/js/main.js"></script>
+  </body>
+</html>

@@ -453,8 +453,7 @@ table {
 }
 
 #home-entrance-tagline {
-  font-size: clamp(medium, 2.5vw + 0.5rem, large);
-  margin-top: clamp(0rem, 2rem - 3vw, 2rem);
+  font-size: 16pt; /* To match the animated tagline svg font size */
 }
 
 #animated-tagline {

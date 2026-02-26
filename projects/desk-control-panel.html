@@ -96,14 +96,15 @@
           />
         </div>
         <div class="row__text">
+          <h3>Front Interface Module</h3>
           <p>
-            <strong>Front Interface Module:</strong> The user-facing module
-            houses the ESP32-C3 microcontroller and all input/output controls. A
-            0.96" OLED screen displays the current state of connected
-            peripherals. Latching switches control the HDMI sources, while a
-            momentary button toggles the USB hub between computers. Toggle
-            switches route left and right speaker channels, and a rotary encoder
-            provides additional input for menu navigation and settings.
+            <strong></strong> The user-facing module houses the ESP32-C3
+            microcontroller and all input/output controls. A 0.96" OLED screen
+            displays the current state of connected peripherals. Latching
+            switches control the HDMI sources, while a momentary button toggles
+            the USB hub between computers. Toggle switches route left and right
+            speaker channels, and a rotary encoder provides additional input for
+            menu navigation and settings.
           </p>
           <p style="padding-top: 1em">
             The firmware is written in Rust using a
@@ -138,18 +139,20 @@
           />
         </div>
         <div class="row__text">
+          <h3>Back Peripheral Module</h3>
           <p>
-            <strong>Back Peripheral Module:</strong> Located behind the desk,
-            this module houses the custom distribution PCB I designed that
-            connects to all the peripherals. The front and back modules
-            communicate via CAT5 ethernet cables, which provide a standardized
-            connection with plenty of conductors for power, ground, and signal
-            lines. This modular design streamlined installation and maintenance.
+            Located behind the desk, this module houses the custom distribution
+            PCB I designed that connects to all the peripherals. The front and
+            back modules communicate via CAT5 ethernet cables, which provide a
+            standardized connection with plenty of conductors for power, ground,
+            and signal lines. This modular design streamlined installation and
+            maintenance.
           </p>
         </div>
       </div>
       <hr class="mobile-only" />
       <div class="row">
+        <h3>Custom Distribution PCB</h3>
         <p>
           The simple custom PCB handles signal distribution and power switching.
           I used P-Channel MOSFETs (IRLML6402) to control USB power, with gate
@@ -190,27 +193,61 @@
           />
         </div>
       </div>
-      <hr class="mobile-only" />
-      <div class="row">
-        <p class="align-center">
-          I designed both enclosures in CAD, optimizing for under-desk mounting
-          with all inputs and outputs oriented on the same side. Explore the CAD
-          models below:
-        </p>
-        <!-- TODO: Fusion 360 embed link for the enclosure -->
-        <iframe
-          class="fusion-embed"
-          style="padding-top: 1em"
-          src="TODO"
-          width="1024"
-          height="768"
-          allowfullscreen="true"
-          webkitallowfullscreen="true"
-          mozallowfullscreen="true"
-          frameborder="0"
-          loading="lazy"
-        ></iframe>
-      </div>
+      <br />
+      <br />
+      <hr />
+      <br />
+      <h2 style="margin: 1em 0">Enclosure Designs (CAD)</h2>
+      <p style="">
+        I designed both enclosures in CAD, optimizing for under-desk mounting
+        with all inputs and outputs oriented on the same side. I also designed
+        around my existing standing desk control panel. Explore the CAD models
+        below:
+      </p>
+      <br />
+      <h3>Front Interface Module</h3>
+      <iframe
+        class="fusion-embed"
+        style="padding-top: 1em"
+        src="https://hotmail554459.autodesk360.com/shares/public/SH28cd1QT2badd0ea72b58efd7e01020632e?mode=embed"
+        width="1024"
+        height="768"
+        allowfullscreen="true"
+        webkitallowfullscreen="true"
+        mozallowfullscreen="true"
+        frameborder="0"
+        loading="lazy"
+      ></iframe>
+      <br />
+      <br />
+      <h3>Back Peripheral Module</h3>
+      <iframe
+        class="fusion-embed"
+        style="padding-top: 1em"
+        src="https://hotmail554459.autodesk360.com/shares/public/SH28cd1QT2badd0ea72b0ec42dc48ffc9661?mode=embed"
+        width="1024"
+        height="768"
+        allowfullscreen="true"
+        webkitallowfullscreen="true"
+        mozallowfullscreen="true"
+        frameborder="0"
+        loading="lazy"
+      ></iframe>
+      <br />
+      <br />
+      <h3>Custom Distribution PCB</h3>
+      <iframe
+        class="fusion-embed"
+        style="padding-top: 1em"
+        src="https://hotmail554459.autodesk360.com/shares/public/SH28cd1QT2badd0ea72bebae317c84b3331c?mode=embed"
+        width="1024"
+        height="768"
+        allowfullscreen="true"
+        webkitallowfullscreen="true"
+        mozallowfullscreen="true"
+        frameborder="0"
+        loading="lazy"
+      ></iframe>
       <hr class="mobile-only" />
       <div class="row">
         <p class="align-center"></p>

@@ -1514,3 +1514,9 @@ form[name="contact"] .check-row label {
   font-weight: 500;
   line-height: 1.25;
 }
+
+/* Centering the reCAPTCHA widget added by Netlify */
+/* NOTE: This will not be used by a local dev server */
+.g-recaptcha > div {
+  margin: 0 auto 1em auto;
+}

@@ -1,0 +1,88 @@
+# Netlify Redirects File
+# Purpose: Handle URL structure migration from production to staging
+# Created: 2026-02-26
+
+# =============================================================================
+# PORTFOLIO → PROFESSIONAL MIGRATIONS
+# =============================================================================
+
+# Individual portfolio pages
+/portfolio-enterprisedb        /professional/enterprisedb       301
+/portfolio-carium              /professional/carium             301
+/portfolio-aldras              /professional/aldras             301
+/portfolio-asme                /professional/asme               301
+/portfolio-caffinator          /professional/caffinator         301
+/portfolio-itw                 /professional/itw                301
+/portfolio-nanofluidics        /professional/nanofluidics       301
+/portfolio-sciencecamp         /professional/science-camp       301
+/portfolio-trane               /professional/trane              301
+
+# Pet feeder reclassified as independent project
+/portfolio-pet-feeder          /projects/pet-feeder             301
+
+# Main portfolio landing page
+/portfolio                     /professional/                   301
+/portfolio.html                /professional/                   301
+
+# =============================================================================
+# ABOUT → HOBBIES MIGRATIONS
+# =============================================================================
+
+/about-music                   /hobbies/music                   301
+/about-travel                  /hobbies/travel                  301
+/about-learning                /hobbies/tech                    301
+/about-swim                    /hobbies/diy                     301
+
+# Main about landing page
+/about                         /hobbies/                        301
+/about.html                    /hobbies/                        301
+
+# =============================================================================
+# PROJECT PAGE MIGRATIONS
+# =============================================================================
+
+# Guitar tab generator renamed and moved
+/guitartab                     /projects/guitar-tab-generator   301
+/guitartab.html                /projects/guitar-tab-generator   301
+
+# Doc tool moved to projects directory
+/doc-tool                      /projects/doc-tool               301
+/doc-tool.html                 /projects/doc-tool               301
+
+# =============================================================================
+# COMPONENT/PARTIAL FILE REDIRECTS
+# =============================================================================
+
+/_about_subnavbar              /hobbies/                        301
+/_portfolio_subnavbar          /professional/                   301
+/_top_portfolio                /professional/                   301
+/_independent_projects         /projects/                       301
+/_footer                       /                                301
+/_header_html                  /                                301
+
+# =============================================================================
+# HTML EXTENSION FALLBACKS
+# =============================================================================
+
+/portfolio-enterprisedb.html   /professional/enterprisedb       301
+/portfolio-carium.html         /professional/carium             301
+/portfolio-aldras.html         /professional/aldras             301
+/portfolio-asme.html           /professional/asme               301
+/portfolio-caffinator.html     /professional/caffinator         301
+/portfolio-itw.html            /professional/itw                301
+/portfolio-nanofluidics.html   /professional/nanofluidics       301
+/portfolio-sciencecamp.html    /professional/science-camp       301
+/portfolio-trane.html          /professional/trane              301
+/portfolio-pet-feeder.html     /projects/pet-feeder             301
+
+/about-music.html              /hobbies/music                   301
+/about-travel.html             /hobbies/travel                  301
+/about-learning.html           /hobbies/tech                    301
+/about-swim.html               /hobbies/diy                     301
+
+# =============================================================================
+# CATCH-ALL FALLBACK RULES (MUST BE LAST)
+# =============================================================================
+
+/portfolio-*                   /professional/                   301
+/about-*                       /hobbies/                        301

@@ -841,7 +841,7 @@ div.project-card__tech-used {
   box-sizing: border-box;
   align-items: stretch;
   justify-content: flex-end;
-  gap: 0.5em;
+  gap: 0.8em;
   margin-bottom: 0.5em;
 
   & p {
@@ -857,7 +857,7 @@ div.project-card__tech-used {
     flex-wrap: wrap;
     box-sizing: border-box;
     align-items: center;
-    gap: 0.5em;
+    gap: 0.3em;
 
     & img {
       max-height: 1.5em;

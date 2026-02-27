@@ -1,0 +1,120 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Noah - Random Laser Pointer</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=no"
+    />
+    <meta
+      name="description"
+      content="Noah's Personal Project | Random Laser Pointer | 2024"
+    />
+    <link rel="stylesheet" href="/assets/css/main.css" />
+    <link rel="icon" href="/images/icons/favicon-50_w.webp" />
+  </head>
+  <body class="is-preload">
+    <div id="headers"></div>
+    <div id="navbar" class="desktop-only"></div>
+    <div id="subnavbar" class="desktop-only"></div>
+    <div class="inner subpage">
+      <h2 class="align-center subpage" style="margin-top: 1em">
+        Random Laser Pointer
+      </h2>
+      <h5 class="align-center subpage">Designer and Engineer, <i>2024</i></h5>
+      <div class="row row--1fr-1fr row--reverse_on_desktop">
+        <div class="row__media">
+          <img
+            srcset="
+              /images/projects/random_laser_pointer/random_laser_pointer_1-400_w.webp   400w,
+              /images/projects/random_laser_pointer/random_laser_pointer_1-800_w.webp   800w,
+              /images/projects/random_laser_pointer/random_laser_pointer_1-1600_w.webp 1600w,
+              /images/projects/random_laser_pointer/random_laser_pointer_1-2400_w.webp 2400w
+            "
+            sizes="(max-width: 980px) 100vw, 55vw"
+            loading="lazy"
+            decoding="async"
+            src="/images/projects/random_laser_pointer/random_laser_pointer_1-2400_w.webp"
+            alt="Random Laser Pointer Assembly"
+          />
+        </div>
+        <div class="row__text">
+          <p>
+            My two cats have endless energy and they love chasing laser
+            pointers. But their enthusiasm surpasses my human laser-pointing
+            skills. I built this automated laser pointer station that moves a
+            laser dot randomly across the floor and walls in stimulating and
+            unpredictable patterns that keep my cats entertained.
+          </p>
+          <p style="padding-top: 1em">
+            The device uses an ESP32-C3 microcontroller to drive two SG90 servo
+            motors that pan and tilt a 3.3V laser diode. A toggle switch
+            controls power so I can easily turn it on and off. Two
+            potentiometers let me adjust the X and Y movement range, and a
+            preview button traces the boundary so I can aim the play area
+            precisely.
+          </p>
+        </div>
+      </div>
+      <hr class="mobile-only" />
+      <div class="row row--1fr-1fr">
+        <div class="row__media">
+          <img
+            srcset="
+              /images/projects/random_laser_pointer/random_laser_pointer_2-400_w.webp   400w,
+              /images/projects/random_laser_pointer/random_laser_pointer_2-800_w.webp   800w,
+              /images/projects/random_laser_pointer/random_laser_pointer_2-1600_w.webp 1600w,
+              /images/projects/random_laser_pointer/random_laser_pointer_2-2400_w.webp 2400w
+            "
+            sizes="(max-width: 980px) 100vw, 55vw"
+            loading="lazy"
+            decoding="async"
+            src="/images/projects/random_laser_pointer/random_laser_pointer_2-2400_w.webp"
+            alt="Random Laser Pointer Internals"
+          />
+        </div>
+        <div class="row__text">
+          <p>
+            The firmware is written in Rust using a
+            <code>no_std</code> environment with the <code>esp-hal</code> crate.
+            The random movement algorithm generates smooth, unpredictable paths
+            that keep my cat engaged. View the source code and wiring details on
+            <a
+              href="https://github.com/noahbaculi/random-laser-pointer"
+              target="_blank"
+              >GitHub</a
+            >!
+          </p>
+          <p style="padding-top: 1em">
+            This project is so simple that all the electronic components are
+            connected with perfboard and DuPont connectors.
+          </p>
+          <p style="padding-top: 1em">
+            I've learned a lot over the last 2 years so I'm looking forward to
+            visiting this project with some new feature ideas later in 2026!
+          </p>
+        </div>
+      </div>
+      <br />
+      <p class="align-center">
+        I designed the custom enclosure to house all the electronics compactly -
+        powered with the universal USB-C connector. Explore the CAD model below:
+      </p>
+      <iframe
+        class="fusion-embed"
+        style="padding-top: 1em"
+        src="https://hotmail554459.autodesk360.com/shares/public/SH28cd1QT2badd0ea72b8dd77b28d5552be5?mode=embed"
+        width="1024"
+        height="768"
+        allowfullscreen="true"
+        webkitallowfullscreen="true"
+        mozallowfullscreen="true"
+        frameborder="0"
+        loading="lazy"
+      ></iframe>
+    </div>
+    <footer id="footer"></footer>
+    <script src="/assets/js/main.js"></script>
+  </body>
+</html>

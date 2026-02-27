@@ -6,141 +6,160 @@
     xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
     xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
 
+    <!-- Homepage -->
     <url>
         <loc>https://noahbaculi.com/</loc>
-        <lastmod>2022-05-20T20:20:56Z</lastmod>
+        <lastmod>2026-02-26</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
     </url>
 
+    <!-- Main Sections -->
     <url>
-        <loc>https://noahbaculi.com/portfolio</loc>
-        <lastmod>2022-05-20T20:20:56Z</lastmod>
+        <loc>https://noahbaculi.com/professional/</loc>
+        <lastmod>2026-02-26</lastmod>
         <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
+        <priority>0.9</priority>
     </url>
     <url>
-        <loc>https://noahbaculi.com/about</loc>
-        <lastmod>2022-05-20T20:20:55Z</lastmod>
+        <loc>https://noahbaculi.com/projects/</loc>
+        <lastmod>2026-02-26</lastmod>
         <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://noahbaculi.com/hobbies/</loc>
+        <lastmod>2026-02-26</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
     </url>
     <url>
         <loc>https://noahbaculi.com/contact</loc>
-        <lastmod>2022-05-20T20:20:55Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
+        <lastmod>2026-02-26</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
     </url>
 
+    <!-- Professional Experience Pages -->
     <url>
-        <loc>https://noahbaculi.com/about/learning</loc>
-        <lastmod>2022-05-20T20:20:55Z</lastmod>
-        <changefreq>weekly</changefreq>
+        <loc>https://noahbaculi.com/professional/enterprisedb</loc>
+        <lastmod>2026-02-26</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://noahbaculi.com/professional/carium</loc>
+        <lastmod>2026-02-26</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://noahbaculi.com/professional/aldras</loc>
+        <lastmod>2026-02-26</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://noahbaculi.com/professional/asme</loc>
+        <lastmod>2026-02-26</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://noahbaculi.com/professional/caffinator</loc>
+        <lastmod>2026-02-26</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://noahbaculi.com/professional/itw</loc>
+        <lastmod>2026-02-26</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://noahbaculi.com/professional/nanofluidics</loc>
+        <lastmod>2026-02-26</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://noahbaculi.com/professional/sciencecamp</loc>
+        <lastmod>2026-02-26</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://noahbaculi.com/professional/trane</loc>
+        <lastmod>2026-02-26</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+
+    <!-- Project Pages -->
+    <url>
+        <loc>https://noahbaculi.com/projects/guitar-tab-generator</loc>
+        <lastmod>2026-02-26</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://noahbaculi.com/projects/desk-control-panel</loc>
+        <lastmod>2026-02-26</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://noahbaculi.com/projects/pet-feeder</loc>
+        <lastmod>2026-02-26</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://noahbaculi.com/projects/random-laser-pointer</loc>
+        <lastmod>2026-02-26</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://noahbaculi.com/projects/doc-tool</loc>
+        <lastmod>2026-02-26</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+
+    <!-- Hobby Pages -->
+    <url>
+        <loc>https://noahbaculi.com/hobbies/music</loc>
+        <lastmod>2026-02-26</lastmod>
+        <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
     <url>
-        <loc>https://noahbaculi.com/about/music</loc>
-        <lastmod>2022-05-20T20:20:55Z</lastmod>
-        <changefreq>weekly</changefreq>
+        <loc>https://noahbaculi.com/hobbies/tech</loc>
+        <lastmod>2026-02-26</lastmod>
+        <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
     <url>
-        <loc>https://noahbaculi.com/about/swim</loc>
-        <lastmod>2022-05-20T20:20:55Z</lastmod>
-        <changefreq>weekly</changefreq>
+        <loc>https://noahbaculi.com/hobbies/travel</loc>
+        <lastmod>2026-02-26</lastmod>
+        <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
     <url>
-        <loc>https://noahbaculi.com/about/travel</loc>
-        <lastmod>2022-05-20T20:20:55Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-    </url>
-    <url>
-        <loc>https://noahbaculi.com/portfolio/aldras</loc>
-        <lastmod>2022-05-20T20:20:56Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-    </url>
-    <url>
-        <loc>https://noahbaculi.com/portfolio/asme</loc>
-        <lastmod>2022-05-20T20:20:56Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-    </url>
-    <url>
-        <loc>https://noahbaculi.com/portfolio/caffinator</loc>
-        <lastmod>2022-05-20T20:20:56Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-    </url>
-    <url>
-        <loc>https://noahbaculi.com/portfolio/itw</loc>
-        <lastmod>2022-05-20T20:20:56Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-    </url>
-    <url>
-        <loc>https://noahbaculi.com/portfolio/nanofluidics</loc>
-        <lastmod>2022-05-20T20:20:56Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-    </url>
-    <url>
-        <loc>https://noahbaculi.com/portfolio/sciencecamp</loc>
-        <lastmod>2022-05-20T20:20:56Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-    </url>
-    <url>
-        <loc>https://noahbaculi.com/portfolio/trane</loc>
-        <lastmod>2022-05-20T20:20:56Z</lastmod>
-        <changefreq>weekly</changefreq>
+        <loc>https://noahbaculi.com/hobbies/diy</loc>
+        <lastmod>2026-02-26</lastmod>
+        <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
 
+    <!-- Utility Pages -->
     <url>
         <loc>https://noahbaculi.com/familytree</loc>
-        <lastmod>2022-05-20T20:20:55Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.4</priority>
+        <lastmod>2026-02-26</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.3</priority>
     </url>
-    
-    <url>
-        <loc>https://noahbaculi.com/404</loc>
-        <lastmod>2022-05-22T20:20:55Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.0</priority>
-    </url>
-    
-    <url>
-        <loc>https://noahbaculi.com/_about_subnavbar</loc>
-        <lastmod>2022-05-22T20:20:55Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.0</priority>
-    </url>
-    <url>
-        <loc>https://noahbaculi.com/_footer</loc>
-        <lastmod>2022-05-22T20:20:55Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.0</priority>
-    </url>
-    <url>
-        <loc>https://noahbaculi.com/_header_html</loc>
-        <lastmod>2022-05-22T20:20:55Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.0</priority>
-    </url>
-    <url>
-        <loc>https://noahbaculi.com/_portfolio_subnavbar</loc>
-        <lastmod>2022-05-22T20:20:55Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.0</priority>
-    </url>
-    <url>
-        <loc>https://noahbaculi.com/_top_professional</loc>
-        <lastmod>2022-05-22T20:20:55Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.0</priority>
-    </url>
+
 </urlset>

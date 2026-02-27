@@ -27,8 +27,6 @@ function playBeatAudio(pitches) {
 
   const beatPitches = pitches[playbackBeatNumber];
 
-  console.log(beatPitches);
-
   if (playbackBeatNumber >= pitches.length) {
     // Done playing
     stopPlayback();
@@ -37,7 +35,6 @@ function playBeatAudio(pitches) {
   // Skip measure breaks
   if (beatPitches[0] == "MEASURE_BREAK") {
     numMeasureBreaks++;
-    console.log("Skipping playback");
     playBeatAudio(pitches);
     return;
   }
@@ -542,10 +539,8 @@ function newTab() {
 
 function generateTab() {
   let startTime = performance.now();
-
   let input = getInput();
 
-  console.log(input);
   try {
     let compositions = wasm_create_guitar_compositions(input);
     document.getElementById("tabOutput").value = compositions[0].tab;

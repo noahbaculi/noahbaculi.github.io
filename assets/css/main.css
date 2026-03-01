@@ -824,19 +824,25 @@ div.project-card {
 }
 div.project-card {
   max-width: min(20rem, 42svw);
+  display: flex;
+  flex-direction: column;
 }
 div.project-card h5 {
   font-weight: bold;
 }
 div.project-card > div {
   padding: 0 1.25rem 1.25rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 
   @media screen and (max-width: 480px) {
     padding: 0 0.5rem 0.5rem 0.5rem;
   }
 }
 div.project-card > div > p {
-  margin-bottom: 0.75rem;
+  margin: 0.4em 0 0.75em 0;
+  line-height: 1.5;
   color: rgb(55, 65, 81);
 
   @media screen and (max-width: 480px) {
@@ -892,7 +898,7 @@ div.professional-more-btn,
 div.project-card__more-btn {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.2em;
+  gap: 0.3em;
 }
 
 div.professional-more-btn {
@@ -901,6 +907,7 @@ div.professional-more-btn {
 }
 
 div.project-card__more-btn {
+  margin-top: auto;
   justify-content: center;
 }
 

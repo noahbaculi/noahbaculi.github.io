@@ -11,9 +11,12 @@
   --subnavbar-height: 5vh;
   --navbar-link: #4f4f4f;
 
-  --color-mint: rgb(228, 255, 225);
-  --color-light-blue: rgb(104, 131, 186);
+  --color-blue: #145c9e;
+  --color-blue-text: #0b4f6c;
+  --color-mint: #708b75;
   --color-graphite: rgb(54, 54, 53);
+  --color-dark-blue: #041c27;
+  --color-coral: #7b1e7a;
 }
 
 /* ---- Reset ---- */
@@ -141,7 +144,7 @@ h3 {
 }
 
 h3 > a {
-  color: #0e4194;
+  color: var(--color-blue-text);
 }
 
 h4 {
@@ -903,12 +906,24 @@ div.project-card__more-btn {
 .professional-more-btn > a,
 .project-card__more-btn > a {
   font-weight: 500;
-  background-color: #1d4ed8;
+  background-color: red;
   color: white;
   font-size: small;
   border-radius: 0.5rem;
   padding: 0.4rem 1rem;
   text-align: right;
+}
+.professional-more-btn > a {
+  background-color: var(--color-blue);
+}
+.project-card__more-btn > a.blog {
+  background-color: var(--color-blue);
+}
+.project-card__more-btn > a.demo {
+  background-color: var(--color-coral);
+}
+.project-card__more-btn > a.github {
+  background-color: var(--color-mint);
 }
 
 /* Hobby tiles */
@@ -1093,7 +1108,8 @@ body.is-preload .affiliated-tiles-grid .affiliated-tile {
   padding: 0 1.5em;
   background-color: rgba(255, 255, 255, 0.5);
   border-radius: 4px;
-  border: 0;
+  /* border: 0; */
+  border: solid 1px #c9c9c9;
   font-size: 0.8em;
   font-weight: 900;
   letter-spacing: 0.35em;
@@ -1152,7 +1168,7 @@ body.is-preload .affiliated-tiles-grid .affiliated-tile {
   width: 22em;
   max-width: 80%;
   height: 100%;
-  background: #333853ee;
+  background: var(--color-dark-blue);
   color: #ffffff;
   cursor: default;
   z-index: 10002;
@@ -1472,7 +1488,7 @@ form[name="contact"] input[type="submit"] {
   cursor: pointer;
 
   font-weight: 500;
-  background-color: #1d4ed8;
+  background-color: var(--color-blue);
   color: #fff;
   border-radius: 0.5rem;
   padding: 0.4rem 1rem;

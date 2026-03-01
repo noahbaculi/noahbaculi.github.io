@@ -10,6 +10,10 @@
   --navbar-height: 7vh;
   --subnavbar-height: 5vh;
   --navbar-link: #4f4f4f;
+
+  --color-mint: rgb(228, 255, 225);
+  --color-light-blue: rgb(104, 131, 186);
+  --color-graphite: rgb(54, 54, 53);
 }
 
 /* ---- Reset ---- */

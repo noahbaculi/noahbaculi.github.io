@@ -14,9 +14,10 @@
   --color-blue: #145c9e;
   --color-blue-text: #0b4f6c;
   --color-mint: #708b75;
-  --color-graphite: rgb(54, 54, 53);
+  --color-graphite: #363636;
   --color-dark-blue: #041c27;
-  --color-coral: #7b1e7a;
+  --color-purple: #7b1e7a;
+  --color-lilac: #c2aff0;
 }
 
 /* ---- Reset ---- */
@@ -612,8 +613,8 @@ div.full-section-btn {
 
   & a {
     font-weight: 500;
-    background-color: #bfdbfe;
-    color: #334155;
+    background-color: var(--color-lilac);
+    color: var(--color-graphite);
     font-size: large;
     border-radius: 0.5rem;
     padding: 1.2rem 1.5rem;
@@ -920,7 +921,7 @@ div.project-card__more-btn {
   background-color: var(--color-blue);
 }
 .project-card__more-btn > a.demo {
-  background-color: var(--color-coral);
+  background-color: var(--color-purple);
 }
 .project-card__more-btn > a.github {
   background-color: var(--color-mint);

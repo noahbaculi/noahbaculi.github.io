@@ -1,465 +1,444 @@
-<!doctype html>
-<html>
-  <head>
-    <title>Noah - Portfolio</title>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1,
-			user-scalable=no"
-    />
-    <meta
-      name="description"
-      content="Noah's Portfolio and Work Experience | Engineering @ EnterpriseDB •Carium •
-			Salesforce • Aldras • Otis • ASME | Independent Projects"
-    />
-    <link rel="stylesheet" href="/assets/css/main.css" />
-    <link rel="icon" href="/images/icons/favicon-50_w.webp" />
-  </head>
-  <body class="is-preload">
-    <div id="headers"></div>
-    <div id="navbar" class="desktop-only"></div>
-    <div id="subnavbar" class="desktop-only"></div>
-    <div class="inner" style="max-width: 68rem">
-      <h2 class="align-center">Professional Experience</h2>
-      <div id="top_professional" style="margin-top: 10vh"></div>
-      <hr />
-      <div class="row row--1fr-2fr">
-        <div class="row__media">
-          <img
-            srcset="
-              /images/professional/other/otis-400_w.webp   400w,
-              /images/professional/other/otis-800_w.webp   800w,
-              /images/professional/other/otis-1600_w.webp 1600w,
-              /images/professional/other/otis-2400_w.webp 2400w
-            "
-            sizes="(max-width:
+---
+layout: base.njk
+title: Noah - Portfolio
+description: "Noah's Portfolio and Work Experience | Engineering @ EnterpriseDB \u2022Carium \u2022 Salesforce \u2022 Aldras \u2022 Otis \u2022 ASME | Independent Projects"
+section: professional
+---
+<div class="inner" style="max-width: 68rem">
+  <h2 class="align-center">Professional Experience</h2>
+  {% include "top_professional.njk" %}
+  <hr />
+  <div class="row row--1fr-2fr">
+    <div class="row__media">
+      <img
+        srcset="
+          /images/professional/other/otis-400_w.webp   400w,
+          /images/professional/other/otis-800_w.webp   800w,
+          /images/professional/other/otis-1600_w.webp 1600w,
+          /images/professional/other/otis-2400_w.webp 2400w
+        "
+        sizes="(max-width:
 								980px) 100vw, 30vw"
-            loading="lazy"
-            decoding="async"
-            src="/images/professional/other/otis-2400_w.webp"
-            alt="Otis"
-            class="enlargeable"
-          />
-        </div>
-        <div class="row__text">
-          <h3>
-            <a href="https://www.otis.com/en/us">Otis Elevator</a>
-          </h3>
-          <h4>Sales Intern, Southern Region, Remote US</h4>
-          <ul>
-            <li>
-              Designed automation script to accelerate data validation of sales
-              territory and specialization change transitions.
-            </li>
-            <li>
-              Followed up with accounts on after-market elevator product
-              proposals.
-            </li>
-            <li>
-              Designed promotional flyers and videos for 4 elevator products to
-              market decreased risk of viral infection.
-            </li>
-          </ul>
-        </div>
-      </div>
-      <hr />
-      <div class="row row--1fr-2fr">
-        <div class="row__media">
-          <a href="/professional/asme.html">
-            <img
-              srcset="
-                /images/professional/asme/asme_stlc-400_w.webp   400w,
-                /images/professional/asme/asme_stlc-800_w.webp   800w,
-                /images/professional/asme/asme_stlc-1600_w.webp 1600w,
-                /images/professional/asme/asme_stlc-2400_w.webp 2400w
-              "
-              sizes="(max-width:
+        loading="lazy"
+        decoding="async"
+        src="/images/professional/other/otis-2400_w.webp"
+        alt="Otis"
+        class="enlargeable"
+      />
+    </div>
+    <div class="row__text">
+      <h3>
+        <a href="https://www.otis.com/en/us">Otis Elevator</a>
+      </h3>
+      <h4>Sales Intern, Southern Region, Remote US</h4>
+      <ul>
+        <li>
+          Designed automation script to accelerate data validation of sales
+          territory and specialization change transitions.
+        </li>
+        <li>
+          Followed up with accounts on after-market elevator product
+          proposals.
+        </li>
+        <li>
+          Designed promotional flyers and videos for 4 elevator products to
+          market decreased risk of viral infection.
+        </li>
+      </ul>
+    </div>
+  </div>
+  <hr />
+  <div class="row row--1fr-2fr">
+    <div class="row__media">
+      <a href="/professional/asme.html">
+        <img
+          srcset="
+            /images/professional/asme/asme_stlc-400_w.webp   400w,
+            /images/professional/asme/asme_stlc-800_w.webp   800w,
+            /images/professional/asme/asme_stlc-1600_w.webp 1600w,
+            /images/professional/asme/asme_stlc-2400_w.webp 2400w
+          "
+          sizes="(max-width:
 									980px) 100vw, 30vw"
-              loading="lazy"
-              decoding="async"
-              src="/images/professional/asme/asme_stlc-2400_w.webp"
-              alt="ASME"
-            />
-          </a>
-        </div>
-        <div class="row__text">
-          <h3>
-            <a href="/professional/asme.html">Northwestern ASME Chapter</a>
-          </h3>
-          <h4>Founder and President, Chicago, IL</h4>
-          <ul>
-            <li>
-              Directed efforts towards Innovative Additive Manufacturing 3D
-              competition involving the design of a hovercraft resupply vehicle
-              utilizing as many 3D printed parts as possible.
-            </li>
-            <li>
-              Conducted general meetings, information sessions, guest speaker
-              events, and representing Northwestern ASME at the 2018
-              International Mechanical Engineering Congress and Exposition.
-            </li>
-          </ul>
-          <div class="professional-more-btn">
-            <a href="/professional/asme.html">Read more →</a>
-          </div>
-        </div>
-      </div>
-      <hr />
-      <div class="row row--1fr-2fr">
-        <div class="row__media">
-          <a href="/professional/trane.html">
-            <img
-              srcset="
-                /images/professional/trane/trane_compressor-400_w.webp   400w,
-                /images/professional/trane/trane_compressor-800_w.webp   800w,
-                /images/professional/trane/trane_compressor-1600_w.webp 1600w,
-                /images/professional/trane/trane_compressor-2400_w.webp 2400w
-              "
-              sizes="(max-width: 980px) 100vw, 30vw"
-              loading="lazy"
-              decoding="async"
-              src="/images/professional/trane/trane_compressor-2400_w.webp"
-              alt="Trane"
-            />
-          </a>
-        </div>
-        <div class="row__text">
-          <h3><a href="/professional/trane.html">Trane Technologies</a></h3>
-          <h4>Systems Engineering Co-op, La Crosse, WI</h4>
-          <ul>
-            <li>
-              7 Coded adaptable automation scripts to accelerate repetitive
-              computer tasks.
-            </li>
-            <li>
-              Developed NLP and data visualization program to analyze user
-              quality data to identify trends in failure factors.
-            </li>
-            <li>
-              Performed data analysis of test data to improve predictive machine
-              learning engines.
-            </li>
-          </ul>
-          <div class="professional-more-btn">
-            <a href="/professional/trane.html">Read more →</a>
-          </div>
-        </div>
-      </div>
-      <hr />
-      <div class="row row--1fr-2fr">
-        <div class="row__media">
-          <a href="/professional/itw.html">
-            <img
-              srcset="
-                /images/professional/itw/itw_production_line-400_w.webp   400w,
-                /images/professional/itw/itw_production_line-800_w.webp   800w,
-                /images/professional/itw/itw_production_line-1300_w.webp 1300w
-              "
-              sizes="(max-width: 980px) 100vw, 30vw"
-              loading="lazy"
-              decoding="async"
-              src="/images/professional/itw/itw_production_line-1300_w.webp"
-              alt="Illinois Tool Works"
-            />
-          </a>
-        </div>
-        <div class="row__text">
-          <h3>
-            <a href="/professional/itw.html"
-              >Illinois Tool Works - E.H. Wachs</a
-            >
-          </h3>
-          <h4>Engineering Intern, Chicago, IL</h4>
-          <ul>
-            <li>
-              Developed system of subassembly standard work to facilitate
-              subassembly outsourcing transition.
-            </li>
-            <li>
-              Spearheaded floor technician cross-training initiative in order to
-              streamline efficiency and maximize technician downtime.
-            </li>
-            <li>
-              Analyzed configurations of new work cell designed for new pipe
-              cutting product.
-            </li>
-          </ul>
-          <div class="professional-more-btn">
-            <a href="/professional/itw.html">Read more →</a>
-          </div>
-        </div>
-      </div>
-      <hr />
-      <div class="row row--1fr-2fr">
-        <div class="row__media">
-          <img
-            srcset="
-              /images/professional/other/msab-400_w.webp 400w,
-              /images/professional/other/msab-800_w.webp 800w,
-              /images/professional/other/msab-900_w.webp 900w
-            "
-            sizes="(max-width:
-								980px) 100vw, 30vw"
-            loading="lazy"
-            decoding="async"
-            src="/images/professional/other/msab-900_w.webp"
-            alt="MSAB"
-          />
-        </div>
-        <div class="row__text">
-          <h3>Northwestern McCormick Student Advisory Board</h3>
-          <h4>Project Management, Chicago, IL</h4>
-          <ul>
-            <li>
-              Worked within team to plan Study Table events to bring together
-              tutors and underclassmen in preparation for final exams.
-            </li>
-            <li>
-              Conducted general meetings, information sessions, guest speaker
-              events, and representing Northwestern ASME at the 2018
-              International Mechanical Engineering Congress and Exposition.
-            </li>
-          </ul>
-        </div>
-      </div>
-      <hr />
-      <div class="row row--1fr-2fr">
-        <div class="row__media">
-          <a href="/professional/caffinator.html">
-            <img
-              srcset="
-                /images/professional/caffinator/caffinator_design-400_w.webp   400w,
-                /images/professional/caffinator/caffinator_design-800_w.webp   800w,
-                /images/professional/caffinator/caffinator_design-1500_w.webp 1500w
-              "
-              sizes="(max-width: 980px) 100vw, 30vw"
-              loading="lazy"
-              decoding="async"
-              src="/images/professional/caffinator/caffinator_design-1500_w.webp"
-              alt="Caffinator"
-            />
-          </a>
-        </div>
-        <div class="row__text">
-          <h3>
-            <a href="/professional/caffinator.html"
-              >Northwestern Product Design Course Project</a
-            >
-          </h3>
-          <h4>Client: Kranze Technology Solutions, Inc.</h4>
-          <ul>
-            <li>
-              Designed a physical electronic stimulation system to allow
-              engineers to perform software endurance tests on mobile devices.
-            </li>
-            <li>
-              Analyzed interaction of custom clamps and electronically driven
-              belts to maneuver stylus arm across device screens through 3D CAD
-              modeling.
-            </li>
-          </ul>
-          <div class="professional-more-btn">
-            <a href="/professional/caffinator.html">Read more →</a>
-          </div>
-        </div>
-      </div>
-      <hr />
-      <div class="row row--1fr-2fr">
-        <div class="row__media">
-          <img
-            srcset="
-              /images/professional/other/dtc1_collage-400_w.webp   400w,
-              /images/professional/other/dtc1_collage-800_w.webp   800w,
-              /images/professional/other/dtc1_collage-1600_w.webp 1600w,
-              /images/professional/other/dtc1_collage-2400_w.webp 2400w
-            "
-            sizes="(max-width: 980px) 100vw, 30vw"
-            loading="lazy"
-            decoding="async"
-            src="/images/professional/other/dtc1_collage-2400_w.webp"
-            alt="DTC 1 Collage"
-            style="border: 1px solid lightgrey"
-            class="enlargeable"
-          />
-        </div>
-        <div class="row__text">
-          <h3>Northwestern Product Design Course Project</h3>
-          <h4>Client: Shirley Ryan AbilityLab</h4>
-          <ul>
-            <li>
-              Evaluated physical forces on gait training patients to devise a
-              novel harness, allowing patients with pressure ulcers to gait
-              train without further injury.
-            </li>
-            <li>
-              Utilized product and cost analysis to select straps, fasteners,
-              and tightening mechanisms to maximize load bearing ability.
-            </li>
-          </ul>
-        </div>
-      </div>
-      <hr />
-      <div class="row row--1fr-2fr">
-        <div class="row__media">
-          <a href="/professional/nanofluidics.html">
-            <img
-              srcset="
-                /images/professional/nanofluidics/nanofluidics_poster-400_w.webp   400w,
-                /images/professional/nanofluidics/nanofluidics_poster-800_w.webp   800w,
-                /images/professional/nanofluidics/nanofluidics_poster-1600_w.webp 1600w,
-                /images/professional/nanofluidics/nanofluidics_poster-2400_w.webp 2400w
-              "
-              sizes="(max-width: 980px) 100vw, 30vw"
-              loading="lazy"
-              decoding="async"
-              src="/images/professional/nanofluidics/nanofluidics_poster-2400_w.webp"
-              alt="Nanofluidics"
-            />
-          </a>
-        </div>
-        <div class="row__text">
-          <h3>
-            <a href="/professional/nanofluidics.html"
-              >Boston University Nanofluidics Research</a
-            >
-          </h3>
-          <h4>Nanoscale Energy-Fluids Transport Lab, Boston, MA</h4>
-          <ul>
-            <li>
-              Compared the nanofluidic flow behavior of water across bare
-              silicon with that across graphene-coated silicon surfaces.
-            </li>
-            <li>
-              Designed and manufactured graphene-coated silicon chips using
-              photoresist, laser etching, oxygen plasma, and acid baths.
-            </li>
-            <li>
-              Quantified the effect of graphene's low no-slip boundary using a
-              high-speed microscope camera and MATLAB code to perform regression
-              analysis.
-            </li>
-          </ul>
-          <div class="professional-more-btn">
-            <a href="/professional/nanofluidics.html">Read more →</a>
-          </div>
-        </div>
-      </div>
-      <hr />
-      <div class="row row--1fr-2fr">
-        <div class="row__media">
-          <img
-            srcset="
-              /images/professional/other/alternative_energy-400_w.webp   400w,
-              /images/professional/other/alternative_energy-800_w.webp   800w,
-              /images/professional/other/alternative_energy-1600_w.webp 1600w,
-              /images/professional/other/alternative_energy-2400_w.webp 2400w
-            "
-            sizes="(max-width: 980px) 100vw, 30vw"
-            loading="lazy"
-            decoding="async"
-            src="/images/professional/other/alternative_energy-2400_w.webp"
-            alt="Alternative Energy Club"
-            class="enlargeable"
-          />
-        </div>
-        <div class="row__text">
-          <h3>Alternative Energy Club</h3>
-          <h4>Co-founder and Technical Director, Salem, OR</h4>
-          <ul>
-            <li>
-              Designed residential solar photovoltaic system for private
-              residential client.
-            </li>
-            <li>
-              Supervised selection of system panels, charge controllers, and
-              inverters.
-            </li>
-            <li>
-              Presented electrical one-line diagrams to clients to communicate
-              complex technical details.
-            </li>
-            <li>
-              Toured solar farms and interviewed solar manufacturing experts.
-            </li>
-          </ul>
-        </div>
-      </div>
-      <hr />
-      <div class="row row--1fr-2fr">
-        <div class="row__media">
-          <a href="/professional/science-camp.html">
-            <img
-              srcset="
-                /images/professional/science_camp/science_camp_spaghetti_towers-400_w.webp   400w,
-                /images/professional/science_camp/science_camp_spaghetti_towers-800_w.webp   800w,
-                /images/professional/science_camp/science_camp_spaghetti_towers-1600_w.webp 1600w
-              "
-              sizes="(max-width: 980px) 100vw, 30vw"
-              loading="lazy"
-              decoding="async"
-              src="/images/professional/science_camp/science_camp_spaghetti_towers-1600_w.webp"
-              alt="Science Camp"
-            />
-          </a>
-        </div>
-        <div class="row__text">
-          <h3>
-            <a href="/professional/science-camp.html"
-              >Children's Community Center Science Camp</a
-            >
-          </h3>
-          <h4>Founder and Volunteer, Salem, OR</h4>
-          <ul>
-            <li>
-              Designed engaging science activities each summer to introduce
-              children to basic scientific concepts.
-            </li>
-            <li>
-              Led instructional lessons to demonstrate relevant applications
-              through involved, hands-on activities.
-            </li>
-          </ul>
-          <div class="professional-more-btn">
-            <a href="/professional/science-camp.html">Read more →</a>
-          </div>
-        </div>
-      </div>
-      <hr />
-      <div class="row row--1fr-2fr">
-        <div class="row__media">
-          <img
-            srcset="
-              /images/professional/other/ta_tutoring-400_w.webp   400w,
-              /images/professional/other/ta_tutoring-800_w.webp   800w,
-              /images/professional/other/ta_tutoring-1400_w.webp 1400w
-            "
-            sizes="(max-width: 980px) 100vw, 30vw"
-            loading="lazy"
-            decoding="async"
-            src="/images/professional/other/ta_tutoring-1400_w.webp"
-            alt="Teaching Assistant"
-            class="enlargeable"
-          />
-        </div>
-        <div class="row__text">
-          <h3>Calculus, Statistics, and Algebra Mathematics</h3>
-          <h4>High School Teaching Assistant, Salem, OR</h4>
-          <ul>
-            <li>
-              Instructed differential and integral calculus and directed the
-              creation and grading of homework problems.
-            </li>
-            <li>
-              Taught concepts of college algebra and its applications in finance
-              and modeling during summer term program.
-            </li>
-          </ul>
-        </div>
+          loading="lazy"
+          decoding="async"
+          src="/images/professional/asme/asme_stlc-2400_w.webp"
+          alt="ASME"
+        />
+      </a>
+    </div>
+    <div class="row__text">
+      <h3>
+        <a href="/professional/asme.html">Northwestern ASME Chapter</a>
+      </h3>
+      <h4>Founder and President, Chicago, IL</h4>
+      <ul>
+        <li>
+          Directed efforts towards Innovative Additive Manufacturing 3D
+          competition involving the design of a hovercraft resupply vehicle
+          utilizing as many 3D printed parts as possible.
+        </li>
+        <li>
+          Conducted general meetings, information sessions, guest speaker
+          events, and representing Northwestern ASME at the 2018
+          International Mechanical Engineering Congress and Exposition.
+        </li>
+      </ul>
+      <div class="professional-more-btn">
+        <a href="/professional/asme.html">Read more →</a>
       </div>
     </div>
-    <footer id="footer"></footer>
-
-    <script src="/assets/js/main.js"></script>
-  </body>
-</html>
+  </div>
+  <hr />
+  <div class="row row--1fr-2fr">
+    <div class="row__media">
+      <a href="/professional/trane.html">
+        <img
+          srcset="
+            /images/professional/trane/trane_compressor-400_w.webp   400w,
+            /images/professional/trane/trane_compressor-800_w.webp   800w,
+            /images/professional/trane/trane_compressor-1600_w.webp 1600w,
+            /images/professional/trane/trane_compressor-2400_w.webp 2400w
+          "
+          sizes="(max-width: 980px) 100vw, 30vw"
+          loading="lazy"
+          decoding="async"
+          src="/images/professional/trane/trane_compressor-2400_w.webp"
+          alt="Trane"
+        />
+      </a>
+    </div>
+    <div class="row__text">
+      <h3><a href="/professional/trane.html">Trane Technologies</a></h3>
+      <h4>Systems Engineering Co-op, La Crosse, WI</h4>
+      <ul>
+        <li>
+          7 Coded adaptable automation scripts to accelerate repetitive
+          computer tasks.
+        </li>
+        <li>
+          Developed NLP and data visualization program to analyze user
+          quality data to identify trends in failure factors.
+        </li>
+        <li>
+          Performed data analysis of test data to improve predictive machine
+          learning engines.
+        </li>
+      </ul>
+      <div class="professional-more-btn">
+        <a href="/professional/trane.html">Read more →</a>
+      </div>
+    </div>
+  </div>
+  <hr />
+  <div class="row row--1fr-2fr">
+    <div class="row__media">
+      <a href="/professional/itw.html">
+        <img
+          srcset="
+            /images/professional/itw/itw_production_line-400_w.webp   400w,
+            /images/professional/itw/itw_production_line-800_w.webp   800w,
+            /images/professional/itw/itw_production_line-1300_w.webp 1300w
+          "
+          sizes="(max-width: 980px) 100vw, 30vw"
+          loading="lazy"
+          decoding="async"
+          src="/images/professional/itw/itw_production_line-1300_w.webp"
+          alt="Illinois Tool Works"
+        />
+      </a>
+    </div>
+    <div class="row__text">
+      <h3>
+        <a href="/professional/itw.html"
+          >Illinois Tool Works - E.H. Wachs</a
+        >
+      </h3>
+      <h4>Engineering Intern, Chicago, IL</h4>
+      <ul>
+        <li>
+          Developed system of subassembly standard work to facilitate
+          subassembly outsourcing transition.
+        </li>
+        <li>
+          Spearheaded floor technician cross-training initiative in order to
+          streamline efficiency and maximize technician downtime.
+        </li>
+        <li>
+          Analyzed configurations of new work cell designed for new pipe
+          cutting product.
+        </li>
+      </ul>
+      <div class="professional-more-btn">
+        <a href="/professional/itw.html">Read more →</a>
+      </div>
+    </div>
+  </div>
+  <hr />
+  <div class="row row--1fr-2fr">
+    <div class="row__media">
+      <img
+        srcset="
+          /images/professional/other/msab-400_w.webp 400w,
+          /images/professional/other/msab-800_w.webp 800w,
+          /images/professional/other/msab-900_w.webp 900w
+        "
+        sizes="(max-width:
+								980px) 100vw, 30vw"
+        loading="lazy"
+        decoding="async"
+        src="/images/professional/other/msab-900_w.webp"
+        alt="MSAB"
+      />
+    </div>
+    <div class="row__text">
+      <h3>Northwestern McCormick Student Advisory Board</h3>
+      <h4>Project Management, Chicago, IL</h4>
+      <ul>
+        <li>
+          Worked within team to plan Study Table events to bring together
+          tutors and underclassmen in preparation for final exams.
+        </li>
+        <li>
+          Conducted general meetings, information sessions, guest speaker
+          events, and representing Northwestern ASME at the 2018
+          International Mechanical Engineering Congress and Exposition.
+        </li>
+      </ul>
+    </div>
+  </div>
+  <hr />
+  <div class="row row--1fr-2fr">
+    <div class="row__media">
+      <a href="/professional/caffinator.html">
+        <img
+          srcset="
+            /images/professional/caffinator/caffinator_design-400_w.webp   400w,
+            /images/professional/caffinator/caffinator_design-800_w.webp   800w,
+            /images/professional/caffinator/caffinator_design-1500_w.webp 1500w
+          "
+          sizes="(max-width: 980px) 100vw, 30vw"
+          loading="lazy"
+          decoding="async"
+          src="/images/professional/caffinator/caffinator_design-1500_w.webp"
+          alt="Caffinator"
+        />
+      </a>
+    </div>
+    <div class="row__text">
+      <h3>
+        <a href="/professional/caffinator.html"
+          >Northwestern Product Design Course Project</a
+        >
+      </h3>
+      <h4>Client: Kranze Technology Solutions, Inc.</h4>
+      <ul>
+        <li>
+          Designed a physical electronic stimulation system to allow
+          engineers to perform software endurance tests on mobile devices.
+        </li>
+        <li>
+          Analyzed interaction of custom clamps and electronically driven
+          belts to maneuver stylus arm across device screens through 3D CAD
+          modeling.
+        </li>
+      </ul>
+      <div class="professional-more-btn">
+        <a href="/professional/caffinator.html">Read more →</a>
+      </div>
+    </div>
+  </div>
+  <hr />
+  <div class="row row--1fr-2fr">
+    <div class="row__media">
+      <img
+        srcset="
+          /images/professional/other/dtc1_collage-400_w.webp   400w,
+          /images/professional/other/dtc1_collage-800_w.webp   800w,
+          /images/professional/other/dtc1_collage-1600_w.webp 1600w,
+          /images/professional/other/dtc1_collage-2400_w.webp 2400w
+        "
+        sizes="(max-width: 980px) 100vw, 30vw"
+        loading="lazy"
+        decoding="async"
+        src="/images/professional/other/dtc1_collage-2400_w.webp"
+        alt="DTC 1 Collage"
+        style="border: 1px solid lightgrey"
+        class="enlargeable"
+      />
+    </div>
+    <div class="row__text">
+      <h3>Northwestern Product Design Course Project</h3>
+      <h4>Client: Shirley Ryan AbilityLab</h4>
+      <ul>
+        <li>
+          Evaluated physical forces on gait training patients to devise a
+          novel harness, allowing patients with pressure ulcers to gait
+          train without further injury.
+        </li>
+        <li>
+          Utilized product and cost analysis to select straps, fasteners,
+          and tightening mechanisms to maximize load bearing ability.
+        </li>
+      </ul>
+    </div>
+  </div>
+  <hr />
+  <div class="row row--1fr-2fr">
+    <div class="row__media">
+      <a href="/professional/nanofluidics.html">
+        <img
+          srcset="
+            /images/professional/nanofluidics/nanofluidics_poster-400_w.webp   400w,
+            /images/professional/nanofluidics/nanofluidics_poster-800_w.webp   800w,
+            /images/professional/nanofluidics/nanofluidics_poster-1600_w.webp 1600w,
+            /images/professional/nanofluidics/nanofluidics_poster-2400_w.webp 2400w
+          "
+          sizes="(max-width: 980px) 100vw, 30vw"
+          loading="lazy"
+          decoding="async"
+          src="/images/professional/nanofluidics/nanofluidics_poster-2400_w.webp"
+          alt="Nanofluidics"
+        />
+      </a>
+    </div>
+    <div class="row__text">
+      <h3>
+        <a href="/professional/nanofluidics.html"
+          >Boston University Nanofluidics Research</a
+        >
+      </h3>
+      <h4>Nanoscale Energy-Fluids Transport Lab, Boston, MA</h4>
+      <ul>
+        <li>
+          Compared the nanofluidic flow behavior of water across bare
+          silicon with that across graphene-coated silicon surfaces.
+        </li>
+        <li>
+          Designed and manufactured graphene-coated silicon chips using
+          photoresist, laser etching, oxygen plasma, and acid baths.
+        </li>
+        <li>
+          Quantified the effect of graphene's low no-slip boundary using a
+          high-speed microscope camera and MATLAB code to perform regression
+          analysis.
+        </li>
+      </ul>
+      <div class="professional-more-btn">
+        <a href="/professional/nanofluidics.html">Read more →</a>
+      </div>
+    </div>
+  </div>
+  <hr />
+  <div class="row row--1fr-2fr">
+    <div class="row__media">
+      <img
+        srcset="
+          /images/professional/other/alternative_energy-400_w.webp   400w,
+          /images/professional/other/alternative_energy-800_w.webp   800w,
+          /images/professional/other/alternative_energy-1600_w.webp 1600w,
+          /images/professional/other/alternative_energy-2400_w.webp 2400w
+        "
+        sizes="(max-width: 980px) 100vw, 30vw"
+        loading="lazy"
+        decoding="async"
+        src="/images/professional/other/alternative_energy-2400_w.webp"
+        alt="Alternative Energy Club"
+        class="enlargeable"
+      />
+    </div>
+    <div class="row__text">
+      <h3>Alternative Energy Club</h3>
+      <h4>Co-founder and Technical Director, Salem, OR</h4>
+      <ul>
+        <li>
+          Designed residential solar photovoltaic system for private
+          residential client.
+        </li>
+        <li>
+          Supervised selection of system panels, charge controllers, and
+          inverters.
+        </li>
+        <li>
+          Presented electrical one-line diagrams to clients to communicate
+          complex technical details.
+        </li>
+        <li>
+          Toured solar farms and interviewed solar manufacturing experts.
+        </li>
+      </ul>
+    </div>
+  </div>
+  <hr />
+  <div class="row row--1fr-2fr">
+    <div class="row__media">
+      <a href="/professional/science-camp.html">
+        <img
+          srcset="
+            /images/professional/science_camp/science_camp_spaghetti_towers-400_w.webp   400w,
+            /images/professional/science_camp/science_camp_spaghetti_towers-800_w.webp   800w,
+            /images/professional/science_camp/science_camp_spaghetti_towers-1600_w.webp 1600w
+          "
+          sizes="(max-width: 980px) 100vw, 30vw"
+          loading="lazy"
+          decoding="async"
+          src="/images/professional/science_camp/science_camp_spaghetti_towers-1600_w.webp"
+          alt="Science Camp"
+        />
+      </a>
+    </div>
+    <div class="row__text">
+      <h3>
+        <a href="/professional/science-camp.html"
+          >Children's Community Center Science Camp</a
+        >
+      </h3>
+      <h4>Founder and Volunteer, Salem, OR</h4>
+      <ul>
+        <li>
+          Designed engaging science activities each summer to introduce
+          children to basic scientific concepts.
+        </li>
+        <li>
+          Led instructional lessons to demonstrate relevant applications
+          through involved, hands-on activities.
+        </li>
+      </ul>
+      <div class="professional-more-btn">
+        <a href="/professional/science-camp.html">Read more →</a>
+      </div>
+    </div>
+  </div>
+  <hr />
+  <div class="row row--1fr-2fr">
+    <div class="row__media">
+      <img
+        srcset="
+          /images/professional/other/ta_tutoring-400_w.webp   400w,
+          /images/professional/other/ta_tutoring-800_w.webp   800w,
+          /images/professional/other/ta_tutoring-1400_w.webp 1400w
+        "
+        sizes="(max-width: 980px) 100vw, 30vw"
+        loading="lazy"
+        decoding="async"
+        src="/images/professional/other/ta_tutoring-1400_w.webp"
+        alt="Teaching Assistant"
+        class="enlargeable"
+      />
+    </div>
+    <div class="row__text">
+      <h3>Calculus, Statistics, and Algebra Mathematics</h3>
+      <h4>High School Teaching Assistant, Salem, OR</h4>
+      <ul>
+        <li>
+          Instructed differential and integral calculus and directed the
+          creation and grading of homework problems.
+        </li>
+        <li>
+          Taught concepts of college algebra and its applications in finance
+          and modeling during summer term program.
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

@@ -1,60 +1,9 @@
-<!doctype html>
-<html>
-  <head>
-    <title>Noah - Document Tool</title>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1,
-			user-scalable=no"
-    />
-    <meta
-      name="description"
-      content="Noah's Document Tool | Find and replace text in Word documents to generate multiple output .docx files from a template"
-    />
-    <link rel="stylesheet" href="/assets/css/main.css" />
-    <link rel="icon" href="/images/icons/favicon-50_w.webp" />
-    <style>
-      label {
-        margin: 0;
-      }
-
-      input {
-        font-size: 12pt;
-      }
-
-      table td {
-        font-size: 12pt;
-      }
-
-      .loader {
-        display: none;
-        width: 50px;
-        height: 50px;
-        margin: 30px auto;
-        border: solid 2px #424242;
-        border-top: solid 2px #1c89ff;
-        border-radius: 50%;
-      }
-
-      .loader.active {
-        display: flex;
-        animation: loading 1s ease-in-out;
-        animation-iteration-count: infinite;
-      }
-
-      @keyframes loading {
-        100% {
-          transform: rotate(360deg);
-        }
-      }
-    </style>
-  </head>
-  <body class="is-preload">
-    <div id="headers"></div>
-    <div id="navbar" class="desktop-only"></div>
-    <div id="subnavbar" class="desktop-only"></div>
-    <div class="inner mobile-only">
+---
+layout: base.njk
+title: "Noah - Document Tool"
+description: "Noah's Document Tool | Find and replace text in Word documents to generate multiple output .docx files from a template"
+---
+<div class="inner mobile-only">
       <br />
       <br />
       <div style="max-width: 15%; margin: auto">
@@ -352,9 +301,3 @@
       </div>
     </div>
     <br /><br />
-    <footer id="footer"></footer>
-
-    <script src="/assets/js/main.js"></script>
-    <script src="/assets/js/doc_tool_form_submission.js"></script>
-  </body>
-</html>

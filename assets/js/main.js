@@ -1,71 +1,4 @@
-String.prototype.toProperCase = function () {
-  return this.replace(/\w\S*/g, function (txt) {
-    return txt.charAt(0).toUpperCase() + txt.substring(1).toLowerCase();
-  });
-};
-
 const body = document.body;
-
-/**
- * Asynchronously loads an HTML fragment into the given element.
- */
-async function loadSection(selector, url) {
-  const el = document.querySelector(selector);
-  if (!el) return;
-
-  const response = await fetch(url);
-  if (response.ok) {
-    el.innerHTML = await response.text();
-  }
-}
-
-/**
- * Replaces an element with fetched HTML content.
- */
-async function replaceWithSection(selector, url) {
-  const el = document.querySelector(selector);
-  if (!el) return;
-
-  const response = await fetch(url);
-  if (response.ok) {
-    const html = await response.text();
-    el.outerHTML = html;
-  }
-}
-
-async function initNavbars() {
-  try {
-    // Always load header
-    await loadSection("#headers", "/assets/html/header.html");
-    await loadSection("#navbar", "/assets/html/navbar.html");
-
-    // Optionally load subnavbars
-    if (window.location.pathname.includes("/hobbies")) {
-      await loadSection("#subnavbar", "/assets/html/subnavbar_hobbies.html");
-    } else if (window.location.pathname.includes("/professional")) {
-      await loadSection(
-        "#subnavbar",
-        "/assets/html/subnavbar_professional.html",
-      );
-    }
-
-    await loadSection("#side-menu", "/assets/html/side_menu.html");
-
-    // Move menu to body
-    const menu = document.getElementById("menu");
-    if (menu) {
-      body.appendChild(menu);
-    }
-
-    // Finally highlight once
-    highlightCurrentPages();
-
-    // Initialize menu after it's loaded
-    initMenu();
-  } catch (error) {
-    console.error("Error loading navigation:", error);
-  }
-}
 
 function highlightCurrentPages() {
   const crumbs = window.location.pathname.replace(".html", "").split("/");
@@ -81,15 +14,8 @@ function highlightCurrentPages() {
   });
 }
 
-// Load homepage sections
-async function loadHomepageSections() {
-  await loadSection("#top_professional", "/assets/html/top_professional.html");
-  await replaceWithSection("#top_projects", "/assets/html/top_projects.html");
-  await loadSection("#footer", "/assets/html/footer.html");
-}
-
-loadHomepageSections();
-initNavbars();
+highlightCurrentPages();
+initMenu();
 
 // Play initial animations on page load.
 window.addEventListener("load", function () {

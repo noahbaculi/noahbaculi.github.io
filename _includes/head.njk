@@ -1,0 +1,10 @@
+<head>
+  <title>{{ title }}</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <meta name="description" content="{{ description }}" />
+  {% if noindex %}<meta name="robots" content="noindex" />{% endif %}
+  <link rel="stylesheet" href="/assets/css/main.css" />
+  {% for css in extraCss %}<link rel="stylesheet" href="{{ css }}" />{% endfor %}
+  <link rel="icon" href="/images/icons/favicon-50_w.webp" />
+</head>

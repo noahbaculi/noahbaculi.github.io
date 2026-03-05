@@ -1,34 +1,17 @@
-<!doctype html>
-<html>
-  <head>
-    <title>Mecija Family Tree</title>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, user-scalable=no"
-    />
-    <meta
-      name="description"
-      content="Mecija Family Tree | Interactive family tree created by Noah Baculi"
-    />
-    <link rel="stylesheet" href="/assets/css/main.css" />
-    <link rel="stylesheet" href="/assets/css/familytree.css" />
-    <link rel="icon" href="/images/icons/favicon-50_w.webp" />
-  </head>
-  <body class="is-preload">
-    <div id="headers"></div>
-    <div id="navbar" class="desktop-only"></div>
-    <div id="subnavbar" class="desktop-only"></div>
-    <div class="inner" style="max-width: none">
-      <h2 class="align-center">Family Tree</h2>
-      <div id="chart-container" style="text-align: left"></div>
-      <div id="familytreecontent"></div>
-    </div>
-    <br />
-    <footer id="footer"></footer>
-    <script src="/assets/js/jquery.min.js"></script>
-
-    <script src="/assets/js/main.js"></script>
-    <script src="/assets/js/familytree.js"></script>
-  </body>
-</html>
+---
+layout: base.njk
+title: Mecija Family Tree
+description: "Mecija Family Tree | Interactive family tree created by Noah Baculi"
+extraCss:
+  - /assets/css/familytree.css
+preJs:
+  - /assets/js/jquery.min.js
+extraJs:
+  - /assets/js/familytree.js
+---
+<div class="inner" style="max-width: none">
+  <h2 class="align-center">Family Tree</h2>
+  <div id="chart-container" style="text-align: left"></div>
+  <div id="familytreecontent"></div>
+</div>
+<br />

@@ -1,8 +1,15 @@
 {
+  "type": "module",
+  "scripts": {
+    "build": "eleventy && node scripts/minify-assets.js"
+  },
   "devDependencies": {
+    "@11ty/eleventy": "^3.1.2",
     "@netlify/plugin-lighthouse": "^6.0.4",
+    "clean-css": "^5.3.3",
     "prettier": "^3.1.1",
-    "tailwindcss": "^3.2.4"
+    "tailwindcss": "^3.2.4",
+    "terser": "^5.46.0"
   },
   "dependencies": {
     "tone": "^14.7.77"

@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+  {% include "head.njk" %}
+  <body class="is-preload">
+    {% include "header.njk" %}
+    <div id="navbar" class="desktop-only">{% include "navbar.njk" %}</div>
+    {% if section == "professional" %}
+      <div id="subnavbar" class="desktop-only">{% include "subnavbar_professional.njk" %}</div>
+    {% elif section == "hobbies" %}
+      <div id="subnavbar" class="desktop-only">{% include "subnavbar_hobbies.njk" %}</div>
+    {% endif %}
+    {% include "side_menu.njk" %}
+    {{ content | safe }}
+    <footer>{% include "footer.njk" %}</footer>
+    {% for js in preJs %}<script src="{{ js }}"></script>{% endfor %}
+    <script src="/assets/js/main.js"></script>
+    {% for js in extraJs %}<script src="{{ js }}"></script>{% endfor %}
+  </body>
+</html>

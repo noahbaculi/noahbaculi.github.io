@@ -20,10 +20,16 @@ Install tools:
 mise install
 ```
 
-Run live server:
+Run dev server:
 
 ```shell
-bunx live-server
+bunx @11ty/eleventy --serve
+```
+
+Build site:
+
+```shell
+bun run build
 ```
 
 Run image generator script:
@@ -37,6 +43,13 @@ Check family tree images:
 ```shell
 uv run python ./tests/family_tree_images.py
 ```
+
+## Template system
+
+- Each page declares its layout via front matter: `layout: base.njk` or `layout: home.njk`
+- Subnavbar injection is controlled by `section: professional` or `section: hobbies`
+- Shared partials live in `_includes/` as `.njk` files
+- To add a new page: copy an existing page's front matter, pick the correct layout, write page body content below the `---` fence
 
 Check formatting with Prettier:
 

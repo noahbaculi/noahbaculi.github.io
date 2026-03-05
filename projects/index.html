@@ -1,28 +1,12 @@
-<!doctype html>
-<html>
-  <head>
-    <title>Noah - Projects</title>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1,
-			user-scalable=no"
-    />
-    <meta
-      name="description"
-      content="Noah's Independent Projects | Guitar Tab Generator • Desk Control Panel • Pet Feeder • Random Laser Pointer • Aldras • Salesforce Galaxy"
-    />
-    <link rel="stylesheet" href="/assets/css/main.css" />
-    <link rel="icon" href="/images/icons/favicon-50_w.webp" />
-  </head>
-  <body class="is-preload">
-    <div id="headers"></div>
-    <div id="navbar" class="desktop-only"></div>
-    <div id="subnavbar" class="desktop-only"></div>
-    <div class="inner">
+---
+layout: base.njk
+title: "Noah - Projects"
+description: "Noah's Independent Projects | Guitar Tab Generator • Desk Control Panel • Pet Feeder • Random Laser Pointer • Aldras • Salesforce Galaxy"
+---
+<div class="inner">
       <h2 class="align-center">Independent Projects</h2>
       <div class="tiles-or-card-row">
-        <placeholder id="top_projects"></placeholder>
+        {% include "top_projects.njk" %}
         <div class="project-card">
           <a href="/projects/random-laser-pointer.html">
             <img
@@ -209,7 +193,3 @@
         </div>
       </div>
     </div>
-    <footer id="footer"></footer>
-    <script src="/assets/js/main.js"></script>
-  </body>
-</html>

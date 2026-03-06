@@ -46,6 +46,26 @@ def load_partial(name: str,
     return BeautifulSoup(html, "html.parser")
 
 
+def highlight_current_pages(soup: BeautifulSoup, rel_path: pathlib.Path) -> None:
+    """Add current-page class to nav elements matching the current path.
+
+    Replicates the runtime highlightCurrentPages() JS function logic.
+    For /professional/index.html -> highlights 'professional' only.
+    For /professional/enterprisedb.html -> highlights 'professional' and 'enterprisedb'.
+    For /index.html -> highlights 'index'.
+    """
+    crumbs = list(rel_path.with_suffix("").parts)
+
+    for idx, crumb in enumerate(crumbs):
+        # Skip 'index' unless it's the only/first crumb
+        if crumb == "index" and idx != 0:
+            continue
+        for el in soup.find_all(class_=crumb):
+            classes = el.get("class", [])
+            if "current-page" not in classes:
+                el["class"] = classes + ["current-page"]
+
+
 def inject_partials(html: str,
                     rel_path: pathlib.Path,
                     partials_dir: pathlib.Path = PARTIALS_DIR) -> str:
@@ -81,6 +101,8 @@ def inject_partials(html: str,
         _inject("subnavbar", "subnavbar_professional.html")
     elif section == "hobbies":
         _inject("subnavbar", "subnavbar_hobbies.html")
+
+    highlight_current_pages(soup, rel_path)
 
     return str(soup)
 

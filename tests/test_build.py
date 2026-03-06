@@ -87,3 +87,65 @@ def test_inject_partials_professional_subnavbar():
     subnavbar = soup.find(id="subnavbar")
     assert subnavbar is not None
     assert subnavbar.get_text()  # has content
+
+
+def test_highlight_nav_homepage():
+    """index.html highlights the 'index' nav link."""
+    html = """<!doctype html><html><body>
+        <div id="navbar"><ul>
+            <li><a href="/index.html" class="index">Home</a></li>
+            <li><a href="/professional/index.html" class="professional">Pro</a></li>
+        </ul></div>
+        <div id="side-menu"></div>
+        <footer id="footer"></footer>
+    </body></html>"""
+
+    result = build.inject_partials(html, pathlib.Path("index.html"))
+    soup = BeautifulSoup(result, "html.parser")
+
+    index_link = soup.find(class_="index")
+    assert "current-page" in index_link.get("class", [])
+    pro_link = soup.find(class_="professional")
+    assert "current-page" not in pro_link.get("class", [])
+
+
+def test_highlight_nav_professional_page():
+    """professional/enterprisedb.html highlights 'professional' and 'enterprisedb'."""
+    html = """<!doctype html><html><body>
+        <div id="navbar"><ul>
+            <li><a href="/index.html" class="index">Home</a></li>
+            <li><a href="/professional/index.html" class="professional">Pro</a></li>
+        </ul></div>
+        <div id="side-menu"><nav id="menu"><ul>
+            <li><a href="/professional/enterprisedb.html" class="enterprisedb">EDB</a></li>
+        </ul></nav></div>
+        <footer id="footer"></footer>
+    </body></html>"""
+
+    result = build.inject_partials(html, pathlib.Path("professional/enterprisedb.html"))
+    soup = BeautifulSoup(result, "html.parser")
+
+    pro_link = soup.find(class_="professional")
+    assert "current-page" in pro_link.get("class", [])
+    edb_link = soup.find(class_="enterprisedb")
+    assert "current-page" in edb_link.get("class", [])
+
+
+def test_highlight_nav_professional_index():
+    """professional/index.html highlights 'professional' but not 'index'."""
+    html = """<!doctype html><html><body>
+        <div id="navbar"><ul>
+            <li><a href="/index.html" class="index">Home</a></li>
+            <li><a href="/professional/index.html" class="professional">Pro</a></li>
+        </ul></div>
+        <div id="side-menu"></div>
+        <footer id="footer"></footer>
+    </body></html>"""
+
+    result = build.inject_partials(html, pathlib.Path("professional/index.html"))
+    soup = BeautifulSoup(result, "html.parser")
+
+    pro_link = soup.find(class_="professional")
+    assert "current-page" in pro_link.get("class", [])
+    index_link = soup.find(class_="index")
+    assert "current-page" not in index_link.get("class", [])

@@ -6,4 +6,7 @@ readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "pillow>=11.3.0",
+    "beautifulsoup4>=4.13",
+    "minify-html>=0.15",
+    "livereload>=2.7",
 ]

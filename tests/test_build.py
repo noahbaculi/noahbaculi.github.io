@@ -44,3 +44,10 @@ def test_get_source_html_files(tmp_path):
     assert pathlib.Path("professional/enterprisedb.html") in rel
     assert pathlib.Path("assets/html/navbar.html") not in rel
     assert not any("node_modules" in str(p) for p in rel)
+
+
+def test_load_partial():
+    """load_partial returns BeautifulSoup with partial content."""
+    result = build.load_partial("footer.html")
+    assert result.find("head") is None
+    assert result.find("div") is not None

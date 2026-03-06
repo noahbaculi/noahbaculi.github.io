@@ -4,9 +4,12 @@
 Dev:  uv run python build.py --watch
 Prod: uv run python build.py
 """
+
 import argparse
 import pathlib
 import shutil
+
+from bs4 import BeautifulSoup
 
 REPO_ROOT = pathlib.Path(__file__).parent
 SRC_DIR = REPO_ROOT
@@ -23,8 +26,24 @@ STATIC_ASSETS = [
     "sitemap.xml",
 ]
 
-EXCLUDED_DIRS = {"_site", "node_modules", ".venv", ".git", "public", "tests",
-                 "images", "docs", "_data"}
+EXCLUDED_DIRS = {
+    "_site",
+    "node_modules",
+    ".venv",
+    ".git",
+    "public",
+    "tests",
+    "images",
+    "docs",
+    "_data",
+}
+
+
+def load_partial(name: str,
+                 partials_dir: pathlib.Path = PARTIALS_DIR) -> BeautifulSoup:
+    """Load a partial HTML file and return it as a BeautifulSoup object."""
+    html = (partials_dir / name).read_text()
+    return BeautifulSoup(html, "html.parser")
 
 
 def get_source_html_files(src_dir: pathlib.Path = SRC_DIR) -> list[pathlib.Path]:
@@ -40,8 +59,9 @@ def get_source_html_files(src_dir: pathlib.Path = SRC_DIR) -> list[pathlib.Path]
     return files
 
 
-def copy_static_assets(src_dir: pathlib.Path = SRC_DIR,
-                       out_dir: pathlib.Path = OUT_DIR) -> None:
+def copy_static_assets(
+    src_dir: pathlib.Path = SRC_DIR, out_dir: pathlib.Path = OUT_DIR
+) -> None:
     """Copy static asset directories and files verbatim to out_dir."""
     for name in STATIC_ASSETS:
         src = src_dir / name
@@ -55,9 +75,11 @@ def copy_static_assets(src_dir: pathlib.Path = SRC_DIR,
             shutil.copy2(src, dst)
 
 
-def build(minify: bool = True,
-          src_dir: pathlib.Path = SRC_DIR,
-          out_dir: pathlib.Path = OUT_DIR) -> None:
+def build(
+    minify: bool = True,
+    src_dir: pathlib.Path = SRC_DIR,
+    out_dir: pathlib.Path = OUT_DIR,
+) -> None:
     """Run a full build."""
     out_dir.mkdir(exist_ok=True)
     copy_static_assets(src_dir=src_dir, out_dir=out_dir)
@@ -71,9 +93,13 @@ def build(minify: bool = True,
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Build noahbaculi.github.io")
-    parser.add_argument("--watch", action="store_true",
-                        help="Start dev server with live reload (no minification)")
+    parser.add_argument(
+        "--watch",
+        action="store_true",
+        help="Start dev server with live reload (no minification)",
+    )
     args = parser.parse_args()
+    print(f"Building noahbaculi.github.io (watch={args.watch})...")
 
     if args.watch:
         build(minify=False)

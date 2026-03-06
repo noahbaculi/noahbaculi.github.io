@@ -157,6 +157,35 @@ def build(
         dst.write_text(html)
 
 
+def watch(src_dir: pathlib.Path = SRC_DIR,
+          out_dir: pathlib.Path = OUT_DIR) -> None:
+    """Run a dev build then start a live reload server watching for changes."""
+    from livereload import Server
+
+    def rebuild() -> None:
+        print("Rebuilding...")
+        build(minify=False, src_dir=src_dir, out_dir=out_dir)
+        print("Done.")
+
+    rebuild()
+
+    server = Server()
+
+    # Watch all source HTML files
+    for f in get_source_html_files(src_dir=src_dir):
+        server.watch(str(f), rebuild)
+
+    # Watch all partials
+    for f in (src_dir / "assets" / "html").glob("*.html"):
+        server.watch(str(f), rebuild)
+
+    # Watch CSS
+    for f in (src_dir / "assets" / "css").rglob("*.css"):
+        server.watch(str(f), rebuild)
+
+    server.serve(root=str(out_dir), port=8080, open_url_delay=1)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Build noahbaculi.github.io")
     parser.add_argument(
@@ -168,7 +197,7 @@ def main() -> None:
     print(f"Building noahbaculi.github.io (watch={args.watch})...")
 
     if args.watch:
-        build(minify=False)
+        watch()
     else:
         build(minify=True)
 

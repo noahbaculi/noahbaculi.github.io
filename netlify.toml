@@ -1,5 +1,5 @@
 [build]
-command = "pip install uv && uv run python build.py"
+command = "pip install uv && uv run python build.py --minify"
 publish = "_site"
 
 [[plugins]]

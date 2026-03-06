@@ -191,3 +191,27 @@ def test_build_does_not_minify_in_dev(tmp_path):
     output = (out / "index.html").read_text()
     # Should still have the multi-line structure (not minified)
     assert "\n" in output
+
+
+def test_minify_text_assets(tmp_path):
+    """minify=True minifies external CSS and JS files."""
+    src = tmp_path / "src"
+    out = tmp_path / "_site"
+    (src / "assets" / "html").mkdir(parents=True)
+    (src / "assets" / "css").mkdir(parents=True)
+    (src / "assets" / "js").mkdir(parents=True)
+
+    for name in ["header.html", "navbar.html", "side_menu.html", "footer.html"]:
+        (src / "assets" / "html" / name).write_text("<div>x</div>")
+
+    (src / "assets" / "css" / "main.css").write_text("body  {  color:  red;  }\n\n")
+    (src / "assets" / "js" / "main.js").write_text("var x  =  1 ;\n\n")
+    (src / "index.html").write_text("<!doctype html><html><body></body></html>")
+
+    build.build(minify=True, src_dir=src, out_dir=out)
+
+    css = (out / "assets" / "css" / "main.css").read_text()
+    js = (out / "assets" / "js" / "main.js").read_text()
+    assert "  " not in css
+    assert css.strip().endswith("}")
+    assert "\n\n" not in js

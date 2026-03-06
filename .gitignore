@@ -3,3 +3,4 @@
 .DS_STORE
 .lycheecache
 /_site
+__pycache__

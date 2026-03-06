@@ -10,6 +10,8 @@ import pathlib
 import shutil
 
 import minify_html
+import rcssmin
+import rjsmin
 from bs4 import BeautifulSoup
 
 REPO_ROOT = pathlib.Path(__file__).parent
@@ -136,8 +138,16 @@ def copy_static_assets(
             shutil.copy2(src, dst)
 
 
+def minify_text_assets(out_dir: pathlib.Path) -> None:
+    """Minify CSS and JS files in the output directory in place."""
+    for css_file in (out_dir / "assets" / "css").rglob("*.css"):
+        css_file.write_text(rcssmin.cssmin(css_file.read_text()))
+    for js_file in (out_dir / "assets" / "js").rglob("*.js"):
+        js_file.write_text(rjsmin.jsmin(js_file.read_text()))
+
+
 def build(
-    minify: bool = True,
+    minify: bool = False,
     src_dir: pathlib.Path = SRC_DIR,
     out_dir: pathlib.Path = OUT_DIR,
 ) -> None:
@@ -152,17 +162,24 @@ def build(
         html = src_file.read_text()
         html = inject_partials(html, rel, partials_dir=src_dir / "assets" / "html")
         if minify:
-            html = minify_html.minify(html, minify_js=False, minify_css=False)
+            html = minify_html.minify(html, minify_js=True, minify_css=True)
         dst.write_text(html)
 
+    if minify:
+        minify_text_assets(out_dir=out_dir)
 
-def watch(src_dir: pathlib.Path = SRC_DIR, out_dir: pathlib.Path = OUT_DIR) -> None:
+
+def watch(
+    minify: bool = False,
+    src_dir: pathlib.Path = SRC_DIR,
+    out_dir: pathlib.Path = OUT_DIR,
+) -> None:
     """Run a dev build then start a live reload server watching for changes."""
     from livereload import Server
 
     def rebuild() -> None:
         print("Rebuilding...")
-        build(minify=True, src_dir=src_dir, out_dir=out_dir)
+        build(minify=minify, src_dir=src_dir, out_dir=out_dir)
         print("Done.")
 
     rebuild()
@@ -189,15 +206,22 @@ def main() -> None:
     parser.add_argument(
         "--watch",
         action="store_true",
-        help="Start dev server with live reload (no minification)",
+        help="Start dev server with live reload",
+    )
+    parser.add_argument(
+        "--minify",
+        action="store_true",
+        help="Minify HTML, CSS, and JS output",
     )
     args = parser.parse_args()
-    print(f"Building noahbaculi.github.io (watch={args.watch})...")
+    print(
+        f"Building noahbaculi.github.io (watch={args.watch}, minify={args.minify})..."
+    )
 
     if args.watch:
-        watch()
+        watch(minify=args.minify)
     else:
-        build(minify=True)
+        build(minify=args.minify)
 
 
 if __name__ == "__main__":

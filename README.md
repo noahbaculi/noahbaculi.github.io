@@ -26,10 +26,10 @@ Run dev server with live reload:
 uv run python build.py --watch
 ```
 
-Run prod build:
+Run prod build (with minification):
 
 ```shell
-uv run python build.py
+uv run python build.py --minify
 ```
 
 Run image generator script:

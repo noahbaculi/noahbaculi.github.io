@@ -3,6 +3,7 @@ import shutil
 import tempfile
 import pytest
 import importlib.util
+from bs4 import BeautifulSoup
 
 # Load build.py as a module
 spec = importlib.util.spec_from_file_location("build", pathlib.Path(__file__).parent.parent / "build.py")
@@ -51,3 +52,38 @@ def test_load_partial():
     result = build.load_partial("footer.html")
     assert result.find("head") is None
     assert result.find("div") is not None
+
+
+def test_inject_partials_injects_navbar():
+    """inject_partials replaces #navbar placeholder with navbar content."""
+    html = """<!doctype html><html><body>
+        <div id="headers"></div>
+        <div id="navbar" class="desktop-only"></div>
+        <div id="side-menu"></div>
+        <footer id="footer"></footer>
+    </body></html>"""
+
+    result = build.inject_partials(html, pathlib.Path("index.html"))
+    soup = BeautifulSoup(result, "html.parser")
+
+    navbar_div = soup.find(id="navbar")
+    # After injection the div should have child content (the nav ul)
+    assert navbar_div is not None
+    assert navbar_div.find("ul") is not None
+
+
+def test_inject_partials_professional_subnavbar():
+    """Professional pages get the professional subnavbar."""
+    html = """<!doctype html><html><body>
+        <div id="headers"></div>
+        <div id="navbar"></div>
+        <div id="subnavbar" class="desktop-only"></div>
+        <div id="side-menu"></div>
+        <footer id="footer"></footer>
+    </body></html>"""
+
+    result = build.inject_partials(html, pathlib.Path("professional/enterprisedb.html"))
+    soup = BeautifulSoup(result, "html.parser")
+    subnavbar = soup.find(id="subnavbar")
+    assert subnavbar is not None
+    assert subnavbar.get_text()  # has content

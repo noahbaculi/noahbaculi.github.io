@@ -46,6 +46,45 @@ def load_partial(name: str,
     return BeautifulSoup(html, "html.parser")
 
 
+def inject_partials(html: str,
+                    rel_path: pathlib.Path,
+                    partials_dir: pathlib.Path = PARTIALS_DIR) -> str:
+    """Inject partials into a page's HTML by replacing placeholder elements."""
+    soup = BeautifulSoup(html, "html.parser")
+    section = rel_path.parts[0] if len(rel_path.parts) > 1 else ""
+
+    def _inject(element_id: str, partial_name: str) -> None:
+        el = soup.find(id=element_id)
+        if el is None:
+            return
+        partial = load_partial(partial_name, partials_dir)
+        el.clear()
+        for child in list(partial.children):
+            el.append(child.__copy__())
+
+    def _replace(element_id: str, partial_name: str) -> None:
+        """Replace the element's outer HTML (for <placeholder> tags)."""
+        el = soup.find(id=element_id)
+        if el is None:
+            return
+        partial = load_partial(partial_name, partials_dir)
+        el.replace_with(partial)
+
+    _inject("headers", "header.html")
+    _inject("navbar", "navbar.html")
+    _inject("side-menu", "side_menu.html")
+    _inject("footer", "footer.html")
+    _inject("top_professional", "top_professional.html")
+    _replace("top_projects", "top_projects.html")
+
+    if section == "professional":
+        _inject("subnavbar", "subnavbar_professional.html")
+    elif section == "hobbies":
+        _inject("subnavbar", "subnavbar_hobbies.html")
+
+    return str(soup)
+
+
 def get_source_html_files(src_dir: pathlib.Path = SRC_DIR) -> list[pathlib.Path]:
     """Return all page HTML files, excluding partials and generated dirs."""
     files = []
@@ -88,7 +127,9 @@ def build(
         rel = src_file.relative_to(src_dir)
         dst = out_dir / rel
         dst.parent.mkdir(parents=True, exist_ok=True)
-        dst.write_text(src_file.read_text())
+        html = src_file.read_text()
+        html = inject_partials(html, rel, partials_dir=src_dir / "assets" / "html")
+        dst.write_text(html)
 
 
 def main() -> None:

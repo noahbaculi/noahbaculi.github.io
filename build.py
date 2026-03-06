@@ -27,6 +27,19 @@ EXCLUDED_DIRS = {"_site", "node_modules", ".venv", ".git", "public", "tests",
                  "images", "docs", "_data"}
 
 
+def get_source_html_files(src_dir: pathlib.Path = SRC_DIR) -> list[pathlib.Path]:
+    """Return all page HTML files, excluding partials and generated dirs."""
+    files = []
+    for path in src_dir.rglob("*.html"):
+        if any(part in EXCLUDED_DIRS for part in path.parts):
+            continue
+        # Exclude assets/html partials
+        if path.is_relative_to(src_dir / "assets" / "html"):
+            continue
+        files.append(path)
+    return files
+
+
 def copy_static_assets(src_dir: pathlib.Path = SRC_DIR,
                        out_dir: pathlib.Path = OUT_DIR) -> None:
     """Copy static asset directories and files verbatim to out_dir."""
@@ -48,6 +61,12 @@ def build(minify: bool = True,
     """Run a full build."""
     out_dir.mkdir(exist_ok=True)
     copy_static_assets(src_dir=src_dir, out_dir=out_dir)
+
+    for src_file in get_source_html_files(src_dir=src_dir):
+        rel = src_file.relative_to(src_dir)
+        dst = out_dir / rel
+        dst.parent.mkdir(parents=True, exist_ok=True)
+        dst.write_text(src_file.read_text())
 
 
 def main() -> None:

@@ -23,3 +23,24 @@ def test_copy_static_assets(tmp_path):
 
     assert (out / "assets" / "css" / "main.css").read_text() == "body {}"
     assert (out / "images" / "photo.webp").exists()
+
+
+def test_get_source_html_files(tmp_path):
+    """Discovers page HTML files, excluding partials and node_modules."""
+    (tmp_path / "index.html").write_text("<html></html>")
+    (tmp_path / "contact.html").write_text("<html></html>")
+    (tmp_path / "professional").mkdir()
+    (tmp_path / "professional" / "enterprisedb.html").write_text("<html></html>")
+    (tmp_path / "assets" / "html").mkdir(parents=True)
+    (tmp_path / "assets" / "html" / "navbar.html").write_text("<ul></ul>")
+    (tmp_path / "node_modules" / "pkg").mkdir(parents=True)
+    (tmp_path / "node_modules" / "pkg" / "index.html").write_text("<html></html>")
+
+    files = build.get_source_html_files(src_dir=tmp_path)
+    rel = {f.relative_to(tmp_path) for f in files}
+
+    assert pathlib.Path("index.html") in rel
+    assert pathlib.Path("contact.html") in rel
+    assert pathlib.Path("professional/enterprisedb.html") in rel
+    assert pathlib.Path("assets/html/navbar.html") not in rel
+    assert not any("node_modules" in str(p) for p in rel)

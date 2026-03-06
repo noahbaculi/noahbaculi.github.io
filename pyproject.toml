@@ -10,3 +10,8 @@ dependencies = [
     "minify-html>=0.15",
     "livereload>=2.7",
 ]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.2",
+]

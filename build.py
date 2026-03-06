@@ -40,8 +40,7 @@ EXCLUDED_DIRS = {
 }
 
 
-def load_partial(name: str,
-                 partials_dir: pathlib.Path = PARTIALS_DIR) -> BeautifulSoup:
+def load_partial(name: str, partials_dir: pathlib.Path = PARTIALS_DIR) -> BeautifulSoup:
     """Load a partial HTML file and return it as a BeautifulSoup object."""
     html = (partials_dir / name).read_text()
     return BeautifulSoup(html, "html.parser")
@@ -67,9 +66,9 @@ def highlight_current_pages(soup: BeautifulSoup, rel_path: pathlib.Path) -> None
                 el["class"] = classes + ["current-page"]
 
 
-def inject_partials(html: str,
-                    rel_path: pathlib.Path,
-                    partials_dir: pathlib.Path = PARTIALS_DIR) -> str:
+def inject_partials(
+    html: str, rel_path: pathlib.Path, partials_dir: pathlib.Path = PARTIALS_DIR
+) -> str:
     """Inject partials into a page's HTML by replacing placeholder elements."""
     soup = BeautifulSoup(html, "html.parser")
     section = rel_path.parts[0] if len(rel_path.parts) > 1 else ""
@@ -157,14 +156,13 @@ def build(
         dst.write_text(html)
 
 
-def watch(src_dir: pathlib.Path = SRC_DIR,
-          out_dir: pathlib.Path = OUT_DIR) -> None:
+def watch(src_dir: pathlib.Path = SRC_DIR, out_dir: pathlib.Path = OUT_DIR) -> None:
     """Run a dev build then start a live reload server watching for changes."""
     from livereload import Server
 
     def rebuild() -> None:
         print("Rebuilding...")
-        build(minify=False, src_dir=src_dir, out_dir=out_dir)
+        build(minify=True, src_dir=src_dir, out_dir=out_dir)
         print("Done.")
 
     rebuild()

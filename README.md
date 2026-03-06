@@ -20,10 +20,16 @@ Install tools:
 mise install
 ```
 
-Run live server:
+Run dev server with live reload:
 
 ```shell
-bunx live-server
+uv run python build.py --watch
+```
+
+Run prod build:
+
+```shell
+uv run python build.py
 ```
 
 Run image generator script:

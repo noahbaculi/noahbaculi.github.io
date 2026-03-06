@@ -149,3 +149,45 @@ def test_highlight_nav_professional_index():
     assert "current-page" in pro_link.get("class", [])
     index_link = soup.find(class_="index")
     assert "current-page" not in index_link.get("class", [])
+
+
+def test_build_minifies_html_in_prod(tmp_path):
+    """Prod build (minify=True) strips unnecessary whitespace from HTML output."""
+    src = tmp_path / "src"
+    src.mkdir()
+    out = tmp_path / "_site"
+    (src / "assets" / "html").mkdir(parents=True)
+
+    # Write minimal partials
+    for name in ["header.html", "navbar.html", "side_menu.html", "footer.html"]:
+        (src / "assets" / "html" / name).write_text("<div>x</div>")
+
+    (src / "index.html").write_text(
+        "<!doctype html>\n<html>\n  <body>\n    <p>   hello   </p>\n  </body>\n</html>"
+    )
+
+    build.build(minify=True, src_dir=src, out_dir=out)
+
+    output = (out / "index.html").read_text()
+    # Minified output should not have the original multi-line indentation
+    assert "  <body>" not in output
+
+
+def test_build_does_not_minify_in_dev(tmp_path):
+    """Dev build (minify=False) writes non-minified HTML."""
+    src = tmp_path / "src"
+    src.mkdir()
+    out = tmp_path / "_site"
+    (src / "assets" / "html").mkdir(parents=True)
+
+    for name in ["header.html", "navbar.html", "side_menu.html", "footer.html"]:
+        (src / "assets" / "html" / name).write_text("<div>x</div>")
+
+    content = "<!doctype html>\n<html>\n  <body>\n    <p>   hello   </p>\n  </body>\n</html>"
+    (src / "index.html").write_text(content)
+
+    build.build(minify=False, src_dir=src, out_dir=out)
+
+    output = (out / "index.html").read_text()
+    # Should still have the multi-line structure (not minified)
+    assert "\n" in output

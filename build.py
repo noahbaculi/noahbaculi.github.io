@@ -9,6 +9,7 @@ import argparse
 import pathlib
 import shutil
 
+import minify_html
 from bs4 import BeautifulSoup
 
 REPO_ROOT = pathlib.Path(__file__).parent
@@ -151,6 +152,8 @@ def build(
         dst.parent.mkdir(parents=True, exist_ok=True)
         html = src_file.read_text()
         html = inject_partials(html, rel, partials_dir=src_dir / "assets" / "html")
+        if minify:
+            html = minify_html.minify(html, minify_js=False, minify_css=False)
         dst.write_text(html)
 
 

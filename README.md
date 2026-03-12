@@ -70,6 +70,25 @@ for f in *.heic *.HEIC
 end
 ```
 
+## Build architecture
+
+```
+source HTML files           partials
+(root / professional /      (assets/html/)
+ hobbies / projects)              │
+        │                         │
+        └──────────┬──────────────┘
+                   ▼
+               build.py
+           inject_partials()
+    highlight_current_pages()
+         [minify if prod]
+                   │
+                   ▼
+                _site/
+               (served by Netlify)
+```
+
 Re-generate the image tags in the HTML files with responsive webp thumbnails.
 
 ```shell

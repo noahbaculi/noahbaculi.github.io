@@ -41,10 +41,25 @@ EXCLUDED_DIRS = {
     "_data",
 }
 
+PARTIAL_NAMES = (
+    "header.html",
+    "navbar.html",
+    "side_menu.html",
+    "footer.html",
+    "top_professional.html",
+    "top_projects.html",
+    "subnavbar_professional.html",
+    "subnavbar_hobbies.html",
+)
 
-def load_partial(name: str, partials_dir: pathlib.Path = PARTIALS_DIR) -> BeautifulSoup:
+
+def load_partial(
+    name: str,
+    partials_dir: pathlib.Path = PARTIALS_DIR,
+    cache: dict[str, str] | None = None,
+) -> BeautifulSoup:
     """Load a partial HTML file and return it as a BeautifulSoup object."""
-    html = (partials_dir / name).read_text()
+    html = cache[name] if (cache is not None and name in cache) else (partials_dir / name).read_text()
     return BeautifulSoup(html, "html.parser")
 
 
@@ -69,7 +84,10 @@ def highlight_current_pages(soup: BeautifulSoup, rel_path: pathlib.Path) -> None
 
 
 def inject_partials(
-    html: str, rel_path: pathlib.Path, partials_dir: pathlib.Path = PARTIALS_DIR
+    html: str,
+    rel_path: pathlib.Path,
+    partials_dir: pathlib.Path = PARTIALS_DIR,
+    cache: dict[str, str] | None = None,
 ) -> str:
     """Inject partials into a page's HTML by replacing placeholder elements."""
     soup = BeautifulSoup(html, "html.parser")
@@ -79,7 +97,7 @@ def inject_partials(
         el = soup.find(id=element_id)
         if el is None:
             return
-        partial = load_partial(partial_name, partials_dir)
+        partial = load_partial(partial_name, partials_dir, cache=cache)
         el.clear()
         for child in list(partial.children):
             el.append(child.__copy__())
@@ -89,7 +107,7 @@ def inject_partials(
         el = soup.find(id=element_id)
         if el is None:
             return
-        partial = load_partial(partial_name, partials_dir)
+        partial = load_partial(partial_name, partials_dir, cache=cache)
         el.replace_with(partial)
 
     _inject("headers", "header.html")
@@ -155,12 +173,19 @@ def build(
     out_dir.mkdir(exist_ok=True)
     copy_static_assets(src_dir=src_dir, out_dir=out_dir)
 
+    partials_dir = src_dir / "assets" / "html"
+    cache: dict[str, str] = {
+        name: (partials_dir / name).read_text()
+        for name in PARTIAL_NAMES
+        if (partials_dir / name).exists()
+    }
+
     for src_file in get_source_html_files(src_dir=src_dir):
         rel = src_file.relative_to(src_dir)
         dst = out_dir / rel
         dst.parent.mkdir(parents=True, exist_ok=True)
         html = src_file.read_text()
-        html = inject_partials(html, rel, partials_dir=src_dir / "assets" / "html")
+        html = inject_partials(html, rel, partials_dir=partials_dir, cache=cache)
         if minify:
             html = minify_html.minify(html, minify_js=True, minify_css=True)
         dst.write_text(html)

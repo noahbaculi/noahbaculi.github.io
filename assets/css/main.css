@@ -24,7 +24,6 @@
   --color-navbar-link: #4f4f4f;
   --color-blue-text: #0b4f6c;
   --color-bg: #ffffff;
-  --color-bg-surface: #f6f6f6;
   --color-bg-footer: #f6f6f6;
   --color-text-primary: #383838;
   --color-text-secondary: #585858;
@@ -39,6 +38,8 @@
   --color-shadow: rgba(0, 0, 0, 0.1);
   --color-shadow-strong: rgba(0, 0, 0, 0.3);
   --color-focus-ring: rgba(37, 99, 235, 0.18);
+  --color-accent: #4b7bec;
+  --color-accent-bg: rgba(75, 123, 236, 0.08);
 }
 
 [data-theme="dark"] {
@@ -46,7 +47,6 @@
   --color-navbar-link: #e2e8f0;
   --color-blue-text: #6fa0d8;
   --color-bg: #1e1e22;
-  --color-bg-surface: #2a2a2e;
   --color-bg-footer: #16161a;
   --color-text-primary: #e2e8f0;
   --color-text-secondary: #b0b0b8;
@@ -61,15 +61,17 @@
   --color-shadow: rgba(200, 210, 230, 0.12);
   --color-shadow-strong: rgba(200, 210, 230, 0.18);
   --color-focus-ring: rgba(96, 165, 250, 0.3);
+  --color-accent: #6fa0d8;
+  --color-accent-bg: rgba(111, 160, 216, 0.1);
 }
 
+/* Same values as [data-theme="dark"] above. Update both when changing dark colors. */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     color-scheme: dark;
     --color-navbar-link: #e2e8f0;
     --color-blue-text: #6fa0d8;
     --color-bg: #1e1e22;
-    --color-bg-surface: #2a2a2e;
     --color-bg-footer: #16161a;
     --color-text-primary: #e2e8f0;
     --color-text-secondary: #b0b0b8;
@@ -84,6 +86,8 @@
     --color-shadow: rgba(200, 210, 230, 0.12);
     --color-shadow-strong: rgba(200, 210, 230, 0.18);
     --color-focus-ring: rgba(96, 165, 250, 0.3);
+    --color-accent: #6fa0d8;
+    --color-accent-bg: rgba(111, 160, 216, 0.1);
   }
 }
 
@@ -487,8 +491,8 @@ table {
 #footer {
   .icons a:hover,
   .icons a:focus-visible {
-    border-color: #4b7bec;
-    background: rgba(75, 123, 236, 0.08);
+    border-color: var(--color-accent);
+    background: var(--color-accent-bg);
     outline: none;
   }
 }
@@ -1080,7 +1084,7 @@ div.project-card__more-btn {
 }
 
 .hobby-card:focus-visible {
-  outline: 3px solid #4a90d9;
+  outline: 3px solid var(--color-focus-border, #4a90d9);
   outline-offset: 2px;
 }
 
@@ -1502,18 +1506,18 @@ body.is-menu-visible #menu .close {
 
 /* Contact form */
 form[name="contact"] {
-  --color-bg: #fff;
-  --color-text: #111827;
-  --color-muted: #6b7280;
-  --color-border: rgba(17, 24, 39, 0.14);
-  --color-border-2: rgba(17, 24, 39, 0.22);
-  --color-focus: #2563eb;
+  --form-bg: #fff;
+  --form-text: #111827;
+  --form-muted: #6b7280;
+  --form-border: rgba(17, 24, 39, 0.14);
+  --form-border-2: rgba(17, 24, 39, 0.22);
+  --form-focus: #2563eb;
 
   margin: 0 auto 2rem;
   padding: 1.25rem;
-  background: var(--color-bg);
-  color: var(--color-text);
-  border: 1px solid var(--color-border);
+  background: var(--form-bg);
+  color: var(--form-text);
+  border: 1px solid var(--form-border);
   border-radius: 14px;
   box-shadow: 0 12px 28px var(--color-shadow);
 }
@@ -1546,10 +1550,10 @@ form[name="contact"] textarea {
   width: 100%;
   box-sizing: border-box;
   padding: 0.7rem 0.85rem;
-  border: 1px solid var(--color-border-2);
+  border: 1px solid var(--form-border-2);
   border-radius: 10px;
-  background: var(--color-bg);
-  color: var(--color-text);
+  background: var(--form-bg);
+  color: var(--form-text);
   outline: 0;
   transition:
     border-color 0.15s ease,
@@ -1563,13 +1567,13 @@ form[name="contact"] textarea {
 
 form[name="contact"] input::placeholder,
 form[name="contact"] textarea::placeholder {
-  color: var(--color-muted);
+  color: var(--form-muted);
 }
 
 form[name="contact"] input[type="text"]:focus-visible,
 form[name="contact"] input[type="email"]:focus-visible,
 form[name="contact"] textarea:focus-visible {
-  border-color: var(--color-focus);
+  border-color: var(--form-focus);
   box-shadow: 0 0 0 4px var(--color-focus-ring);
 }
 
@@ -1579,7 +1583,7 @@ form[name="contact"] td:nth-child(2) input[type="checkbox"] {
 }
 form[name="contact"] td:nth-child(2) input[type="checkbox"] + label {
   font-weight: 500;
-  color: var(--color-text);
+  color: var(--form-text);
 }
 form[name="contact"] td:nth-child(2) br {
   line-height: 1.7;
@@ -1653,22 +1657,23 @@ form[name="contact"] .check-row label {
 
 /* Contact form dark mode overrides */
 [data-theme="dark"] form[name="contact"] {
-  --color-bg: #2a2a2e;
-  --color-text: #e2e8f0;
-  --color-muted: #b0b0b8;
-  --color-border: rgba(255, 255, 255, 0.1);
-  --color-border-2: rgba(255, 255, 255, 0.16);
-  --color-focus: #60a5fa;
+  --form-bg: #2a2a2e;
+  --form-text: #e2e8f0;
+  --form-muted: #b0b0b8;
+  --form-border: rgba(255, 255, 255, 0.1);
+  --form-border-2: rgba(255, 255, 255, 0.16);
+  --form-focus: #60a5fa;
 }
 
+/* Same values as [data-theme="dark"] above. Update both when changing dark colors. */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) form[name="contact"] {
-    --color-bg: #2a2a2e;
-    --color-text: #e2e8f0;
-    --color-muted: #b0b0b8;
-    --color-border: rgba(255, 255, 255, 0.1);
-    --color-border-2: rgba(255, 255, 255, 0.16);
-    --color-focus: #60a5fa;
+    --form-bg: #2a2a2e;
+    --form-text: #e2e8f0;
+    --form-muted: #b0b0b8;
+    --form-border: rgba(255, 255, 255, 0.1);
+    --form-border-2: rgba(255, 255, 255, 0.16);
+    --form-focus: #60a5fa;
   }
 }
 
@@ -1731,15 +1736,3 @@ form[name="contact"] .check-row label {
   z-index: 1;
 }
 
-/* Navbar inner layout for toggle placement */
-#navbar .navbar-inner {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-}
-
-#navbar .navbar-inner ul {
-  display: flex;
-  align-items: center;
-}

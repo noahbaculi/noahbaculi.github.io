@@ -14,6 +14,7 @@
   --color-focus-border: #60a5fa;
 }
 
+/* Same values as [data-theme="dark"] above. Update both when changing dark colors. */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --color-bg-lightest: #1e293b;

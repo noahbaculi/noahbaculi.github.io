@@ -22,6 +22,7 @@
   --color-photo-bg: #2a2a2e;
 }
 
+/* Same values as [data-theme="dark"] above. Update both when changing dark colors. */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --color-scrollbar-track: #2a2a2e;

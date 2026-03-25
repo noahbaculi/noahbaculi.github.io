@@ -1699,13 +1699,23 @@ form[name="contact"] .check-row label {
   }
 }
 
+/* Side menu theme toggle */
+#menu > .theme-toggle-btn {
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  color: #ffffff;
+  z-index: 1;
+}
+
 /* Navbar inner layout for toggle placement */
 #navbar .navbar-inner {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100%;
-  position: relative;
 }
 
 #navbar .navbar-inner ul {
@@ -1713,27 +1723,3 @@ form[name="contact"] .check-row label {
   align-items: center;
 }
 
-#navbar .navbar-toggle-slot {
-  position: absolute;
-  right: 1em;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-/* Side menu theme toggle row */
-li.theme-toggle-row {
-  display: flex;
-  align-items: center;
-  padding: 0.75em 0;
-  border-top: solid 1px rgba(255, 255, 255, 0.15);
-  gap: 0.75em;
-}
-
-li.theme-toggle-row label {
-  color: inherit;
-  font-size: 0.9em;
-}
-
-li.theme-toggle-row .theme-toggle-btn {
-  color: #ffffff;
-}

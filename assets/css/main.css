@@ -892,8 +892,6 @@ div.project-card {
   overflow: hidden;
 
   & a > img {
-    border-top-left-radius: 0.5rem;
-    border-top-right-radius: 0.5rem;
     max-width: 100%;
   }
 

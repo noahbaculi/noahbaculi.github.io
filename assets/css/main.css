@@ -1567,6 +1567,7 @@ form[name="contact"] textarea::placeholder {
 }
 
 form[name="contact"] input[type="text"]:focus-visible,
+form[name="contact"] input[type="email"]:focus-visible,
 form[name="contact"] textarea:focus-visible {
   border-color: var(--color-focus);
   box-shadow: 0 0 0 4px var(--color-focus-ring);

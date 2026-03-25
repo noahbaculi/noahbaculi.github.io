@@ -1099,6 +1099,7 @@ div.project-card__more-btn {
     place-items: center;
     border-radius: 0.5em;
     overflow: hidden;
+    box-shadow: 0 4px 20px var(--color-shadow-strong);
     width: 100%;
     aspect-ratio: 1;
     max-width: clamp(10rem, 20%, 18rem);

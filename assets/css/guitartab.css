@@ -4,12 +4,14 @@
   --color-bg-lightest: #f0f9ff;
   --color-bg-lighter: #e0f2fe;
   --color-text-darkest: #0c4a6e;
+  --color-focus-border: #3b82f6;
 }
 
 [data-theme="dark"] {
   --color-bg-lightest: #1e293b;
   --color-bg-lighter: #334155;
   --color-text-darkest: #e2e8f0;
+  --color-focus-border: #60a5fa;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -17,6 +19,7 @@
     --color-bg-lightest: #1e293b;
     --color-bg-lighter: #334155;
     --color-text-darkest: #e2e8f0;
+    --color-focus-border: #60a5fa;
   }
 }
 
@@ -29,7 +32,7 @@
 
 :focus {
   outline: none;
-  box-shadow: inset 0 0 0 2px #3b82f6;
+  box-shadow: inset 0 0 0 2px var(--color-focus-border);
 }
 
 /* General styling */

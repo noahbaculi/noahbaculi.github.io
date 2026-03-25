@@ -1,5 +1,40 @@
 /* Family Tree */
 
+:root {
+  --color-scrollbar-track: #e4e4e4;
+  --color-scrollbar-thumb: #212121;
+  --color-scrollbar-hover: #d5b14c;
+  --color-connector: #cccccc;
+  --color-connector-hover: #fbba00;
+  --color-member-text: #666666;
+  --color-photo-border: lightgrey;
+  --color-photo-bg: white;
+}
+
+[data-theme="dark"] {
+  --color-scrollbar-track: #2a2a2e;
+  --color-scrollbar-thumb: #94b8c8;
+  --color-scrollbar-hover: #d5b14c;
+  --color-connector: #3a3a42;
+  --color-connector-hover: #fbba00;
+  --color-member-text: #b0b0b8;
+  --color-photo-border: #3a3a42;
+  --color-photo-bg: #2a2a2e;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --color-scrollbar-track: #2a2a2e;
+    --color-scrollbar-thumb: #94b8c8;
+    --color-scrollbar-hover: #d5b14c;
+    --color-connector: #3a3a42;
+    --color-connector-hover: #fbba00;
+    --color-member-text: #b0b0b8;
+    --color-photo-border: #3a3a42;
+    --color-photo-bg: #2a2a2e;
+  }
+}
+
 .genealogy-scroll::-webkit-scrollbar {
   width: 5px;
   height: 8px;
@@ -7,17 +42,17 @@
 
 .genealogy-scroll::-webkit-scrollbar-track {
   border-radius: 10px;
-  background-color: #e4e4e4;
+  background-color: var(--color-scrollbar-track);
 }
 
 .genealogy-scroll::-webkit-scrollbar-thumb {
-  background: #212121;
+  background: var(--color-scrollbar-thumb);
   border-radius: 10px;
   transition: 0.5s;
 }
 
 .genealogy-scroll::-webkit-scrollbar-thumb:hover {
-  background: #d5b14c;
+  background: var(--color-scrollbar-hover);
   transition: 0.5s;
 }
 
@@ -55,7 +90,7 @@
   position: absolute;
   top: 0;
   right: 50%;
-  border-top: 2px solid #ccc;
+  border-top: 2px solid var(--color-connector);
   width: 50%;
   height: 18px;
 }
@@ -63,7 +98,7 @@
 .genealogy-tree li::after {
   right: auto;
   left: 50%;
-  border-left: 2px solid #ccc;
+  border-left: 2px solid var(--color-connector);
 }
 
 .genealogy-tree li:only-child::after,
@@ -81,7 +116,7 @@
 }
 
 .genealogy-tree li:last-child::before {
-  border-right: 2px solid #ccc;
+  border-right: 2px solid var(--color-connector);
   border-radius: 0 5px 0 0;
   -webkit-border-radius: 0 5px 0 0;
   -moz-border-radius: 0 5px 0 0;
@@ -98,7 +133,7 @@
   position: absolute;
   top: 0;
   left: 50%;
-  border-left: 2px solid #ccc;
+  border-left: 2px solid var(--color-connector);
   width: 0;
   height: 20px;
 }
@@ -111,7 +146,7 @@
 .genealogy-tree li a:hover + ul li::before,
 .genealogy-tree li a:hover + ul::before,
 .genealogy-tree li a:hover + ul ul::before {
-  border-color: #fbba00;
+  border-color: var(--color-connector-hover);
 }
 
 /*--------------memeber-card-design----------*/
@@ -132,8 +167,8 @@
   width: 8vw;
   height: auto;
   border-radius: 6px;
-  border: 1px solid lightgrey;
-  background-color: white;
+  border: 1px solid var(--color-photo-border);
+  background-color: var(--color-photo-bg);
   z-index: 1;
 }
 
@@ -144,7 +179,7 @@
 
 .member-details {
   text-decoration: none;
-  color: #666;
+  color: var(--color-member-text);
   font-family: arial, verdana, tahoma;
   font-size: 11px;
   border-radius: 5px;

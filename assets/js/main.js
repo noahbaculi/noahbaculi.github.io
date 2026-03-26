@@ -154,12 +154,13 @@ document.querySelectorAll("form textarea").forEach(function (textarea) {
 
 // Theme toggle
 function initThemeToggle() {
-  document.querySelectorAll('.theme-toggle-btn').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      var current = document.documentElement.getAttribute('data-theme') || 'light';
-      var next = current === 'dark' ? 'light' : 'dark';
-      document.documentElement.setAttribute('data-theme', next);
-      localStorage.setItem('theme', next);
+  document.querySelectorAll(".theme-toggle-btn").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var current =
+        document.documentElement.getAttribute("data-theme") || "light";
+      var next = current === "dark" ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", next);
+      localStorage.setItem("theme", next);
     });
   });
 }

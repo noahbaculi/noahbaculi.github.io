@@ -393,6 +393,17 @@ table {
   top: 0;
   height: var(--navbar-height);
 }
+@media screen and (min-width: 981px) {
+  #navbar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #navbar .theme-toggle-btn {
+    position: absolute;
+    right: 1em;
+  }
+}
 #subnavbar {
   top: var(--navbar-height);
   height: var(--subnavbar-height);
@@ -1171,6 +1182,13 @@ div.project-card__more-btn {
 body.is-preload .affiliated-tiles-grid .affiliated-tile {
   transform: scale(0.9);
   opacity: 0;
+}
+
+/* Hide hamburger on desktop where navbar is visible */
+@media screen and (min-width: 981px) {
+  #side-menu-btn {
+    display: none;
+  }
 }
 
 /* Side Menu */

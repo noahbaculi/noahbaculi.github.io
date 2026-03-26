@@ -800,6 +800,16 @@ div.full-section-btn {
   }
 }
 
+.video-embed {
+  display: block;
+  width: 100%;
+  max-width: 40em;
+  margin: 3em auto;
+  aspect-ratio: 16 / 9;
+  border: none;
+  border-radius: 8px;
+}
+
 /* Enlargeable images */
 /* WARN: The selector must match JS script */
 @media (hover: hover) {

@@ -1,16 +1,26 @@
 :root {
   --header-height: 10%;
   --main-height: calc(100% - var(--header-height));
-  --lightest-bg-color: #f0f9ff;
-  --lighter-bg-color: #e0f2fe;
-  --darkest-text-color: #0c4a6e;
+  --color-bg-lightest: #f0f9ff;
+  --color-bg-lighter: #e0f2fe;
+  --color-text-darkest: #0c4a6e;
+  --color-focus-border: #3b82f6;
 }
 
+[data-theme="dark"] {
+  --color-bg-lightest: #1e293b;
+  --color-bg-lighter: #334155;
+  --color-text-darkest: #e2e8f0;
+  --color-focus-border: #60a5fa;
+}
+
+/* Same values as [data-theme="dark"] above. Update both when changing dark colors. */
 @media (prefers-color-scheme: dark) {
-  :root {
-    --lightest-bg-color: #1e293b;
-    --lighter-bg-color: #334155;
-    --darkest-text-color: #e2e8f0;
+  :root:not([data-theme="light"]) {
+    --color-bg-lightest: #1e293b;
+    --color-bg-lighter: #334155;
+    --color-text-darkest: #e2e8f0;
+    --color-focus-border: #60a5fa;
   }
 }
 
@@ -23,15 +33,15 @@
 
 :focus {
   outline: none;
-  box-shadow: inset 0 0 0 2px #3b82f6;
+  box-shadow: inset 0 0 0 2px var(--color-focus-border);
 }
 
 /* General styling */
 body {
   margin: 0;
   height: 100vh;
-  background-color: var(--lightest-bg-color);
-  color: var(--darkest-text-color);
+  background-color: var(--color-bg-lightest);
+  color: var(--color-text-darkest);
   font-family: "Nunito", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -52,7 +62,7 @@ body {
 
 select,
 option {
-  color: var(--darkest-text-color);
+  color: var(--color-text-darkest);
   font-family: "Nunito", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -66,8 +76,8 @@ textarea {
   height: 100%;
   max-height: 100%;
   resize: none;
-  background-color: var(--lighter-bg-color);
-  color: var(--darkest-text-color);
+  background-color: var(--color-bg-lighter);
+  color: var(--color-text-darkest);
 }
 
 #wrapper {

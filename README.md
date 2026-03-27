@@ -20,10 +20,10 @@ Install tools:
 mise install
 ```
 
-Run live server:
+Run dev server:
 
 ```shell
-bunx live-server
+bunx browser-sync start --server --no-open --no-notify
 ```
 
 Run image generator script:

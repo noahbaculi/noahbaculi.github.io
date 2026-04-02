@@ -170,7 +170,9 @@ def build(
     out_dir: pathlib.Path = OUT_DIR,
 ) -> None:
     """Run a full build."""
-    out_dir.mkdir(exist_ok=True)
+    if out_dir.exists():
+        shutil.rmtree(out_dir)
+    out_dir.mkdir()
     copy_static_assets(src_dir=src_dir, out_dir=out_dir)
 
     partials_dir = src_dir / "assets" / "html"
@@ -221,6 +223,10 @@ def watch(
 
     # Watch CSS
     for f in (src_dir / "assets" / "css").rglob("*.css"):
+        server.watch(str(f), rebuild)
+
+    # Watch JS
+    for f in (src_dir / "assets" / "js").rglob("*.js"):
         server.watch(str(f), rebuild)
 
     server.serve(root=str(out_dir), port=8080, open_url_delay=1)

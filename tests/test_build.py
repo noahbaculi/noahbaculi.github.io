@@ -1,7 +1,4 @@
 import pathlib
-import shutil
-import tempfile
-import pytest
 import importlib.util
 from bs4 import BeautifulSoup
 

@@ -212,3 +212,25 @@ def test_minify_text_assets(tmp_path):
     assert "  " not in css
     assert css.strip().endswith("}")
     assert "\n\n" not in js
+
+
+def test_build_clean_false_preserves_extra_files(tmp_path):
+    """build(clean=False) overwrites output but doesn't delete pre-existing files."""
+    src = tmp_path / "src"
+    src.mkdir()
+    out = tmp_path / "_site"
+    out.mkdir()
+    (src / "assets" / "html").mkdir(parents=True)
+
+    for name in ["header.html", "navbar.html", "side_menu.html", "footer.html"]:
+        (src / "assets" / "html" / name).write_text("<div>x</div>")
+
+    (src / "index.html").write_text("<!doctype html><html><body></body></html>")
+
+    # Pre-existing file in output that should survive clean=False
+    (out / "survivor.txt").write_text("I should survive")
+
+    build.build(minify=False, clean=False, src_dir=src, out_dir=out)
+
+    assert (out / "index.html").exists()
+    assert (out / "survivor.txt").read_text() == "I should survive"

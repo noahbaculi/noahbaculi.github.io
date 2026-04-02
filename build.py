@@ -166,14 +166,18 @@ def minify_text_assets(out_dir: pathlib.Path) -> None:
 
 def build(
     minify: bool = False,
+    clean: bool = True,
     src_dir: pathlib.Path = SRC_DIR,
     out_dir: pathlib.Path = OUT_DIR,
 ) -> None:
     """Run a full build."""
-    if out_dir.exists():
-        shutil.rmtree(out_dir)
-    out_dir.mkdir()
-    copy_static_assets(src_dir=src_dir, out_dir=out_dir)
+    if clean:
+        if out_dir.exists():
+            shutil.rmtree(out_dir)
+        out_dir.mkdir()
+        copy_static_assets(src_dir=src_dir, out_dir=out_dir)
+    else:
+        out_dir.mkdir(exist_ok=True)
 
     partials_dir = src_dir / "assets" / "html"
     cache: dict[str, str] = {

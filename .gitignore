@@ -4,3 +4,5 @@
 .lycheecache
 /_site
 __pycache__
+.superpowers/
+test-results/

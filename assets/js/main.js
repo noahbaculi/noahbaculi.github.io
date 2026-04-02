@@ -7,6 +7,7 @@ String.prototype.toProperCase = function () {
 const body = document.body;
 
 initMenu();
+initThemeToggle();
 
 // Play initial animations on page load.
 window.addEventListener("load", function () {
@@ -66,6 +67,19 @@ document.querySelectorAll("form textarea").forEach(function (textarea) {
   }
 });
 
+// Theme toggle
+function initThemeToggle() {
+  document.querySelectorAll(".theme-toggle-btn").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var current =
+        document.documentElement.getAttribute("data-theme") || "light";
+      var next = current === "dark" ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", next);
+      localStorage.setItem("theme", next);
+    });
+  });
+}
+
 // Menu functionality
 function initMenu() {
   const menu = document.getElementById("menu");
@@ -124,6 +138,13 @@ function initMenu() {
     event.stopPropagation();
     event.preventDefault();
     toggleMenu();
+  });
+
+  // Click outside menu to close
+  document.body.addEventListener("click", function () {
+    if (body.classList.contains("is-menu-visible")) {
+      hideMenu();
+    }
   });
 
   // Escape key to close menu

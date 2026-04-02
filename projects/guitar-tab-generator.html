@@ -16,11 +16,12 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Roboto Mono"
     />
+    <script src="/assets/js/theme-init.js"></script>
     <link rel="stylesheet" href="/assets/css/guitartab.css" />
     <link rel="icon" href="/images/icons/favicon-50_w.webp" />
     <script type="module" src="https://cdn.skypack.dev/twind/shim"></script>
   </head>
-  <body class="bg-white">
+  <body>
     <div style="height: 95%; width: 90%; max-width: 60em; margin: 0 auto">
       <section class="header-grid">
         <div class="exit">
@@ -79,7 +80,7 @@
             id="exportButton"
             data-tooltip-target="tooltip-download"
             data-tooltip-placement="left"
-            class="flex justify-center items-center w-[52px] h-[52px] text-gray-500 hover:text-gray-900 bg-white rounded-full border border-gray-200 dark:border-gray-600 shadow-sm dark:hover:text-white dark:text-gray-400 hover:bg-gray-50 dark:bg-gray-700 dark:hover:bg-gray-600 focus:ring-4 focus:ring-gray-300 focus:outline-none dark:focus:ring-gray-400"
+            class="flex justify-center items-center w-[52px] h-[52px] text-gray-500 hover:text-gray-900 bg-white rounded-full border border-gray-200 dark:border-gray-600 shadow-sm dark:hover:text-white dark:text-gray-400 hover:bg-gray-50 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-400"
           >
             <svg
               aria-hidden="true"
@@ -109,7 +110,7 @@
         <div class="examples">
           <select
             id="exampleSongs"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
           >
             <option value="examples" selected>ᐁ Examples</option>
             <option value="Fur Elise">Fur Elise</option>
@@ -137,7 +138,7 @@
           <select
             id="guitarTuning"
             name="guitarTuning"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
           >
             <option value="standard" selected>Standard</option>
             <option value="dsus4">DADGAD</option>
@@ -159,7 +160,7 @@
           <select
             id="guitarCapo"
             name="guitarCapo"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
           >
             <option value="0" selected>None</option>
             <option value="1">1</option>
@@ -197,7 +198,7 @@
           <select
             id="tabPadding"
             name="tabPadding"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
           >
             <option value="0">0</option>
             <option value="1" selected>1</option>
@@ -233,7 +234,7 @@ Output TAB goes here!
                 data-tooltip-target="tooltip-reset-playback"
                 data-tooltip-placement="left"
                 disabled
-                class="flex justify-center items-center w-[52px] h-[52px] text-gray-500 hover:text-gray-900 bg-white rounded-full border border-gray-200 dark:border-gray-600 dark:hover:text-white shadow-sm dark:text-gray-400 hover:bg-gray-50 dark:bg-gray-700 dark:hover:bg-gray-600 focus:ring-4 focus:ring-gray-300 focus:outline-none dark:focus:ring-gray-400"
+                class="flex justify-center items-center w-[52px] h-[52px] text-gray-500 hover:text-gray-900 bg-white rounded-full border border-gray-200 dark:border-gray-600 dark:hover:text-white shadow-sm dark:text-gray-400 hover:bg-gray-50 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-400"
               >
                 <svg
                   aria-hidden="true"
@@ -270,7 +271,7 @@ Output TAB goes here!
                 id="pauseButton"
                 data-tooltip-target="tooltip-pause"
                 data-tooltip-placement="left"
-                class="hidden justify-center items-center w-[52px] h-[52px] text-gray-500 hover:text-gray-900 bg-white rounded-full border border-gray-200 dark:border-gray-600 dark:hover:text-white shadow-sm dark:text-gray-400 hover:bg-gray-50 dark:bg-gray-700 dark:hover:bg-gray-600 focus:ring-4 focus:ring-gray-300 focus:outline-none dark:focus:ring-gray-400"
+                class="hidden justify-center items-center w-[52px] h-[52px] text-gray-500 hover:text-gray-900 bg-white rounded-full border border-gray-200 dark:border-gray-600 dark:hover:text-white shadow-sm dark:text-gray-400 hover:bg-gray-50 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-400"
               >
                 <svg
                   aria-hidden="true"
@@ -306,7 +307,7 @@ Output TAB goes here!
                 id="playButton"
                 data-tooltip-target="tooltip-play"
                 data-tooltip-placement="left"
-                class="flex justify-center items-center w-[52px] h-[52px] text-gray-500 hover:text-gray-900 bg-white rounded-full border border-gray-200 dark:border-gray-600 dark:hover:text-white shadow-sm dark:text-gray-400 hover:bg-gray-50 dark:bg-gray-700 dark:hover:bg-gray-600 focus:ring-4 focus:ring-gray-300 focus:outline-none dark:focus:ring-gray-400"
+                class="flex justify-center items-center w-[52px] h-[52px] text-gray-500 hover:text-gray-900 bg-white rounded-full border border-gray-200 dark:border-gray-600 dark:hover:text-white shadow-sm dark:text-gray-400 hover:bg-gray-50 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-400"
               >
                 <svg
                   aria-hidden="true"
@@ -337,7 +338,7 @@ Output TAB goes here!
               data-dial-toggle="speed-dial-menu-default"
               aria-controls="speed-dial-menu-default"
               aria-expanded="false"
-              class="flex items-center justify-center text-white bg-blue-700 rounded-full w-14 h-14 hover:bg-blue-800 dark:bg-blue-600 dark:hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:focus:ring-blue-800"
+              class="flex items-center justify-center text-white bg-blue-700 rounded-full w-14 h-14 hover:bg-blue-800 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
               <svg
                 aria-hidden="true"

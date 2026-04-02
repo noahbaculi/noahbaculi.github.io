@@ -289,8 +289,15 @@ def watch(
         print("Done.")
 
     def on_asset_change(src_file: pathlib.Path) -> None:
-        """Copy a single changed CSS/JS file to output."""
-        print(f"Copying {src_file.relative_to(src_dir)}...")
+        """Copy a single changed asset file to output, or remove it if deleted."""
+        rel = src_file.relative_to(src_dir)
+        if not src_file.exists():
+            dst = out_dir / rel
+            if dst.exists():
+                dst.unlink()
+                print(f"Removed {rel}.")
+            return
+        print(f"Copying {rel}...")
         copy_changed_asset(
             src_file=src_file, src_dir=src_dir, out_dir=out_dir, minify=minify,
         )
@@ -314,6 +321,18 @@ def watch(
     for f in (src_dir / "assets" / "js").rglob("*.js"):
         filepath = f
         server.watch(str(filepath), lambda fp=filepath: on_asset_change(fp))
+
+    # Image changes -> sync entire images directory
+    def sync_images() -> None:
+        print("Syncing images...")
+        src_images = src_dir / "images"
+        dst_images = out_dir / "images"
+        if dst_images.exists():
+            shutil.rmtree(dst_images)
+        shutil.copytree(src_images, dst_images)
+        print("Done.")
+
+    server.watch(str(src_dir / "images"), sync_images)
 
     server.serve(root=str(out_dir), port=8080, open_url_delay=1)
 

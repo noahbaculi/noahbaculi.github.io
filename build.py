@@ -156,6 +156,24 @@ def copy_static_assets(
             shutil.copy2(src, dst)
 
 
+def copy_changed_asset(
+    src_file: pathlib.Path,
+    src_dir: pathlib.Path,
+    out_dir: pathlib.Path,
+    minify: bool = False,
+) -> None:
+    """Copy a single asset file to its corresponding output path."""
+    rel = src_file.relative_to(src_dir)
+    dst = out_dir / rel
+    dst.parent.mkdir(parents=True, exist_ok=True)
+    if minify and src_file.suffix == ".css":
+        dst.write_text(rcssmin.cssmin(src_file.read_text()))
+    elif minify and src_file.suffix == ".js":
+        dst.write_text(rjsmin.jsmin(src_file.read_text()))
+    else:
+        shutil.copy2(src_file, dst)
+
+
 def minify_text_assets(out_dir: pathlib.Path) -> None:
     """Minify CSS and JS files in the output directory in place."""
     for css_file in (out_dir / "assets" / "css").rglob("*.css"):

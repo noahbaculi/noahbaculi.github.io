@@ -270,3 +270,47 @@ def test_render_html_file(tmp_path):
     output = (out / "index.html").read_text()
     soup = BeautifulSoup(output, "html.parser")
     assert soup.find(id="navbar").find("div") is not None
+
+
+def test_copy_changed_asset(tmp_path):
+    """copy_changed_asset copies a single file preserving relative path."""
+    src = tmp_path / "src"
+    out = tmp_path / "_site"
+    out.mkdir()
+    (src / "assets" / "css").mkdir(parents=True)
+    css_file = src / "assets" / "css" / "main.css"
+    css_file.write_text("body { color: red; }")
+
+    build.copy_changed_asset(src_file=css_file, src_dir=src, out_dir=out)
+
+    assert (out / "assets" / "css" / "main.css").read_text() == "body { color: red; }"
+
+
+def test_copy_changed_asset_with_minify_css(tmp_path):
+    """copy_changed_asset minifies CSS when minify=True."""
+    src = tmp_path / "src"
+    out = tmp_path / "_site"
+    out.mkdir()
+    (src / "assets" / "css").mkdir(parents=True)
+    css_file = src / "assets" / "css" / "main.css"
+    css_file.write_text("body  {  color:  red;  }\n\n")
+
+    build.copy_changed_asset(src_file=css_file, src_dir=src, out_dir=out, minify=True)
+
+    output = (out / "assets" / "css" / "main.css").read_text()
+    assert "  " not in output
+
+
+def test_copy_changed_asset_with_minify_js(tmp_path):
+    """copy_changed_asset minifies JS when minify=True."""
+    src = tmp_path / "src"
+    out = tmp_path / "_site"
+    out.mkdir()
+    (src / "assets" / "js").mkdir(parents=True)
+    js_file = src / "assets" / "js" / "main.js"
+    js_file.write_text("var x  =  1 ;\n\n")
+
+    build.copy_changed_asset(src_file=js_file, src_dir=src, out_dir=out, minify=True)
+
+    output = (out / "assets" / "js" / "main.js").read_text()
+    assert "\n\n" not in output

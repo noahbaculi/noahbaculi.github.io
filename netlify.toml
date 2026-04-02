@@ -1,3 +1,7 @@
+[build]
+command = "pip install uv && uv run python build.py --minify"
+publish = "_site"
+
 [[plugins]]
 package = "@netlify/plugin-lighthouse"
 

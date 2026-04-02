@@ -3,7 +3,17 @@ name = "noahbaculi-github-io"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.14"
 dependencies = [
     "pillow>=11.3.0",
+    "beautifulsoup4>=4.13",
+    "minify-html>=0.15",
+    "livereload>=2.7",
+    "rcssmin>=1.1",
+    "rjsmin>=1.2",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.2",
 ]

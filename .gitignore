@@ -2,6 +2,7 @@
 /node_modules
 .DS_STORE
 .lycheecache
+/_site
+__pycache__
 .superpowers/
-test-results/
-docs/
+plans/

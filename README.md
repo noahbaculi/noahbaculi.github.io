@@ -20,10 +20,16 @@ Install tools:
 mise install
 ```
 
-Run dev server:
+Run dev server with live reload:
 
 ```shell
-bunx browser-sync start --server --no-open --no-notify
+uv run python build.py --watch
+```
+
+Run prod build (with minification):
+
+```shell
+uv run python build.py --minify
 ```
 
 Run image generator script:
@@ -62,6 +68,25 @@ for f in *.heic *.HEIC
   # quality: 0–100 (higher = larger). 80–90 is usually a good range.
   sips -s format jpeg -s formatOptions 85 "$f" --out "jpg/$base.jpg" >/dev/null
 end
+```
+
+## Build architecture
+
+```
+source HTML files           partials
+(root / professional /      (assets/html/)
+ hobbies / projects)              │
+        │                         │
+        └──────────┬──────────────┘
+                   ▼
+               build.py
+           inject_partials()
+    highlight_current_pages()
+         [minify if prod]
+                   │
+                   ▼
+                _site/
+               (served by Netlify)
 ```
 
 Re-generate the image tags in the HTML files with responsive webp thumbnails.

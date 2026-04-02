@@ -234,3 +234,39 @@ def test_build_clean_false_preserves_extra_files(tmp_path):
 
     assert (out / "index.html").exists()
     assert (out / "survivor.txt").read_text() == "I should survive"
+
+
+def test_render_html_file(tmp_path):
+    """render_html_file renders a single page with partials injected."""
+    src = tmp_path / "src"
+    out = tmp_path / "_site"
+    out.mkdir()
+    (src / "assets" / "html").mkdir(parents=True)
+
+    for name in ["header.html", "navbar.html", "side_menu.html", "footer.html"]:
+        (src / "assets" / "html" / name).write_text("<div>x</div>")
+
+    page = src / "index.html"
+    page.write_text(
+        '<!doctype html><html><body><div id="navbar"></div></body></html>'
+    )
+
+    partials_dir = src / "assets" / "html"
+    cache = {
+        name: (partials_dir / name).read_text()
+        for name in build.PARTIAL_NAMES
+        if (partials_dir / name).exists()
+    }
+
+    build.render_html_file(
+        src_file=page,
+        src_dir=src,
+        out_dir=out,
+        partials_dir=partials_dir,
+        cache=cache,
+        minify=False,
+    )
+
+    output = (out / "index.html").read_text()
+    soup = BeautifulSoup(output, "html.parser")
+    assert soup.find(id="navbar").find("div") is not None

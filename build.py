@@ -164,6 +164,25 @@ def minify_text_assets(out_dir: pathlib.Path) -> None:
         js_file.write_text(rjsmin.jsmin(js_file.read_text()))
 
 
+def render_html_file(
+    src_file: pathlib.Path,
+    src_dir: pathlib.Path,
+    out_dir: pathlib.Path,
+    partials_dir: pathlib.Path,
+    cache: dict[str, str],
+    minify: bool = False,
+) -> None:
+    """Render a single HTML source file with partials injected."""
+    rel = src_file.relative_to(src_dir)
+    dst = out_dir / rel
+    dst.parent.mkdir(parents=True, exist_ok=True)
+    html = src_file.read_text()
+    html = inject_partials(html, rel, partials_dir=partials_dir, cache=cache)
+    if minify:
+        html = minify_html.minify(html, minify_js=True, minify_css=True)
+    dst.write_text(html)
+
+
 def build(
     minify: bool = False,
     clean: bool = True,
@@ -187,14 +206,14 @@ def build(
     }
 
     for src_file in get_source_html_files(src_dir=src_dir):
-        rel = src_file.relative_to(src_dir)
-        dst = out_dir / rel
-        dst.parent.mkdir(parents=True, exist_ok=True)
-        html = src_file.read_text()
-        html = inject_partials(html, rel, partials_dir=partials_dir, cache=cache)
-        if minify:
-            html = minify_html.minify(html, minify_js=True, minify_css=True)
-        dst.write_text(html)
+        render_html_file(
+            src_file=src_file,
+            src_dir=src_dir,
+            out_dir=out_dir,
+            partials_dir=partials_dir,
+            cache=cache,
+            minify=minify,
+        )
 
     if minify:
         minify_text_assets(out_dir=out_dir)

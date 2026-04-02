@@ -44,15 +44,51 @@
           <h3>Depth</h3>
           <p>
             Working as a staff software engineer on a newly formed team to build
-            a new AI PostgreSQL extension, I learned an incredible amount about
-            database internals and machine learning applications. My main focus
-            was developing the tooling to allow users to prepare data and invoke
-            machine learning model workloads directly from the database layer.
+            a new AI PostgreSQL extension in Rust, I learned an incredible
+            amount about database internals and machine learning applications. I
+            authored the data preprocessing SDK that lets applications process
+            unstructured data from native Postgres tables or any S3-compatible
+            volume, eliminating separate ETL processes for operations like
+            chunking, HTML parsing, and OCR. I also automated our GitHub CI/CD
+            and caching for Rust testing and packaging, which made a real
+            difference for code reliability and developer experience across the
+            team.
           </p>
         </div>
       </div>
       <hr class="mobile-only" />
       <div class="row row--1fr-1fr">
+        <div class="row__media">
+          <img
+            srcset="
+              /images/professional/enterprisedb/2024_london_meeting-400_w.webp   400w,
+              /images/professional/enterprisedb/2024_london_meeting-800_w.webp   800w,
+              /images/professional/enterprisedb/2024_london_meeting-1600_w.webp 1600w,
+              /images/professional/enterprisedb/2024_london_meeting-2400_w.webp 2400w
+            "
+            sizes="(max-width: 980px) 100vw, 55vw"
+            loading="lazy"
+            decoding="async"
+            src="/images/professional/enterprisedb/2024_london_meeting-2400_w.webp"
+            alt="EnterpriseDB"
+          />
+        </div>
+        <div class="row__text">
+          <h3>Architecture</h3>
+          <p>
+            I built a model registry that allows users to call LLMs via SQL and
+            developed an authentication framework using Postgres FDW user
+            mappings to enable multi-user access to AI models. As these features
+            grew, I architected a generic multistep Pipeline framework to
+            orchestrate complex workflows and later, a dead letter queue system
+            to log and retry errors in pipeline steps for better traceability. I
+            also refactored Rust cloning, static dispatch, and take-by-value
+            patterns to reduce the extension's memory usage.
+          </p>
+        </div>
+      </div>
+      <hr class="mobile-only" />
+      <div class="row row--1fr-1fr row--reverse_on_desktop">
         <div class="row__media">
           <iframe
             class="video-embed"
@@ -75,10 +111,13 @@
         <div class="row__text">
           <h3>Leadership</h3>
           <p>
-            It was amazing to present at community events to educate about using
-            Rust to build performant applications and Postgres extensions.
-            Meeting like-minded contributors and sharing my personal and
-            professional projects was immensely fulfilling.
+            I mentored engineers on Rust performance and best practices and led
+            a team to implement the generic pipeline step interface and
+            multi-step orchestration APIs. It was amazing to present at
+            community events to educate about using Rust to build performant
+            applications and Postgres extensions. Meeting like-minded
+            contributors and sharing my personal and professional projects was
+            immensely fulfilling.
           </p>
         </div>
       </div>

@@ -245,30 +245,75 @@ def watch(
     """Run a dev build then start a live reload server watching for changes."""
     from livereload import Server
 
-    def rebuild() -> None:
-        print("Rebuilding...")
-        build(minify=minify, src_dir=src_dir, out_dir=out_dir)
+    # Initial clean build
+    build(minify=minify, clean=True, src_dir=src_dir, out_dir=out_dir)
+
+    partials_dir = src_dir / "assets" / "html"
+    cache: dict[str, str] = {
+        name: (partials_dir / name).read_text()
+        for name in PARTIAL_NAMES
+        if (partials_dir / name).exists()
+    }
+
+    def rebuild_page(src_file: pathlib.Path) -> None:
+        """Re-render a single source page using the cached partials."""
+        print(f"Rebuilding {src_file.relative_to(src_dir)}...")
+        render_html_file(
+            src_file=src_file,
+            src_dir=src_dir,
+            out_dir=out_dir,
+            partials_dir=partials_dir,
+            cache=cache,
+            minify=minify,
+        )
         print("Done.")
 
-    rebuild()
+    def rebuild_all_html() -> None:
+        """Refresh partial cache and re-render all HTML pages."""
+        print("Partial changed, rebuilding all HTML...")
+        cache.clear()
+        cache.update({
+            name: (partials_dir / name).read_text()
+            for name in PARTIAL_NAMES
+            if (partials_dir / name).exists()
+        })
+        for src_file in get_source_html_files(src_dir=src_dir):
+            render_html_file(
+                src_file=src_file,
+                src_dir=src_dir,
+                out_dir=out_dir,
+                partials_dir=partials_dir,
+                cache=cache,
+                minify=minify,
+            )
+        print("Done.")
+
+    def on_asset_change(src_file: pathlib.Path) -> None:
+        """Copy a single changed CSS/JS file to output."""
+        print(f"Copying {src_file.relative_to(src_dir)}...")
+        copy_changed_asset(
+            src_file=src_file, src_dir=src_dir, out_dir=out_dir, minify=minify,
+        )
+        print("Done.")
 
     server = Server()
 
-    # Watch all source HTML files
+    # Source page changes -> rebuild just that page
     for f in get_source_html_files(src_dir=src_dir):
-        server.watch(str(f), rebuild)
+        filepath = f  # bind for closure
+        server.watch(str(filepath), lambda fp=filepath: rebuild_page(fp))
 
-    # Watch all partials
+    # Partial changes -> rebuild all HTML
     for f in (src_dir / "assets" / "html").glob("*.html"):
-        server.watch(str(f), rebuild)
+        server.watch(str(f), rebuild_all_html)
 
-    # Watch CSS
+    # CSS/JS changes -> copy single file
     for f in (src_dir / "assets" / "css").rglob("*.css"):
-        server.watch(str(f), rebuild)
-
-    # Watch JS
+        filepath = f
+        server.watch(str(filepath), lambda fp=filepath: on_asset_change(fp))
     for f in (src_dir / "assets" / "js").rglob("*.js"):
-        server.watch(str(f), rebuild)
+        filepath = f
+        server.watch(str(filepath), lambda fp=filepath: on_asset_change(fp))
 
     server.serve(root=str(out_dir), port=8080, open_url_delay=1)
 

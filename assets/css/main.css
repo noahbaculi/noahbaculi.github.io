@@ -13,7 +13,7 @@
 
   /* Brand colors — unchanged in dark mode */
   --color-blue: #145c9e;
-  --color-mint: #708b75;
+  --color-mint: #5a7560;
   --color-graphite: #363636;
   --color-dark-blue: #062d3e;
   --color-darker-blue: #041c27;
@@ -22,6 +22,7 @@
 
   /* Themeable tokens — light values */
   --color-navbar-link: #4f4f4f;
+  --color-navbar-link-current: #767676;
   --color-blue-text: #0b4f6c;
   --color-bg: #ffffff;
   --color-bg-footer: #f6f6f6;
@@ -46,6 +47,7 @@
 [data-theme="dark"] {
   color-scheme: dark;
   --color-navbar-link: #e2e8f0;
+  --color-navbar-link-current: #9ca3af;
   --color-blue-text: #6fa0d8;
   --color-bg: #1e1e22;
   --color-bg-footer: #16161a;
@@ -72,6 +74,7 @@
   :root:not([data-theme="light"]) {
     color-scheme: dark;
     --color-navbar-link: #e2e8f0;
+    --color-navbar-link-current: #9ca3af;
     --color-blue-text: #6fa0d8;
     --color-bg: #1e1e22;
     --color-bg-footer: #16161a;
@@ -438,8 +441,9 @@ table {
   border-bottom: 0;
 }
 
-.current-page {
-  opacity: 0.5;
+#navbar a.current-page,
+#subnavbar a.current-page {
+  color: var(--color-navbar-link-current);
 }
 
 /* ---- Footer ---- */

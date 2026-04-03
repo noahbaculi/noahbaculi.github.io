@@ -244,8 +244,13 @@ h2.subpage {
   margin: 4rem 0;
 }
 
-h5.subpage {
+.subpage-subtitle {
+  font-size: large;
   margin: 0 0 4rem 0;
+}
+
+.learn-more-link {
+  font-size: large;
 }
 
 @media screen and (max-width: 736px) {
@@ -927,18 +932,16 @@ div.project-card {
     max-width: 100%;
   }
 
-  & > div > h5 {
+  & .project-card__title {
     margin-bottom: 0.5rem;
     font-size: large;
+    font-weight: bold;
   }
 }
 div.project-card {
   max-width: min(20rem, 45svw);
   display: flex;
   flex-direction: column;
-}
-div.project-card h5 {
-  font-weight: bold;
 }
 div.project-card > div {
   padding: 0 1.25rem 1.25rem 1.25rem;

@@ -307,8 +307,10 @@ def watch(
 
     # Source page changes -> rebuild just that page
     for f in get_source_html_files(src_dir=src_dir):
-        filepath = f  # bind for closure
-        server.watch(str(filepath), lambda fp=filepath: rebuild_page(fp))
+        def _rebuild_page(fp=f):
+            rebuild_page(fp)
+        _rebuild_page.__name__ = f"rebuild:{f.relative_to(src_dir)}"
+        server.watch(str(f), _rebuild_page)
 
     # Partial changes -> rebuild all HTML
     for f in (src_dir / "assets" / "html").glob("*.html"):
@@ -316,11 +318,15 @@ def watch(
 
     # CSS/JS changes -> copy single file
     for f in (src_dir / "assets" / "css").rglob("*.css"):
-        filepath = f
-        server.watch(str(filepath), lambda fp=filepath: on_asset_change(fp))
+        def _sync_asset(fp=f):
+            on_asset_change(fp)
+        _sync_asset.__name__ = f"sync_asset:{f.relative_to(src_dir)}"
+        server.watch(str(f), _sync_asset)
     for f in (src_dir / "assets" / "js").rglob("*.js"):
-        filepath = f
-        server.watch(str(filepath), lambda fp=filepath: on_asset_change(fp))
+        def _sync_asset(fp=f):
+            on_asset_change(fp)
+        _sync_asset.__name__ = f"sync_asset:{f.relative_to(src_dir)}"
+        server.watch(str(f), _sync_asset)
 
     # Image changes -> sync entire images directory
     def sync_images() -> None:
@@ -334,7 +340,8 @@ def watch(
 
     server.watch(str(src_dir / "images"), sync_images)
 
-    server.serve(root=str(out_dir), port=8080, open_url_delay=1)
+    print(f"Dev server running at http://localhost:8080")
+    server.serve(root=str(out_dir), port=8080, open_url_delay=None)
 
 
 def main() -> None:

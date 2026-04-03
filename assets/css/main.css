@@ -1562,6 +1562,11 @@ form[name="contact"] table {
   border-spacing: 0 0.9rem;
 }
 
+form[name="contact"] tbody tr,
+form[name="contact"] tbody tr:nth-child(2n + 1) {
+  background-color: transparent;
+}
+
 form[name="contact"] td {
   vertical-align: top;
 }

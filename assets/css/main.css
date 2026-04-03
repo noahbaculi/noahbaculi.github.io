@@ -1578,7 +1578,7 @@ form[name="contact"] label {
 }
 
 /* Inputs */
-form[name="contact"] input[type="text"],
+form[name="contact"] input:not([type]),
 form[name="contact"] input[type="email"],
 form[name="contact"] textarea {
   width: 100%;
@@ -1604,23 +1604,11 @@ form[name="contact"] textarea::placeholder {
   color: var(--form-muted);
 }
 
-form[name="contact"] input[type="text"]:focus-visible,
+form[name="contact"] input:not([type]):focus-visible,
 form[name="contact"] input[type="email"]:focus-visible,
 form[name="contact"] textarea:focus-visible {
   border-color: var(--form-focus);
   box-shadow: 0 0 0 4px var(--color-focus-ring);
-}
-
-form[name="contact"] td:nth-child(2) input[type="checkbox"] {
-  margin: 0.2rem 0.6rem 0 0;
-  vertical-align: top;
-}
-form[name="contact"] td:nth-child(2) input[type="checkbox"] + label {
-  font-weight: 500;
-  color: var(--form-text);
-}
-form[name="contact"] td:nth-child(2) br {
-  line-height: 1.7;
 }
 
 /* Submit */
@@ -1671,10 +1659,6 @@ form[name="contact"] .check-row {
   align-items: center;
   gap: 0.55rem;
   margin: 0.35rem 0;
-}
-
-form[name="contact"] .check-row input[type="checkbox"] {
-  margin: 0;
 }
 
 form[name="contact"] .check-row label {

@@ -917,11 +917,13 @@ div.full-section-btn {
 /* Project cards */
 div.tiles-or-card-row {
   display: grid;
-  grid-template-columns: repeat(auto-fill, min(20rem, 45svw));
+  grid-template-columns: repeat(auto-fill, min(20em, 45svw));
   justify-content: center;
   gap: 1vh;
 }
 div.project-card {
+  max-width: min(20rem, 45svw);
+  margin: auto;
   border: 1px solid var(--color-border);
   border-radius: 0.5rem;
   box-shadow: 0 2px 8px 0 var(--color-shadow);

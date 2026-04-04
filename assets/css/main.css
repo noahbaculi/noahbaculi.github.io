@@ -916,9 +916,8 @@ div.full-section-btn {
 
 /* Project cards */
 div.tiles-or-card-row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: stretch;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, min(20rem, 45svw));
   justify-content: center;
   gap: 1vh;
 }
@@ -927,6 +926,9 @@ div.project-card {
   border-radius: 0.5rem;
   box-shadow: 0 2px 8px 0 var(--color-shadow);
   overflow: hidden;
+  display: grid;
+  grid-row: span 5;
+  grid-template-rows: subgrid;
 
   & a > img {
     max-width: 100%;
@@ -934,26 +936,21 @@ div.project-card {
 
   & .project-card__title {
     margin-bottom: 0.5rem;
-    font-size: large;
     font-weight: bold;
   }
 }
-div.project-card {
-  max-width: min(20rem, 45svw);
-  display: flex;
-  flex-direction: column;
-}
 div.project-card > div {
   padding: 0 1.25rem 1.25rem 1.25rem;
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
+  display: grid;
+  grid-row: span 4;
+  grid-template-rows: subgrid;
+  gap: 0;
 
   @media screen and (max-width: 480px) {
     padding: 0 0.5rem 0.5rem 0.5rem;
   }
 }
-div.project-card > div > p {
+div.project-card__text > p {
   margin: 0.4em 0 0.75em 0;
   line-height: 1.5;
   color: var(--color-text-secondary);
@@ -1020,7 +1017,7 @@ div.professional-more-btn {
 }
 
 div.project-card__more-btn {
-  margin-top: auto;
+  align-content: center;
   justify-content: center;
 }
 

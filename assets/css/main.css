@@ -920,17 +920,6 @@ div.tiles-or-card-row {
   grid-template-columns: repeat(auto-fill, min(20rem, 45svw));
   justify-content: center;
   gap: 1vh;
-
-  /* Center incomplete last rows. nth-child(Xn+1) matches the first card
-     in a new row for an X-column layout. :last-child or :nth-last-child(2)
-     ensures it only fires when the row isn't full.
-     Update 3n/2n if the column count changes. */
-  & > .project-card:last-child:nth-child(3n + 1),
-  & > .project-card:last-child:nth-child(2n + 1) {
-    grid-column: 1 / -1;
-    justify-self: center;
-    width: min(20rem, 45svw);
-  }
 }
 div.project-card {
   border: 1px solid var(--color-border);

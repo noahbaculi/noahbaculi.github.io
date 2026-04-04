@@ -1002,6 +1002,14 @@ div.project-card__tech-used {
     }
   }
 }
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) img[src*="rust.svg"],
+  :root:not([data-theme="light"]) img[src*="cube.svg"] {
+    filter: invert(1) brightness(0.85);
+  }
+}
+
 div.project-card__end-logo {
   display: flex;
   justify-content: flex-end;

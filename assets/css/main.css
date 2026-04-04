@@ -927,7 +927,7 @@ div.project-card {
   box-shadow: 0 2px 8px 0 var(--color-shadow);
   overflow: hidden;
   display: grid;
-  grid-row: span 5;
+  grid-row: span 4;
   grid-template-rows: subgrid;
 
   & a > img {
@@ -942,7 +942,7 @@ div.project-card {
 div.project-card > div {
   padding: 0 1.25rem 1.25rem 1.25rem;
   display: grid;
-  grid-row: span 4;
+  grid-row: span 3;
   grid-template-rows: subgrid;
   gap: 0;
 
@@ -990,6 +990,11 @@ div.project-card__tech-used {
       max-height: 1.5em;
     }
   }
+}
+
+[data-theme="dark"] img[src*="rust.svg"],
+[data-theme="dark"] img[src*="cube.svg"] {
+  filter: invert(1) brightness(0.85);
 }
 
 @media (prefers-color-scheme: dark) {

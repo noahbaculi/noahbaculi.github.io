@@ -1,132 +1,161 @@
 <header id="side-menu-btn">
-  <div class="inner">
-    <!-- Nav -->
-    <nav>
-      <ul>
-        <li><a href="#menu">Menu</a></li>
-      </ul>
-    </nav>
-  </div>
-</header>
-<!-- Menu -->
-<nav id="menu">
-  <button class="theme-toggle-btn" aria-label="Toggle dark mode">
-    <svg
-      class="icon-sun"
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="#e8a020"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    >
-      <circle cx="12" cy="12" r="5" fill="#e8a020" fill-opacity="0.2"></circle>
-      <line x1="12" y1="1" x2="12" y2="3"></line>
-      <line x1="12" y1="21" x2="12" y2="23"></line>
-      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-      <line x1="1" y1="12" x2="3" y2="12"></line>
-      <line x1="21" y1="12" x2="23" y2="12"></line>
-      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-    </svg>
-    <svg
-      class="icon-moon"
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="#4b7bec"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    >
-      <path
-        d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
-        fill="#4b7bec"
-        fill-opacity="0.15"
-      ></path>
-    </svg>
+  <button type="button" class="hamburger-btn" aria-label="Open menu">
+    <span class="hamburger-bar"></span>
+    <span class="hamburger-bar"></span>
+    <span class="hamburger-bar"></span>
   </button>
-  <div class="inner">
-    <h2>Menu</h2>
-    <ul>
-      <li><a href="/index.html" class="index">Home</a></li>
-      <li class="dropdown_row">
-        <a href="/professional/index.html" class="professional">Professional</a>
-        <div class="dropdown">
-          <img
-            srcset="/images/icons/icon_drop_down-50_w.webp 50w"
-            sizes="1.125em"
-            loading="lazy"
-            decoding="async"
-            src="/images/icons/icon_drop_down.png"
-            class="dropdown-icon"
-            alt="Dropdown"
-          />
-          <div class="dropdown-content">
-            <div class="dropdown-container">
-              <a href="/professional/enterprisedb.html" class="enterprisedb">
-                EnterpriseDB
-              </a>
-              <a href="/professional/carium.html" class="carium">Carium</a>
-              <a href="/professional/aldras.html" class="aldras">Aldras</a>
-              <a href="/professional/asme.html" class="asme">ASME</a>
-              <a href="/professional/trane.html" class="trane">Trane</a>
-              <a href="/professional/itw.html" class="itw">ITW</a>
-              <a href="/professional/caffinator.html" class="caffinator">
-                Caffinator
-              </a>
-              <a href="/professional/nanofluidics.html" class="nanofluidics">
-                Nanofluidics
-              </a>
-              <a href="/professional/science-camp.html" class="science-camp">
-                Science Camp
-              </a>
-            </div>
-            <br />
-          </div>
-        </div>
-      </li>
-      <li>
-        <a href="/projects/index.html" class="projects">Projects</a>
-      </li>
-      <li class="dropdown_row">
-        <a href="/hobbies/index.html" class="hobbies">Hobbies</a>
-        <div class="dropdown">
-          <img
-            srcset="/images/icons/icon_drop_down-50_w.webp 50w"
-            sizes="1.125em"
-            loading="lazy"
-            decoding="async"
-            src="/images/icons/icon_drop_down.png"
-            class="dropdown-icon"
-            alt="Dropdown"
-          />
-          <div class="dropdown-content">
-            <div class="dropdown-container">
-              <a href="/hobbies/music.html" class="music">Music</a>
-              <a href="/hobbies/travel.html" class="travel">Travel</a>
-              <a href="/hobbies/diy.html" class="diy">DIY</a>
-              <a href="/hobbies/tech.html" class="tech">Tech</a>
-            </div>
-            <br />
-          </div>
-        </div>
-      </li>
-      <li><a href="/contact.html" class="contact">Contact</a></li>
-      <!-- <li style="padding-top: 3em">Other Projects</li> -->
-      <!-- <li> -->
-      <!--   <a href="/projects/doc-tool.html" target="_blank" class="project-item" -->
-      <!--     >📄 Document Modifier</a -->
-      <!--   > -->
-      <!-- </li> -->
-      <!-- <li> -->
-      <!--   <a href="https://magspics.com/" target="_blank" class="project-item" -->
-      <!--     >📷 Maggie Photo Portfolio</a -->
-      <!--   > -->
-      <!-- </li> -->
-    </ul>
+</header>
+<nav id="menu" aria-hidden="true">
+  <div class="menu-top-bar">
+    <button type="button" class="menu-close-btn" aria-label="Close menu">
+      <svg
+        width="18"
+        height="18"
+        viewBox="0 0 18 18"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+      >
+        <line x1="2" y1="2" x2="16" y2="16" />
+        <line x1="16" y1="2" x2="2" y2="16" />
+      </svg>
+    </button>
+    <button
+      type="button"
+      class="theme-toggle-btn"
+      aria-label="Toggle dark mode"
+    >
+      <svg
+        class="icon-sun"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="#e8a020"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <circle
+          cx="12"
+          cy="12"
+          r="5"
+          fill="#e8a020"
+          fill-opacity="0.2"
+        ></circle>
+        <line x1="12" y1="1" x2="12" y2="3"></line>
+        <line x1="12" y1="21" x2="12" y2="23"></line>
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+        <line x1="1" y1="12" x2="3" y2="12"></line>
+        <line x1="21" y1="12" x2="23" y2="12"></line>
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+      </svg>
+      <svg
+        class="icon-moon"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="#4b7bec"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path
+          d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
+          fill="#4b7bec"
+          fill-opacity="0.15"
+        ></path>
+      </svg>
+    </button>
   </div>
-  <a class="close" href="#menu">Close</a>
+  <ul class="menu-nav">
+    <li class="menu-nav-item">
+      <a href="/index.html" class="index">Home</a>
+    </li>
+    <li class="menu-nav-item menu-nav-item--expandable">
+      <div class="menu-nav-row">
+        <a href="/professional/index.html" class="professional">Professional</a>
+        <button
+          type="button"
+          class="menu-chevron-btn"
+          aria-label="Show Professional sub-pages"
+          aria-expanded="false"
+        >
+          <svg
+            width="12"
+            height="8"
+            viewBox="0 0 12 8"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <polyline points="1,1 6,6 11,1" />
+          </svg>
+        </button>
+      </div>
+      <div class="menu-sublinks" hidden>
+        <div class="menu-sublinks-inner">
+          <a href="/professional/enterprisedb.html" class="enterprisedb"
+            >EnterpriseDB</a
+          >
+          <a href="/professional/carium.html" class="carium">Carium</a>
+          <a href="/professional/aldras.html" class="aldras">Aldras</a>
+          <a href="/professional/asme.html" class="asme">ASME</a>
+          <a href="/professional/trane.html" class="trane">Trane</a>
+          <a href="/professional/itw.html" class="itw">ITW</a>
+          <a href="/professional/caffinator.html" class="caffinator"
+            >Caffinator</a
+          >
+          <a href="/professional/nanofluidics.html" class="nanofluidics"
+            >Nanofluidics</a
+          >
+          <a href="/professional/science-camp.html" class="science-camp"
+            >Science Camp</a
+          >
+        </div>
+      </div>
+    </li>
+    <li class="menu-nav-item">
+      <a href="/projects/index.html" class="projects">Projects</a>
+    </li>
+    <li class="menu-nav-item menu-nav-item--expandable">
+      <div class="menu-nav-row">
+        <a href="/hobbies/index.html" class="hobbies">Hobbies</a>
+        <button
+          type="button"
+          class="menu-chevron-btn"
+          aria-label="Show Hobbies sub-pages"
+          aria-expanded="false"
+        >
+          <svg
+            width="12"
+            height="8"
+            viewBox="0 0 12 8"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <polyline points="1,1 6,6 11,1" />
+          </svg>
+        </button>
+      </div>
+      <div class="menu-sublinks" hidden>
+        <div class="menu-sublinks-inner">
+          <a href="/hobbies/music.html" class="music">Music</a>
+          <a href="/hobbies/travel.html" class="travel">Travel</a>
+          <a href="/hobbies/diy.html" class="diy">DIY</a>
+          <a href="/hobbies/tech.html" class="tech">Tech</a>
+        </div>
+      </div>
+    </li>
+    <li class="menu-nav-item">
+      <a href="/contact.html" class="contact">Contact</a>
+    </li>
+  </ul>
 </nav>

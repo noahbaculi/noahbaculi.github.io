@@ -85,72 +85,126 @@ function initMenu() {
   const menu = document.getElementById("menu");
   if (!menu) return;
 
-  let menuLocked = false;
-
-  function lockMenu() {
-    if (menuLocked) return false;
-    menuLocked = true;
-    window.setTimeout(function () {
-      menuLocked = false;
-    }, 350);
-    return true;
-  }
+  const hamburgerBtn = document.querySelector(".hamburger-btn");
+  const closeBtn = menu.querySelector(".menu-close-btn");
+  const chevronBtns = menu.querySelectorAll(".menu-chevron-btn");
+  const navLinks = menu.querySelectorAll(
+    ".menu-nav-item > a, .menu-nav-row > a, .menu-sublinks a",
+  );
 
   function showMenu() {
-    if (lockMenu()) body.classList.add("is-menu-visible");
+    body.classList.add("is-menu-visible");
+    body.style.overflow = "hidden";
+    menu.setAttribute("aria-hidden", "false");
+    autoExpandCurrentSection();
+    closeBtn.focus();
   }
 
   function hideMenu() {
-    if (lockMenu()) body.classList.remove("is-menu-visible");
+    body.classList.remove("is-menu-visible");
+    body.style.overflow = "";
+    menu.setAttribute("aria-hidden", "true");
+    collapseAllSections();
+    hamburgerBtn.focus();
   }
 
-  function toggleMenu() {
-    if (lockMenu()) body.classList.toggle("is-menu-visible");
+  function collapseAllSections() {
+    chevronBtns.forEach(function (btn) {
+      btn.setAttribute("aria-expanded", "false");
+      var sublinks = btn
+        .closest(".menu-nav-item--expandable")
+        .querySelector(".menu-sublinks");
+      sublinks.hidden = true;
+      sublinks.style.maxHeight = "0";
+    });
   }
 
-  // Menu click handling
-  menu.addEventListener("click", function (event) {
-    event.stopPropagation();
+  function expandSection(btn) {
+    var item = btn.closest(".menu-nav-item--expandable");
+    var sublinks = item.querySelector(".menu-sublinks");
+    btn.setAttribute("aria-expanded", "true");
+    sublinks.hidden = false;
+    sublinks.style.maxHeight = sublinks.scrollHeight + "px";
+  }
+
+  function toggleSection(btn) {
+    var isExpanded = btn.getAttribute("aria-expanded") === "true";
+
+    // Collapse all first (accordion behavior)
+    collapseAllSections();
+
+    if (!isExpanded) {
+      expandSection(btn);
+    }
+  }
+
+  function autoExpandCurrentSection() {
+    chevronBtns.forEach(function (btn) {
+      var item = btn.closest(".menu-nav-item--expandable");
+      var sublinks = item.querySelector(".menu-sublinks");
+      if (sublinks.querySelector(".current-page")) {
+        expandSection(btn);
+      }
+    });
+  }
+
+  // Focus trap: Tab cycles through interactive elements inside the menu
+  function trapFocus(event) {
+    if (event.key !== "Tab") return;
+    var focusable = menu.querySelectorAll("button, a[href]");
+    if (focusable.length === 0) return;
+    var first = focusable[0];
+    var last = focusable[focusable.length - 1];
+
+    if (event.shiftKey) {
+      if (document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      }
+    } else {
+      if (document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    }
+  }
+
+  // Hamburger opens menu
+  if (hamburgerBtn) {
+    hamburgerBtn.addEventListener("click", showMenu);
+  }
+
+  // Close button
+  closeBtn.addEventListener("click", hideMenu);
+
+  // Chevron buttons toggle sub-links
+  chevronBtns.forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      toggleSection(btn);
+    });
   });
 
-  menu.addEventListener("click", function (event) {
-    const target = event.target.closest("a");
-    if (!target) return;
-
-    const href = target.getAttribute("href");
-    event.preventDefault();
-    event.stopPropagation();
-
-    hideMenu();
-
-    if (href === "#menu") return;
-
-    window.setTimeout(function () {
-      window.location.href = href;
-    }, 350);
+  // Nav link clicks: hide menu then navigate
+  navLinks.forEach(function (link) {
+    link.addEventListener("click", function (event) {
+      event.preventDefault();
+      var href = link.getAttribute("href");
+      hideMenu();
+      window.setTimeout(function () {
+        window.location.href = href;
+      }, 300);
+    });
   });
 
-  // Menu toggle button
-  document.body.addEventListener("click", function (event) {
-    const target = event.target.closest('a[href="#menu"]');
-    if (!target) return;
-
-    event.stopPropagation();
-    event.preventDefault();
-    toggleMenu();
-  });
-
-  // Click outside menu to close
-  document.body.addEventListener("click", function () {
-    if (body.classList.contains("is-menu-visible")) {
+  // Escape key closes menu
+  document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape" && body.classList.contains("is-menu-visible")) {
       hideMenu();
     }
   });
 
-  // Escape key to close menu
-  document.body.addEventListener("keydown", function (event) {
-    if (event.keyCode === 27) hideMenu();
-  });
+  // Focus trap while menu is open
+  menu.addEventListener("keydown", trapFocus);
 }
 
 // Image modal

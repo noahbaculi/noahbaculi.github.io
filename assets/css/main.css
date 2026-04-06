@@ -1290,6 +1290,10 @@ body.is-menu-visible #menu {
   visibility: visible;
 }
 
+html:has(body.is-menu-visible) {
+  overflow: hidden;
+}
+
 /* ===== Top Bar (Close + Theme Toggle) ===== */
 
 .menu-top-bar {

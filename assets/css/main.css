@@ -256,7 +256,7 @@ h2.subpage {
   font-size: large;
 }
 
-@media screen and (max-width: 736px) {
+@media screen and (max-width: 800px) {
   h2.subpage {
     padding-top: 0.2rem;
     padding-bottom: 0.2rem;
@@ -380,13 +380,13 @@ table {
   display: none;
 }
 
-@media (max-width: 980px) {
+@media (max-width: 800px) {
   .mobile-only {
     display: revert;
   }
 }
 
-@media (min-width: 981px) {
+@media (min-width: 801px) {
   .desktop-only {
     display: revert;
   }
@@ -407,7 +407,7 @@ table {
   top: 0;
   height: var(--navbar-height);
 }
-@media screen and (min-width: 981px) {
+@media screen and (min-width: 801px) {
   #navbar {
     display: flex;
     align-items: center;
@@ -762,13 +762,13 @@ div.full-section-btn {
   grid-template-areas: "media text";
 }
 
-@media (min-width: 737px) {
+@media (min-width: 801px) {
   .row--reverse_on_desktop {
     grid-template-areas: "text media";
   }
 }
 
-@media (max-width: 736px) {
+@media (max-width: 800px) {
   .row {
     grid-template-columns: 1fr;
     grid-template-areas:
@@ -809,7 +809,7 @@ div.full-section-btn {
   max-height: 75vh;
 }
 
-@media (max-width: 980px) {
+@media (max-width: 800px) {
   .fusion-embed {
     max-height: 55vh;
   }
@@ -866,7 +866,7 @@ div.full-section-btn {
   vertical-align: middle;
   width: 100%;
 }
-@media screen and (max-width: 736px) {
+@media screen and (max-width: 800px) {
   .image-gallery > .quarter-column {
     flex: 50%;
     max-width: 50%;
@@ -1224,7 +1224,7 @@ body.is-preload .affiliated-tiles-grid .affiliated-tile {
 }
 
 /* Hide hamburger on desktop where navbar is visible */
-@media screen and (min-width: 981px) {
+@media screen and (min-width: 801px) {
   #mobile-menu-btn {
     display: none;
   }

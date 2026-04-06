@@ -24,7 +24,7 @@
   }
 }
 
-@media screen and (max-width: 736px) {
+@media screen and (max-width: 800px) {
   :root {
     --header-height: 15%;
     --main-height: calc(100% - var(--header-height));
@@ -45,14 +45,14 @@ body {
   font-family: "Nunito", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-@media screen and (min-width: 737px) {
+@media screen and (min-width: 801px) {
   body,
   input,
   select {
     font-size: 11pt;
   }
 }
-@media screen and (max-width: 736px) {
+@media screen and (max-width: 800px) {
   body,
   input,
   select {
@@ -184,7 +184,7 @@ textarea {
   font-family: "Roboto Mono", monospace;
 }
 
-@media screen and (max-width: 736px) {
+@media screen and (max-width: 800px) {
   .header-grid {
     margin-top: 2vh;
     margin-bottom: 5vh;

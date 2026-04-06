@@ -189,7 +189,7 @@
   text-align: left;
 }
 
-@media screen and (max-width: 736px) {
+@media screen and (max-width: 800px) {
   .home-entrance-title {
     visibility: hidden !important;
     height: 0;

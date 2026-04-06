@@ -1469,11 +1469,6 @@ body.is-menu-visible .menu-nav-item:nth-child(5) {
   transform: rotate(180deg);
 }
 
-.menu-nav-item--expandable:has(.menu-chevron-btn[aria-expanded="true"])
-  .menu-nav-row
-  > a {
-  color: var(--color-accent);
-}
 
 /* ===== Sub-Links Container ===== */
 

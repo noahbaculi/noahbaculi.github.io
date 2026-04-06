@@ -56,7 +56,7 @@ def test_inject_partials_injects_navbar():
     html = """<!doctype html><html><body>
         <div id="headers"></div>
         <div id="navbar" class="desktop-only"></div>
-        <div id="side-menu"></div>
+        <div id="mobile-menu"></div>
         <footer id="footer"></footer>
     </body></html>"""
 
@@ -75,7 +75,7 @@ def test_inject_partials_professional_subnavbar():
         <div id="headers"></div>
         <div id="navbar"></div>
         <div id="subnavbar" class="desktop-only"></div>
-        <div id="side-menu"></div>
+        <div id="mobile-menu"></div>
         <footer id="footer"></footer>
     </body></html>"""
 
@@ -93,7 +93,7 @@ def test_highlight_nav_homepage():
             <li><a href="/index.html" class="index">Home</a></li>
             <li><a href="/professional/index.html" class="professional">Pro</a></li>
         </ul></div>
-        <div id="side-menu"></div>
+        <div id="mobile-menu"></div>
         <footer id="footer"></footer>
     </body></html>"""
 
@@ -113,7 +113,7 @@ def test_highlight_nav_professional_page():
             <li><a href="/index.html" class="index">Home</a></li>
             <li><a href="/professional/index.html" class="professional">Pro</a></li>
         </ul></div>
-        <div id="side-menu"><nav id="menu"><ul>
+        <div id="mobile-menu"><nav id="menu"><ul>
             <li><a href="/professional/enterprisedb.html" class="enterprisedb">EDB</a></li>
         </ul></nav></div>
         <footer id="footer"></footer>
@@ -135,7 +135,7 @@ def test_highlight_nav_professional_index():
             <li><a href="/index.html" class="index">Home</a></li>
             <li><a href="/professional/index.html" class="professional">Pro</a></li>
         </ul></div>
-        <div id="side-menu"></div>
+        <div id="mobile-menu"></div>
         <footer id="footer"></footer>
     </body></html>"""
 
@@ -156,7 +156,7 @@ def test_build_minifies_html_in_prod(tmp_path):
     (src / "assets" / "html").mkdir(parents=True)
 
     # Write minimal partials
-    for name in ["header.html", "navbar.html", "side_menu.html", "footer.html"]:
+    for name in ["header.html", "navbar.html", "mobile_menu.html", "footer.html"]:
         (src / "assets" / "html" / name).write_text("<div>x</div>")
 
     (src / "index.html").write_text(
@@ -177,7 +177,7 @@ def test_build_does_not_minify_in_dev(tmp_path):
     out = tmp_path / "_site"
     (src / "assets" / "html").mkdir(parents=True)
 
-    for name in ["header.html", "navbar.html", "side_menu.html", "footer.html"]:
+    for name in ["header.html", "navbar.html", "mobile_menu.html", "footer.html"]:
         (src / "assets" / "html" / name).write_text("<div>x</div>")
 
     content = "<!doctype html>\n<html>\n  <body>\n    <p>   hello   </p>\n  </body>\n</html>"
@@ -198,7 +198,7 @@ def test_minify_text_assets(tmp_path):
     (src / "assets" / "css").mkdir(parents=True)
     (src / "assets" / "js").mkdir(parents=True)
 
-    for name in ["header.html", "navbar.html", "side_menu.html", "footer.html"]:
+    for name in ["header.html", "navbar.html", "mobile_menu.html", "footer.html"]:
         (src / "assets" / "html" / name).write_text("<div>x</div>")
 
     (src / "assets" / "css" / "main.css").write_text("body  {  color:  red;  }\n\n")
@@ -222,7 +222,7 @@ def test_build_clean_false_preserves_extra_files(tmp_path):
     out.mkdir()
     (src / "assets" / "html").mkdir(parents=True)
 
-    for name in ["header.html", "navbar.html", "side_menu.html", "footer.html"]:
+    for name in ["header.html", "navbar.html", "mobile_menu.html", "footer.html"]:
         (src / "assets" / "html" / name).write_text("<div>x</div>")
 
     (src / "index.html").write_text("<!doctype html><html><body></body></html>")
@@ -243,7 +243,7 @@ def test_render_html_file(tmp_path):
     out.mkdir()
     (src / "assets" / "html").mkdir(parents=True)
 
-    for name in ["header.html", "navbar.html", "side_menu.html", "footer.html"]:
+    for name in ["header.html", "navbar.html", "mobile_menu.html", "footer.html"]:
         (src / "assets" / "html" / name).write_text("<div>x</div>")
 
     page = src / "index.html"

@@ -108,22 +108,39 @@ function initMenu() {
     hamburgerBtn.focus();
   }
 
+  function collapseSection(btn) {
+    btn.setAttribute("aria-expanded", "false");
+    var sublinks = btn
+      .closest(".menu-nav-item--expandable")
+      .querySelector(".menu-sublinks");
+
+    if (sublinks.hidden) return;
+
+    sublinks.style.maxHeight = "0";
+    sublinks.addEventListener(
+      "transitionend",
+      function (event) {
+        if (event.propertyName !== "max-height") return;
+        // Guard: don't hide if section was re-opened during transition
+        if (btn.getAttribute("aria-expanded") === "true") return;
+        sublinks.hidden = true;
+      },
+      { once: true },
+    );
+  }
+
   function collapseAllSections() {
-    chevronBtns.forEach(function (btn) {
-      btn.setAttribute("aria-expanded", "false");
-      var sublinks = btn
-        .closest(".menu-nav-item--expandable")
-        .querySelector(".menu-sublinks");
-      sublinks.hidden = true;
-      sublinks.style.maxHeight = "0";
-    });
+    chevronBtns.forEach(collapseSection);
   }
 
   function expandSection(btn) {
     var item = btn.closest(".menu-nav-item--expandable");
     var sublinks = item.querySelector(".menu-sublinks");
     btn.setAttribute("aria-expanded", "true");
+    sublinks.style.maxHeight = "0";
     sublinks.hidden = false;
+    // Reading scrollHeight forces layout commit at max-height: 0,
+    // ensuring a transition plays even on the first expand
     sublinks.style.maxHeight = sublinks.scrollHeight + "px";
   }
 

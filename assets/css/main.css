@@ -1225,7 +1225,7 @@ body.is-preload .affiliated-tiles-grid .affiliated-tile {
 
 /* Hide hamburger on desktop where navbar is visible */
 @media screen and (min-width: 981px) {
-  #side-menu-btn {
+  #mobile-menu-btn {
     display: none;
   }
 }
@@ -1722,7 +1722,7 @@ form[name="contact"] .check-row label {
   }
 }
 
-/* Side menu theme toggle */
+/* Mobile menu theme toggle */
 #menu > .theme-toggle-btn {
   position: absolute;
   top: 1em;

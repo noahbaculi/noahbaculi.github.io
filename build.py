@@ -44,7 +44,7 @@ EXCLUDED_DIRS = {
 PARTIAL_NAMES = (
     "header.html",
     "navbar.html",
-    "side_menu.html",
+    "mobile_menu.html",
     "footer.html",
     "top_professional.html",
     "top_projects.html",
@@ -112,7 +112,7 @@ def inject_partials(
 
     _inject("headers", "header.html")
     _inject("navbar", "navbar.html")
-    _inject("side-menu", "side_menu.html")
+    _inject("mobile-menu", "mobile_menu.html")
     _inject("footer", "footer.html")
     _inject("top_professional", "top_professional.html")
     _replace("top_projects", "top_projects.html")

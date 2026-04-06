@@ -1427,6 +1427,14 @@ body.is-menu-visible .menu-nav-item:nth-child(5) {
   gap: 12px;
 }
 
+.menu-nav-row::before {
+  content: "";
+  display: block;
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+}
+
 .menu-chevron-btn {
   width: 36px;
   height: 36px;

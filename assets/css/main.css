@@ -42,7 +42,14 @@
   --color-focus-border: #3b82f6;
   --color-accent: #4b7bec;
   --color-accent-bg: rgba(75, 123, 236, 0.08);
-  --color-menu-bg: var(--color-dark-blue);
+  --color-menu-bg: #eef2f7;
+  --color-menu-text: var(--color-text-primary);
+  --color-menu-text-muted: rgba(56, 56, 56, 0.65);
+  --color-menu-border: rgba(56, 56, 56, 0.18);
+  --color-menu-border-hover: rgba(56, 56, 56, 0.35);
+  --color-menu-chip-bg: rgba(56, 56, 56, 0.06);
+  --color-menu-chip-bg-hover: rgba(56, 56, 56, 0.1);
+  --color-menu-sublinks-bg: rgba(56, 56, 56, 0.08);
 }
 
 [data-theme="dark"] {
@@ -68,7 +75,14 @@
   --color-focus-border: #60a5fa;
   --color-accent: #6fa0d8;
   --color-accent-bg: rgba(111, 160, 216, 0.1);
-  --color-menu-bg: #0a0a0e;
+  --color-menu-bg: #0d1b2a;
+  --color-menu-text: white;
+  --color-menu-text-muted: rgba(255, 255, 255, 0.7);
+  --color-menu-border: rgba(255, 255, 255, 0.2);
+  --color-menu-border-hover: rgba(255, 255, 255, 0.4);
+  --color-menu-chip-bg: rgba(255, 255, 255, 0.08);
+  --color-menu-chip-bg-hover: rgba(255, 255, 255, 0.12);
+  --color-menu-sublinks-bg: rgba(255, 255, 255, 0.04);
 }
 
 /* Same values as [data-theme="dark"] above. Update both when changing dark colors. */
@@ -96,7 +110,14 @@
     --color-focus-border: #60a5fa;
     --color-accent: #6fa0d8;
     --color-accent-bg: rgba(111, 160, 216, 0.1);
-    --color-menu-bg: #0a0a0e;
+    --color-menu-bg: #0d1b2a;
+    --color-menu-text: white;
+    --color-menu-text-muted: rgba(255, 255, 255, 0.7);
+    --color-menu-border: rgba(255, 255, 255, 0.2);
+    --color-menu-border-hover: rgba(255, 255, 255, 0.4);
+    --color-menu-chip-bg: rgba(255, 255, 255, 0.08);
+    --color-menu-chip-bg-hover: rgba(255, 255, 255, 0.12);
+    --color-menu-sublinks-bg: rgba(255, 255, 255, 0.04);
   }
 }
 
@@ -1277,7 +1298,11 @@ body.is-preload .affiliated-tiles-grid .affiliated-tile {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  /* `safe center`: center when content fits, fall back to flex-start when it
+     overflows so the top items stay reachable via scroll. */
+  justify-content: safe center;
+  overflow-y: auto;
+  padding: 80px 0 40px;
   opacity: 0;
   visibility: hidden;
   transition:
@@ -1297,7 +1322,8 @@ html:has(body.is-menu-visible) {
 /* ===== Top Bar (Close + Theme Toggle) ===== */
 
 .menu-top-bar {
-  position: absolute;
+  /* Fixed (not absolute) so it stays pinned while #menu scrolls. */
+  position: fixed;
   top: 16px;
   left: 16px;
   right: 16px;
@@ -1312,9 +1338,9 @@ html:has(body.is-menu-visible) {
   height: 44px;
   padding: 0;
   border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid var(--color-menu-border);
   background: transparent;
-  color: white;
+  color: var(--color-menu-text);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -1324,7 +1350,7 @@ html:has(body.is-menu-visible) {
 
 .menu-close-btn:hover,
 .menu-top-bar .theme-toggle-btn:hover {
-  border-color: rgba(255, 255, 255, 0.4);
+  border-color: var(--color-menu-border-hover);
 }
 
 /* Theme toggle: show sun in light mode, moon in dark mode */
@@ -1403,7 +1429,7 @@ body.is-menu-visible .menu-nav-item:nth-child(5) {
   font-size: 22px;
   font-weight: 300;
   letter-spacing: 0.03em;
-  color: white;
+  color: var(--color-menu-text);
   text-decoration: none;
   border: 0;
 }
@@ -1441,8 +1467,8 @@ body.is-menu-visible .menu-nav-item:nth-child(5) {
   padding: 0;
   border: 0;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.08);
-  color: rgba(255, 255, 255, 0.5);
+  background: var(--color-menu-chip-bg);
+  color: var(--color-menu-text-muted);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -1452,7 +1478,7 @@ body.is-menu-visible .menu-nav-item:nth-child(5) {
 }
 
 .menu-chevron-btn:hover {
-  background: rgba(255, 255, 255, 0.12);
+  background: var(--color-menu-chip-bg-hover);
 }
 
 .menu-chevron-btn svg {
@@ -1469,7 +1495,6 @@ body.is-menu-visible .menu-nav-item:nth-child(5) {
   transform: rotate(180deg);
 }
 
-
 /* ===== Sub-Links Container ===== */
 
 .menu-sublinks {
@@ -1483,7 +1508,7 @@ body.is-menu-visible .menu-nav-item:nth-child(5) {
 }
 
 .menu-sublinks-inner {
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--color-menu-sublinks-bg);
   border-radius: 10px;
   padding: 6px 0;
   margin: 0 auto;
@@ -1495,13 +1520,13 @@ body.is-menu-visible .menu-nav-item:nth-child(5) {
   display: block;
   padding: 11px 16px;
   font-size: 15px;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--color-menu-text-muted);
   text-decoration: none;
   text-align: center;
 }
 
 .menu-sublinks a:hover {
-  color: white;
+  color: var(--color-menu-text);
 }
 
 .menu-sublinks .current-page {

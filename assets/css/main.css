@@ -1487,7 +1487,7 @@ body.is-menu-visible .menu-nav-item:nth-child(5) {
 
 /* Expanded state: chevron rotated, accent colors */
 .menu-chevron-btn[aria-expanded="true"] {
-  background: rgba(111, 160, 216, 0.15);
+  background: var(--color-accent-bg);
   color: var(--color-accent);
 }
 

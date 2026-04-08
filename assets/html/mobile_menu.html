@@ -1,5 +1,11 @@
 <header id="mobile-menu-btn">
-  <button type="button" class="hamburger-btn" aria-label="Open menu">
+  <button
+    type="button"
+    class="hamburger-btn"
+    aria-label="Open menu"
+    aria-expanded="false"
+    aria-controls="menu"
+  >
     <span class="hamburger-bar"></span>
     <span class="hamburger-bar"></span>
     <span class="hamburger-bar"></span>
@@ -21,6 +27,7 @@
         <line x1="16" y1="2" x2="2" y2="16" />
       </svg>
     </button>
+    <!-- Sun/moon icons use branded hex colors intentionally, not currentColor -->
     <button
       type="button"
       class="theme-toggle-btn"

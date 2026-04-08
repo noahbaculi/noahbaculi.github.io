@@ -88,21 +88,20 @@ function initMenu() {
   const hamburgerBtn = document.querySelector(".hamburger-btn");
   const closeBtn = menu.querySelector(".menu-close-btn");
   const chevronBtns = menu.querySelectorAll(".menu-chevron-btn");
-  const navLinks = menu.querySelectorAll(
-    ".menu-nav-item > a, .menu-nav-row > a, .menu-sublinks a",
-  );
   const focusable = menu.querySelectorAll("button, a[href]");
 
   function showMenu() {
     body.classList.add("is-menu-visible");
     menu.setAttribute("aria-hidden", "false");
+    if (hamburgerBtn) hamburgerBtn.setAttribute("aria-expanded", "true");
     autoExpandCurrentSection();
-    closeBtn.focus();
+    if (closeBtn) closeBtn.focus();
   }
 
   function hideMenu() {
     body.classList.remove("is-menu-visible");
     menu.setAttribute("aria-hidden", "true");
+    if (hamburgerBtn) hamburgerBtn.setAttribute("aria-expanded", "false");
     collapseAllSections();
     if (hamburgerBtn) hamburgerBtn.focus();
   }
@@ -189,24 +188,12 @@ function initMenu() {
   }
 
   // Close button
-  closeBtn.addEventListener("click", hideMenu);
+  if (closeBtn) closeBtn.addEventListener("click", hideMenu);
 
   // Chevron buttons toggle sub-links
   chevronBtns.forEach(function (btn) {
     btn.addEventListener("click", function () {
       toggleSection(btn);
-    });
-  });
-
-  // Nav link clicks: hide menu then navigate
-  navLinks.forEach(function (link) {
-    link.addEventListener("click", function (event) {
-      event.preventDefault();
-      var href = link.getAttribute("href");
-      hideMenu();
-      window.setTimeout(function () {
-        window.location.href = href;
-      }, 300);
     });
   });
 
@@ -219,6 +206,14 @@ function initMenu() {
 
   // Focus trap while menu is open
   menu.addEventListener("keydown", trapFocus);
+
+  // Close menu if viewport resizes into desktop width while menu is open
+  const desktopMQ = window.matchMedia("(min-width: 801px)");
+  desktopMQ.addEventListener("change", function (event) {
+    if (event.matches && body.classList.contains("is-menu-visible")) {
+      hideMenu();
+    }
+  });
 }
 
 // Image modal

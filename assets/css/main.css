@@ -1399,7 +1399,8 @@ body.is-menu-visible .menu-nav-item {
     transform 0.3s ease;
 }
 
-/* Stagger: each item delays 50ms more than the previous */
+/* Stagger: each item delays 50ms more than the previous.
+   Only covers 5 items — a 6th+ item would animate at 0ms with no stagger. */
 body.is-menu-visible .menu-nav-item:nth-child(1) {
   transition-delay: 0ms;
 }
@@ -1495,10 +1496,6 @@ body.is-menu-visible .menu-nav-item:nth-child(5) {
   overflow: hidden;
   max-height: 0;
   transition: max-height 0.3s ease;
-}
-
-.menu-sublinks:not([hidden]) {
-  max-height: 500px;
 }
 
 .menu-sublinks-inner {
@@ -1734,14 +1731,4 @@ form[name="contact"] .check-row label {
   :root:not([data-theme="light"]) .theme-toggle-btn .icon-moon {
     display: none;
   }
-}
-
-/* Mobile menu theme toggle */
-#menu > .theme-toggle-btn {
-  position: absolute;
-  top: 1em;
-  right: 1em;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 6px;
-  z-index: 1;
 }

@@ -91,10 +91,10 @@ function initMenu() {
   const navLinks = menu.querySelectorAll(
     ".menu-nav-item > a, .menu-nav-row > a, .menu-sublinks a",
   );
+  const focusable = menu.querySelectorAll("button, a[href]");
 
   function showMenu() {
     body.classList.add("is-menu-visible");
-    body.style.overflow = "hidden";
     menu.setAttribute("aria-hidden", "false");
     autoExpandCurrentSection();
     closeBtn.focus();
@@ -102,15 +102,14 @@ function initMenu() {
 
   function hideMenu() {
     body.classList.remove("is-menu-visible");
-    body.style.overflow = "";
     menu.setAttribute("aria-hidden", "true");
     collapseAllSections();
-    hamburgerBtn.focus();
+    if (hamburgerBtn) hamburgerBtn.focus();
   }
 
   function collapseSection(btn) {
     btn.setAttribute("aria-expanded", "false");
-    var sublinks = btn
+    const sublinks = btn
       .closest(".menu-nav-item--expandable")
       .querySelector(".menu-sublinks");
 
@@ -134,8 +133,8 @@ function initMenu() {
   }
 
   function expandSection(btn) {
-    var item = btn.closest(".menu-nav-item--expandable");
-    var sublinks = item.querySelector(".menu-sublinks");
+    const item = btn.closest(".menu-nav-item--expandable");
+    const sublinks = item.querySelector(".menu-sublinks");
     btn.setAttribute("aria-expanded", "true");
     sublinks.style.maxHeight = "0";
     sublinks.hidden = false;
@@ -145,7 +144,7 @@ function initMenu() {
   }
 
   function toggleSection(btn) {
-    var isExpanded = btn.getAttribute("aria-expanded") === "true";
+    const isExpanded = btn.getAttribute("aria-expanded") === "true";
 
     // Collapse all first (accordion behavior)
     collapseAllSections();
@@ -157,8 +156,8 @@ function initMenu() {
 
   function autoExpandCurrentSection() {
     chevronBtns.forEach(function (btn) {
-      var item = btn.closest(".menu-nav-item--expandable");
-      var sublinks = item.querySelector(".menu-sublinks");
+      const item = btn.closest(".menu-nav-item--expandable");
+      const sublinks = item.querySelector(".menu-sublinks");
       if (sublinks.querySelector(".current-page")) {
         expandSection(btn);
       }
@@ -167,11 +166,9 @@ function initMenu() {
 
   // Focus trap: Tab cycles through interactive elements inside the menu
   function trapFocus(event) {
-    if (event.key !== "Tab") return;
-    var focusable = menu.querySelectorAll("button, a[href]");
-    if (focusable.length === 0) return;
-    var first = focusable[0];
-    var last = focusable[focusable.length - 1];
+    if (event.key !== "Tab" || focusable.length === 0) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
 
     if (event.shiftKey) {
       if (document.activeElement === first) {

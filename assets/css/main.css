@@ -1121,8 +1121,13 @@ div.project-card__more-btn {
 }
 @media (prefers-reduced-motion: reduce) {
   .hobby-card-image,
-  .hobby-card-overlay {
-    transition: none;
+  .hobby-card-overlay,
+  #menu,
+  .menu-nav-item,
+  .menu-sublinks,
+  .menu-chevron-btn svg {
+    transition: none !important;
+    animation: none !important;
   }
 }
 .hobby-card-title {

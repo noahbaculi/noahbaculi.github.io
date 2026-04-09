@@ -59,12 +59,6 @@ document.querySelectorAll("form textarea").forEach(function (textarea) {
 
   // Initial resize
   autoResize();
-
-  // Fix for IE/mobile
-  if (browser.name === "ie" || browser.mobile) {
-    textarea.style.maxHeight = "10em";
-    textarea.style.overflowY = "auto";
-  }
 });
 
 // Theme toggle

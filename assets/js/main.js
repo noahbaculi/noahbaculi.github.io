@@ -34,7 +34,7 @@ document.querySelectorAll("form textarea").forEach(function (textarea) {
   }
 
   textarea.addEventListener("keydown", function (event) {
-    if (event.keyCode === 13 && event.ctrlKey) {
+    if (event.key === "Enter" && event.ctrlKey) {
       event.preventDefault();
       event.stopPropagation();
       textarea.blur();
@@ -54,7 +54,7 @@ document.querySelectorAll("form textarea").forEach(function (textarea) {
   textarea.addEventListener("focus", autoResize);
 
   textarea.addEventListener("keyup", function (event) {
-    if (event.keyCode === 9) textarea.select();
+    if (event.key === "Tab") textarea.select();
   });
 
   // Initial resize
@@ -82,7 +82,6 @@ function initMenu() {
   const hamburgerBtn = document.querySelector(".hamburger-btn");
   const closeBtn = menu.querySelector(".menu-close-btn");
   const chevronBtns = menu.querySelectorAll(".menu-chevron-btn");
-  const focusable = menu.querySelectorAll("button, a[href]");
 
   function showMenu() {
     body.classList.add("is-menu-visible");
@@ -157,11 +156,15 @@ function initMenu() {
     });
   }
 
-  // Focus trap: Tab cycles through interactive elements inside the menu
+  // Focus trap: Tab cycles through visible interactive elements inside the menu
   function trapFocus(event) {
-    if (event.key !== "Tab" || focusable.length === 0) return;
-    const first = focusable[0];
-    const last = focusable[focusable.length - 1];
+    if (event.key !== "Tab") return;
+    const visible = [...menu.querySelectorAll("button, a[href]")].filter(
+      (el) => !el.closest("[hidden]"),
+    );
+    if (visible.length === 0) return;
+    const first = visible[0];
+    const last = visible[visible.length - 1];
 
     if (event.shiftKey) {
       if (document.activeElement === first) {

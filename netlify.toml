@@ -28,4 +28,4 @@ output_path = "reports/lighthouse.html"
 [[headers]]
   for = "/images/*"
   [headers.values]
-    Cache-Control = "public, max-age=604800"
+    Cache-Control = "public, max-age=2592000"

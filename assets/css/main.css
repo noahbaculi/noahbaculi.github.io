@@ -50,6 +50,7 @@
   --color-menu-sublinks-bg: rgba(56, 56, 56, 0.08);
 }
 
+/* Dark mode — applied when user explicitly selects dark theme */
 [data-theme="dark"] {
   color-scheme: dark;
   --color-navbar-link: #e2e8f0;
@@ -81,7 +82,11 @@
   --color-menu-sublinks-bg: rgba(255, 255, 255, 0.04);
 }
 
-/* Same values as [data-theme="dark"] above. Update both when changing dark colors. */
+/*
+ * Dark mode — applied when OS prefers dark and user hasn't chosen light.
+ * KEEP IN SYNC with [data-theme="dark"] above. Cannot deduplicate in plain CSS
+ * because @media selectors can't be combined with non-@media selectors.
+ */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     color-scheme: dark;
@@ -1453,6 +1458,7 @@ body.is-menu-visible .menu-nav-item:nth-child(5) {
   gap: 12px;
 }
 
+/* Invisible spacer balances the chevron button so menu text stays centered */
 .menu-nav-row::before {
   content: "";
   display: block;

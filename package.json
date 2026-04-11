@@ -1,10 +1,6 @@
 {
   "devDependencies": {
     "@netlify/plugin-lighthouse": "^6.0.4",
-    "prettier": "^3.1.1",
-    "tailwindcss": "^3.2.4"
-  },
-  "dependencies": {
-    "tone": "^14.7.77"
+    "prettier": "^3.8.2"
   }
 }

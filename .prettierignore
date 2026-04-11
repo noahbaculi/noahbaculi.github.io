@@ -8,6 +8,11 @@ public/build/
 .svelte-kit/
 .cache/
 coverage/
+_site/
+
+# Local tooling / venvs
+.venv/
+.playwright-mcp/
 
 **/*.pdf
 **/*.png

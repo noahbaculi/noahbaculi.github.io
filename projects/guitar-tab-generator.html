@@ -13,8 +13,17 @@
       href="https://fonts.googleapis.com/css?family=Roboto Mono"
     />
     <script src="/assets/js/theme-init.js"></script>
+    <script>
+      document.documentElement.classList.toggle(
+        "dark",
+        document.documentElement.getAttribute("data-theme") === "dark",
+      );
+    </script>
     <link rel="stylesheet" href="/assets/css/guitartab.css" />
     <link rel="icon" href="/images/icons/favicon-50_w.webp" />
+    <script type="twind-config">
+      { "darkMode": "class" }
+    </script>
     <script type="module" src="https://cdn.skypack.dev/twind/shim"></script>
   </head>
   <body>

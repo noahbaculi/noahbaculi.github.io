@@ -5,7 +5,7 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
-    "pillow>=11.3.0",
+    "pillow>=12.2.0",
     "beautifulsoup4>=4.13",
     "minify-html>=0.15",
     "livereload>=2.7",
@@ -15,5 +15,5 @@ dependencies = [
 
 [dependency-groups]
 dev = [
-    "pytest>=9.0.2",
+    "pytest>=9.0.3",
 ]

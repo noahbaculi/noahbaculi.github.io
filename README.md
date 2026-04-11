@@ -23,7 +23,7 @@ mise install
 Run dev server with live reload:
 
 ```shell
-uv run python build.py --watch
+uv run python build.py --watch [--minify]
 ```
 
 Run prod build (with minification):

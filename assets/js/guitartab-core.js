@@ -1,0 +1,50 @@
+/**
+ * Pure helpers for the guitar tab demo. No DOM, no WASM, no audio, so each function is
+ * unit-testable on its own. guitartab.js imports these and handles the wiring.
+ */
+
+/** Count plus a noun, pluralized: countNoun(1, "line") is "1 line", countNoun(2, "line") is "2 lines". */
+function countNoun(count, singular, plural) {
+  const word = count === 1 ? singular : plural ?? `${singular}s`;
+  return `${count} ${word}`;
+}
+
+/** Format `{ line, label }` records as an indented list: "    line 3    H4". */
+function indentLineList(records) {
+  return records.map((r) => `    line ${r.line}    ${r.label}`).join("\n");
+}
+
+/**
+ * Turn a typed TabError into a friendly plain-text message for the output box. Covers the
+ * variants reachable from generateArrangements and render; the default arm keeps a readable
+ * message for the lower-level or future variants the #[non_exhaustive] enum may add.
+ */
+export function formatTabError(err) {
+  const kind = err && err.kind;
+  switch (kind) {
+    case "parse": {
+      const list = indentLineList(err.errors.map((e) => ({ line: e.line, label: e.text })));
+      return `Couldn't read ${countNoun(err.errors.length, "line")} as pitches:\n\n${list}\n\nFix or remove them and the tab will update.`;
+    }
+    case "unplayablePitches": {
+      const list = indentLineList(err.pitches.map((p) => ({ line: p.line, label: p.value })));
+      return `${countNoun(err.pitches.length, "pitch", "pitches")} can't be played in this tuning:\n\n${list}\n\nTry a different tuning, or remove these notes.`;
+    }
+    case "noArrangementsFound":
+      return "No playable arrangement was found for these notes.";
+    case "tuningNameUnknown":
+      return `Unknown tuning "${err.value}". Pick a listed tuning.`;
+    case "capoExceedsFrets":
+      return `The capo (fret ${err.capo}) can't be higher than the number of frets (${err.numFrets}).`;
+    case "capoTooHigh":
+      return `The capo (fret ${err.capo}) is too high. The maximum is ${err.max}.`;
+    case "numFretsTooHigh":
+      return `Too many frets (${err.numFrets}). The maximum is ${err.max}.`;
+    case "renderWidthTooSmall":
+      return "The line length is too short to draw the tab. Increase the Line Length.";
+    case "inputTooManyLines":
+      return `That's too many lines of input. The maximum is ${err.max}.`;
+    default:
+      return `Couldn't generate a tab${kind ? ` (${kind})` : ""}.`;
+  }
+}

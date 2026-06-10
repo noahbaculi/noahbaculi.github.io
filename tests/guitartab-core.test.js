@@ -1,0 +1,58 @@
+import { test, expect, describe } from "bun:test";
+import { formatTabError } from "../assets/js/guitartab-core.js";
+
+describe("formatTabError", () => {
+  test("parse error lists each failing line", () => {
+    const msg = formatTabError({
+      kind: "parse",
+      errors: [
+        { line: 3, text: "H4" },
+        { line: 7, text: "xyz" },
+      ],
+    });
+    expect(msg).toContain("Couldn't read 2 lines as pitches:");
+    expect(msg).toContain("    line 3    H4");
+    expect(msg).toContain("    line 7    xyz");
+    expect(msg).toContain("Fix or remove them");
+  });
+
+  test("parse error uses the singular for one line", () => {
+    const msg = formatTabError({ kind: "parse", errors: [{ line: 2, text: "Q" }] });
+    expect(msg).toContain("Couldn't read 1 line as pitches:");
+  });
+
+  test("unplayable pitches list the offending notes", () => {
+    const msg = formatTabError({
+      kind: "unplayablePitches",
+      pitches: [
+        { value: "B0", line: 4 },
+        { value: "A0", line: 9 },
+      ],
+    });
+    expect(msg).toContain("2 pitches can't be played in this tuning:");
+    expect(msg).toContain("    line 4    B0");
+    expect(msg).toContain("    line 9    A0");
+  });
+
+  test("noArrangementsFound has a friendly message", () => {
+    expect(formatTabError({ kind: "noArrangementsFound" })).toBe(
+      "No playable arrangement was found for these notes.",
+    );
+  });
+
+  test("renderWidthTooSmall points at the line length", () => {
+    expect(formatTabError({ kind: "renderWidthTooSmall", width: 5, min: 12 })).toContain(
+      "Increase the Line Length",
+    );
+  });
+
+  test("an unknown kind names the kind in a generic message", () => {
+    expect(formatTabError({ kind: "somethingNew" })).toBe(
+      "Couldn't generate a tab (somethingNew).",
+    );
+  });
+
+  test("a missing error object falls back to a generic message", () => {
+    expect(formatTabError(null)).toBe("Couldn't generate a tab.");
+  });
+});

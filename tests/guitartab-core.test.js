@@ -92,3 +92,26 @@ describe("buildTabInput", () => {
     expect(buildTabInput(base).input).toBe("E4\nA2");
   });
 });
+
+import { buildPlaybackSchedule } from "../assets/js/guitartab-core.js";
+
+describe("buildPlaybackSchedule", () => {
+  test("assigns cursors to playable and rest beats, skipping measure breaks", () => {
+    const schedule = buildPlaybackSchedule([
+      { kind: "playable", pitches: ["E4"] },
+      { kind: "measureBreak" },
+      { kind: "rest" },
+      { kind: "playable", pitches: ["A2", "A3"] },
+    ]);
+    expect(schedule).toEqual([
+      { kind: "playable", pitches: ["E4"], cursor: 0 },
+      { kind: "measureBreak", pitches: [], cursor: null },
+      { kind: "rest", pitches: [], cursor: 1 },
+      { kind: "playable", pitches: ["A2", "A3"], cursor: 2 },
+    ]);
+  });
+
+  test("returns an empty schedule for empty input", () => {
+    expect(buildPlaybackSchedule([])).toEqual([]);
+  });
+});

@@ -75,3 +75,26 @@ export function buildTabInput({ pitches, tuningName, capoValue, maxFretSpanValue
   }
   return tabInput;
 }
+
+/**
+ * Flatten normalizedInput into a playback schedule. Each entry is one input beat. Measure
+ * breaks are kept (so playback can skip them) but do not advance the render cursor; rests and
+ * playable beats each take one cursor position, matching the index ArrangementSet.render
+ * expects for its playback argument (it counts non-measure-break beats).
+ */
+export function buildPlaybackSchedule(normalizedInput) {
+  const schedule = [];
+  let cursor = 0;
+  for (const beat of normalizedInput) {
+    if (beat.kind === "measureBreak") {
+      schedule.push({ kind: "measureBreak", pitches: [], cursor: null });
+    } else if (beat.kind === "rest") {
+      schedule.push({ kind: "rest", pitches: [], cursor });
+      cursor += 1;
+    } else {
+      schedule.push({ kind: "playable", pitches: beat.pitches, cursor });
+      cursor += 1;
+    }
+  }
+  return schedule;
+}

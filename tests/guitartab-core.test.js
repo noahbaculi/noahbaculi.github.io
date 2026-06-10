@@ -55,6 +55,36 @@ describe("formatTabError", () => {
   test("a missing error object falls back to a generic message", () => {
     expect(formatTabError(null)).toBe("Couldn't generate a tab.");
   });
+
+  // These arms interpolate payload fields, so assert the values reach the message: a
+  // mistyped field name would render "undefined" and fail here rather than slip through.
+  test("tuningNameUnknown names the rejected tuning", () => {
+    const msg = formatTabError({ kind: "tuningNameUnknown", value: "openX" });
+    expect(msg).toContain('"openX"');
+    expect(msg).toContain("Pick a listed tuning");
+  });
+
+  test("capoExceedsFrets shows the capo and fret count", () => {
+    const msg = formatTabError({ kind: "capoExceedsFrets", capo: 20, numFrets: 18 });
+    expect(msg).toContain("20");
+    expect(msg).toContain("18");
+  });
+
+  test("capoTooHigh shows the capo and its maximum", () => {
+    const msg = formatTabError({ kind: "capoTooHigh", capo: 30, max: 12 });
+    expect(msg).toContain("30");
+    expect(msg).toContain("12");
+  });
+
+  test("numFretsTooHigh shows the fret count and its maximum", () => {
+    const msg = formatTabError({ kind: "numFretsTooHigh", numFrets: 50, max: 30 });
+    expect(msg).toContain("50");
+    expect(msg).toContain("30");
+  });
+
+  test("inputTooManyLines shows the line maximum", () => {
+    expect(formatTabError({ kind: "inputTooManyLines", max: 65535 })).toContain("65535");
+  });
 });
 
 import { buildTabInput } from "../assets/js/guitartab-core.js";

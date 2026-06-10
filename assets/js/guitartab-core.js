@@ -48,3 +48,30 @@ export function formatTabError(err) {
       return `Couldn't generate a tab${kind ? ` (${kind})` : ""}.`;
   }
 }
+
+/** parseInt with a fallback for blank or non-numeric values. */
+function intOr(value, fallback) {
+  const n = parseInt(value, 10);
+  return Number.isNaN(n) ? fallback : n;
+}
+
+/**
+ * Build the TabInput for generateArrangements from raw control values. The fret count and
+ * arrangement count are fixed for this demo. maxFretSpanValue is the Max Fret Span dropdown
+ * value: the empty string (the "Any" option) omits the filter; any other value is parsed to
+ * an integer and passed as maxFretSpanFilter.
+ */
+export function buildTabInput({ pitches, tuningName, capoValue, maxFretSpanValue }) {
+  const tabInput = {
+    input: pitches,
+    tuningName: tuningName || "standard",
+    guitarNumFrets: 18,
+    guitarCapo: intOr(capoValue, 0),
+    numArrangements: 1,
+  };
+  const span = parseInt(maxFretSpanValue, 10);
+  if (!Number.isNaN(span)) {
+    tabInput.maxFretSpanFilter = span;
+  }
+  return tabInput;
+}

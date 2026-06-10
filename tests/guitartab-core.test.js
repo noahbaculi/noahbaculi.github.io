@@ -56,3 +56,39 @@ describe("formatTabError", () => {
     expect(formatTabError(null)).toBe("Couldn't generate a tab.");
   });
 });
+
+import { buildTabInput } from "../assets/js/guitartab-core.js";
+
+describe("buildTabInput", () => {
+  const base = { pitches: "E4\nA2", tuningName: "standard", capoValue: "0", maxFretSpanValue: "" };
+
+  test("omits maxFretSpanFilter when the span is Any (empty string)", () => {
+    const r = buildTabInput(base);
+    expect("maxFretSpanFilter" in r).toBe(false);
+  });
+
+  test("includes maxFretSpanFilter as an integer when a span is chosen", () => {
+    const r = buildTabInput({ ...base, maxFretSpanValue: "3" });
+    expect(r.maxFretSpanFilter).toBe(3);
+  });
+
+  test("parses the capo and keeps the fixed fret and arrangement counts", () => {
+    const r = buildTabInput({ ...base, capoValue: "2" });
+    expect(r.guitarCapo).toBe(2);
+    expect(r.guitarNumFrets).toBe(18);
+    expect(r.numArrangements).toBe(1);
+  });
+
+  test("defaults a blank capo to 0", () => {
+    expect(buildTabInput({ ...base, capoValue: "" }).guitarCapo).toBe(0);
+  });
+
+  test("passes the tuning through and defaults a blank tuning to standard", () => {
+    expect(buildTabInput({ ...base, tuningName: "openD" }).tuningName).toBe("openD");
+    expect(buildTabInput({ ...base, tuningName: "" }).tuningName).toBe("standard");
+  });
+
+  test("passes the raw pitch text through as input", () => {
+    expect(buildTabInput(base).input).toBe("E4\nA2");
+  });
+});

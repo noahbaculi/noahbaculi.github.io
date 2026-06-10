@@ -1,90 +1,169 @@
-/**
- * Console Log objects to full depth
- * @param objs Objects to print
- */
-function print(...objs) {
-  for (const obj of objs) {
-    console.dir(obj, { depth: null });
-  }
-}
+import init, { generateArrangements } from "../wasm_guitar_tab_generator/guitar_tab_generator.js";
+import {
+  formatTabError,
+  buildTabInput,
+  buildPlaybackSchedule,
+} from "./guitartab-core.js";
 
-import init, {
-  wasm_create_guitar_compositions,
-  get_tuning_names,
-} from "../wasm_guitar_tab_generator/guitar_tab_generator.js";
-async function run() {
-  await init();
-}
-run();
+await init();
 
-function playBeatAudio(pitches) {
-  // Iterate beat number
-  if (playbackBeatNumber === null) {
-    playbackBeatNumber = 0;
-  } else {
-    playbackBeatNumber++;
-  }
+// ---- cached arrangement state -------------------------------------------------------------
+// generateArrangements returns an opaque ArrangementSet handle. We keep one cached set and
+// re-render it cheaply for display-setting and playback changes; pathfinding only re-runs when
+// the input, tuning, capo, or fret-span filter changes. The handle must be freed before it is
+// replaced or it leaks WASM memory.
+const state = { set: null, normalizedInput: null };
 
-  const beatPitches = pitches[playbackBeatNumber];
-
-  if (playbackBeatNumber >= pitches.length) {
-    // Done playing
-    stopPlayback();
-    return;
-  }
-  // Skip measure breaks
-  if (beatPitches[0] == "MEASURE_BREAK") {
-    numMeasureBreaks++;
-    playBeatAudio(pitches);
-    return;
-  }
-  if (beatPitches[0] !== "REST") {
-    playbackSynth.triggerAttackRelease(beatPitches, "8n");
-  }
-
-  generateTab();
-}
-
-let playbackBeatNumber = null;
-let numMeasureBreaks = 0;
+// ---- playback state -----------------------------------------------------------------------
+let playbackSchedule = null;
+let playbackStep = 0;
+let playbackInterval = null;
 let playbackSynth = null;
-let currentlyPlayingAudioFunctionRepeatInterval = null;
-function playTabAudio() {
-  // // Pluck single note
-  // const plucky = new exports.Tone.PluckSynth().toDestination();
-  // plucky.set({ attackNoise: 0.8, dampening: 2000, resonance: 0.95, release:
-  // 1 });
 
-  // Create playbackSynth if it does not exist
+// ---- small DOM helpers --------------------------------------------------------------------
+function el(id) {
+  return document.getElementById(id);
+}
+function intValue(id, fallback) {
+  const n = parseInt(el(id).value, 10);
+  return Number.isNaN(n) ? fallback : n;
+}
+
+// ---- generate + render --------------------------------------------------------------------
+function regenerate() {
+  const startTime = performance.now();
+
+  // Free the previous handle before replacing it.
+  if (state.set) {
+    state.set.free();
+    state.set = null;
+  }
+  state.normalizedInput = null;
+
+  const tabInput = buildTabInput({
+    pitches: el("pitchInput").value,
+    tuningName: el("guitarTuning").value,
+    capoValue: el("guitarCapo").value,
+    maxFretSpanValue: el("maxFretSpan").value,
+  });
+
+  try {
+    state.set = generateArrangements(tabInput);
+  } catch (error) {
+    console.warn(error);
+    showMessage(formatTabError(error));
+    return;
+  }
+
+  state.normalizedInput = state.set.normalizedInput;
+  const duration = (performance.now() - startTime).toFixed(1);
+  console.info(`Arrangement generated in ${duration} ms`, state.set);
+
+  // An aggressive Max Fret Span can filter out every arrangement. That returns Ok with an
+  // empty set, not an error.
+  if (state.set.isEmpty) {
+    const span = el("maxFretSpan").value;
+    showMessage(
+      `No playable arrangement fits within a ${span}-fret span.\nRaise the Max Fret Span (or set it to Any) to see results.`,
+    );
+    return;
+  }
+
+  renderTab(null);
+}
+
+// Cheap re-render of the cached set at the current display settings, with an optional playback
+// cursor. No pathfinding.
+function renderTab(playbackCursor) {
+  if (!state.set || state.set.isEmpty) return;
+  const width = intValue("tabLineLength", 60);
+  const padding = intValue("tabPadding", 1);
+  try {
+    el("tabOutput").value = state.set.render(0, width, padding, playbackCursor);
+    el("tabOutput").disabled = false;
+    el("playbackMenu").hidden = false;
+  } catch (error) {
+    console.warn(error);
+    showMessage(formatTabError(error));
+  }
+}
+
+// Show an error or empty-state message in the output box and disable playback.
+function showMessage(message) {
+  el("tabOutput").value = message;
+  el("tabOutput").disabled = true;
+  el("playbackMenu").hidden = true;
+}
+
+// Full reset: stop playback, drop the schedule, regenerate from current inputs.
+function newTab() {
+  stopPlayback();
+  playbackSchedule = null;
+  playbackStep = 0;
+  regenerate();
+}
+
+// ---- playback -----------------------------------------------------------------------------
+function startPlayback() {
+  if (!state.normalizedInput) return;
+  playbackSchedule = buildPlaybackSchedule(state.normalizedInput);
+  playbackStep = 0;
+
+  // Created lazily; exports.Tone is provided by the Tone.js script in the HTML.
   playbackSynth ??= new exports.Tone.PolySynth().toDestination();
   playbackSynth.set({ detune: -1200 });
 
   console.info("Playing tab audio");
-
-  let pitches = generateTab();
-
-  currentlyPlayingAudioFunctionRepeatInterval = setInterval(
-    playBeatAudio,
-    500,
-    pitches,
-  );
+  playbackInterval = setInterval(playbackTick, 500);
 }
 
-function updateLineLengthLabel() {
-  let tabLineLength = 80;
-  try {
-    tabLineLength = parseInt(document.getElementById("tabLineLength").value);
-  } catch (error) {
-    console.warn(
-      `Something went wrong... Using default tabLineLength = ${tabLineLength} | Error = ${error}`,
-    );
+function playbackTick() {
+  // Skip measure breaks without spending a time slot on them.
+  while (
+    playbackStep < playbackSchedule.length &&
+    playbackSchedule[playbackStep].kind === "measureBreak"
+  ) {
+    playbackStep += 1;
   }
 
-  document.getElementById("tabLineLengthLabel").innerHTML =
-    `Line Length - ${tabLineLength}`;
-}
-updateLineLengthLabel(); // update line length label with initial default value
+  if (playbackStep >= playbackSchedule.length) {
+    stopPlayback();
+    renderTab(null); // clear the playback cursor from the tab
+    return;
+  }
 
+  const beat = playbackSchedule[playbackStep];
+  if (beat.kind === "playable") {
+    playbackSynth.triggerAttackRelease(beat.pitches, "8n");
+  }
+  renderTab(beat.cursor);
+  playbackStep += 1;
+}
+
+function stopPlayback() {
+  el("resetPlaybackButton").disabled = false;
+  el("pauseButton").style.display = "none";
+  el("playButton").style.display = "flex";
+
+  if (playbackSynth !== null) {
+    playbackSynth.releaseAll();
+  }
+  if (playbackInterval !== null) {
+    clearInterval(playbackInterval);
+    playbackInterval = null;
+  }
+}
+
+// ---- display-setting label ----------------------------------------------------------------
+function updateLineLengthLabel() {
+  const width = intValue("tabLineLength", 80);
+  el("tabLineLengthLabel").innerHTML = `Line Length - ${width}`;
+}
+
+// ---- example songs ------------------------------------------------------------------------
+// loadExampleSong appends the chosen example song's pitches to the input and triggers newTab().
+// The exSongs note text uses tab indentation that is stripped before parsing; element access
+// goes through el() to match the rest of this module.
 function loadExampleSong() {
   const exSongs = {
     "Fur Elise": `E4
@@ -443,63 +522,35 @@ function loadExampleSong() {
 					G3
 					F3`,
   };
-  const exSongInputName = exampleSongsInput.value;
+  const exSongInputName = el("exampleSongs").value;
 
   if (!(exSongInputName in exSongs)) return;
 
   const exSongNotes = exSongs[exSongInputName].replaceAll("\t", "");
-  pitchInput.value = `${pitchInput.value}\n\n// Example\n// ${exSongInputName}\n${exSongNotes}`;
+  el("pitchInput").value = `${el("pitchInput").value}\n\n// Example\n// ${exSongInputName}\n${exSongNotes}`;
 
   newTab();
 }
 
-function stopPlayback() {
-  document.getElementById("resetPlaybackButton").disabled = false;
-  document.getElementById("pauseButton").style.display = "none";
-  document.getElementById("playButton").style.display = "flex";
-
-  // Silence the synth
-  if (playbackSynth !== null) {
-    playbackSynth.releaseAll();
-  }
-  // Stop updating the TAB with the visual playing indicator
-  clearInterval(currentlyPlayingAudioFunctionRepeatInterval);
+// ---- event wiring -------------------------------------------------------------------------
+// Pathfinding-tier inputs regenerate the set.
+el("pitchInput").addEventListener("input", newTab);
+for (const settingId of ["guitarTuning", "guitarCapo", "maxFretSpan"]) {
+  el(settingId).addEventListener("change", newTab);
 }
+el("exampleSongs").addEventListener("change", loadExampleSong);
 
-const pitchInput = document.getElementById("pitchInput");
-pitchInput.addEventListener("input", () => {
-  // deactivateTabOutput();
-  newTab();
-});
-
-// Add event listeners to generate TAB output after changes
-// pitchInput.addEventListener("change", createArrangement);
-for (const settingSelectId of ["guitarTuning", "guitarCapo"]) {
-  document.getElementById(settingSelectId).addEventListener("change", () => {
-    newTab();
-  });
-}
-
-// Add event listeners to add song pitches for example songs
-const exampleSongsInput = document.getElementById("exampleSongs");
-exampleSongsInput.addEventListener("change", loadExampleSong);
-
-// Add event listeners to reformat TAB string output after changes
-for (const displaySettingId of ["tabLineLength", "tabPadding"]) {
-  document.getElementById(displaySettingId).addEventListener("input", () => {
+// Display-tier inputs only need a cheap re-render.
+for (const displayId of ["tabLineLength", "tabPadding"]) {
+  el(displayId).addEventListener("input", () => {
     updateLineLengthLabel();
-    newTab();
+    renderTab(null);
   });
 }
 
-// Add event listener to export tab output when export button is pressed
-document.getElementById("exportButton").addEventListener("click", () => {
-  // playbackSynth ??= new exports.Tone.PolySynth().toDestination();
-  // playbackSynth.triggerAttackRelease(["A2", "A3"], "8n");
-  // console.log("Good");
-
-  // Download tab output
-  const fileContent = document.getElementById("tabOutput").value;
+// Export the current tab text to a download.
+el("exportButton").addEventListener("click", () => {
+  const fileContent = el("tabOutput").value;
   const temporaryDownloadElement = document.createElement("a");
   temporaryDownloadElement.setAttribute(
     "href",
@@ -514,112 +565,23 @@ document.getElementById("exportButton").addEventListener("click", () => {
   alert("Tab output saved to your downloads! 🎉");
 });
 
-document.getElementById("playButton").addEventListener("click", () => {
-  document.getElementById("resetPlaybackButton").disabled = false;
-  document.getElementById("pauseButton").style.display = "flex";
-  document.getElementById("playButton").style.display = "none";
-  playTabAudio();
+el("playButton").addEventListener("click", () => {
+  el("resetPlaybackButton").disabled = false;
+  el("pauseButton").style.display = "flex";
+  el("playButton").style.display = "none";
+  startPlayback();
 });
 
-document.getElementById("pauseButton").addEventListener("click", () => {
-  stopPlayback();
+el("pauseButton").addEventListener("click", stopPlayback);
+el("resetPlaybackButton").addEventListener("click", newTab);
+
+// Free the cached handle when the page goes away.
+window.addEventListener("pagehide", () => {
+  if (state.set) {
+    state.set.free();
+    state.set = null;
+  }
 });
 
-document.getElementById("resetPlaybackButton").addEventListener("click", () => {
-  newTab();
-});
-
-function newTab() {
-  // Reset playback
-  playbackBeatNumber = null;
-  numMeasureBreaks = 0;
-  stopPlayback();
-  generateTab();
-}
-
-function generateTab() {
-  let startTime = performance.now();
-  let input = getInput();
-
-  try {
-    let compositions = wasm_create_guitar_compositions(input);
-    document.getElementById("tabOutput").value = compositions[0].tab;
-
-    // console.log(`Tab:\n${tabOutput}`);
-    let endTime = performance.now();
-    let duration = (endTime - startTime).toFixed(1);
-    console.info(
-      `Arrangement generated in ${duration} milliseconds:`,
-      compositions[0],
-    );
-
-    document.getElementById("tabOutput").disabled = false;
-    document.getElementById("playbackMenu").hidden = false;
-
-    let pitches = compositions[0].pitches;
-    return pitches;
-  } catch (error) {
-    console.warn(error);
-    document.getElementById("tabOutput").value = error;
-
-    document.getElementById("tabOutput").disabled = true;
-    document.getElementById("playbackMenu").hidden = true;
-  }
-  return null;
-}
-
-function getInput() {
-  const pitchInput = document.getElementById("pitchInput").value;
-
-  let guitarTuning = "standard";
-  try {
-    guitarTuning = document.getElementById("guitarTuning").value;
-  } catch (error) {
-    console.warn(
-      `Something went wrong... Using default guitarTuning = ${guitarTuning} | Error = ${error}`,
-    );
-  }
-
-  let guitarCapo = 0;
-  try {
-    guitarCapo = parseInt(document.getElementById("guitarCapo").value);
-  } catch (error) {
-    console.warn(
-      `Something went wrong... Using default guitarCapo = ${guitarCapo} | Error = ${error}`,
-    );
-  }
-
-  let tabLineLength = 80;
-  try {
-    tabLineLength = parseInt(document.getElementById("tabLineLength").value);
-  } catch (error) {
-    console.warn(
-      `Something went wrong... Using default tabLineLength = ${tabLineLength} | Error = ${error}`,
-    );
-  }
-
-  let tabPadding = 1;
-  try {
-    tabPadding = parseInt(document.getElementById("tabPadding").value);
-  } catch (error) {
-    console.warn(
-      `Something went wrong... Using default tabPadding = ${tabPadding} | Error = ${error}`,
-    );
-  }
-
-  let playback_index = null;
-  if (playbackBeatNumber !== null) {
-    playback_index = playbackBeatNumber - numMeasureBreaks;
-  }
-
-  return {
-    pitches: pitchInput,
-    tuning_name: guitarTuning,
-    guitar_num_frets: 18,
-    guitar_capo: guitarCapo,
-    num_arrangements: 1,
-    width: tabLineLength,
-    padding: tabPadding,
-    playback_index: playback_index,
-  };
-}
+// Initial label paint. The output keeps its placeholder until the user enters pitches.
+updateLineLengthLabel();

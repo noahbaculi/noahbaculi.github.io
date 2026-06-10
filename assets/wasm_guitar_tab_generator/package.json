@@ -5,7 +5,7 @@
     "Noah Baculi <noahbaculi@gmail.com>"
   ],
   "description": "Generate fingerstyle guitar tabs based on the difficulty of different finger positions",
-  "version": "1.2.0",
+  "version": "2.1.0",
   "license": "GPL-3.0-only",
   "repository": {
     "type": "git",
@@ -20,5 +20,12 @@
   "types": "guitar_tab_generator.d.ts",
   "sideEffects": [
     "./snippets/*"
+  ],
+  "keywords": [
+    "guitar",
+    "tab",
+    "music",
+    "fingering",
+    "wasm"
   ]
 }

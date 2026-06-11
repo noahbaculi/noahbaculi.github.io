@@ -106,7 +106,7 @@ describe("buildTabInput", () => {
     const r = buildTabInput({ ...base, capoValue: "2" });
     expect(r.guitarCapo).toBe(2);
     expect(r.guitarNumFrets).toBe(18);
-    expect(r.numArrangements).toBe(1);
+    expect(r.numArrangements).toBe(3);
   });
 
   test("defaults a blank capo to 0", () => {

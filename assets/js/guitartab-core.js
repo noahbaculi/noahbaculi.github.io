@@ -55,11 +55,15 @@ function intOr(value, fallback) {
   return Number.isNaN(n) ? fallback : n;
 }
 
+// The demo requests a small ranked set so the selector can show several arrangements. Yen's
+// k-shortest-paths may return fewer (set.len), which the selector handles.
+const NUM_ARRANGEMENTS = 3;
+
 /**
- * Build the TabInput for generateArrangements from raw control values. The fret count and
- * arrangement count are fixed for this demo. maxFretSpanValue is the Max Fret Span dropdown
- * value: the empty string (the "Any" option) omits the filter; any other value is parsed to
- * an integer and passed as maxFretSpanFilter.
+ * Build the TabInput for generateArrangements from raw control values. The fret count is fixed
+ * for this demo and the arrangement count is NUM_ARRANGEMENTS. maxFretSpanValue is the Max Fret
+ * Span dropdown value: the empty string (the "Any" option) omits the filter; any other value is
+ * parsed to an integer and passed as maxFretSpanFilter.
  */
 export function buildTabInput({ pitches, tuningName, capoValue, maxFretSpanValue }) {
   const tabInput = {
@@ -67,7 +71,7 @@ export function buildTabInput({ pitches, tuningName, capoValue, maxFretSpanValue
     tuningName: tuningName || "standard",
     guitarNumFrets: 18,
     guitarCapo: intOr(capoValue, 0),
-    numArrangements: 1,
+    numArrangements: NUM_ARRANGEMENTS,
   };
   const span = parseInt(maxFretSpanValue, 10);
   if (!Number.isNaN(span)) {

@@ -12,7 +12,7 @@ await init();
 // re-render it cheaply for display-setting and playback changes; pathfinding only re-runs when
 // the input, tuning, capo, or fret-span filter changes. The handle must be freed before it is
 // replaced or it leaks WASM memory.
-const state = { set: null, normalizedInput: null };
+const state = { set: null, normalizedInput: null, selectedIndex: 0 };
 
 // ---- playback state -----------------------------------------------------------------------
 let playbackSchedule = null;
@@ -69,30 +69,41 @@ function regenerate() {
     return;
   }
 
+  state.selectedIndex = 0;
   renderTab(null);
 }
 
-// Cheap re-render of the cached set at the current display settings, with an optional playback
-// cursor. No pathfinding.
+// Cheap re-render of the cached set at the current display settings and selected arrangement,
+// with an optional playback cursor. No pathfinding.
 function renderTab(playbackCursor) {
   if (!state.set || state.set.isEmpty) return;
   const width = intValue("tabLineLength", 60);
   const padding = intValue("tabPadding", 1);
   try {
-    el("tabOutput").value = state.set.render(0, width, padding, playbackCursor);
-    el("tabOutput").disabled = false;
-    el("playbackMenu").hidden = false;
+    el("tabOutput").textContent = state.set.render(
+      state.selectedIndex,
+      width,
+      padding,
+      playbackCursor,
+    );
+    el("tabOutput").classList.remove("is-message");
+    el("transportBar").hidden = false;
+    el("copyButton").disabled = false;
+    el("exportButton").disabled = false;
   } catch (error) {
     console.warn(error);
     showMessage(formatTabError(error));
   }
 }
 
-// Show an error or empty-state message in the output box and disable playback.
+// Show an error or empty-state message in the output box, clear the selector, and hide playback.
 function showMessage(message) {
-  el("tabOutput").value = message;
-  el("tabOutput").disabled = true;
-  el("playbackMenu").hidden = true;
+  el("tabOutput").textContent = message;
+  el("tabOutput").classList.add("is-message");
+  el("arrangementSelector").innerHTML = "";
+  el("transportBar").hidden = true;
+  el("copyButton").disabled = true;
+  el("exportButton").disabled = true;
 }
 
 // Full reset: stop playback, drop the schedule, regenerate from current inputs.

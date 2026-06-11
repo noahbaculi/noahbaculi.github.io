@@ -149,31 +149,40 @@ describe("buildPlaybackSchedule", () => {
 import { buildArrangementChips } from "../assets/js/guitartab-core.js";
 
 describe("buildArrangementChips", () => {
-  test("labels three ascending arrangements easiest to medium with rising dots", () => {
-    const chips = buildArrangementChips({ difficulties: [11, 27, 44], spans: [2, 3, 4] });
+  test("labels three arrangements by rank with rising dots and a relative index", () => {
+    const chips = buildArrangementChips({ difficulties: [10, 11, 13], spans: [2, 3, 4] });
     expect(chips).toEqual([
-      { index: 0, label: "Easiest", dotCount: 1, difficulty: 11, span: 2 },
-      { index: 1, label: "Easy", dotCount: 2, difficulty: 27, span: 3 },
-      { index: 2, label: "Medium", dotCount: 4, difficulty: 44, span: 4 },
+      { index: 0, label: "Easiest", dotCount: 1, dotTotal: 3, relativeDifficulty: 100, span: 2 },
+      { index: 1, label: "Easy", dotCount: 2, dotTotal: 3, relativeDifficulty: 110, span: 3 },
+      { index: 2, label: "Medium", dotCount: 3, dotTotal: 3, relativeDifficulty: 130, span: 4 },
     ]);
   });
 
-  test("a single arrangement is Easiest with full dots", () => {
+  test("an all-equal set still gets distinct labels and dots, every index at 100", () => {
+    const chips = buildArrangementChips({ difficulties: [20, 20, 20], spans: [2, 2, 2] });
+    expect(chips.map((c) => c.label)).toEqual(["Easiest", "Easy", "Medium"]);
+    expect(chips.map((c) => c.dotCount)).toEqual([1, 2, 3]);
+    expect(chips.map((c) => c.relativeDifficulty)).toEqual([100, 100, 100]);
+  });
+
+  test("a single arrangement is Easiest with one dot of one", () => {
     expect(buildArrangementChips({ difficulties: [30], spans: [3] })).toEqual([
-      { index: 0, label: "Easiest", dotCount: 4, difficulty: 30, span: 3 },
+      { index: 0, label: "Easiest", dotCount: 1, dotTotal: 1, relativeDifficulty: 100, span: 3 },
     ]);
   });
 
-  test("two arrangements split into Easiest and Easy", () => {
+  test("two arrangements split into Easiest and Easy with a two-dot meter", () => {
     const chips = buildArrangementChips({ difficulties: [10, 50], spans: [2, 5] });
     expect(chips.map((c) => c.label)).toEqual(["Easiest", "Easy"]);
-    expect(chips.map((c) => c.dotCount)).toEqual([1, 4]);
+    expect(chips.map((c) => c.dotCount)).toEqual([1, 2]);
+    expect(chips.map((c) => c.dotTotal)).toEqual([2, 2]);
+    expect(chips.map((c) => c.relativeDifficulty)).toEqual([100, 500]);
   });
 
-  test("an all-equal set gives every chip the same label and full dots", () => {
-    const chips = buildArrangementChips({ difficulties: [20, 20, 20], spans: [2, 2, 2] });
-    expect(chips.map((c) => c.label)).toEqual(["Easiest", "Easiest", "Easiest"]);
-    expect(chips.map((c) => c.dotCount)).toEqual([4, 4, 4]);
+  test("a non-positive easiest score falls back to a relative index of 100", () => {
+    const chips = buildArrangementChips({ difficulties: [0, 0], spans: [1, 2] });
+    expect(chips.map((c) => c.relativeDifficulty)).toEqual([100, 100]);
+    expect(chips.map((c) => c.label)).toEqual(["Easiest", "Easy"]);
   });
 });
 

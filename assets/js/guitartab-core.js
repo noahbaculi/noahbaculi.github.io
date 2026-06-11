@@ -103,45 +103,26 @@ export function buildPlaybackSchedule(normalizedInput) {
   return schedule;
 }
 
-// Three relative difficulty labels, easiest first. The set is small (numArrangements is 3),
-// so labels rank the returned arrangements against each other, not an absolute scale.
+// Three rank labels, easiest first. Chips are labeled by their position in the set, which the
+// library returns easiest-first, so ties in the raw score never collapse two chips onto one label.
 const DIFFICULTY_LABELS = ["Easiest", "Easy", "Medium"];
 
-// Normalize a score against the set's min and max. A one-arrangement (or all-equal) set has no
-// spread, so it reads as fully filled rather than dividing by zero.
-function difficultyFraction(difficulties, index) {
-  const lo = Math.min(...difficulties);
-  const hi = Math.max(...difficulties);
-  return hi === lo ? 1 : (difficulties[index] - lo) / (hi - lo);
-}
-
-// 1..4 dots: the easiest always shows one, the hardest in the set shows four.
-function difficultyDotCount(fraction) {
-  return Math.round(fraction * 3) + 1;
-}
-
-// Bucket by rank within the set. Ties share the lower rank, so equal scores get the same label.
-function difficultyLabel(difficulties, index) {
-  const sorted = [...difficulties].sort((a, b) => a - b);
-  const rank = sorted.indexOf(difficulties[index]);
-  const bucket = Math.min(
-    DIFFICULTY_LABELS.length - 1,
-    Math.floor((rank / difficulties.length) * DIFFICULTY_LABELS.length),
-  );
-  return DIFFICULTY_LABELS[bucket];
-}
-
 /**
- * Chip view-models for the arrangement selector, one per returned arrangement. Takes the raw
- * difficulty and span arrays the glue reads off the ArrangementSet handle and returns the label,
- * dot count, and numbers each chip shows.
+ * Chip view-models for the arrangement selector, one per returned arrangement. label and dotCount
+ * come from the rank (index), so every chip is distinct; dotTotal sizes the meter to the set.
+ * relativeDifficulty rescales the raw score against the easiest of the set (easiest = 100) so the
+ * numbers compare across chips, falling back to 100 when the easiest score is non-positive. span is
+ * the raw fret span.
  */
 export function buildArrangementChips({ difficulties, spans }) {
+  const total = difficulties.length;
+  const anchor = Math.min(...difficulties);
   return difficulties.map((difficulty, index) => ({
     index,
-    label: difficultyLabel(difficulties, index),
-    dotCount: difficultyDotCount(difficultyFraction(difficulties, index)),
-    difficulty,
+    label: DIFFICULTY_LABELS[Math.min(index, DIFFICULTY_LABELS.length - 1)],
+    dotCount: index + 1,
+    dotTotal: total,
+    relativeDifficulty: anchor > 0 ? Math.round((100 * difficulty) / anchor) : 100,
     span: spans[index],
   }));
 }

@@ -426,6 +426,11 @@ textarea {
     grid-template-columns: 1fr;
   }
 }
+/* Before any tab is generated the selector is empty; drop it from the flex flow so
+   it doesn't contribute a second 1rem column gap. The loading shimmer still shows. */
+.arrangement-selector:empty:not(.is-loading) {
+  display: none;
+}
 .chip {
   display: flex;
   flex-direction: column;

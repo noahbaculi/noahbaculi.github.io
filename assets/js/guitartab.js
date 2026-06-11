@@ -202,6 +202,22 @@ function newTab() {
   regenerate();
 }
 
+// Empty the input and return the page to its initial state: no set, no chips, the hint message.
+function resetToEmpty() {
+  stopPlayback();
+  playbackSchedule = null;
+  playbackStep = 0;
+  if (state.set) {
+    state.set.free();
+    state.set = null;
+  }
+  state.normalizedInput = null;
+  state.selectedIndex = 0;
+  el("pitchInput").value = "";
+  el("playbackProgress").style.width = "0%";
+  showMessage("Enter pitches on the left to generate a tab.");
+}
+
 // ---- playback -----------------------------------------------------------------------------
 function startPlayback() {
   if (!state.normalizedInput) return;
@@ -626,8 +642,8 @@ function loadExampleSong() {
   if (!(exSongInputName in exSongs)) return;
 
   const exSongNotes = exSongs[exSongInputName].replaceAll("\t", "");
-  el("pitchInput").value = `${el("pitchInput").value}\n\n// Example\n// ${exSongInputName}\n${exSongNotes}`;
-
+  el("pitchInput").value = exSongNotes;
+  el("exampleSongs").value = "examples"; // reset the picker so the same song can be re-picked
   newTab();
 }
 
@@ -638,6 +654,7 @@ for (const settingId of ["guitarTuning", "guitarCapo", "maxFretSpan"]) {
   el(settingId).addEventListener("change", newTab);
 }
 el("exampleSongs").addEventListener("change", loadExampleSong);
+el("clearInputButton").addEventListener("click", resetToEmpty);
 
 // Display-tier inputs only need a cheap re-render.
 for (const displayId of ["tabLineLength", "tabPadding"]) {

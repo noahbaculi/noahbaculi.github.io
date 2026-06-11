@@ -699,6 +699,15 @@ a.breadcrumb__pill:hover {
   color: color-mix(in srgb, var(--gtg-fg-soft) 55%, transparent);
   font-size: 0.9rem;
 }
+/* Desktop: the chain shares the narrow exit column, so size it to its content and
+   keep it on one line, spilling into the empty space toward the title. Mobile's
+   full-width exit area keeps the default wrap. */
+@media screen and (min-width: 801px) {
+  .breadcrumb__list {
+    flex-wrap: nowrap;
+    width: max-content;
+  }
+}
 
 @media (prefers-reduced-motion: reduce) {
   .progress-fill,

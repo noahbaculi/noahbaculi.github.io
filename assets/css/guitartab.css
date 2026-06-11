@@ -653,11 +653,59 @@ textarea {
   letter-spacing: -0.025em;
 }
 
+/* Breadcrumb: violet pill chain (replaces the old gray/blue Flowbite chain). */
+.breadcrumb__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
+}
+.breadcrumb__pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.32rem 0.72rem;
+  border-radius: 9999px;
+  border: 1.5px solid var(--gtg-border);
+  background: var(--gtg-surface);
+  color: var(--gtg-fg-soft);
+  font-family: var(--gtg-font-ui);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: border-color 120ms, color 120ms;
+}
+a.breadcrumb__pill:hover {
+  border-color: var(--gtg-primary);
+  color: var(--gtg-primary);
+}
+.breadcrumb__home {
+  width: 15px;
+  height: 15px;
+  color: var(--gtg-primary);
+}
+/* Current page: tinted "you are here" pill, not a link. */
+.breadcrumb__pill--current {
+  background: color-mix(in srgb, var(--gtg-primary) 12%, var(--gtg-surface));
+  border-color: color-mix(in srgb, var(--gtg-primary) 38%, var(--gtg-border));
+  color: var(--gtg-primary);
+  font-weight: 700;
+  cursor: default;
+}
+.breadcrumb__sep {
+  color: color-mix(in srgb, var(--gtg-fg-soft) 55%, transparent);
+  font-size: 0.9rem;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .progress-fill,
   .chip,
   .clear-btn,
   .io-btn,
+  .breadcrumb__pill,
   .transport__btn,
   .arrangement-selector.is-loading::after,
   #tabOutput.is-loading::after {

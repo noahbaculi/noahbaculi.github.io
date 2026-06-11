@@ -4,6 +4,7 @@ import {
   buildTabInput,
   buildPlaybackSchedule,
   buildArrangementChips,
+  playbackTotalBeats,
 } from "./guitartab-core.js";
 
 await init();
@@ -20,6 +21,7 @@ let playbackSchedule = null;
 let playbackStep = 0;
 let playbackInterval = null;
 let playbackSynth = null;
+let playbackTotal = 0;
 
 // ---- small DOM helpers --------------------------------------------------------------------
 function el(id) {
@@ -211,6 +213,7 @@ function newTab() {
   stopPlayback();
   playbackSchedule = null;
   playbackStep = 0;
+  el("playbackProgress").style.width = "0%";
   regenerate();
 }
 
@@ -233,15 +236,22 @@ function resetToEmpty() {
 // ---- playback -----------------------------------------------------------------------------
 function startPlayback() {
   if (!state.normalizedInput) return;
-  playbackSchedule = buildPlaybackSchedule(state.normalizedInput);
-  playbackStep = 0;
+  // Build the schedule once per arrangement; reuse it across pause/resume.
+  if (!playbackSchedule) {
+    playbackSchedule = buildPlaybackSchedule(state.normalizedInput);
+    playbackTotal = playbackTotalBeats(playbackSchedule);
+  }
+  // If the last run reached the end, a fresh Play restarts from the top.
+  if (playbackStep >= playbackSchedule.length) {
+    playbackStep = 0;
+  }
 
   // Created lazily; exports.Tone is provided by the Tone.js script in the HTML.
   playbackSynth ??= new exports.Tone.PolySynth().toDestination();
   playbackSynth.set({ detune: -1200 });
 
-  console.info("Playing tab audio");
-  playbackInterval = setInterval(playbackTick, 500);
+  const bpm = intValue("tempoControl", 120);
+  playbackInterval = setInterval(playbackTick, 60000 / bpm);
 }
 
 function playbackTick() {
@@ -264,6 +274,9 @@ function playbackTick() {
     playbackSynth.triggerAttackRelease(beat.pitches, "8n");
   }
   renderTab(beat.cursor);
+  if (beat.cursor !== null && playbackTotal > 0) {
+    el("playbackProgress").style.width = `${((beat.cursor + 1) / playbackTotal) * 100}%`;
+  }
   playbackStep += 1;
 }
 
@@ -279,6 +292,14 @@ function stopPlayback() {
     clearInterval(playbackInterval);
     playbackInterval = null;
   }
+}
+
+// Rewind playback to the start without re-running pathfinding (Reset, distinct from regenerate).
+function resetPlayback() {
+  stopPlayback();
+  playbackStep = 0;
+  el("playbackProgress").style.width = "0%";
+  renderTab(null);
 }
 
 // ---- display-setting label ----------------------------------------------------------------
@@ -712,7 +733,16 @@ el("playButton").addEventListener("click", () => {
 });
 
 el("pauseButton").addEventListener("click", stopPlayback);
-el("resetPlaybackButton").addEventListener("click", newTab);
+el("resetPlaybackButton").addEventListener("click", resetPlayback);
+
+el("tempoControl").addEventListener("input", () => {
+  el("tempoValue").textContent = el("tempoControl").value;
+  // Re-arm the interval at the new tempo if a song is mid-play.
+  if (playbackInterval !== null) {
+    clearInterval(playbackInterval);
+    playbackInterval = setInterval(playbackTick, 60000 / intValue("tempoControl", 120));
+  }
+});
 
 // Free the cached handle when the page goes away.
 window.addEventListener("pagehide", () => {

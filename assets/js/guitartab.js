@@ -44,7 +44,42 @@ function showToast(message) {
   }, 2000);
 }
 
-// ---- generate + render --------------------------------------------------------------------
+// ---- generation scheduling ----------------------------------------------------------------
+// Pathfinding runs synchronously in WASM, so back-to-back input events would each block the UI.
+// Debounce them, and keep a token so a superseded run never renders. When the previous run was
+// slow (> ~300ms), show a skeleton and yield one frame so it paints before the next blocking run.
+let pendingTimer = null;
+let generationToken = 0;
+let lastRunMs = 0;
+
+function requestRegenerate() {
+  clearTimeout(pendingTimer);
+  pendingTimer = setTimeout(() => {
+    const token = ++generationToken;
+    if (lastRunMs > 300) {
+      setLoading(true);
+      requestAnimationFrame(() => {
+        if (token !== generationToken) return; // a newer request superseded this one
+        runGeneration();
+        setLoading(false);
+      });
+    } else {
+      runGeneration();
+    }
+  }, 200);
+}
+
+function runGeneration() {
+  const start = performance.now();
+  newTab();
+  lastRunMs = performance.now() - start;
+}
+
+function setLoading(on) {
+  el("arrangementSelector").classList.toggle("is-loading", on);
+  el("tabOutput").classList.toggle("is-loading", on);
+}
+
 function regenerate() {
   const startTime = performance.now();
 
@@ -682,9 +717,9 @@ function loadExampleSong() {
 
 // ---- event wiring -------------------------------------------------------------------------
 // Pathfinding-tier inputs regenerate the set.
-el("pitchInput").addEventListener("input", newTab);
+el("pitchInput").addEventListener("input", requestRegenerate);
 for (const settingId of ["guitarTuning", "guitarCapo", "maxFretSpan"]) {
-  el(settingId).addEventListener("change", newTab);
+  el(settingId).addEventListener("change", requestRegenerate);
 }
 el("exampleSongs").addEventListener("change", loadExampleSong);
 el("clearInputButton").addEventListener("click", resetToEmpty);

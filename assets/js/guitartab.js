@@ -3,6 +3,7 @@ import {
   formatTabError,
   buildTabInput,
   buildPlaybackSchedule,
+  buildArrangementChips,
 } from "./guitartab-core.js";
 
 await init();
@@ -70,7 +71,64 @@ function regenerate() {
   }
 
   state.selectedIndex = 0;
+  renderSelector();
   renderTab(null);
+}
+
+// ---- arrangement selector -----------------------------------------------------------------
+// Read each arrangement's difficulty and span off the handle, then render a chip per result.
+// The chip is a radio in a radiogroup: aria-checked carries selection, and a check glyph marks
+// the active one so selection does not lean on color alone.
+function renderSelector() {
+  if (!state.set || state.set.isEmpty) return;
+  const difficulties = [];
+  const spans = [];
+  for (let i = 0; i < state.set.len; i += 1) {
+    difficulties.push(state.set.difficulty(i));
+    spans.push(state.set.maxFretSpan(i));
+  }
+  const chips = buildArrangementChips({ difficulties, spans });
+
+  const container = el("arrangementSelector");
+  container.setAttribute("role", "radiogroup");
+  container.setAttribute("aria-label", "Arrangement difficulty, easiest to hardest");
+  container.innerHTML = chips.map((chip) => chipMarkup(chip, chip.index === state.selectedIndex)).join("");
+
+  for (const button of container.querySelectorAll("[data-index]")) {
+    button.addEventListener("click", () => selectArrangement(Number(button.dataset.index)));
+  }
+}
+
+// Markup for one chip: difficulty label plus an aria-hidden check, the dot meter, and diff/span.
+function chipMarkup(chip, selected) {
+  const dots = [0, 1, 2, 3]
+    .map((d) => `<span class="dot${d < chip.dotCount ? " dot--on" : ""}"></span>`)
+    .join("");
+  return `<button type="button" role="radio" class="chip" data-index="${chip.index}"
+      aria-checked="${selected}" tabindex="${selected ? 0 : -1}">
+      <span class="chip__top">
+        <span class="chip__label">${chip.label}<span class="chip__check" aria-hidden="true">✓</span></span>
+        <span class="dots">${dots}</span>
+      </span>
+      <span class="chip__meta">diff ${chip.difficulty} · span ${chip.span}</span>
+    </button>`;
+}
+
+// Select an arrangement: stop playback, re-render the tab at the new index, update chip state.
+// Selection does not re-run pathfinding; the cached set re-renders cheaply at the new index.
+function selectArrangement(index) {
+  if (index === state.selectedIndex) return;
+  state.selectedIndex = index;
+  stopPlayback();
+  playbackSchedule = null;
+  playbackStep = 0;
+  el("playbackProgress").style.width = "0%";
+  renderTab(null);
+  for (const button of el("arrangementSelector").querySelectorAll("[data-index]")) {
+    const isSelected = Number(button.dataset.index) === index;
+    button.setAttribute("aria-checked", String(isSelected));
+    button.tabIndex = isSelected ? 0 : -1;
+  }
 }
 
 // Cheap re-render of the cached set at the current display settings and selected arrangement,

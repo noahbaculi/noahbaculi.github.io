@@ -176,3 +176,21 @@ describe("buildArrangementChips", () => {
     expect(chips.map((c) => c.dotCount)).toEqual([4, 4, 4]);
   });
 });
+
+import { playbackTotalBeats } from "../assets/js/guitartab-core.js";
+
+describe("playbackTotalBeats", () => {
+  test("counts cursor positions and skips measure breaks", () => {
+    const schedule = [
+      { kind: "playable", pitches: ["E4"], cursor: 0 },
+      { kind: "measureBreak", pitches: [], cursor: null },
+      { kind: "rest", pitches: [], cursor: 1 },
+      { kind: "playable", pitches: ["A2", "A3"], cursor: 2 },
+    ];
+    expect(playbackTotalBeats(schedule)).toBe(3);
+  });
+
+  test("an empty schedule has zero beats", () => {
+    expect(playbackTotalBeats([])).toBe(0);
+  });
+});

@@ -145,3 +145,8 @@ export function buildArrangementChips({ difficulties, spans }) {
     span: spans[index],
   }));
 }
+
+/** Number of advancing beats in a schedule (cursor positions), used to size the progress bar. */
+export function playbackTotalBeats(schedule) {
+  return schedule.filter((entry) => entry.cursor !== null).length;
+}

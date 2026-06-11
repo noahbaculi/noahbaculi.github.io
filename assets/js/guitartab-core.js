@@ -98,3 +98,46 @@ export function buildPlaybackSchedule(normalizedInput) {
   }
   return schedule;
 }
+
+// Three relative difficulty labels, easiest first. The set is small (numArrangements is 3),
+// so labels rank the returned arrangements against each other, not an absolute scale.
+const DIFFICULTY_LABELS = ["Easiest", "Easy", "Medium"];
+
+// Normalize a score against the set's min and max. A one-arrangement (or all-equal) set has no
+// spread, so it reads as fully filled rather than dividing by zero.
+function difficultyFraction(difficulties, index) {
+  const lo = Math.min(...difficulties);
+  const hi = Math.max(...difficulties);
+  return hi === lo ? 1 : (difficulties[index] - lo) / (hi - lo);
+}
+
+// 1..4 dots: the easiest always shows one, the hardest in the set shows four.
+function difficultyDotCount(fraction) {
+  return Math.round(fraction * 3) + 1;
+}
+
+// Bucket by rank within the set. Ties share the lower rank, so equal scores get the same label.
+function difficultyLabel(difficulties, index) {
+  const sorted = [...difficulties].sort((a, b) => a - b);
+  const rank = sorted.indexOf(difficulties[index]);
+  const bucket = Math.min(
+    DIFFICULTY_LABELS.length - 1,
+    Math.floor((rank / difficulties.length) * DIFFICULTY_LABELS.length),
+  );
+  return DIFFICULTY_LABELS[bucket];
+}
+
+/**
+ * Chip view-models for the arrangement selector, one per returned arrangement. Takes the raw
+ * difficulty and span arrays the glue reads off the ArrangementSet handle and returns the label,
+ * dot count, and numbers each chip shows.
+ */
+export function buildArrangementChips({ difficulties, spans }) {
+  return difficulties.map((difficulty, index) => ({
+    index,
+    label: difficultyLabel(difficulties, index),
+    dotCount: difficultyDotCount(difficultyFraction(difficulties, index)),
+    difficulty,
+    span: spans[index],
+  }));
+}

@@ -145,3 +145,34 @@ describe("buildPlaybackSchedule", () => {
     expect(buildPlaybackSchedule([])).toEqual([]);
   });
 });
+
+import { buildArrangementChips } from "../assets/js/guitartab-core.js";
+
+describe("buildArrangementChips", () => {
+  test("labels three ascending arrangements easiest to medium with rising dots", () => {
+    const chips = buildArrangementChips({ difficulties: [11, 27, 44], spans: [2, 3, 4] });
+    expect(chips).toEqual([
+      { index: 0, label: "Easiest", dotCount: 1, difficulty: 11, span: 2 },
+      { index: 1, label: "Easy", dotCount: 2, difficulty: 27, span: 3 },
+      { index: 2, label: "Medium", dotCount: 4, difficulty: 44, span: 4 },
+    ]);
+  });
+
+  test("a single arrangement is Easiest with full dots", () => {
+    expect(buildArrangementChips({ difficulties: [30], spans: [3] })).toEqual([
+      { index: 0, label: "Easiest", dotCount: 4, difficulty: 30, span: 3 },
+    ]);
+  });
+
+  test("two arrangements split into Easiest and Easy", () => {
+    const chips = buildArrangementChips({ difficulties: [10, 50], spans: [2, 5] });
+    expect(chips.map((c) => c.label)).toEqual(["Easiest", "Easy"]);
+    expect(chips.map((c) => c.dotCount)).toEqual([1, 4]);
+  });
+
+  test("an all-equal set gives every chip the same label and full dots", () => {
+    const chips = buildArrangementChips({ difficulties: [20, 20, 20], spans: [2, 2, 2] });
+    expect(chips.map((c) => c.label)).toEqual(["Easiest", "Easiest", "Easiest"]);
+    expect(chips.map((c) => c.dotCount)).toEqual([4, 4, 4]);
+  });
+});

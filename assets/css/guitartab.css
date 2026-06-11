@@ -445,7 +445,7 @@ textarea {
   color: var(--gtg-fg);
   padding: 0.5rem 0.75rem;
   font-family: var(--gtg-font-ui);
-  transition: border-color 120ms, background 120ms;
+  transition: border-color 120ms;
 }
 .chip:hover {
   border-color: var(--gtg-primary);
@@ -468,14 +468,10 @@ textarea {
   align-items: center;
   gap: 0.3rem;
 }
-/* Non-color selection cue: a check that only shows on the active chip. */
-.chip__check {
-  display: none;
-}
-.chip[aria-checked="true"] .chip__check {
-  display: inline;
-}
 .chip__meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
   font-size: 0.72rem;
   color: var(--gtg-fg-soft);
 }

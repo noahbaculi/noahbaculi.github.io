@@ -126,8 +126,8 @@ function regenerate() {
 
 // ---- arrangement selector -----------------------------------------------------------------
 // Read each arrangement's difficulty and span off the handle, then render a chip per result.
-// The chip is a radio in a radiogroup: aria-checked carries selection, and a check glyph marks
-// the active one so selection does not lean on color alone.
+// The chip is a radio in a radiogroup: aria-checked carries selection for assistive tech, and
+// the violet fill plus the keyboard focus ring carry it visually.
 function renderSelector() {
   if (!state.set || state.set.isEmpty) return;
   const difficulties = [];
@@ -178,18 +178,23 @@ function handleSelectorKeydown(event) {
   el("arrangementSelector").querySelector(`[data-index="${next}"]`).focus();
 }
 
-// Markup for one chip: difficulty label plus an aria-hidden check, the dot meter, and diff/span.
+// Markup for one chip: the rank label, a dot meter (one dot per arrangement, filled to the rank),
+// and a metrics line carrying the fret span and the relative difficulty index.
 function chipMarkup(chip, selected) {
-  const dots = [0, 1, 2, 3]
-    .map((d) => `<span class="dot${d < chip.dotCount ? " dot--on" : ""}"></span>`)
-    .join("");
+  const dots = Array.from(
+    { length: chip.dotTotal },
+    (_, d) => `<span class="dot${d < chip.dotCount ? " dot--on" : ""}"></span>`,
+  ).join("");
   return `<button type="button" role="radio" class="chip" data-index="${chip.index}"
       aria-checked="${selected}" tabindex="${selected ? 0 : -1}">
       <span class="chip__top">
-        <span class="chip__label">${chip.label}<span class="chip__check" aria-hidden="true">✓</span></span>
+        <span class="chip__label">${chip.label}</span>
         <span class="dots">${dots}</span>
       </span>
-      <span class="chip__meta">diff ${chip.difficulty} · span ${chip.span}</span>
+      <span class="chip__meta">
+        <span class="chip__span">&#8596; ${chip.span}-fret span</span>
+        <span class="chip__score">difficulty ${chip.relativeDifficulty}</span>
+      </span>
     </button>`;
 }
 

@@ -527,6 +527,28 @@ textarea {
   white-space: pre-wrap;
 }
 
+/* Keep scrollbars visible while content overflows, instead of the macOS overlay fade. */
+#pitchInput,
+#tabOutput {
+  scrollbar-width: thin;
+  scrollbar-color: var(--gtg-fg-soft) var(--gtg-border);
+}
+#pitchInput::-webkit-scrollbar,
+#tabOutput::-webkit-scrollbar {
+  width: 0.6rem;
+  height: 0.6rem;
+}
+#pitchInput::-webkit-scrollbar-track,
+#tabOutput::-webkit-scrollbar-track {
+  background: var(--gtg-border);
+  border-radius: 9999px;
+}
+#pitchInput::-webkit-scrollbar-thumb,
+#tabOutput::-webkit-scrollbar-thumb {
+  background: var(--gtg-fg-soft);
+  border-radius: 9999px;
+}
+
 /* Transport */
 .transport {
   display: flex;
@@ -651,5 +673,41 @@ textarea {
   #tabOutput.is-loading::after {
     transition: none !important;
     animation: none !important;
+  }
+}
+
+/* Full-height fill on desktop; mobile (max-width 800px) keeps natural stacked scrolling. */
+@media screen and (min-width: 801px) {
+  .workbench {
+    height: 100vh;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+  .gtg-header {
+    flex: 0 0 auto;
+    height: auto;
+  }
+  .gtg-main {
+    flex: 1;
+    min-height: 0;
+    align-items: stretch;
+    grid-template-rows: minmax(0, 1fr);
+  }
+  .input-col,
+  .output-col {
+    min-height: 0;
+  }
+  #pitchInput {
+    flex: 1;
+    min-height: 0;
+  }
+  #tabOutput {
+    flex: 1;
+    min-height: 0;
+    max-height: none;
   }
 }

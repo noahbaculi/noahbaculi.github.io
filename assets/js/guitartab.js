@@ -97,6 +97,36 @@ function renderSelector() {
   for (const button of container.querySelectorAll("[data-index]")) {
     button.addEventListener("click", () => selectArrangement(Number(button.dataset.index)));
   }
+  container.onkeydown = (event) => handleSelectorKeydown(event);
+}
+
+// Arrow/Home/End move the selection within the radiogroup and place focus on the new chip, so
+// the row behaves as a single roving-tabindex control rather than three separate tab stops.
+function handleSelectorKeydown(event) {
+  const count = state.set ? state.set.len : 0;
+  if (count === 0) return;
+  let next = state.selectedIndex;
+  switch (event.key) {
+    case "ArrowRight":
+    case "ArrowDown":
+      next = (state.selectedIndex + 1) % count;
+      break;
+    case "ArrowLeft":
+    case "ArrowUp":
+      next = (state.selectedIndex - 1 + count) % count;
+      break;
+    case "Home":
+      next = 0;
+      break;
+    case "End":
+      next = count - 1;
+      break;
+    default:
+      return;
+  }
+  event.preventDefault();
+  selectArrangement(next);
+  el("arrangementSelector").querySelector(`[data-index="${next}"]`).focus();
 }
 
 // Markup for one chip: difficulty label plus an aria-hidden check, the dot meter, and diff/span.

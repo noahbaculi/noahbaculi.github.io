@@ -342,6 +342,22 @@ textarea {
   cursor: default;
 }
 
+/* Selects: variant A recipe on the design tokens (replaces gray Flowbite utilities). */
+.gtg-select {
+  width: 100%;
+  font-family: var(--gtg-font-ui);
+  font-size: 0.875rem;
+  border: 2px solid var(--gtg-border);
+  border-radius: 0.75rem;
+  background: var(--gtg-surface);
+  color: var(--gtg-fg);
+  padding: 0.5rem 0.75rem;
+}
+.gtg-select option {
+  background: var(--gtg-surface);
+  color: var(--gtg-fg);
+}
+
 #pitchInput {
   font-family: var(--gtg-font-mono);
   min-height: 11rem;

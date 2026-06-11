@@ -433,6 +433,11 @@ textarea {
 .arrangement-selector:empty:not(.is-loading) {
   display: none;
 }
+.selector-legend {
+  margin: 0.4rem 0 0;
+  font-size: 0.72rem;
+  color: var(--gtg-fg-soft);
+}
 .chip {
   display: flex;
   flex-direction: column;

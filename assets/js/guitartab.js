@@ -147,6 +147,7 @@ function renderSelector() {
     button.addEventListener("click", () => selectArrangement(Number(button.dataset.index)));
   }
   container.onkeydown = (event) => handleSelectorKeydown(event);
+  el("arrangementLegend").hidden = false;
 }
 
 // Arrow/Home/End move the selection within the radiogroup and place focus on the new chip, so
@@ -243,6 +244,7 @@ function showMessage(message) {
   el("tabOutput").textContent = message;
   el("tabOutput").classList.add("is-message");
   el("arrangementSelector").innerHTML = "";
+  el("arrangementLegend").hidden = true;
   el("transportBar").hidden = true;
   el("copyButton").disabled = true;
   el("exportButton").disabled = true;

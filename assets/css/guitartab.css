@@ -358,6 +358,13 @@ textarea {
   color: var(--gtg-fg);
 }
 
+/* Range sliders: native control tinted violet, matching variant A. */
+.gtg-range {
+  width: 100%;
+  cursor: pointer;
+  accent-color: var(--gtg-primary);
+}
+
 #pitchInput {
   font-family: var(--gtg-font-mono);
   min-height: 11rem;

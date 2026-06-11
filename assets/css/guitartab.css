@@ -1,13 +1,10 @@
 :root {
   --header-height: 10%;
   --main-height: calc(100% - var(--header-height));
-  --color-bg-lightest: #f0f9ff;
-  --color-bg-lighter: #e0f2fe;
-  --color-text-darkest: #0c4a6e;
-  --color-focus-border: #3b82f6;
 
   /* Redesign palette (violet/indigo/pink). Light theme. */
   --gtg-bg: #faf5ff;
+  --gtg-bg-gradient: linear-gradient(180deg, #f3e8ff 0%, #faf5ff 55%, #ffffff 100%);
   --gtg-surface: #ffffff;
   --gtg-muted: #f7f3fd;
   --gtg-border: #e9ddfb;
@@ -34,12 +31,8 @@
 }
 
 [data-theme="dark"] {
-  --color-bg-lightest: #1e293b;
-  --color-bg-lighter: #334155;
-  --color-text-darkest: #e2e8f0;
-  --color-focus-border: #60a5fa;
-
   --gtg-bg: #120c22;
+  --gtg-bg-gradient: linear-gradient(180deg, #1d1440 0%, #120c22 55%, #0d0a18 100%);
   --gtg-surface: #1b1530;
   --gtg-muted: #221a3a;
   --gtg-border: #332a4e;
@@ -58,12 +51,8 @@
 /* Same values as [data-theme="dark"] above. Update both when changing dark colors. */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --color-bg-lightest: #1e293b;
-    --color-bg-lighter: #334155;
-    --color-text-darkest: #e2e8f0;
-    --color-focus-border: #60a5fa;
-
     --gtg-bg: #120c22;
+    --gtg-bg-gradient: linear-gradient(180deg, #1d1440 0%, #120c22 55%, #0d0a18 100%);
     --gtg-surface: #1b1530;
     --gtg-muted: #221a3a;
     --gtg-border: #332a4e;
@@ -89,15 +78,16 @@
 
 :focus {
   outline: none;
-  box-shadow: inset 0 0 0 2px var(--color-focus-border);
+  box-shadow: inset 0 0 0 2px var(--gtg-primary);
 }
 
 /* General styling */
 body {
   margin: 0;
   height: 100vh;
-  background-color: var(--color-bg-lightest);
-  color: var(--color-text-darkest);
+  background: var(--gtg-bg-gradient);
+  background-attachment: fixed;
+  color: var(--gtg-fg);
   font-family: "Nunito", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -118,7 +108,7 @@ body {
 
 select,
 option {
-  color: var(--color-text-darkest);
+  color: var(--gtg-fg);
   font-family: "Nunito", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -132,8 +122,8 @@ textarea {
   height: 100%;
   max-height: 100%;
   resize: none;
-  background-color: var(--color-bg-lighter);
-  color: var(--color-text-darkest);
+  background-color: var(--gtg-surface);
+  color: var(--gtg-fg);
 }
 
 #wrapper {

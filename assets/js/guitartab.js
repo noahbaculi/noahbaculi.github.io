@@ -30,6 +30,18 @@ function intValue(id, fallback) {
   return Number.isNaN(n) ? fallback : n;
 }
 
+// ---- toast ---------------------------------------------------------------------------------
+let toastTimer = null;
+function showToast(message) {
+  const toast = el("toast");
+  toast.textContent = message;
+  toast.hidden = false;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => {
+    toast.hidden = true;
+  }, 2000);
+}
+
 // ---- generate + render --------------------------------------------------------------------
 function regenerate() {
   const startTime = performance.now();
@@ -664,21 +676,32 @@ for (const displayId of ["tabLineLength", "tabPadding"]) {
   });
 }
 
-// Export the current tab text to a download.
-el("exportButton").addEventListener("click", () => {
-  const fileContent = el("tabOutput").value;
-  const temporaryDownloadElement = document.createElement("a");
-  temporaryDownloadElement.setAttribute(
-    "href",
-    "data:text/plain;charset=utf-8," + encodeURIComponent(fileContent),
-  );
-  temporaryDownloadElement.setAttribute("download", "guitar_tab_output");
-  temporaryDownloadElement.style.display = "none";
-  document.body.appendChild(temporaryDownloadElement);
-  temporaryDownloadElement.click();
-  document.body.removeChild(temporaryDownloadElement);
+el("copyButton").addEventListener("click", async () => {
+  const text = el("tabOutput").textContent;
+  try {
+    await navigator.clipboard.writeText(text);
+  } catch {
+    // Fallback for browsers without the async clipboard API or a non-secure context.
+    const scratch = document.createElement("textarea");
+    scratch.value = text;
+    document.body.appendChild(scratch);
+    scratch.select();
+    document.execCommand("copy");
+    scratch.remove();
+  }
+  showToast("Tab copied to clipboard");
+});
 
-  alert("Tab output saved to your downloads! 🎉");
+el("exportButton").addEventListener("click", () => {
+  const blob = new Blob([el("tabOutput").textContent], { type: "text/plain" });
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = "guitar-tab.txt";
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(link.href);
+  showToast("Saved guitar-tab.txt");
 });
 
 el("playButton").addEventListener("click", () => {

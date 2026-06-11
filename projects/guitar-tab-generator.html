@@ -135,14 +135,19 @@
 
         <!-- Output column -->
         <section class="output-col">
-          <div class="example-row" style="justify-content: flex-end">
-            <button type="button" id="copyButton" class="io-btn" disabled>Copy</button>
-            <button type="button" id="exportButton" class="io-btn" disabled>Download</button>
-          </div>
-
           <div id="arrangementSelector" class="arrangement-selector"></div>
 
-          <pre id="tabOutput" class="is-message" aria-label="Generated tab" tabindex="0">Enter pitches on the left to generate a tab.</pre>
+          <div class="tab-panel">
+            <div class="tab-actions">
+              <button type="button" id="copyButton" class="icon-btn" aria-label="Copy tab" title="Copy tab" disabled>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              </button>
+              <button type="button" id="exportButton" class="icon-btn" aria-label="Download tab" title="Download tab" disabled>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><path d="M7 10l5 5 5-5"></path><path d="M12 15V3"></path></svg>
+              </button>
+            </div>
+            <pre id="tabOutput" class="is-message" aria-label="Generated tab" tabindex="0">Enter pitches on the left to generate a tab.</pre>
+          </div>
 
           <div id="transportBar" class="transport" hidden>
             <button type="button" id="resetPlaybackButton" class="transport__btn" aria-label="Reset playback" disabled>

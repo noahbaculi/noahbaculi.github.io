@@ -522,6 +522,48 @@ textarea {
   white-space: pre-wrap;
 }
 
+/* The tab and its Copy/Download icons share one positioned panel; the icons float in
+   the top-right corner of the tab they act on, so they cost no vertical row. */
+.tab-panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.tab-actions {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.7rem;
+  display: flex;
+  gap: 0.3rem;
+  z-index: 2;
+}
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.85rem;
+  height: 1.85rem;
+  border-radius: 0.6rem;
+  border: 1.5px solid var(--gtg-border);
+  background: var(--gtg-surface);
+  color: var(--gtg-fg-soft);
+  cursor: pointer;
+  transition: border-color 120ms, color 120ms, background 120ms;
+}
+.icon-btn:not([disabled]):hover {
+  border-color: var(--gtg-primary);
+  color: var(--gtg-primary);
+}
+.icon-btn[disabled] {
+  opacity: 0.4;
+  cursor: default;
+}
+.icon-btn svg {
+  width: 1rem;
+  height: 1rem;
+}
+
 /* Keep scrollbars visible while content overflows, instead of the macOS overlay fade. */
 #pitchInput,
 #tabOutput {
@@ -719,6 +761,7 @@ a.breadcrumb__pill:hover {
   .chip,
   .clear-btn,
   .io-btn,
+  .icon-btn,
   .breadcrumb__pill,
   .transport__btn,
   .arrangement-selector.is-loading::after,
@@ -754,6 +797,10 @@ a.breadcrumb__pill:hover {
     min-height: 0;
   }
   #pitchInput {
+    flex: 1;
+    min-height: 0;
+  }
+  .tab-panel {
     flex: 1;
     min-height: 0;
   }

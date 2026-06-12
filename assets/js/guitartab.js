@@ -140,7 +140,7 @@ function renderSelector() {
 
   const container = el("arrangementSelector");
   container.setAttribute("role", "radiogroup");
-  container.setAttribute("aria-label", "Arrangement difficulty, easiest to hardest");
+  container.setAttribute("aria-label", "Arrangements, easiest to hardest");
   container.innerHTML = chips.map((chip) => chipMarkup(chip, chip.index === state.selectedIndex)).join("");
 
   for (const button of container.querySelectorAll("[data-index]")) {
@@ -179,19 +179,12 @@ function handleSelectorKeydown(event) {
   el("arrangementSelector").querySelector(`[data-index="${next}"]`).focus();
 }
 
-// Markup for one chip: the rank label, a dot meter (one dot per arrangement, filled to the rank),
-// and a metrics line carrying the fret span and the relative difficulty index.
+// Markup for one chip: the numbered label and a metrics line carrying the fret span and the
+// relative difficulty index.
 function chipMarkup(chip, selected) {
-  const dots = Array.from(
-    { length: chip.dotTotal },
-    (_, d) => `<span class="dot${d < chip.dotCount ? " dot--on" : ""}"></span>`,
-  ).join("");
   return `<button type="button" role="radio" class="chip" data-index="${chip.index}"
       aria-checked="${selected}" tabindex="${selected ? 0 : -1}">
-      <span class="chip__top">
-        <span class="chip__label">${chip.label}</span>
-        <span class="dots">${dots}</span>
-      </span>
+      <span class="chip__label">${chip.label}</span>
       <span class="chip__meta">
         <span class="chip__span">&#8596; ${chip.span}-fret span</span>
         <span class="chip__score">difficulty ${chip.relativeDifficulty}</span>

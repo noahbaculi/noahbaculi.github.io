@@ -106,7 +106,7 @@ describe("buildTabInput", () => {
     const r = buildTabInput({ ...base, capoValue: "2" });
     expect(r.guitarCapo).toBe(2);
     expect(r.guitarNumFrets).toBe(18);
-    expect(r.numArrangements).toBe(3);
+    expect(r.numArrangements).toBe(5);
   });
 
   test("defaults a blank capo to 0", () => {
@@ -149,40 +149,55 @@ describe("buildPlaybackSchedule", () => {
 import { buildArrangementChips } from "../assets/js/guitartab-core.js";
 
 describe("buildArrangementChips", () => {
-  test("labels three arrangements by rank with rising dots and a relative index", () => {
+  test("labels arrangements by position with a relative index", () => {
     const chips = buildArrangementChips({ difficulties: [10, 11, 13], spans: [2, 3, 4] });
     expect(chips).toEqual([
-      { index: 0, label: "Easiest", dotCount: 1, dotTotal: 3, relativeDifficulty: 100, span: 2 },
-      { index: 1, label: "Easy", dotCount: 2, dotTotal: 3, relativeDifficulty: 110, span: 3 },
-      { index: 2, label: "Medium", dotCount: 3, dotTotal: 3, relativeDifficulty: 130, span: 4 },
+      { index: 0, label: "Arrangement 1", relativeDifficulty: 100, span: 2 },
+      { index: 1, label: "Arrangement 2", relativeDifficulty: 110, span: 3 },
+      { index: 2, label: "Arrangement 3", relativeDifficulty: 130, span: 4 },
     ]);
   });
 
-  test("an all-equal set still gets distinct labels and dots, every index at 100", () => {
+  test("numbers five arrangements one through five", () => {
+    const chips = buildArrangementChips({
+      difficulties: [10, 12, 14, 16, 18],
+      spans: [2, 3, 4, 5, 6],
+    });
+    expect(chips.map((c) => c.label)).toEqual([
+      "Arrangement 1",
+      "Arrangement 2",
+      "Arrangement 3",
+      "Arrangement 4",
+      "Arrangement 5",
+    ]);
+  });
+
+  test("an all-equal set still gets distinct numbered labels, every index at 100", () => {
     const chips = buildArrangementChips({ difficulties: [20, 20, 20], spans: [2, 2, 2] });
-    expect(chips.map((c) => c.label)).toEqual(["Easiest", "Easy", "Medium"]);
-    expect(chips.map((c) => c.dotCount)).toEqual([1, 2, 3]);
+    expect(chips.map((c) => c.label)).toEqual([
+      "Arrangement 1",
+      "Arrangement 2",
+      "Arrangement 3",
+    ]);
     expect(chips.map((c) => c.relativeDifficulty)).toEqual([100, 100, 100]);
   });
 
-  test("a single arrangement is Easiest with one dot of one", () => {
+  test("a single arrangement is Arrangement 1 at index 100", () => {
     expect(buildArrangementChips({ difficulties: [30], spans: [3] })).toEqual([
-      { index: 0, label: "Easiest", dotCount: 1, dotTotal: 1, relativeDifficulty: 100, span: 3 },
+      { index: 0, label: "Arrangement 1", relativeDifficulty: 100, span: 3 },
     ]);
   });
 
-  test("two arrangements split into Easiest and Easy with a two-dot meter", () => {
+  test("relative index climbs above 100 for harder arrangements", () => {
     const chips = buildArrangementChips({ difficulties: [10, 50], spans: [2, 5] });
-    expect(chips.map((c) => c.label)).toEqual(["Easiest", "Easy"]);
-    expect(chips.map((c) => c.dotCount)).toEqual([1, 2]);
-    expect(chips.map((c) => c.dotTotal)).toEqual([2, 2]);
+    expect(chips.map((c) => c.label)).toEqual(["Arrangement 1", "Arrangement 2"]);
     expect(chips.map((c) => c.relativeDifficulty)).toEqual([100, 500]);
   });
 
   test("a non-positive easiest score falls back to a relative index of 100", () => {
     const chips = buildArrangementChips({ difficulties: [0, 0], spans: [1, 2] });
     expect(chips.map((c) => c.relativeDifficulty)).toEqual([100, 100]);
-    expect(chips.map((c) => c.label)).toEqual(["Easiest", "Easy"]);
+    expect(chips.map((c) => c.label)).toEqual(["Arrangement 1", "Arrangement 2"]);
   });
 });
 

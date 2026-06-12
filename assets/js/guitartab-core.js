@@ -57,7 +57,7 @@ function intOr(value, fallback) {
 
 // The demo requests a small ranked set so the selector can show several arrangements. Yen's
 // k-shortest-paths may return fewer (set.len), which the selector handles.
-const NUM_ARRANGEMENTS = 3;
+const NUM_ARRANGEMENTS = 5;
 
 /**
  * Build the TabInput for generateArrangements from raw control values. The fret count is fixed
@@ -103,25 +103,18 @@ export function buildPlaybackSchedule(normalizedInput) {
   return schedule;
 }
 
-// Three rank labels, easiest first. Chips are labeled by their position in the set, which the
-// library returns easiest-first, so ties in the raw score never collapse two chips onto one label.
-const DIFFICULTY_LABELS = ["Easiest", "Easy", "Medium"];
-
 /**
- * Chip view-models for the arrangement selector, one per returned arrangement. label and dotCount
- * come from the rank (index), so every chip is distinct; dotTotal sizes the meter to the set.
- * relativeDifficulty rescales the raw score against the easiest of the set (easiest = 100) so the
- * numbers compare across chips, falling back to 100 when the easiest score is non-positive. span is
- * the raw fret span.
+ * Chip view-models for the arrangement selector, one per returned arrangement. label numbers the
+ * chip by its position in the easiest-first set, so Arrangement 1 is the easiest and every chip is
+ * distinct. relativeDifficulty rescales the raw score against the easiest of the set (easiest = 100)
+ * so the numbers compare across chips, falling back to 100 when the easiest score is non-positive.
+ * span is the raw fret span.
  */
 export function buildArrangementChips({ difficulties, spans }) {
-  const total = difficulties.length;
   const anchor = Math.min(...difficulties);
   return difficulties.map((difficulty, index) => ({
     index,
-    label: DIFFICULTY_LABELS[Math.min(index, DIFFICULTY_LABELS.length - 1)],
-    dotCount: index + 1,
-    dotTotal: total,
+    label: `Arrangement ${index + 1}`,
     relativeDifficulty: anchor > 0 ? Math.round((100 * difficulty) / anchor) : 100,
     span: spans[index],
   }));

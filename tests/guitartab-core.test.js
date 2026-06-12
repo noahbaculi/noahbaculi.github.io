@@ -17,7 +17,10 @@ describe("formatTabError", () => {
   });
 
   test("parse error uses the singular for one line", () => {
-    const msg = formatTabError({ kind: "parse", errors: [{ line: 2, text: "Q" }] });
+    const msg = formatTabError({
+      kind: "parse",
+      errors: [{ line: 2, text: "Q" }],
+    });
     expect(msg).toContain("Couldn't read 1 line as pitches:");
   });
 
@@ -41,9 +44,9 @@ describe("formatTabError", () => {
   });
 
   test("renderWidthTooSmall points at the line length", () => {
-    expect(formatTabError({ kind: "renderWidthTooSmall", width: 5, min: 12 })).toContain(
-      "Increase the Line Length",
-    );
+    expect(
+      formatTabError({ kind: "renderWidthTooSmall", width: 5, min: 12 }),
+    ).toContain("Increase the Line Length");
   });
 
   test("an unknown kind names the kind in a generic message", () => {
@@ -65,7 +68,11 @@ describe("formatTabError", () => {
   });
 
   test("capoExceedsFrets shows the capo and fret count", () => {
-    const msg = formatTabError({ kind: "capoExceedsFrets", capo: 20, numFrets: 18 });
+    const msg = formatTabError({
+      kind: "capoExceedsFrets",
+      capo: 20,
+      numFrets: 18,
+    });
     expect(msg).toContain("20");
     expect(msg).toContain("18");
   });
@@ -77,20 +84,31 @@ describe("formatTabError", () => {
   });
 
   test("numFretsTooHigh shows the fret count and its maximum", () => {
-    const msg = formatTabError({ kind: "numFretsTooHigh", numFrets: 50, max: 30 });
+    const msg = formatTabError({
+      kind: "numFretsTooHigh",
+      numFrets: 50,
+      max: 30,
+    });
     expect(msg).toContain("50");
     expect(msg).toContain("30");
   });
 
   test("inputTooManyLines shows the line maximum", () => {
-    expect(formatTabError({ kind: "inputTooManyLines", max: 65535 })).toContain("65535");
+    expect(formatTabError({ kind: "inputTooManyLines", max: 65535 })).toContain(
+      "65535",
+    );
   });
 });
 
 import { buildTabInput } from "../assets/js/guitartab-core.js";
 
 describe("buildTabInput", () => {
-  const base = { pitches: "E4\nA2", tuningName: "standard", capoValue: "0", maxFretSpanValue: "" };
+  const base = {
+    pitches: "E4\nA2",
+    tuningName: "standard",
+    capoValue: "0",
+    maxFretSpanValue: "",
+  };
 
   test("omits maxFretSpanFilter when the span is Any (empty string)", () => {
     const r = buildTabInput(base);
@@ -114,8 +132,12 @@ describe("buildTabInput", () => {
   });
 
   test("passes the tuning through and defaults a blank tuning to standard", () => {
-    expect(buildTabInput({ ...base, tuningName: "openD" }).tuningName).toBe("openD");
-    expect(buildTabInput({ ...base, tuningName: "" }).tuningName).toBe("standard");
+    expect(buildTabInput({ ...base, tuningName: "openD" }).tuningName).toBe(
+      "openD",
+    );
+    expect(buildTabInput({ ...base, tuningName: "" }).tuningName).toBe(
+      "standard",
+    );
   });
 
   test("passes the raw pitch text through as input", () => {
@@ -150,7 +172,10 @@ import { buildArrangementChips } from "../assets/js/guitartab-core.js";
 
 describe("buildArrangementChips", () => {
   test("labels arrangements by position with a relative index", () => {
-    const chips = buildArrangementChips({ difficulties: [10, 11, 13], spans: [2, 3, 4] });
+    const chips = buildArrangementChips({
+      difficulties: [10, 11, 13],
+      spans: [2, 3, 4],
+    });
     expect(chips).toEqual([
       { index: 0, label: "Arrangement 1", relativeDifficulty: 100, span: 2 },
       { index: 1, label: "Arrangement 2", relativeDifficulty: 110, span: 3 },
@@ -173,7 +198,10 @@ describe("buildArrangementChips", () => {
   });
 
   test("an all-equal set still gets distinct numbered labels, every index at 100", () => {
-    const chips = buildArrangementChips({ difficulties: [20, 20, 20], spans: [2, 2, 2] });
+    const chips = buildArrangementChips({
+      difficulties: [20, 20, 20],
+      spans: [2, 2, 2],
+    });
     expect(chips.map((c) => c.label)).toEqual([
       "Arrangement 1",
       "Arrangement 2",
@@ -189,15 +217,27 @@ describe("buildArrangementChips", () => {
   });
 
   test("relative index climbs above 100 for harder arrangements", () => {
-    const chips = buildArrangementChips({ difficulties: [10, 50], spans: [2, 5] });
-    expect(chips.map((c) => c.label)).toEqual(["Arrangement 1", "Arrangement 2"]);
+    const chips = buildArrangementChips({
+      difficulties: [10, 50],
+      spans: [2, 5],
+    });
+    expect(chips.map((c) => c.label)).toEqual([
+      "Arrangement 1",
+      "Arrangement 2",
+    ]);
     expect(chips.map((c) => c.relativeDifficulty)).toEqual([100, 500]);
   });
 
   test("a non-positive easiest score falls back to a relative index of 100", () => {
-    const chips = buildArrangementChips({ difficulties: [0, 0], spans: [1, 2] });
+    const chips = buildArrangementChips({
+      difficulties: [0, 0],
+      spans: [1, 2],
+    });
     expect(chips.map((c) => c.relativeDifficulty)).toEqual([100, 100]);
-    expect(chips.map((c) => c.label)).toEqual(["Arrangement 1", "Arrangement 2"]);
+    expect(chips.map((c) => c.label)).toEqual([
+      "Arrangement 1",
+      "Arrangement 2",
+    ]);
   });
 });
 

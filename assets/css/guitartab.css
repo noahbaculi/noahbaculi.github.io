@@ -4,7 +4,12 @@
 
   /* Redesign palette (violet/indigo/pink). Light theme. */
   --gtg-bg: #faf5ff;
-  --gtg-bg-gradient: linear-gradient(180deg, #f3e8ff 0%, #faf5ff 55%, #ffffff 100%);
+  --gtg-bg-gradient: linear-gradient(
+    180deg,
+    #f3e8ff 0%,
+    #faf5ff 55%,
+    #ffffff 100%
+  );
   --gtg-surface: #ffffff;
   --gtg-muted: #f7f3fd;
   --gtg-border: #e9ddfb;
@@ -32,7 +37,12 @@
 
 [data-theme="dark"] {
   --gtg-bg: #120c22;
-  --gtg-bg-gradient: linear-gradient(180deg, #1d1440 0%, #120c22 55%, #0d0a18 100%);
+  --gtg-bg-gradient: linear-gradient(
+    180deg,
+    #1d1440 0%,
+    #120c22 55%,
+    #0d0a18 100%
+  );
   --gtg-surface: #1b1530;
   --gtg-muted: #221a3a;
   --gtg-border: #332a4e;
@@ -52,7 +62,12 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --gtg-bg: #120c22;
-    --gtg-bg-gradient: linear-gradient(180deg, #1d1440 0%, #120c22 55%, #0d0a18 100%);
+    --gtg-bg-gradient: linear-gradient(
+      180deg,
+      #1d1440 0%,
+      #120c22 55%,
+      #0d0a18 100%
+    );
     --gtg-surface: #1b1530;
     --gtg-muted: #221a3a;
     --gtg-border: #332a4e;
@@ -322,7 +337,9 @@ textarea {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  transition: border-color 120ms, color 120ms;
+  transition:
+    border-color 120ms,
+    color 120ms;
 }
 .clear-btn:hover,
 .io-btn:hover {
@@ -523,7 +540,10 @@ textarea {
   background: var(--gtg-surface);
   color: var(--gtg-fg-soft);
   cursor: pointer;
-  transition: border-color 120ms, color 120ms, background 120ms;
+  transition:
+    border-color 120ms,
+    color 120ms,
+    background 120ms;
 }
 .icon-btn:not([disabled]):hover {
   border-color: var(--gtg-primary);
@@ -658,13 +678,22 @@ textarea {
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  background: linear-gradient(90deg, var(--gtg-muted), var(--gtg-border), var(--gtg-muted));
+  background: linear-gradient(
+    90deg,
+    var(--gtg-muted),
+    var(--gtg-border),
+    var(--gtg-muted)
+  );
   background-size: 200% 100%;
   animation: gtg-shimmer 1.1s linear infinite;
 }
 @keyframes gtg-shimmer {
-  from { background-position: 200% 0; }
-  to { background-position: -200% 0; }
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
 }
 
 /* Headings use the display face. */
@@ -697,7 +726,9 @@ textarea {
   font-size: 0.8rem;
   font-weight: 600;
   text-decoration: none;
-  transition: border-color 120ms, color 120ms;
+  transition:
+    border-color 120ms,
+    color 120ms;
 }
 a.breadcrumb__pill:hover {
   border-color: var(--gtg-primary);

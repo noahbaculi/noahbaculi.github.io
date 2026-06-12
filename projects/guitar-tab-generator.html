@@ -37,19 +37,33 @@
             <ol class="breadcrumb__list">
               <li>
                 <a class="breadcrumb__pill" href="/index.html">
-                  <svg class="breadcrumb__home" aria-hidden="true" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path>
+                  <svg
+                    class="breadcrumb__home"
+                    aria-hidden="true"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"
+                    ></path>
                   </svg>
                   Home
                 </a>
               </li>
               <li class="breadcrumb__sep" aria-hidden="true">&rsaquo;</li>
               <li>
-                <a class="breadcrumb__pill" href="/projects/index.html">Projects</a>
+                <a class="breadcrumb__pill" href="/projects/index.html"
+                  >Projects</a
+                >
               </li>
               <li class="breadcrumb__sep" aria-hidden="true">&rsaquo;</li>
               <li>
-                <span class="breadcrumb__pill breadcrumb__pill--current" aria-current="page">Guitar Tab Generator</span>
+                <span
+                  class="breadcrumb__pill breadcrumb__pill--current"
+                  aria-current="page"
+                  >Guitar Tab Generator</span
+                >
               </li>
             </ol>
           </nav>
@@ -71,7 +85,9 @@
               <option value="Twinkle Twinkle">Twinkle Twinkle</option>
               <option value="Hey Jude">Hey Jude</option>
             </select>
-            <button type="button" id="clearInputButton" class="clear-btn">Clear</button>
+            <button type="button" id="clearInputButton" class="clear-btn">
+              Clear
+            </button>
           </div>
 
           <textarea
@@ -84,14 +100,27 @@
 
           <div class="syntax-legend" id="syntaxLegend">
             <p class="syntax-legend__title">Syntax</p>
-            <div class="syntax-row"><code class="syntax-key">E4</code><span class="syntax-desc">a single note</span></div>
-            <div class="syntax-row"><code class="syntax-key">A2A3</code><span class="syntax-desc">stacked notes are a chord</span></div>
-            <div class="syntax-row"><code class="syntax-key">(blank line)</code><span class="syntax-desc">a rest</span></div>
-            <div class="syntax-row"><code class="syntax-key">---</code><span class="syntax-desc">a measure break</span></div>
+            <div class="syntax-row">
+              <code class="syntax-key">E4</code
+              ><span class="syntax-desc">a single note</span>
+            </div>
+            <div class="syntax-row">
+              <code class="syntax-key">A2A3</code
+              ><span class="syntax-desc">stacked notes are a chord</span>
+            </div>
+            <div class="syntax-row">
+              <code class="syntax-key">(blank line)</code
+              ><span class="syntax-desc">a rest</span>
+            </div>
+            <div class="syntax-row">
+              <code class="syntax-key">---</code
+              ><span class="syntax-desc">a measure break</span>
+            </div>
           </div>
 
           <div class="controls-grid">
-            <label for="guitarTuning">Guitar Tuning
+            <label for="guitarTuning"
+              >Guitar Tuning
               <select id="guitarTuning" name="guitarTuning" class="gtg-select">
                 <option value="standard" selected>Standard</option>
                 <option value="dsus4">DADGAD</option>
@@ -105,31 +134,58 @@
                 <option value="dropD">Drop D</option>
               </select>
             </label>
-            <label for="guitarCapo">Guitar Capo
+            <label for="guitarCapo"
+              >Guitar Capo
               <select id="guitarCapo" name="guitarCapo" class="gtg-select">
                 <option value="0" selected>None</option>
-                <option value="1">1</option><option value="2">2</option><option value="3">3</option>
-                <option value="4">4</option><option value="5">5</option><option value="6">6</option>
-                <option value="7">7</option><option value="8">8</option><option value="9">9</option>
-                <option value="10">10</option><option value="11">11</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
               </select>
             </label>
-            <label for="maxFretSpan">Max Fret Span
+            <label for="maxFretSpan"
+              >Max Fret Span
               <select id="maxFretSpan" name="maxFretSpan" class="gtg-select">
                 <option value="" selected>Any</option>
-                <option value="2">2</option><option value="3">3</option><option value="4">4</option>
-                <option value="5">5</option><option value="6">6</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
               </select>
             </label>
-            <label for="tabPadding">Spacing
+            <label for="tabPadding"
+              >Spacing
               <select id="tabPadding" name="tabPadding" class="gtg-select">
                 <option value="0">0</option>
                 <option value="1" selected>1</option>
-                <option value="2">2</option><option value="3">3</option><option value="4">4</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
               </select>
             </label>
-            <label for="tabLineLength" id="tabLineLengthLabel" style="grid-column: 1 / -1"></label>
-            <input type="range" min="30" max="150" value="60" id="tabLineLength" style="grid-column: 1 / -1" class="gtg-range" />
+            <label
+              for="tabLineLength"
+              id="tabLineLengthLabel"
+              style="grid-column: 1 / -1"
+            ></label>
+            <input
+              type="range"
+              min="30"
+              max="150"
+              value="60"
+              id="tabLineLength"
+              style="grid-column: 1 / -1"
+              class="gtg-range"
+            />
           </div>
         </section>
 
@@ -137,34 +193,131 @@
         <section class="output-col">
           <div id="arrangementSelector" class="arrangement-selector"></div>
           <p id="arrangementLegend" class="selector-legend" hidden>
-            Arrangements are ordered easiest first. The difficulty index is relative to this set: 100 = easiest, higher is harder.
+            Arrangements are ordered easiest first. The difficulty index is
+            relative to this set: 100 = easiest, higher is harder.
           </p>
 
           <div class="tab-panel">
             <div class="tab-actions">
-              <button type="button" id="copyButton" class="icon-btn" aria-label="Copy tab" title="Copy tab" disabled>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              <button
+                type="button"
+                id="copyButton"
+                class="icon-btn"
+                aria-label="Copy tab"
+                title="Copy tab"
+                disabled
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <rect x="9" y="9" width="11" height="11" rx="2"></rect>
+                  <path
+                    d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                  ></path>
+                </svg>
               </button>
-              <button type="button" id="exportButton" class="icon-btn" aria-label="Download tab" title="Download tab" disabled>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><path d="M7 10l5 5 5-5"></path><path d="M12 15V3"></path></svg>
+              <button
+                type="button"
+                id="exportButton"
+                class="icon-btn"
+                aria-label="Download tab"
+                title="Download tab"
+                disabled
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <path d="M7 10l5 5 5-5"></path>
+                  <path d="M12 15V3"></path>
+                </svg>
               </button>
             </div>
-            <pre id="tabOutput" class="is-message" aria-label="Generated tab" tabindex="0">Enter pitches on the left to generate a tab.</pre>
+            <pre
+              id="tabOutput"
+              class="is-message"
+              aria-label="Generated tab"
+              tabindex="0"
+            >
+Enter pitches on the left to generate a tab.</pre
+            >
           </div>
 
           <div id="transportBar" class="transport" hidden>
-            <button type="button" id="resetPlaybackButton" class="transport__btn" aria-label="Reset playback" disabled>
-              <svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 5V1L7 6l5 5V7a5 5 0 11-5 5H5a7 7 0 107-7z"/></svg>
+            <button
+              type="button"
+              id="resetPlaybackButton"
+              class="transport__btn"
+              aria-label="Reset playback"
+              disabled
+            >
+              <svg
+                aria-hidden="true"
+                viewBox="0 0 24 24"
+                width="18"
+                height="18"
+                fill="currentColor"
+              >
+                <path d="M12 5V1L7 6l5 5V7a5 5 0 11-5 5H5a7 7 0 107-7z" />
+              </svg>
             </button>
-            <button type="button" id="playButton" class="transport__btn transport__btn--primary" aria-label="Play">
-              <svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            <button
+              type="button"
+              id="playButton"
+              class="transport__btn transport__btn--primary"
+              aria-label="Play"
+            >
+              <svg
+                aria-hidden="true"
+                viewBox="0 0 24 24"
+                width="18"
+                height="18"
+                fill="currentColor"
+              >
+                <path d="M8 5v14l11-7z" />
+              </svg>
             </button>
-            <button type="button" id="pauseButton" class="transport__btn transport__btn--primary" aria-label="Pause" style="display: none">
-              <svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+            <button
+              type="button"
+              id="pauseButton"
+              class="transport__btn transport__btn--primary"
+              aria-label="Pause"
+              style="display: none"
+            >
+              <svg
+                aria-hidden="true"
+                viewBox="0 0 24 24"
+                width="18"
+                height="18"
+                fill="currentColor"
+              >
+                <path d="M6 5h4v14H6zM14 5h4v14h-4z" />
+              </svg>
             </button>
-            <div class="progress-track"><div id="playbackProgress" class="progress-fill"></div></div>
-            <label class="tempo">Tempo
-              <input type="range" id="tempoControl" min="40" max="240" value="120" />
+            <div class="progress-track">
+              <div id="playbackProgress" class="progress-fill"></div>
+            </div>
+            <label class="tempo"
+              >Tempo
+              <input
+                type="range"
+                id="tempoControl"
+                min="40"
+                max="240"
+                value="120"
+              />
               <span id="tempoValue">120</span>
             </label>
           </div>

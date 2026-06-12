@@ -1,4 +1,6 @@
-import init, { generateArrangements } from "../wasm_guitar_tab_generator/guitar_tab_generator.js";
+import init, {
+  generateArrangements,
+} from "../wasm_guitar_tab_generator/guitar_tab_generator.js";
 import {
   formatTabError,
   buildTabInput,
@@ -141,10 +143,14 @@ function renderSelector() {
   const container = el("arrangementSelector");
   container.setAttribute("role", "radiogroup");
   container.setAttribute("aria-label", "Arrangements, easiest to hardest");
-  container.innerHTML = chips.map((chip) => chipMarkup(chip, chip.index === state.selectedIndex)).join("");
+  container.innerHTML = chips
+    .map((chip) => chipMarkup(chip, chip.index === state.selectedIndex))
+    .join("");
 
   for (const button of container.querySelectorAll("[data-index]")) {
-    button.addEventListener("click", () => selectArrangement(Number(button.dataset.index)));
+    button.addEventListener("click", () =>
+      selectArrangement(Number(button.dataset.index)),
+    );
   }
   container.onkeydown = (event) => handleSelectorKeydown(event);
   el("arrangementLegend").hidden = false;
@@ -202,7 +208,9 @@ function selectArrangement(index) {
   playbackStep = 0;
   el("playbackProgress").style.width = "0%";
   renderTab(null);
-  for (const button of el("arrangementSelector").querySelectorAll("[data-index]")) {
+  for (const button of el("arrangementSelector").querySelectorAll(
+    "[data-index]",
+  )) {
     const isSelected = Number(button.dataset.index) === index;
     button.setAttribute("aria-checked", String(isSelected));
     button.tabIndex = isSelected ? 0 : -1;
@@ -310,7 +318,8 @@ function playbackTick() {
   }
   renderTab(beat.cursor);
   if (beat.cursor !== null && playbackTotal > 0) {
-    el("playbackProgress").style.width = `${((beat.cursor + 1) / playbackTotal) * 100}%`;
+    el("playbackProgress").style.width =
+      `${((beat.cursor + 1) / playbackTotal) * 100}%`;
   }
   playbackStep += 1;
 }
@@ -775,7 +784,10 @@ el("tempoControl").addEventListener("input", () => {
   // Re-arm the interval at the new tempo if a song is mid-play.
   if (playbackInterval !== null) {
     clearInterval(playbackInterval);
-    playbackInterval = setInterval(playbackTick, 60000 / intValue("tempoControl", 120));
+    playbackInterval = setInterval(
+      playbackTick,
+      60000 / intValue("tempoControl", 120),
+    );
   }
 });
 

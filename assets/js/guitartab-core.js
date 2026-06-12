@@ -5,7 +5,7 @@
 
 /** Count plus a noun, pluralized: countNoun(1, "line") is "1 line", countNoun(2, "line") is "2 lines". */
 function countNoun(count, singular, plural) {
-  const word = count === 1 ? singular : plural ?? `${singular}s`;
+  const word = count === 1 ? singular : (plural ?? `${singular}s`);
   return `${count} ${word}`;
 }
 
@@ -23,11 +23,15 @@ export function formatTabError(err) {
   const kind = err && err.kind;
   switch (kind) {
     case "parse": {
-      const list = indentLineList(err.errors.map((e) => ({ line: e.line, label: e.text })));
+      const list = indentLineList(
+        err.errors.map((e) => ({ line: e.line, label: e.text })),
+      );
       return `Couldn't read ${countNoun(err.errors.length, "line")} as pitches:\n\n${list}\n\nFix or remove them and the tab will update.`;
     }
     case "unplayablePitches": {
-      const list = indentLineList(err.pitches.map((p) => ({ line: p.line, label: p.value })));
+      const list = indentLineList(
+        err.pitches.map((p) => ({ line: p.line, label: p.value })),
+      );
       return `${countNoun(err.pitches.length, "pitch", "pitches")} can't be played in this tuning:\n\n${list}\n\nTry a different tuning, or remove these notes.`;
     }
     case "noArrangementsFound":
@@ -65,7 +69,12 @@ const NUM_ARRANGEMENTS = 5;
  * Span dropdown value: the empty string (the "Any" option) omits the filter; any other value is
  * parsed to an integer and passed as maxFretSpanFilter.
  */
-export function buildTabInput({ pitches, tuningName, capoValue, maxFretSpanValue }) {
+export function buildTabInput({
+  pitches,
+  tuningName,
+  capoValue,
+  maxFretSpanValue,
+}) {
   const tabInput = {
     input: pitches,
     tuningName: tuningName || "standard",
@@ -115,7 +124,8 @@ export function buildArrangementChips({ difficulties, spans }) {
   return difficulties.map((difficulty, index) => ({
     index,
     label: `Arrangement ${index + 1}`,
-    relativeDifficulty: anchor > 0 ? Math.round((100 * difficulty) / anchor) : 100,
+    relativeDifficulty:
+      anchor > 0 ? Math.round((100 * difficulty) / anchor) : 100,
     span: spans[index],
   }));
 }

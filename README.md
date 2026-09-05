@@ -89,6 +89,15 @@ source HTML files           partials
                (served by Netlify)
 ```
 
+## File layout
+
+- `index.html`, `professional/*.html`, `hobbies/*.html`, `projects/*.html` are full pages: one per job, hobby, or project, each with its own narrative and images.
+- `assets/html/*.html` are partials injected into those pages by `build.py`'s `inject_partials()`, matched by element ID:
+  - `header.html`, `navbar.html`, `mobile_menu.html`, `footer.html` are structural chrome injected on every page.
+  - `subnavbar_professional.html` and `subnavbar_hobbies.html` are section-specific subnavs, injected only under `professional/` or `hobbies/`.
+  - `top_professional.html` holds the condensed, 3-bullet-per-job summaries shown on the homepage. It's separate from the full write-up on each `professional/*.html` page, so a resume or experience update usually touches both.
+  - `top_projects.html` holds the project cards shown on the homepage, one per project, linking out to the matching `projects/*.html` page.
+
 Re-generate the image tags in the HTML files with responsive webp thumbnails.
 
 ```shell

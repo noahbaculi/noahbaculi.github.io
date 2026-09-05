@@ -1,0 +1,21 @@
+#!/bin/sh
+# Pre-commit guard: prettier --check on staged files, so formatting failures
+# surface here instead of after pushing to CI. mise.toml's [hooks] enter
+# points git at this file on the first `cd` into the clone; `mise run setup`
+# is the manual fallback.
+#
+# Lychee's link check is left out since it's network-dependent and slow;
+# run it manually or let CI catch it. Bypass in a pinch with
+# `git commit --no-verify`; agents must not, per CLAUDE.md.
+set -eu
+
+staged=$(git diff --cached --name-only --diff-filter=ACMR)
+
+if [ -z "$staged" ]; then
+  exit 0
+fi
+
+if ! printf '%s\n' "$staged" | xargs bunx prettier --check --ignore-unknown; then
+  echo "pre-commit: 'prettier --check' failed on staged files. Run 'bunx prettier --write <file>...', then re-stage and commit." >&2
+  exit 1
+fi

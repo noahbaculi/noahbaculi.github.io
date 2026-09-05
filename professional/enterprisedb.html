@@ -79,8 +79,11 @@
             grew, I architected a generic multistep Pipeline framework to
             orchestrate complex workflows and later, a dead letter queue system
             to log and retry errors in pipeline steps for better traceability. I
-            also refactored Rust cloning, static dispatch, and take-by-value
-            patterns to reduce the extension's memory usage.
+            also built a Postgres-native MCP server in Rust so external agents
+            could call these tools directly, with dedicated auth and error
+            routing. On the performance side, I refactored Rust cloning, static
+            dispatch, and take-by-value patterns to reduce the extension's
+            memory usage.
           </p>
         </div>
       </div>

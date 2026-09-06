@@ -98,6 +98,15 @@ describe("formatTabError", () => {
       "65535",
     );
   });
+
+  test("difficultyWeightOutOfRange names the offending coefficient", () => {
+    const msg = formatTabError({
+      kind: "difficultyWeightOutOfRange",
+      field: "span",
+    });
+    expect(msg).toContain("span");
+    expect(msg).not.toContain("undefined");
+  });
 });
 
 import { buildTabInput } from "../assets/js/guitartab-core.js";
@@ -143,6 +152,30 @@ describe("buildTabInput", () => {
   test("passes the raw pitch text through as input", () => {
     expect(buildTabInput(base).input).toBe("E4\nA2");
   });
+
+  test("omits difficultyWeights when no weights are passed", () => {
+    expect("difficultyWeights" in buildTabInput(base)).toBe(false);
+  });
+
+  test("passes the three weights through as difficultyWeights", () => {
+    const r = buildTabInput({
+      ...base,
+      weights: { movement: 100, span: 10, position: 1 },
+    });
+    expect(r.difficultyWeights).toEqual({
+      movement: 100,
+      span: 10,
+      position: 1,
+    });
+  });
+
+  test("keeps all-zero weights, which the crate accepts", () => {
+    const r = buildTabInput({
+      ...base,
+      weights: { movement: 0, span: 0, position: 0 },
+    });
+    expect(r.difficultyWeights).toEqual({ movement: 0, span: 0, position: 0 });
+  });
 });
 
 import { buildPlaybackSchedule } from "../assets/js/guitartab-core.js";
@@ -177,9 +210,27 @@ describe("buildArrangementChips", () => {
       spans: [2, 3, 4],
     });
     expect(chips).toEqual([
-      { index: 0, label: "Arrangement 1", relativeDifficulty: 100, span: 2 },
-      { index: 1, label: "Arrangement 2", relativeDifficulty: 110, span: 3 },
-      { index: 2, label: "Arrangement 3", relativeDifficulty: 130, span: 4 },
+      {
+        index: 0,
+        label: "Arrangement 1",
+        relativeDifficulty: 100,
+        rawDifficulty: 10,
+        span: 2,
+      },
+      {
+        index: 1,
+        label: "Arrangement 2",
+        relativeDifficulty: 110,
+        rawDifficulty: 11,
+        span: 3,
+      },
+      {
+        index: 2,
+        label: "Arrangement 3",
+        relativeDifficulty: 130,
+        rawDifficulty: 13,
+        span: 4,
+      },
     ]);
   });
 
@@ -212,7 +263,13 @@ describe("buildArrangementChips", () => {
 
   test("a single arrangement is Arrangement 1 at index 100", () => {
     expect(buildArrangementChips({ difficulties: [30], spans: [3] })).toEqual([
-      { index: 0, label: "Arrangement 1", relativeDifficulty: 100, span: 3 },
+      {
+        index: 0,
+        label: "Arrangement 1",
+        relativeDifficulty: 100,
+        rawDifficulty: 30,
+        span: 3,
+      },
     ]);
   });
 
@@ -239,6 +296,17 @@ describe("buildArrangementChips", () => {
       "Arrangement 2",
     ]);
   });
+
+  // 3.0.0 dropped the `as i32` truncation, so the raw score arrives fractional and must not be
+  // rounded on the way through.
+  test("carries the fractional raw score through unrounded", () => {
+    const chips = buildArrangementChips({
+      difficulties: [412.64, 500.5],
+      spans: [3, 4],
+    });
+    expect(chips.map((c) => c.rawDifficulty)).toEqual([412.64, 500.5]);
+    expect(chips.map((c) => c.relativeDifficulty)).toEqual([100, 121]);
+  });
 });
 
 import { playbackTotalBeats } from "../assets/js/guitartab-core.js";
@@ -256,5 +324,169 @@ describe("playbackTotalBeats", () => {
 
   test("an empty schedule has zero beats", () => {
     expect(playbackTotalBeats([])).toBe(0);
+  });
+});
+
+import {
+  DIFFICULTY_PRESETS,
+  PRIORITY_AXES,
+  PRIORITY_LEVELS,
+  matchPresetId,
+  nextRovingIndex,
+  prioritySummary,
+} from "../assets/js/guitartab-core.js";
+
+describe("PRIORITY_LEVELS", () => {
+  test("holds the four labels in ascending order", () => {
+    expect(PRIORITY_LEVELS.map((level) => level.label)).toEqual([
+      "Ignore",
+      "Low",
+      "High",
+      "Highest",
+    ]);
+  });
+
+  test("carries the spec's logarithmic coefficients", () => {
+    expect(PRIORITY_LEVELS.map((level) => level.weight)).toEqual([
+      0, 1, 10, 100,
+    ]);
+  });
+});
+
+describe("PRIORITY_AXES", () => {
+  test("holds the three coefficient keys in wire order", () => {
+    expect(PRIORITY_AXES.map((axis) => axis.key)).toEqual([
+      "movement",
+      "span",
+      "position",
+    ]);
+  });
+
+  // The rows name the musical effect, not the coefficient, so no axis label may be the bare key.
+  test("labels each axis by its musical effect", () => {
+    expect(PRIORITY_AXES.map((axis) => axis.label)).toEqual([
+      "Keep the hand still",
+      "Keep fingers together",
+      "Stay near the nut",
+    ]);
+  });
+});
+
+describe("DIFFICULTY_PRESETS", () => {
+  test("holds the four presets in spec order", () => {
+    expect(DIFFICULTY_PRESETS.map((p) => p.id)).toEqual([
+      "balanced",
+      "stillHand",
+      "easyReach",
+      "lowNeck",
+    ]);
+  });
+
+  test("carries the spec's exact coefficients", () => {
+    expect(DIFFICULTY_PRESETS.map((p) => p.weights)).toEqual([
+      { movement: 1, span: 1, position: 1 },
+      { movement: 100, span: 1, position: 1 },
+      { movement: 10, span: 100, position: 1 },
+      { movement: 1, span: 10, position: 100 },
+    ]);
+  });
+
+  // Every preset has to be reachable by clicking, which means every coefficient has to be one of
+  // the four levels the chips offer.
+  test("every coefficient is a level the chips can reach", () => {
+    const reachable = PRIORITY_LEVELS.map((level) => level.weight);
+    for (const preset of DIFFICULTY_PRESETS) {
+      for (const value of Object.values(preset.weights)) {
+        expect(reachable).toContain(value);
+      }
+    }
+  });
+
+  test("each preset has a label", () => {
+    for (const preset of DIFFICULTY_PRESETS) {
+      expect(preset.label.length).toBeGreaterThan(0);
+    }
+  });
+});
+
+describe("matchPresetId", () => {
+  test("matches a preset on its exact values", () => {
+    expect(matchPresetId({ movement: 1, span: 1, position: 1 })).toBe(
+      "balanced",
+    );
+    expect(matchPresetId({ movement: 1, span: 10, position: 100 })).toBe(
+      "lowNeck",
+    );
+  });
+
+  // Only the ratio affects ranking, so a scaled triple is the same preset. Highest / Highest /
+  // Highest and Low / Low / Low are both Balanced.
+  test("matches a scaled triple, since only the ratio matters", () => {
+    expect(matchPresetId({ movement: 100, span: 100, position: 100 })).toBe(
+      "balanced",
+    );
+  });
+
+  test("returns null when no preset matches", () => {
+    expect(matchPresetId({ movement: 100, span: 100, position: 1 })).toBe(null);
+  });
+
+  test("returns null for all-zero weights, which have no ratio", () => {
+    expect(matchPresetId({ movement: 0, span: 0, position: 0 })).toBe(null);
+  });
+});
+
+describe("prioritySummary", () => {
+  test("names the preset and shows the triple behind it", () => {
+    expect(prioritySummary({ movement: 1, span: 1, position: 1 })).toBe(
+      "Balanced (1 / 1 / 1)",
+    );
+    expect(prioritySummary({ movement: 100, span: 1, position: 1 })).toBe(
+      "Still Hand (100 / 1 / 1)",
+    );
+  });
+
+  test("keeps the reader's own numbers when a scaled triple names a preset", () => {
+    expect(prioritySummary({ movement: 100, span: 100, position: 100 })).toBe(
+      "Balanced (100 / 100 / 100)",
+    );
+  });
+
+  test("falls back to the bare triple when no preset matches", () => {
+    expect(prioritySummary({ movement: 100, span: 100, position: 1 })).toBe(
+      "100 / 100 / 1",
+    );
+  });
+
+  test("falls back to the bare triple for all-zero weights", () => {
+    expect(prioritySummary({ movement: 0, span: 0, position: 0 })).toBe(
+      "0 / 0 / 0",
+    );
+  });
+});
+
+describe("nextRovingIndex", () => {
+  test("moves forward and wraps past the end", () => {
+    expect(nextRovingIndex("ArrowRight", 0, 3)).toBe(1);
+    expect(nextRovingIndex("ArrowDown", 2, 3)).toBe(0);
+  });
+
+  test("moves back and wraps past the start", () => {
+    expect(nextRovingIndex("ArrowLeft", 1, 3)).toBe(0);
+    expect(nextRovingIndex("ArrowUp", 0, 3)).toBe(2);
+  });
+
+  test("Home and End jump to the ends", () => {
+    expect(nextRovingIndex("Home", 2, 3)).toBe(0);
+    expect(nextRovingIndex("End", 0, 3)).toBe(2);
+  });
+
+  test("returns null for a key that is not navigation", () => {
+    expect(nextRovingIndex("Enter", 0, 3)).toBe(null);
+    expect(nextRovingIndex("a", 0, 3)).toBe(null);
+  });
+
+  test("returns null for an empty list", () => {
+    expect(nextRovingIndex("ArrowRight", 0, 0)).toBe(null);
   });
 });

@@ -420,6 +420,20 @@ textarea {
 }
 
 /* Controls grid */
+.control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.group-heading {
+  margin: 0;
+  font-family: var(--gtg-font-display);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--gtg-fg-soft);
+}
 .controls-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -430,6 +444,56 @@ textarea {
   font-size: 0.75rem;
   font-weight: 500;
   color: var(--gtg-fg-soft);
+}
+
+/* Difficulty priority disclosure */
+.priority {
+  border: 2px solid var(--gtg-border);
+  border-radius: 0.75rem;
+  background: var(--gtg-muted);
+  padding: 0.5rem 0.75rem;
+}
+.priority__summary {
+  cursor: pointer;
+  font-family: var(--gtg-font-ui);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--gtg-fg-soft);
+}
+.priority__rows {
+  display: grid;
+  gap: 0.6rem;
+  margin-top: 0.75rem;
+}
+.priority__label {
+  font-family: var(--gtg-font-ui);
+  font-size: 0.72rem;
+  color: var(--gtg-fg-soft);
+}
+.level-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.25rem;
+  margin-top: 0.25rem;
+}
+.level {
+  cursor: pointer;
+  border-radius: 0.5rem;
+  border: 2px solid var(--gtg-border);
+  background: var(--gtg-surface);
+  color: var(--gtg-fg);
+  padding: 0.3rem 0.2rem;
+  font-family: var(--gtg-font-ui);
+  font-size: 0.7rem;
+  transition: border-color 120ms;
+}
+.level:hover {
+  border-color: var(--gtg-primary);
+}
+.level[aria-checked="true"] {
+  background: var(--gtg-primary);
+  color: var(--gtg-on-primary);
+  border-color: var(--gtg-primary);
 }
 
 /* Arrangement selector */
@@ -489,6 +553,14 @@ textarea {
   color: var(--gtg-fg-soft);
 }
 .chip[aria-checked="true"] .chip__meta {
+  color: var(--gtg-on-primary);
+}
+.chip__raw {
+  font-size: 0.68rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--gtg-fg-soft);
+}
+.chip[aria-checked="true"] .chip__raw {
   color: var(--gtg-on-primary);
 }
 
@@ -763,7 +835,8 @@ a.breadcrumb__pill:hover {
 
 @media (prefers-reduced-motion: reduce) {
   .progress-fill,
-  .chip,
+  .pill,
+  .level,
   .clear-btn,
   .io-btn,
   .icon-btn,

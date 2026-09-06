@@ -48,6 +48,8 @@ export function formatTabError(err) {
       return "The line length is too short to draw the tab. Increase the Line Length.";
     case "inputTooManyLines":
       return `That's too many lines of input. The maximum is ${err.max}.`;
+    case "difficultyWeightOutOfRange":
+      return `The ${err.field} weight must be a finite number of 0 or more.`;
     default:
       return `Couldn't generate a tab${kind ? ` (${kind})` : ""}.`;
   }
@@ -67,13 +69,15 @@ const NUM_ARRANGEMENTS = 5;
  * Build the TabInput for generateArrangements from raw control values. The fret count is fixed
  * for this demo and the arrangement count is NUM_ARRANGEMENTS. maxFretSpanValue is the Max Fret
  * Span dropdown value: the empty string (the "Any" option) omits the filter; any other value is
- * parsed to an integer and passed as maxFretSpanFilter.
+ * parsed to an integer and passed as maxFretSpanFilter. weights is the difficulty-coefficient
+ * override; omitting it leaves the crate's built-in ranking in place.
  */
 export function buildTabInput({
   pitches,
   tuningName,
   capoValue,
   maxFretSpanValue,
+  weights,
 }) {
   const tabInput = {
     input: pitches,
@@ -86,7 +90,94 @@ export function buildTabInput({
   if (!Number.isNaN(span)) {
     tabInput.maxFretSpanFilter = span;
   }
+  if (weights) {
+    tabInput.difficultyWeights = weights;
+  }
   return tabInput;
+}
+
+/**
+ * Coefficient behind each priority chip, low to high. The scale is logarithmic because the
+ * ranking barely moves under about 100:1, so the labels are ordinal words rather than the raw
+ * numbers, which an evenly spaced row of boxes would misrepresent.
+ */
+export const PRIORITY_LEVELS = [
+  { label: "Ignore", weight: 0 },
+  { label: "Low", weight: 1 },
+  { label: "High", weight: 10 },
+  { label: "Highest", weight: 100 },
+];
+
+/** The three difficulty axes in wire order, labelled by the musical effect each one buys. */
+export const PRIORITY_AXES = [
+  { key: "movement", label: "Keep the hand still" },
+  { key: "span", label: "Keep fingers together" },
+  { key: "position", label: "Stay near the nut" },
+];
+
+/**
+ * Named weight triples, used to label the current state rather than to set it. Each of the last
+ * three pins one axis at 100 so the tradeoff it isolates stands out against the other two.
+ */
+export const DIFFICULTY_PRESETS = [
+  {
+    id: "balanced",
+    label: "Balanced",
+    weights: { movement: 1, span: 1, position: 1 },
+  },
+  {
+    id: "stillHand",
+    label: "Still Hand",
+    weights: { movement: 100, span: 1, position: 1 },
+  },
+  {
+    id: "easyReach",
+    label: "Easy Reach",
+    weights: { movement: 10, span: 100, position: 1 },
+  },
+  {
+    id: "lowNeck",
+    label: "Low Neck",
+    weights: { movement: 1, span: 10, position: 100 },
+  },
+];
+
+/** Scale a weight triple so its largest coefficient is 1, or null when all three are zero. */
+function weightRatio({ movement, span, position }) {
+  const max = Math.max(movement, span, position);
+  if (max <= 0) {
+    return null;
+  }
+  return [movement / max, span / max, position / max];
+}
+
+/**
+ * Id of the preset whose ratio matches these weights, or null when none does. Compares ratios
+ * rather than raw values, since 3.0.0 ranks on the ratio alone and 200 / 20 / 2 is Standard.
+ */
+export function matchPresetId(weights) {
+  const target = weightRatio(weights);
+  if (!target) {
+    return null;
+  }
+  const hit = DIFFICULTY_PRESETS.find((preset) => {
+    const ratio = weightRatio(preset.weights);
+    return ratio.every((value, i) => Math.abs(value - target[i]) < 1e-9);
+  });
+  return hit ? hit.id : null;
+}
+
+/**
+ * Summary line for the priority disclosure: the preset name over its own triple when the ratio
+ * is a named one, and the bare triple otherwise. The numbers stay visible so a reader can
+ * reproduce the call through `TabInput.difficultyWeights`.
+ */
+export function prioritySummary(weights) {
+  const triple = `${weights.movement} / ${weights.span} / ${weights.position}`;
+  const preset = DIFFICULTY_PRESETS.find(
+    (candidate) => candidate.id === matchPresetId(weights),
+  );
+  return preset ? `${preset.label} (${triple})` : triple;
 }
 
 /**
@@ -117,6 +208,7 @@ export function buildPlaybackSchedule(normalizedInput) {
  * chip by its position in the easiest-first set, so Arrangement 1 is the easiest and every chip is
  * distinct. relativeDifficulty rescales the raw score against the easiest of the set (easiest = 100)
  * so the numbers compare across chips, falling back to 100 when the easiest score is non-positive.
+ * rawDifficulty is the unrounded score, which is what moves when the weights change.
  * span is the raw fret span.
  */
 export function buildArrangementChips({ difficulties, spans }) {
@@ -126,6 +218,7 @@ export function buildArrangementChips({ difficulties, spans }) {
     label: `Arrangement ${index + 1}`,
     relativeDifficulty:
       anchor > 0 ? Math.round((100 * difficulty) / anchor) : 100,
+    rawDifficulty: difficulty,
     span: spans[index],
   }));
 }
@@ -133,4 +226,28 @@ export function buildArrangementChips({ difficulties, spans }) {
 /** Number of advancing beats in a schedule (cursor positions), used to size the progress bar. */
 export function playbackTotalBeats(schedule) {
   return schedule.filter((entry) => entry.cursor !== null).length;
+}
+
+/**
+ * Next index for an arrow, Home, or End key within a wrapping roving-tabindex list. Returns null
+ * for any other key or an empty list, so callers can leave the event alone.
+ */
+export function nextRovingIndex(key, current, count) {
+  if (count === 0) {
+    return null;
+  }
+  switch (key) {
+    case "ArrowRight":
+    case "ArrowDown":
+      return (current + 1) % count;
+    case "ArrowLeft":
+    case "ArrowUp":
+      return (current - 1 + count) % count;
+    case "Home":
+      return 0;
+    case "End":
+      return count - 1;
+    default:
+      return null;
+  }
 }

@@ -7,6 +7,10 @@ import {
   buildPlaybackSchedule,
   buildArrangementChips,
   playbackTotalBeats,
+  PRIORITY_AXES,
+  PRIORITY_LEVELS,
+  prioritySummary,
+  nextRovingIndex,
 } from "./guitartab-core.js";
 
 await init();
@@ -97,6 +101,7 @@ function regenerate() {
     tuningName: el("guitarTuning").value,
     capoValue: el("guitarCapo").value,
     maxFretSpanValue: el("maxFretSpan").value,
+    weights: readWeights(),
   });
 
   try {
@@ -160,33 +165,18 @@ function renderSelector() {
 // the row behaves as a single roving-tabindex control rather than three separate tab stops.
 function handleSelectorKeydown(event) {
   const count = state.set ? state.set.len : 0;
-  if (count === 0) return;
-  let next = state.selectedIndex;
-  switch (event.key) {
-    case "ArrowRight":
-    case "ArrowDown":
-      next = (state.selectedIndex + 1) % count;
-      break;
-    case "ArrowLeft":
-    case "ArrowUp":
-      next = (state.selectedIndex - 1 + count) % count;
-      break;
-    case "Home":
-      next = 0;
-      break;
-    case "End":
-      next = count - 1;
-      break;
-    default:
-      return;
+  const next = nextRovingIndex(event.key, state.selectedIndex, count);
+  if (next === null) {
+    return;
   }
   event.preventDefault();
   selectArrangement(next);
   el("arrangementSelector").querySelector(`[data-index="${next}"]`).focus();
 }
 
-// Markup for one chip: the numbered label and a metrics line carrying the fret span and the
-// relative difficulty index.
+// Markup for one chip: the numbered label, a metrics line carrying the fret span and the
+// relative difficulty index, and the raw score under it. One decimal place, since 3.0.0 returns
+// a fractional f64.
 function chipMarkup(chip, selected) {
   return `<button type="button" role="radio" class="chip" data-index="${chip.index}"
       aria-checked="${selected}" tabindex="${selected ? 0 : -1}">
@@ -195,6 +185,7 @@ function chipMarkup(chip, selected) {
         <span class="chip__span">&#8596; ${chip.span}-fret span</span>
         <span class="chip__score">difficulty ${chip.relativeDifficulty}</span>
       </span>
+      <span class="chip__raw">raw ${chip.rawDifficulty.toFixed(1)}</span>
     </button>`;
 }
 
@@ -349,7 +340,86 @@ function resetPlayback() {
 // ---- display-setting label ----------------------------------------------------------------
 function updateLineLengthLabel() {
   const width = intValue("tabLineLength", 80);
-  el("tabLineLengthLabel").innerHTML = `Line Length - ${width}`;
+  el("tabLineLengthLabel").textContent = `Line Length - ${width}`;
+}
+
+// ---- difficulty priority --------------------------------------------------------------------
+// The three coefficients live here rather than in the DOM, since the chips render from them and
+// the crate reads only the ratio between them. Seeded at the crate's default.
+const weights = { movement: 1, span: 1, position: 1 };
+
+/** Current coefficients in the shape buildTabInput expects. */
+function readWeights() {
+  return { ...weights };
+}
+
+// Markup for one axis: its musical label over a radiogroup of four level chips.
+function axisMarkup(axis) {
+  const chips = PRIORITY_LEVELS.map((level) => {
+    const selected = weights[axis.key] === level.weight;
+    return `<button type="button" role="radio" class="level" data-axis="${axis.key}"
+        data-weight="${level.weight}" aria-checked="${selected}"
+        tabindex="${selected ? 0 : -1}">${level.label}</button>`;
+  }).join("");
+  return `<div class="priority__row">
+      <span class="priority__label" id="priorityLabel-${axis.key}">${axis.label}</span>
+      <div class="level-row" role="radiogroup" data-axis="${axis.key}"
+        aria-labelledby="priorityLabel-${axis.key}">${chips}</div>
+    </div>`;
+}
+
+/** Repaint the summary line from the live coefficients. */
+function updatePrioritySummary() {
+  el("prioritySummary").textContent = prioritySummary(readWeights());
+}
+
+// Build the three rows once and bind a click and a keydown handler per row. Selection repaints
+// the chips in place, so keyboard focus survives it.
+function renderPriority() {
+  const container = el("priorityRows");
+  container.innerHTML = PRIORITY_AXES.map(axisMarkup).join("");
+  for (const button of container.querySelectorAll("[data-weight]")) {
+    button.addEventListener("click", () =>
+      setLevel(button.dataset.axis, Number(button.dataset.weight)),
+    );
+  }
+  for (const row of container.querySelectorAll(".level-row")) {
+    row.onkeydown = (event) => handleLevelKeydown(event, row.dataset.axis);
+  }
+  updatePrioritySummary();
+}
+
+// Set one axis to a level, repaint its row and the summary, and regenerate on the debounce. The
+// summary is not pathfinding-tier, so it updates now rather than 200 ms from now.
+function setLevel(axis, weight) {
+  if (weights[axis] === weight) return;
+  weights[axis] = weight;
+  for (const button of el("priorityRows").querySelectorAll(
+    `[data-axis="${axis}"][data-weight]`,
+  )) {
+    const isSelected = Number(button.dataset.weight) === weight;
+    button.setAttribute("aria-checked", String(isSelected));
+    button.tabIndex = isSelected ? 0 : -1;
+  }
+  updatePrioritySummary();
+  requestRegenerate();
+}
+
+// Roving tabindex within one axis row, sharing the arrangement row's index math.
+function handleLevelKeydown(event, axis) {
+  const current = PRIORITY_LEVELS.findIndex(
+    (level) => level.weight === weights[axis],
+  );
+  const next = nextRovingIndex(event.key, current, PRIORITY_LEVELS.length);
+  if (next === null) {
+    return;
+  }
+  event.preventDefault();
+  const weight = PRIORITY_LEVELS[next].weight;
+  setLevel(axis, weight);
+  el("priorityRows")
+    .querySelector(`[data-axis="${axis}"][data-weight="${weight}"]`)
+    .focus();
 }
 
 // ---- example songs ------------------------------------------------------------------------
@@ -801,3 +871,4 @@ window.addEventListener("pagehide", () => {
 
 // Initial label paint. The output keeps its placeholder until the user enters pitches.
 updateLineLengthLabel();
+renderPriority();

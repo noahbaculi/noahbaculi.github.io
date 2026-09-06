@@ -118,75 +118,92 @@
             </div>
           </div>
 
-          <div class="controls-grid">
-            <label for="guitarTuning"
-              >Guitar Tuning
-              <select id="guitarTuning" name="guitarTuning" class="gtg-select">
-                <option value="standard" selected>Standard</option>
-                <option value="dsus4">DADGAD</option>
-                <option value="c6">C6</option>
-                <option value="openC">Open C</option>
-                <option value="openD">Open D</option>
-                <option value="openE">Open E</option>
-                <option value="openG">Open G</option>
-                <option value="dropB">Drop B</option>
-                <option value="dropC">Drop C</option>
-                <option value="dropD">Drop D</option>
-              </select>
-            </label>
-            <label for="guitarCapo"
-              >Guitar Capo
-              <select id="guitarCapo" name="guitarCapo" class="gtg-select">
-                <option value="0" selected>None</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-              </select>
-            </label>
-            <label for="maxFretSpan"
-              >Max Fret Span
-              <select id="maxFretSpan" name="maxFretSpan" class="gtg-select">
-                <option value="" selected>Any</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-              </select>
-            </label>
-            <label for="tabPadding"
-              >Spacing
-              <select id="tabPadding" name="tabPadding" class="gtg-select">
-                <option value="0">0</option>
-                <option value="1" selected>1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-              </select>
-            </label>
-            <label
-              for="tabLineLength"
-              id="tabLineLengthLabel"
-              style="grid-column: 1 / -1"
-            ></label>
-            <input
-              type="range"
-              min="30"
-              max="150"
-              value="60"
-              id="tabLineLength"
-              style="grid-column: 1 / -1"
-              class="gtg-range"
-            />
-          </div>
+          <section class="control-group">
+            <h2 class="group-heading">Guitar</h2>
+            <div class="controls-grid">
+              <label for="guitarTuning"
+                >Tuning
+                <select
+                  id="guitarTuning"
+                  name="guitarTuning"
+                  class="gtg-select"
+                >
+                  <option value="standard" selected>Standard</option>
+                  <option value="dsus4">DADGAD</option>
+                  <option value="c6">C6</option>
+                  <option value="openC">Open C</option>
+                  <option value="openD">Open D</option>
+                  <option value="openE">Open E</option>
+                  <option value="openG">Open G</option>
+                  <option value="dropB">Drop B</option>
+                  <option value="dropC">Drop C</option>
+                  <option value="dropD">Drop D</option>
+                </select>
+              </label>
+              <label for="guitarCapo"
+                >Capo
+                <select id="guitarCapo" name="guitarCapo" class="gtg-select">
+                  <option value="0" selected>None</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                </select>
+              </label>
+              <label for="maxFretSpan" style="grid-column: 1 / -1"
+                >Max Fret Span
+                <select id="maxFretSpan" name="maxFretSpan" class="gtg-select">
+                  <option value="" selected>Any</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                </select>
+              </label>
+            </div>
+          </section>
+
+          <details class="priority">
+            <summary class="priority__summary">
+              Difficulty priority: <span id="prioritySummary"></span>
+            </summary>
+            <div class="priority__rows" id="priorityRows"></div>
+          </details>
+
+          <section class="control-group">
+            <h2 class="group-heading">Display</h2>
+            <div class="controls-grid">
+              <label for="tabPadding"
+                >Spacing
+                <select id="tabPadding" name="tabPadding" class="gtg-select">
+                  <option value="0">0</option>
+                  <option value="1" selected>1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                </select>
+              </label>
+              <label for="tabLineLength">
+                <span id="tabLineLengthLabel"></span>
+                <input
+                  type="range"
+                  min="30"
+                  max="150"
+                  value="60"
+                  id="tabLineLength"
+                  class="gtg-range"
+                />
+              </label>
+            </div>
+          </section>
         </section>
 
         <!-- Output column -->
@@ -194,7 +211,8 @@
           <div id="arrangementSelector" class="arrangement-selector"></div>
           <p id="arrangementLegend" class="selector-legend" hidden>
             Arrangements are ordered easiest first. The difficulty index is
-            relative to this set: 100 = easiest, higher is harder.
+            relative to this set: 100 = easiest, higher is harder. The raw score
+            is the absolute value at the current weights.
           </p>
 
           <div class="tab-panel">
@@ -251,7 +269,8 @@
               aria-label="Generated tab"
               tabindex="0"
             >
-Enter pitches on the left to generate a tab.</pre>
+Enter pitches on the left to generate a tab.</pre
+            >
           </div>
 
           <div id="transportBar" class="transport" hidden>

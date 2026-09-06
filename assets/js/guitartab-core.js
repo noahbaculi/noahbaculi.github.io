@@ -204,20 +204,14 @@ export function buildPlaybackSchedule(normalizedInput) {
 }
 
 /**
- * Chip view-models for the arrangement selector, one per returned arrangement. label numbers the
- * chip by its position in the easiest-first set, so Arrangement 1 is the easiest and every chip is
- * distinct. relativeDifficulty rescales the raw score against the easiest of the set (easiest = 100)
- * so the numbers compare across chips, falling back to 100 when the easiest score is non-positive.
- * rawDifficulty is the unrounded score, which is what moves when the weights change.
- * span is the raw fret span.
+ * Pill view-models for the arrangement selector, one per returned arrangement. label numbers the
+ * pill by its position in the easiest-first set, so Arrangement 1 is the easiest. span is the raw
+ * fret span, and rawDifficulty the unrounded score the pill carries in its tooltip.
  */
 export function buildArrangementChips({ difficulties, spans }) {
-  const anchor = Math.min(...difficulties);
   return difficulties.map((difficulty, index) => ({
     index,
     label: `Arrangement ${index + 1}`,
-    relativeDifficulty:
-      anchor > 0 ? Math.round((100 * difficulty) / anchor) : 100,
     rawDifficulty: difficulty,
     span: spans[index],
   }));

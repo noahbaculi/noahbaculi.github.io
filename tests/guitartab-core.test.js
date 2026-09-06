@@ -204,33 +204,15 @@ describe("buildPlaybackSchedule", () => {
 import { buildArrangementChips } from "../assets/js/guitartab-core.js";
 
 describe("buildArrangementChips", () => {
-  test("labels arrangements by position with a relative index", () => {
+  test("numbers pills by position and carries the span", () => {
     const chips = buildArrangementChips({
       difficulties: [10, 11, 13],
       spans: [2, 3, 4],
     });
     expect(chips).toEqual([
-      {
-        index: 0,
-        label: "Arrangement 1",
-        relativeDifficulty: 100,
-        rawDifficulty: 10,
-        span: 2,
-      },
-      {
-        index: 1,
-        label: "Arrangement 2",
-        relativeDifficulty: 110,
-        rawDifficulty: 11,
-        span: 3,
-      },
-      {
-        index: 2,
-        label: "Arrangement 3",
-        relativeDifficulty: 130,
-        rawDifficulty: 13,
-        span: 4,
-      },
+      { index: 0, label: "Arrangement 1", rawDifficulty: 10, span: 2 },
+      { index: 1, label: "Arrangement 2", rawDifficulty: 11, span: 3 },
+      { index: 2, label: "Arrangement 3", rawDifficulty: 13, span: 4 },
     ]);
   });
 
@@ -248,64 +230,20 @@ describe("buildArrangementChips", () => {
     ]);
   });
 
-  test("an all-equal set still gets distinct numbered labels, every index at 100", () => {
-    const chips = buildArrangementChips({
-      difficulties: [20, 20, 20],
-      spans: [2, 2, 2],
-    });
-    expect(chips.map((c) => c.label)).toEqual([
-      "Arrangement 1",
-      "Arrangement 2",
-      "Arrangement 3",
-    ]);
-    expect(chips.map((c) => c.relativeDifficulty)).toEqual([100, 100, 100]);
-  });
-
-  test("a single arrangement is Arrangement 1 at index 100", () => {
+  test("a single arrangement is Arrangement 1", () => {
     expect(buildArrangementChips({ difficulties: [30], spans: [3] })).toEqual([
-      {
-        index: 0,
-        label: "Arrangement 1",
-        relativeDifficulty: 100,
-        rawDifficulty: 30,
-        span: 3,
-      },
+      { index: 0, label: "Arrangement 1", rawDifficulty: 30, span: 3 },
     ]);
   });
 
-  test("relative index climbs above 100 for harder arrangements", () => {
-    const chips = buildArrangementChips({
-      difficulties: [10, 50],
-      spans: [2, 5],
-    });
-    expect(chips.map((c) => c.label)).toEqual([
-      "Arrangement 1",
-      "Arrangement 2",
-    ]);
-    expect(chips.map((c) => c.relativeDifficulty)).toEqual([100, 500]);
-  });
-
-  test("a non-positive easiest score falls back to a relative index of 100", () => {
-    const chips = buildArrangementChips({
-      difficulties: [0, 0],
-      spans: [1, 2],
-    });
-    expect(chips.map((c) => c.relativeDifficulty)).toEqual([100, 100]);
-    expect(chips.map((c) => c.label)).toEqual([
-      "Arrangement 1",
-      "Arrangement 2",
-    ]);
-  });
-
-  // 3.0.0 dropped the `as i32` truncation, so the raw score arrives fractional and must not be
-  // rounded on the way through.
+  // 3.0.0 dropped the `as i32` truncation, so the raw score arrives fractional and has to reach
+  // the tooltip unrounded.
   test("carries the fractional raw score through unrounded", () => {
     const chips = buildArrangementChips({
       difficulties: [412.64, 500.5],
       spans: [3, 4],
     });
     expect(chips.map((c) => c.rawDifficulty)).toEqual([412.64, 500.5]);
-    expect(chips.map((c) => c.relativeDifficulty)).toEqual([100, 121]);
   });
 });
 

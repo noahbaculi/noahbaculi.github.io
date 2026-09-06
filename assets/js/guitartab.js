@@ -149,7 +149,7 @@ function renderSelector() {
   container.setAttribute("role", "radiogroup");
   container.setAttribute("aria-label", "Arrangements, easiest to hardest");
   container.innerHTML = chips
-    .map((chip) => chipMarkup(chip, chip.index === state.selectedIndex))
+    .map((chip) => pillMarkup(chip, chip.index === state.selectedIndex))
     .join("");
 
   for (const button of container.querySelectorAll("[data-index]")) {
@@ -158,7 +158,7 @@ function renderSelector() {
     );
   }
   container.onkeydown = (event) => handleSelectorKeydown(event);
-  el("arrangementLegend").hidden = false;
+  el("arrangementRow").hidden = false;
 }
 
 // Arrow/Home/End move the selection within the radiogroup and place focus on the new chip, so
@@ -174,18 +174,14 @@ function handleSelectorKeydown(event) {
   el("arrangementSelector").querySelector(`[data-index="${next}"]`).focus();
 }
 
-// Markup for one chip: the numbered label, a metrics line carrying the fret span and the
-// relative difficulty index, and the raw score under it. One decimal place, since 3.0.0 returns
-// a fractional f64.
-function chipMarkup(chip, selected) {
-  return `<button type="button" role="radio" class="chip" data-index="${chip.index}"
+// Markup for one arrangement pill: the numbered label and the fret span, with the raw score in
+// the tooltip. One decimal place, since 3.0.0 returns a fractional f64.
+function pillMarkup(pill, selected) {
+  return `<button type="button" role="radio" class="pill" data-index="${pill.index}"
+      title="Raw difficulty ${pill.rawDifficulty.toFixed(1)}"
       aria-checked="${selected}" tabindex="${selected ? 0 : -1}">
-      <span class="chip__label">${chip.label}</span>
-      <span class="chip__meta">
-        <span class="chip__span">&#8596; ${chip.span}-fret span</span>
-        <span class="chip__score">difficulty ${chip.relativeDifficulty}</span>
-      </span>
-      <span class="chip__raw">raw ${chip.rawDifficulty.toFixed(1)}</span>
+      <span class="pill__label">${pill.label}</span>
+      <span class="pill__span">${pill.span}-fret span</span>
     </button>`;
 }
 
@@ -236,7 +232,7 @@ function showMessage(message) {
   el("tabOutput").textContent = message;
   el("tabOutput").classList.add("is-message");
   el("arrangementSelector").innerHTML = "";
-  el("arrangementLegend").hidden = true;
+  el("arrangementRow").hidden = true;
   el("transportBar").hidden = true;
   el("copyButton").disabled = true;
   el("exportButton").disabled = true;

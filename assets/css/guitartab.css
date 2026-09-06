@@ -497,73 +497,63 @@ textarea {
 }
 
 /* Arrangement selector */
-.arrangement-selector {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
-  gap: 0.5rem;
+.arrangement-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
   position: relative;
   z-index: var(--gtg-z-transport);
 }
-@media screen and (max-width: 800px) {
-  .arrangement-selector {
-    grid-template-columns: 1fr;
-  }
-}
-/* Before any tab is generated the selector is empty; drop it from the flex flow so
-   it doesn't contribute a second 1rem column gap. The loading shimmer still shows. */
-.arrangement-selector:empty:not(.is-loading) {
+/* A class-level display beats the UA rule for the hidden attribute, so restate it. */
+.arrangement-row[hidden] {
   display: none;
 }
-.selector-legend {
-  margin: 0.4rem 0 0;
+.arrangement-selector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  flex: 1;
+  min-width: 0;
+}
+.arrangement-note {
+  margin: 0;
   font-size: 0.72rem;
   color: var(--gtg-fg-soft);
+  white-space: nowrap;
 }
-.chip {
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-  text-align: left;
+.pill {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.4rem;
   cursor: pointer;
-  border-radius: 0.75rem;
+  border-radius: 999px;
   border: 2px solid var(--gtg-border);
   background: var(--gtg-surface);
   color: var(--gtg-fg);
-  padding: 0.5rem 0.75rem;
+  padding: 0.3rem 0.75rem;
   font-family: var(--gtg-font-ui);
+  font-size: 0.78rem;
   transition: border-color 120ms;
 }
-.chip:hover {
+.pill:hover {
   border-color: var(--gtg-primary);
 }
-.chip[aria-checked="true"] {
+.pill[aria-checked="true"] {
   background: var(--gtg-primary);
   color: var(--gtg-on-primary);
   border-color: var(--gtg-primary);
 }
-.chip__label {
+.pill__label {
   font-weight: 600;
-  font-size: 0.85rem;
 }
-.chip__meta {
-  display: flex;
-  justify-content: space-between;
-  gap: 0.5rem;
-  font-size: 0.72rem;
-  color: var(--gtg-fg-soft);
-}
-.chip[aria-checked="true"] .chip__meta {
-  color: var(--gtg-on-primary);
-}
-.chip__raw {
-  font-size: 0.68rem;
+.pill__span {
+  font-size: 0.7rem;
   font-variant-numeric: tabular-nums;
   color: var(--gtg-fg-soft);
 }
-.chip[aria-checked="true"] .chip__raw {
+.pill[aria-checked="true"] .pill__span {
   color: var(--gtg-on-primary);
 }
-
 /* Tab output */
 #tabOutput {
   font-family: var(--gtg-font-mono);

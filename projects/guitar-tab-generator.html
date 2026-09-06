@@ -90,13 +90,15 @@
             </button>
           </div>
 
-          <textarea
-            id="pitchInput"
-            name="pitchInput"
-            rows="9"
-            aria-label="Pitch input"
-            placeholder="Type pitches, one per line. E4 = note, A2A3 = chord, blank line = rest, --- = measure break"
-          ></textarea>
+          <div class="input-field">
+            <textarea
+              id="pitchInput"
+              name="pitchInput"
+              rows="9"
+              aria-label="Pitch input"
+              placeholder="Type pitches, one per line. E4 = note, A2A3 = chord, blank line = rest, --- = measure break"
+            ></textarea>
+          </div>
 
           <div class="syntax-legend" id="syntaxLegend">
             <p class="syntax-legend__title">Syntax</p>
@@ -118,8 +120,8 @@
             </div>
           </div>
 
-          <section class="control-group">
-            <h2 class="group-heading">Guitar</h2>
+          <details class="disclosure" name="settings">
+            <summary class="disclosure__summary">Guitar</summary>
             <div class="controls-grid">
               <label for="guitarTuning"
                 >Tuning
@@ -169,17 +171,17 @@
                 </select>
               </label>
             </div>
-          </section>
+          </details>
 
-          <details class="priority">
-            <summary class="priority__summary">
+          <details class="disclosure priority" name="settings">
+            <summary class="disclosure__summary">
               Difficulty priority: <span id="prioritySummary"></span>
             </summary>
             <div class="priority__rows" id="priorityRows"></div>
           </details>
 
-          <section class="control-group">
-            <h2 class="group-heading">Display</h2>
+          <details class="disclosure" name="settings">
+            <summary class="disclosure__summary">Display</summary>
             <div class="controls-grid">
               <label for="tabPadding"
                 >Spacing
@@ -203,7 +205,7 @@
                 />
               </label>
             </div>
-          </section>
+          </details>
         </section>
 
         <!-- Output column -->

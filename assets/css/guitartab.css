@@ -374,14 +374,25 @@ textarea {
   accent-color: var(--gtg-primary);
 }
 
-#pitchInput {
-  font-family: var(--gtg-font-mono);
+/* WebKit paints scrollbars outside the scroller's own border-radius, so the rounding lives on
+   a wrapper that clips instead. */
+.input-field {
+  display: flex;
   min-height: 11rem;
   border-radius: 0.75rem;
   border: 2px solid var(--gtg-border);
   background: var(--gtg-surface);
+  overflow: hidden;
+}
+#pitchInput {
+  font-family: var(--gtg-font-mono);
+  border: 0;
+  border-radius: 0;
+  /* twind's preflight sets resize: vertical, and the handle escapes the clipping wrapper */
+  resize: none;
   color: var(--gtg-fg);
   padding: 0.75rem;
+  outline-offset: -2px;
 }
 
 /* Syntax legend */
@@ -420,20 +431,6 @@ textarea {
 }
 
 /* Controls grid */
-.control-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-.group-heading {
-  margin: 0;
-  font-family: var(--gtg-font-display);
-  font-size: 0.7rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--gtg-fg-soft);
-}
 .controls-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -446,19 +443,22 @@ textarea {
   color: var(--gtg-fg-soft);
 }
 
-/* Difficulty priority disclosure */
-.priority {
+/* Collapsible settings blocks: guitar, difficulty priority, display */
+.disclosure {
   border: 2px solid var(--gtg-border);
   border-radius: 0.75rem;
   background: var(--gtg-muted);
   padding: 0.5rem 0.75rem;
 }
-.priority__summary {
+.disclosure__summary {
   cursor: pointer;
   font-family: var(--gtg-font-ui);
   font-size: 0.75rem;
   font-weight: 600;
   color: var(--gtg-fg-soft);
+}
+.disclosure .controls-grid {
+  margin-top: 0.75rem;
 }
 .priority__rows {
   display: grid;
@@ -509,11 +509,16 @@ textarea {
   display: none;
 }
 .arrangement-selector {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
   gap: 0.5rem;
   flex: 1;
   min-width: 0;
+}
+@media screen and (max-width: 800px) {
+  .arrangement-selector {
+    grid-template-columns: 1fr;
+  }
 }
 .arrangement-note {
   margin: 0;
@@ -521,46 +526,49 @@ textarea {
   color: var(--gtg-fg-soft);
   white-space: nowrap;
 }
-.pill {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 0.4rem;
+.chip {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  text-align: left;
   cursor: pointer;
-  border-radius: 999px;
+  border-radius: 0.75rem;
   border: 2px solid var(--gtg-border);
   background: var(--gtg-surface);
   color: var(--gtg-fg);
-  padding: 0.3rem 0.75rem;
+  padding: 0.5rem 0.75rem;
   font-family: var(--gtg-font-ui);
-  font-size: 0.78rem;
   transition: border-color 120ms;
 }
-.pill:hover {
+.chip:hover {
   border-color: var(--gtg-primary);
 }
-.pill[aria-checked="true"] {
+.chip[aria-checked="true"] {
   background: var(--gtg-primary);
   color: var(--gtg-on-primary);
   border-color: var(--gtg-primary);
 }
-.pill__label {
+.chip__label {
   font-weight: 600;
+  font-size: 0.85rem;
 }
-.pill__span {
-  font-size: 0.7rem;
+.chip__span {
+  font-size: 0.72rem;
+  color: var(--gtg-fg-soft);
+}
+.chip__raw {
+  font-size: 0.68rem;
   font-variant-numeric: tabular-nums;
   color: var(--gtg-fg-soft);
 }
-.pill[aria-checked="true"] .pill__span {
+.chip[aria-checked="true"] .chip__span,
+.chip[aria-checked="true"] .chip__raw {
   color: var(--gtg-on-primary);
 }
 /* Tab output */
 #tabOutput {
   font-family: var(--gtg-font-mono);
   margin: 0;
-  border-radius: 1rem;
-  border: 2px solid var(--gtg-border);
-  background: var(--gtg-tab-bg);
   color: var(--gtg-tab-fg);
   padding: 1rem;
   max-height: 60vh;
@@ -582,6 +590,10 @@ textarea {
   display: flex;
   flex-direction: column;
   min-width: 0;
+  border-radius: 1rem;
+  border: 2px solid var(--gtg-border);
+  background: var(--gtg-tab-bg);
+  overflow: hidden;
 }
 .tab-actions {
   position: absolute;
@@ -825,7 +837,7 @@ a.breadcrumb__pill:hover {
 
 @media (prefers-reduced-motion: reduce) {
   .progress-fill,
-  .pill,
+  .chip,
   .level,
   .clear-btn,
   .io-btn,
@@ -864,7 +876,7 @@ a.breadcrumb__pill:hover {
   .output-col {
     min-height: 0;
   }
-  #pitchInput {
+  .input-field {
     flex: 1;
     min-height: 0;
   }

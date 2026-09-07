@@ -32,6 +32,7 @@
   /* Z-index scale (Flowbite removed, so speed-dial/tooltip levels are reserved, not used). */
   --gtg-z-tab: 0;
   --gtg-z-transport: 10;
+  --gtg-z-settings: 20;
   --gtg-z-toast: 50;
 }
 
@@ -449,6 +450,13 @@ textarea {
   font-size: 0.75rem;
   font-weight: 500;
   color: var(--gtg-fg-soft);
+}
+
+/* Carries the 1rem gap .input-col gave the disclosures as direct children */
+.settings-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 /* Collapsible settings blocks: guitar, difficulty priority, display */
@@ -914,10 +922,28 @@ a.breadcrumb__pill:hover {
   .output-col {
     min-height: 0;
   }
-  /* Scroll the settings stack inside its column instead of overflowing a 100vh viewport */
+  /* Still a flex item that must be allowed to shrink */
   .input-col {
     min-height: 0;
-    overflow-y: auto;
+  }
+  /* Take an open panel out of flow, so the column's in-flow height is its collapsed height
+     in every state. Anchored to the stack rather than to each details, or an open panel
+     covers the summary bar above it. */
+  .settings-stack {
+    position: relative;
+  }
+  .disclosure[open] > :not(summary) {
+    position: absolute;
+    bottom: calc(100% + 0.6rem);
+    left: 0;
+    right: 0;
+    margin-top: 0;
+    padding: 0.85rem;
+    border: 2px solid var(--gtg-primary);
+    border-radius: 0.75rem;
+    background: var(--gtg-surface);
+    box-shadow: 0 14px 34px rgb(76 29 149 / 0.2);
+    z-index: var(--gtg-z-settings);
   }
   .input-field {
     flex: 1;

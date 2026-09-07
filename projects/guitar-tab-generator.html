@@ -120,92 +120,98 @@
             </div>
           </div>
 
-          <details class="disclosure" name="settings">
-            <summary class="disclosure__summary">Guitar</summary>
-            <div class="controls-grid">
-              <label for="guitarTuning"
-                >Tuning
-                <select
-                  id="guitarTuning"
-                  name="guitarTuning"
-                  class="gtg-select"
-                >
-                  <option value="standard" selected>Standard</option>
-                  <option value="dsus4">DADGAD</option>
-                  <option value="c6">C6</option>
-                  <option value="openC">Open C</option>
-                  <option value="openD">Open D</option>
-                  <option value="openE">Open E</option>
-                  <option value="openG">Open G</option>
-                  <option value="dropB">Drop B</option>
-                  <option value="dropC">Drop C</option>
-                  <option value="dropD">Drop D</option>
-                </select>
-              </label>
-              <label for="guitarCapo"
-                >Capo
-                <select id="guitarCapo" name="guitarCapo" class="gtg-select">
-                  <option value="0" selected>None</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="10">10</option>
-                  <option value="11">11</option>
-                </select>
-              </label>
-              <label for="maxFretSpan" style="grid-column: 1 / -1"
-                >Max Fret Span
-                <select id="maxFretSpan" name="maxFretSpan" class="gtg-select">
-                  <option value="" selected>Any</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                </select>
-              </label>
-            </div>
-          </details>
+          <div class="settings-stack">
+            <details class="disclosure" name="settings">
+              <summary class="disclosure__summary">Guitar</summary>
+              <div class="controls-grid">
+                <label for="guitarTuning"
+                  >Tuning
+                  <select
+                    id="guitarTuning"
+                    name="guitarTuning"
+                    class="gtg-select"
+                  >
+                    <option value="standard" selected>Standard</option>
+                    <option value="dsus4">DADGAD</option>
+                    <option value="c6">C6</option>
+                    <option value="openC">Open C</option>
+                    <option value="openD">Open D</option>
+                    <option value="openE">Open E</option>
+                    <option value="openG">Open G</option>
+                    <option value="dropB">Drop B</option>
+                    <option value="dropC">Drop C</option>
+                    <option value="dropD">Drop D</option>
+                  </select>
+                </label>
+                <label for="guitarCapo"
+                  >Capo
+                  <select id="guitarCapo" name="guitarCapo" class="gtg-select">
+                    <option value="0" selected>None</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                  </select>
+                </label>
+                <label for="maxFretSpan" style="grid-column: 1 / -1"
+                  >Max Fret Span
+                  <select
+                    id="maxFretSpan"
+                    name="maxFretSpan"
+                    class="gtg-select"
+                  >
+                    <option value="" selected>Any</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                  </select>
+                </label>
+              </div>
+            </details>
 
-          <details class="disclosure priority" name="settings">
-            <summary class="disclosure__summary">
-              Difficulty priority: <span id="prioritySummary"></span>
-            </summary>
-            <div class="priority__rows" id="priorityRows"></div>
-          </details>
+            <details class="disclosure priority" name="settings">
+              <summary class="disclosure__summary">
+                Difficulty priority: <span id="prioritySummary"></span>
+              </summary>
+              <div class="priority__rows" id="priorityRows"></div>
+            </details>
 
-          <details class="disclosure" name="settings">
-            <summary class="disclosure__summary">Display</summary>
-            <div class="controls-grid">
-              <label for="tabPadding"
-                >Spacing
-                <select id="tabPadding" name="tabPadding" class="gtg-select">
-                  <option value="0">0</option>
-                  <option value="1" selected>1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                </select>
-              </label>
-              <label for="tabLineLength">
-                <span id="tabLineLengthLabel"></span>
-                <input
-                  type="range"
-                  min="30"
-                  max="150"
-                  value="60"
-                  id="tabLineLength"
-                  class="gtg-range"
-                />
-              </label>
-            </div>
-          </details>
+            <details class="disclosure" name="settings">
+              <summary class="disclosure__summary">Display</summary>
+              <div class="controls-grid">
+                <label for="tabPadding"
+                  >Spacing
+                  <select id="tabPadding" name="tabPadding" class="gtg-select">
+                    <option value="0">0</option>
+                    <option value="1" selected>1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                  </select>
+                </label>
+                <label for="tabLineLength">
+                  <span id="tabLineLengthLabel"></span>
+                  <input
+                    type="range"
+                    min="30"
+                    max="150"
+                    value="60"
+                    id="tabLineLength"
+                    class="gtg-range"
+                  />
+                </label>
+              </div>
+            </details>
+          </div>
         </section>
 
         <!-- Output column -->

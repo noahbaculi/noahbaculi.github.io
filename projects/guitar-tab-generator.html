@@ -189,18 +189,20 @@ blank line = rest
               <div class="priority__rows" id="priorityRows"></div>
             </details>
 
-            <details class="disclosure" name="settings">
+            <details class="disclosure disclosure--display" name="settings">
               <summary class="disclosure__summary">Display</summary>
               <div class="controls-grid">
-                <label for="tabPadding"
-                  >Spacing
-                  <select id="tabPadding" name="tabPadding" class="gtg-select">
-                    <option value="0">0</option>
-                    <option value="1" selected>1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                  </select>
+                <label for="tabPadding">
+                  <span id="tabPaddingLabel"></span>
+                  <input
+                    type="range"
+                    min="0"
+                    max="4"
+                    value="1"
+                    id="tabPadding"
+                    name="tabPadding"
+                    class="gtg-range"
+                  />
                 </label>
                 <label for="tabLineLength">
                   <span id="tabLineLengthLabel"></span>

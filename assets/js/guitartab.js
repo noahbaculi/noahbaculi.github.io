@@ -355,10 +355,12 @@ function resetPlayback() {
   renderTab(null);
 }
 
-// ---- display-setting label ----------------------------------------------------------------
-function updateLineLengthLabel() {
-  const width = intValue("tabLineLength", 80);
-  el("tabLineLengthLabel").textContent = `Line Length - ${width}`;
+// ---- display-setting labels ---------------------------------------------------------------
+// Both display controls are sliders, so each carries its value in its own label.
+function updateDisplayLabels() {
+  el("tabLineLengthLabel").textContent =
+    `Line Length - ${intValue("tabLineLength", 80)}`;
+  el("tabPaddingLabel").textContent = `Spacing - ${intValue("tabPadding", 1)}`;
 }
 
 // ---- difficulty priority --------------------------------------------------------------------
@@ -824,7 +826,7 @@ el("clearInputButton").addEventListener("click", resetToEmpty);
 // Display-tier inputs only need a cheap re-render.
 for (const displayId of ["tabLineLength", "tabPadding"]) {
   el(displayId).addEventListener("input", () => {
-    updateLineLengthLabel();
+    updateDisplayLabels();
     renderTab(null);
   });
 }
@@ -899,7 +901,7 @@ document.addEventListener("pointerdown", (event) => {
 });
 
 // Initial label paint. The output keeps its placeholder until the user enters pitches.
-updateLineLengthLabel();
+updateDisplayLabels();
 renderPriority();
 
 // Re-render only when the width crosses a card boundary, not on every resize frame

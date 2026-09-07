@@ -137,8 +137,8 @@ function regenerate() {
 // or focus lands on a card that was sliced off.
 let visibleChipCountRendered = 0;
 
-// Matches the max-width: 800px block in guitartab.css, where the selector becomes a strip
-function isMobileSelector() {
+// Matches the max-width: 800px block in guitartab.css, where panels stay in flow
+function isMobileLayout() {
   return window.matchMedia("(max-width: 800px)").matches;
 }
 
@@ -158,7 +158,7 @@ function renderSelector() {
 
   const container = el("arrangementSelector");
   // Mobile scrolls the strip sideways, so width is no limit
-  const width = isMobileSelector() ? Infinity : container.clientWidth;
+  const width = isMobileLayout() ? Infinity : container.clientWidth;
   const shown = visibleChipCount({
     width,
     total: chips.length,
@@ -889,6 +889,17 @@ window.addEventListener("pagehide", () => {
   }
 });
 
+// A floating panel covers the pitch input on desktop, so a press outside it closes the panel
+document.addEventListener("pointerdown", (event) => {
+  if (isMobileLayout()) {
+    return;
+  }
+  const open = document.querySelector(".settings-stack details[open]");
+  if (open && !open.contains(event.target)) {
+    open.open = false;
+  }
+});
+
 // Initial label paint. The output keeps its placeholder until the user enters pitches.
 updateLineLengthLabel();
 renderPriority();
@@ -897,7 +908,7 @@ renderPriority();
 const selectorResize = new ResizeObserver(() => {
   if (!state.set || state.set.isEmpty) return;
   const container = el("arrangementSelector");
-  const width = isMobileSelector() ? Infinity : container.clientWidth;
+  const width = isMobileLayout() ? Infinity : container.clientWidth;
   const next = visibleChipCount({
     width,
     total: state.set.len,

@@ -247,3 +247,32 @@ export function nextRovingIndex(key, current, count) {
       return null;
   }
 }
+
+// px, the widest a card gets: "Max span 4" over "Difficulty 1085.0"
+const CARD_MIN = 131;
+// px, the 0.5rem grid gap
+const CARD_GAP = 8;
+
+/**
+ * Returns how many arrangement cards fit across a container of this `width`, measured rather
+ * than read off a viewport breakpoint list, so the input column can be resized without a table
+ * going stale. A `width` of 0 (never measured) or `Infinity` (mobile, where the strip scrolls)
+ * means no constraint. The count always reaches `selectedIndex`, so resizing cannot hide the
+ * arrangement being viewed.
+ */
+export function visibleChipCount({ width, total, selectedIndex }) {
+  if (total === 0) {
+    return 0;
+  }
+  const measured = width > 0 ? width : Infinity;
+  const fits = Math.floor((measured + CARD_GAP) / (CARD_MIN + CARD_GAP));
+  const count = Math.min(total, Math.max(1, fits));
+  return Math.max(count, selectedIndex + 1);
+}
+
+/** Builds the note under the selector, naming the hidden tail when the slice is short. */
+export function arrangementNote(shown, total) {
+  return shown >= total
+    ? "easiest first"
+    : `easiest first · showing ${shown} of ${total}`;
+}

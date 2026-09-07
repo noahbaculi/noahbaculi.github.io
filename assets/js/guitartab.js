@@ -11,6 +11,8 @@ import {
   PRIORITY_LEVELS,
   prioritySummary,
   nextRovingIndex,
+  visibleChipCount,
+  arrangementNote,
 } from "./guitartab-core.js";
 
 await init();
@@ -131,6 +133,15 @@ function regenerate() {
   renderTab(null);
 }
 
+// Cards the last render actually put on screen. Arrow keys wrap at this, not at `state.set.len`,
+// or focus lands on a card that was sliced off.
+let visibleChipCountRendered = 0;
+
+// Matches the max-width: 800px block in guitartab.css, where the selector becomes a strip
+function isMobileSelector() {
+  return window.matchMedia("(max-width: 800px)").matches;
+}
+
 // ---- arrangement selector -----------------------------------------------------------------
 // Read each arrangement's difficulty and span off the handle, then render a chip per result.
 // The chip is a radio in a radiogroup: aria-checked carries selection for assistive tech, and
@@ -146,9 +157,19 @@ function renderSelector() {
   const chips = buildArrangementChips({ difficulties, spans });
 
   const container = el("arrangementSelector");
+  // Mobile scrolls the strip sideways, so width is no limit
+  const width = isMobileSelector() ? Infinity : container.clientWidth;
+  const shown = visibleChipCount({
+    width,
+    total: chips.length,
+    selectedIndex: state.selectedIndex,
+  });
+  visibleChipCountRendered = shown;
+
   container.setAttribute("role", "radiogroup");
   container.setAttribute("aria-label", "Arrangements, easiest to hardest");
   container.innerHTML = chips
+    .slice(0, shown)
     .map((chip) => chipMarkup(chip, chip.index === state.selectedIndex))
     .join("");
 
@@ -158,14 +179,18 @@ function renderSelector() {
     );
   }
   container.onkeydown = (event) => handleSelectorKeydown(event);
+  el("arrangementNote").textContent = arrangementNote(shown, chips.length);
   el("arrangementRow").hidden = false;
 }
 
 // Arrow/Home/End move the selection within the radiogroup and place focus on the new chip, so
 // the row behaves as a single roving-tabindex control rather than three separate tab stops.
 function handleSelectorKeydown(event) {
-  const count = state.set ? state.set.len : 0;
-  const next = nextRovingIndex(event.key, state.selectedIndex, count);
+  const next = nextRovingIndex(
+    event.key,
+    state.selectedIndex,
+    visibleChipCountRendered,
+  );
   if (next === null) {
     return;
   }
@@ -199,13 +224,8 @@ function selectArrangement(index) {
   playbackStep = 0;
   el("playbackProgress").style.width = "0%";
   renderTab(null);
-  for (const button of el("arrangementSelector").querySelectorAll(
-    "[data-index]",
-  )) {
-    const isSelected = Number(button.dataset.index) === index;
-    button.setAttribute("aria-checked", String(isSelected));
-    button.tabIndex = isSelected ? 0 : -1;
-  }
+  // Re-slice, not just re-check: a selection outside the fitting count can now shrink back
+  renderSelector();
 }
 
 // Cheap re-render of the cached set at the current display settings and selected arrangement,
@@ -872,3 +892,19 @@ window.addEventListener("pagehide", () => {
 // Initial label paint. The output keeps its placeholder until the user enters pitches.
 updateLineLengthLabel();
 renderPriority();
+
+// Re-render only when the width crosses a card boundary, not on every resize frame
+const selectorResize = new ResizeObserver(() => {
+  if (!state.set || state.set.isEmpty) return;
+  const container = el("arrangementSelector");
+  const width = isMobileSelector() ? Infinity : container.clientWidth;
+  const next = visibleChipCount({
+    width,
+    total: state.set.len,
+    selectedIndex: state.selectedIndex,
+  });
+  if (next !== visibleChipCountRendered) {
+    renderSelector();
+  }
+});
+selectorResize.observe(el("arrangementSelector"));

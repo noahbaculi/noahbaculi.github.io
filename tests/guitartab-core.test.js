@@ -422,6 +422,12 @@ describe("nextRovingIndex", () => {
     expect(nextRovingIndex("ArrowUp", 0, 3)).toBe(2);
   });
 
+  test("wraps at the visible count, not the full set length", () => {
+    // 3 of 5 cards on screen: right from the last visible card returns to the first
+    expect(nextRovingIndex("ArrowRight", 2, 3)).toBe(0);
+    expect(nextRovingIndex("End", 0, 3)).toBe(2);
+  });
+
   test("Home and End jump to the ends", () => {
     expect(nextRovingIndex("Home", 2, 3)).toBe(0);
     expect(nextRovingIndex("End", 0, 3)).toBe(2);
@@ -434,5 +440,83 @@ describe("nextRovingIndex", () => {
 
   test("returns null for an empty list", () => {
     expect(nextRovingIndex("ArrowRight", 0, 0)).toBe(null);
+  });
+});
+
+import { visibleChipCount } from "../assets/js/guitartab-core.js";
+
+describe("visibleChipCount", () => {
+  test("fits as many cards as the width allows", () => {
+    // CARD_MIN 131 + GAP 8: 5 cards need 687px, 4 need 548px, 3 need 409px
+    expect(visibleChipCount({ width: 808, total: 5, selectedIndex: 0 })).toBe(
+      5,
+    );
+    expect(visibleChipCount({ width: 578, total: 5, selectedIndex: 0 })).toBe(
+      4,
+    );
+    expect(visibleChipCount({ width: 466, total: 5, selectedIndex: 0 })).toBe(
+      3,
+    );
+    expect(visibleChipCount({ width: 394, total: 5, selectedIndex: 0 })).toBe(
+      2,
+    );
+  });
+
+  test("never exceeds the number of arrangements the solver returned", () => {
+    expect(visibleChipCount({ width: 2000, total: 3, selectedIndex: 0 })).toBe(
+      3,
+    );
+  });
+
+  test("shows at least one card even in a container too narrow for one", () => {
+    expect(visibleChipCount({ width: 40, total: 5, selectedIndex: 0 })).toBe(1);
+  });
+
+  test("extends the slice so the selected card is never hidden", () => {
+    // 394px fits 2, but arrangement 5 is selected, so the slice runs to it
+    expect(visibleChipCount({ width: 394, total: 5, selectedIndex: 4 })).toBe(
+      5,
+    );
+    expect(visibleChipCount({ width: 394, total: 5, selectedIndex: 2 })).toBe(
+      3,
+    );
+  });
+
+  test("a selection inside the slice does not widen it", () => {
+    expect(visibleChipCount({ width: 808, total: 5, selectedIndex: 1 })).toBe(
+      5,
+    );
+    expect(visibleChipCount({ width: 466, total: 5, selectedIndex: 1 })).toBe(
+      3,
+    );
+  });
+
+  test("an unmeasured or unconstrained container shows everything", () => {
+    expect(
+      visibleChipCount({ width: Infinity, total: 5, selectedIndex: 0 }),
+    ).toBe(5);
+    expect(visibleChipCount({ width: 0, total: 5, selectedIndex: 0 })).toBe(5);
+  });
+
+  test("an empty set is zero, not one", () => {
+    expect(visibleChipCount({ width: 808, total: 0, selectedIndex: 0 })).toBe(
+      0,
+    );
+  });
+});
+
+import { arrangementNote } from "../assets/js/guitartab-core.js";
+
+describe("arrangementNote", () => {
+  test("says only easiest first when every arrangement is on screen", () => {
+    expect(arrangementNote(5, 5)).toBe("easiest first");
+  });
+
+  test("names the count when the tail is hidden", () => {
+    expect(arrangementNote(3, 5)).toBe("easiest first · showing 3 of 5");
+  });
+
+  test("a single arrangement needs no count", () => {
+    expect(arrangementNote(1, 1)).toBe("easiest first");
   });
 });

@@ -880,13 +880,17 @@ a.breadcrumb__pill:hover {
     align-items: stretch;
     grid-template-rows: minmax(0, 1fr);
   }
-  .input-col,
   .output-col {
     min-height: 0;
   }
+  /* Scroll the settings stack inside its column instead of overflowing a 100vh viewport */
+  .input-col {
+    min-height: 0;
+    overflow-y: auto;
+  }
   .input-field {
     flex: 1;
-    min-height: 0;
+    min-height: 8rem;
   }
   .tab-panel {
     flex: 1;

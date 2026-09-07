@@ -478,12 +478,38 @@ textarea {
   background: var(--gtg-muted);
   padding: 0.5rem 0.75rem;
 }
+/* The native marker only knows right-when-closed and down-when-open, and desktop panels open
+   upward, so draw the chevron from the same token the selects use and flip it on open. */
 .disclosure__summary {
   cursor: pointer;
   font-family: var(--gtg-font-ui);
   font-size: 0.75rem;
   font-weight: 600;
   color: var(--gtg-fg-soft);
+  display: flex;
+  align-items: center;
+  /* Stands in for the word space flex collapsed between the priority label and its summary.
+     Invisible before the chevron, which margin-left: auto already pushes to the edge. */
+  gap: 0.25em;
+  list-style: none;
+}
+.disclosure__summary::-webkit-details-marker {
+  display: none;
+}
+.disclosure__summary::after {
+  content: "";
+  margin-left: auto;
+  flex: 0 0 auto;
+  width: 0.7rem;
+  height: 0.7rem;
+  background-image: var(--gtg-chevron);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  transition: transform 120ms;
+}
+.disclosure[open] > .disclosure__summary::after {
+  transform: rotate(180deg);
 }
 .disclosure .controls-grid {
   margin-top: 0.75rem;
@@ -920,9 +946,10 @@ a.breadcrumb__pill:hover {
     min-height: 0;
   }
   /* Take an open panel out of flow, so the column's in-flow height is its collapsed height
-     in every state. Anchored to the stack rather than to each details, or an open panel
-     covers the summary bar above it. */
-  .settings-stack {
+     in every state. Anchored to its own details, so the panel opens where the summary is.
+     It covers the summary bars above it, which is fine: only one opens at a time and an
+     outside press closes it. */
+  .disclosure {
     position: relative;
   }
   .disclosure[open] > :not(summary) {

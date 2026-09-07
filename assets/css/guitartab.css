@@ -526,15 +526,8 @@ textarea {
 
 /* Arrangement selector */
 .arrangement-row {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
   position: relative;
   z-index: var(--gtg-z-transport);
-}
-/* A class-level display beats the UA rule for the hidden attribute, so restate it. */
-.arrangement-row[hidden] {
-  display: none;
 }
 .arrangement-selector {
   display: grid;
@@ -546,12 +539,6 @@ textarea {
   min-width: 0;
 }
 @media screen and (max-width: 800px) {
-  /* The note costs 76px of a 351px row as a second column, so it goes under the strip */
-  .arrangement-row {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0.4rem;
-  }
   /* Swiping sideways is native on a phone, so all five cards fit one row's height
      instead of stacking into 458px */
   .arrangement-selector {
@@ -565,12 +552,6 @@ textarea {
     flex: 0 0 auto;
     scroll-snap-align: start;
   }
-}
-.arrangement-note {
-  margin: 0;
-  font-size: 0.72rem;
-  color: var(--gtg-fg-soft);
-  white-space: nowrap;
 }
 .chip {
   display: flex;

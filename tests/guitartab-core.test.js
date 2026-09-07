@@ -504,19 +504,3 @@ describe("visibleChipCount", () => {
     );
   });
 });
-
-import { arrangementNote } from "../assets/js/guitartab-core.js";
-
-describe("arrangementNote", () => {
-  test("says only easiest first when every arrangement is on screen", () => {
-    expect(arrangementNote(5, 5)).toBe("easiest first");
-  });
-
-  test("names the count when the tail is hidden", () => {
-    expect(arrangementNote(3, 5)).toBe("easiest first · showing 3 of 5");
-  });
-
-  test("a single arrangement needs no count", () => {
-    expect(arrangementNote(1, 1)).toBe("easiest first");
-  });
-});

@@ -269,10 +269,3 @@ export function visibleChipCount({ width, total, selectedIndex }) {
   const count = Math.min(total, Math.max(1, fits));
   return Math.max(count, selectedIndex + 1);
 }
-
-/** Builds the note under the selector, naming the hidden tail when the slice is short. */
-export function arrangementNote(shown, total) {
-  return shown >= total
-    ? "easiest first"
-    : `easiest first · showing ${shown} of ${total}`;
-}

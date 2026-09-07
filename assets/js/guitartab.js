@@ -12,7 +12,6 @@ import {
   prioritySummary,
   nextRovingIndex,
   visibleChipCount,
-  arrangementNote,
 } from "./guitartab-core.js";
 
 await init();
@@ -179,7 +178,6 @@ function renderSelector() {
     );
   }
   container.onkeydown = (event) => handleSelectorKeydown(event);
-  el("arrangementNote").textContent = arrangementNote(shown, chips.length);
   el("arrangementRow").hidden = false;
 }
 

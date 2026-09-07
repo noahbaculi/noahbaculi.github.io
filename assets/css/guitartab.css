@@ -526,8 +526,24 @@ textarea {
   min-width: 0;
 }
 @media screen and (max-width: 800px) {
+  /* The note costs 76px of a 351px row as a second column, so it goes under the strip */
+  .arrangement-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.4rem;
+  }
+  /* Swiping sideways is native on a phone, so all five cards fit one row's height
+     instead of stacking into 458px */
   .arrangement-selector {
-    grid-template-columns: 1fr;
+    display: flex;
+    overflow-x: auto;
+    gap: 0.5rem;
+    scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch;
+  }
+  .chip {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
   }
 }
 .arrangement-note {

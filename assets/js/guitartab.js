@@ -174,14 +174,18 @@ function handleSelectorKeydown(event) {
   el("arrangementSelector").querySelector(`[data-index="${next}"]`).focus();
 }
 
-// Markup for one arrangement card: the numbered label, the fret span, and the raw score under it.
-// One decimal place, since 3.0.0 returns a fractional f64.
+// Markup for one arrangement card: the rank numeral beside two metric lines. The glyphs are
+// text-presentation characters, so they inherit currentColor and invert with the selected fill.
+// One decimal place on the score, since 3.0.0 returns a fractional f64.
 function chipMarkup(chip, selected) {
   return `<button type="button" role="radio" class="chip" data-index="${chip.index}"
+      aria-label="${chip.label}"
       aria-checked="${selected}" tabindex="${selected ? 0 : -1}">
-      <span class="chip__label">${chip.label}</span>
-      <span class="chip__span">&#8596; ${chip.span}-fret span</span>
-      <span class="chip__raw">raw ${chip.rawDifficulty.toFixed(1)}</span>
+      <span class="chip__rank">${chip.rank}</span>
+      <span class="chip__meta">
+        <span class="chip__glyph">&#8596;</span><span class="chip__value">Max span ${chip.span}</span>
+        <span class="chip__glyph">&#10023;</span><span class="chip__value">Difficulty ${chip.rawDifficulty.toFixed(1)}</span>
+      </span>
     </button>`;
 }
 

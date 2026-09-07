@@ -204,13 +204,15 @@ export function buildPlaybackSchedule(normalizedInput) {
 }
 
 /**
- * Pill view-models for the arrangement selector, one per returned arrangement. label numbers the
- * pill by its position in the easiest-first set, so Arrangement 1 is the easiest. span is the raw
- * fret span, and rawDifficulty the unrounded score the pill carries in its tooltip.
+ * Card view-models for the arrangement selector, one per returned arrangement. `rank` is the
+ * numeral printed on the card, one-based over the easiest-first set, so rank 1 is the easiest.
+ * `label` spells the same position out for the button's accessible name, since the numeral
+ * alone reads as nothing to a screen reader.
  */
 export function buildArrangementChips({ difficulties, spans }) {
   return difficulties.map((difficulty, index) => ({
     index,
+    rank: index + 1,
     label: `Arrangement ${index + 1}`,
     rawDifficulty: difficulty,
     span: spans[index],

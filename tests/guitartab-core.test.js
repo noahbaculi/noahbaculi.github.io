@@ -210,10 +210,18 @@ describe("buildArrangementChips", () => {
       spans: [2, 3, 4],
     });
     expect(chips).toEqual([
-      { index: 0, label: "Arrangement 1", rawDifficulty: 10, span: 2 },
-      { index: 1, label: "Arrangement 2", rawDifficulty: 11, span: 3 },
-      { index: 2, label: "Arrangement 3", rawDifficulty: 13, span: 4 },
+      { index: 0, rank: 1, label: "Arrangement 1", rawDifficulty: 10, span: 2 },
+      { index: 1, rank: 2, label: "Arrangement 2", rawDifficulty: 11, span: 3 },
+      { index: 2, rank: 3, label: "Arrangement 3", rawDifficulty: 13, span: 4 },
     ]);
+  });
+
+  test("rank is the one-based position printed on the card", () => {
+    const chips = buildArrangementChips({
+      difficulties: [10, 12, 14, 16, 18],
+      spans: [2, 3, 4, 5, 6],
+    });
+    expect(chips.map((c) => c.rank)).toEqual([1, 2, 3, 4, 5]);
   });
 
   test("numbers five arrangements one through five", () => {
@@ -232,7 +240,7 @@ describe("buildArrangementChips", () => {
 
   test("a single arrangement is Arrangement 1", () => {
     expect(buildArrangementChips({ difficulties: [30], spans: [3] })).toEqual([
-      { index: 0, label: "Arrangement 1", rawDifficulty: 30, span: 3 },
+      { index: 0, rank: 1, label: "Arrangement 1", rawDifficulty: 30, span: 3 },
     ]);
   });
 

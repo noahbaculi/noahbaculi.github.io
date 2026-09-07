@@ -518,7 +518,9 @@ textarea {
 }
 .arrangement-selector {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  /* CARD_MIN in guitartab-core.js. Keep the two equal, or the browser fits a different
+     number of columns than the JS rendered */
+  grid-template-columns: repeat(auto-fit, minmax(131px, 1fr));
   gap: 0.5rem;
   flex: 1;
   min-width: 0;
@@ -536,15 +538,16 @@ textarea {
 }
 .chip {
   display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
   text-align: left;
   cursor: pointer;
   border-radius: 0.75rem;
   border: 2px solid var(--gtg-border);
   background: var(--gtg-surface);
   color: var(--gtg-fg);
-  padding: 0.5rem 0.75rem;
+  padding: 0.4rem 0.6rem;
   font-family: var(--gtg-font-ui);
   transition: border-color 120ms;
 }
@@ -556,21 +559,33 @@ textarea {
   color: var(--gtg-on-primary);
   border-color: var(--gtg-primary);
 }
-.chip__label {
+.chip__rank {
   font-weight: 600;
-  font-size: 0.85rem;
+  font-size: 1.1rem;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
 }
-.chip__span {
+/* A rem glyph column, not em, so a font-size override cannot break the two lines out of true */
+.chip__meta {
+  display: grid;
+  grid-template-columns: 0.95rem 1fr;
+  column-gap: 0.25rem;
+  align-items: center;
+  min-width: 0;
+}
+.chip__glyph {
   font-size: 0.72rem;
+  text-align: center;
   color: var(--gtg-fg-soft);
 }
-.chip__raw {
-  font-size: 0.68rem;
+.chip__value {
+  font-size: 0.72rem;
+  white-space: nowrap;
   font-variant-numeric: tabular-nums;
   color: var(--gtg-fg-soft);
 }
-.chip[aria-checked="true"] .chip__span,
-.chip[aria-checked="true"] .chip__raw {
+.chip[aria-checked="true"] .chip__glyph,
+.chip[aria-checked="true"] .chip__value {
   color: var(--gtg-on-primary);
 }
 /* Tab output */

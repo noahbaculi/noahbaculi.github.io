@@ -1017,6 +1017,37 @@ div.project-card__tech-used {
   }
 }
 
+/*
+ * Card mockups shipped as transparent PNGs. The backdrop is one step away from
+ * the window interior so the screenshot edges stay legible: darker than the
+ * window in light mode, lighter in dark mode. --color-border-light already
+ * holds that pair, so it does background duty here rather than a duplicate token.
+ */
+.project-card__mockup {
+  display: block;
+  background: var(--color-border-light);
+}
+.project-card__mockup--dark {
+  display: none;
+}
+
+/* Swap the mockup with the theme. KEEP IN SYNC with the media query below. */
+[data-theme="dark"] .project-card__mockup--light {
+  display: none;
+}
+[data-theme="dark"] .project-card__mockup--dark {
+  display: block;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .project-card__mockup--light {
+    display: none;
+  }
+  :root:not([data-theme="light"]) .project-card__mockup--dark {
+    display: block;
+  }
+}
+
 [data-theme="dark"] img[src*="rust.svg"],
 [data-theme="dark"] img[src*="cube.svg"] {
   filter: invert(1) brightness(0.85);

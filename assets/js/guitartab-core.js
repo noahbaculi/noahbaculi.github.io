@@ -32,7 +32,7 @@ export function formatTabError(err) {
       const list = indentLineList(
         err.pitches.map((p) => ({ line: p.line, label: p.value })),
       );
-      return `${countNoun(err.pitches.length, "pitch", "pitches")} can't be played in this tuning:\n\n${list}\n\nTry a different tuning, or remove these notes.`;
+      return `${countNoun(err.pitches.length, "pitch", "pitches")} can't be played with this guitar:\n\n${list}\n\nTry a different capo or tuning, or remove these notes.`;
     }
     case "noArrangementsFound":
       return "No playable arrangement was found for these notes.";

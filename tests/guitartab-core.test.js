@@ -32,7 +32,7 @@ describe("formatTabError", () => {
         { value: "A0", line: 9 },
       ],
     });
-    expect(msg).toContain("2 pitches can't be played in this tuning:");
+    expect(msg).toContain("2 pitches can't be played with this guitar:");
     expect(msg).toContain("    line 4    B0");
     expect(msg).toContain("    line 9    A0");
   });

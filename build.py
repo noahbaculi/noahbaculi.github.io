@@ -7,6 +7,7 @@ Prod: uv run python build.py
 
 import argparse
 import pathlib
+import re
 import shutil
 
 import minify_html
@@ -40,6 +41,38 @@ EXCLUDED_DIRS = {
     "docs",
     "_data",
 }
+
+# Source-resolution originals kept in git for regeneration but not deployed. A file is
+# only skipped if nothing in the site actually references it by name.
+UNDEPLOYED_SUFFIXES = {".jpg", ".jpeg", ".png", ".heic"}
+
+
+def referenced_asset_names(src_dir: pathlib.Path = SRC_DIR) -> set[str]:
+    """Collect every filename mentioned by the site's HTML, CSS, and JS."""
+    text = []
+    for pattern in ("*.html", "assets/css/*.css", "assets/js/*.js"):
+        for path in src_dir.glob(pattern):
+            text.append(path.read_text(errors="ignore"))
+    for sub in ("professional", "projects", "hobbies", "assets/html"):
+        for path in (src_dir / sub).glob("*.html"):
+            text.append(path.read_text(errors="ignore"))
+    blob = "\n".join(text)
+    return {name for name in re.findall(r"[\w.-]+\.\w+", blob)}
+
+
+def ignore_undeployed(referenced: set[str]):
+    """Build a copytree ignore callable that drops unreferenced source originals."""
+
+    def _ignore(directory: str, names: list[str]) -> set[str]:
+        return {
+            name
+            for name in names
+            if pathlib.Path(name).suffix.lower() in UNDEPLOYED_SUFFIXES
+            and name not in referenced
+        }
+
+    return _ignore
+
 
 PARTIAL_NAMES = (
     "header.html",
@@ -150,7 +183,8 @@ def copy_static_assets(
         if not src.exists():
             continue
         if src.is_dir():
-            shutil.copytree(src, dst, dirs_exist_ok=True)
+            ignore = ignore_undeployed(referenced_asset_names(src_dir)) if name == "images" else None
+            shutil.copytree(src, dst, dirs_exist_ok=True, ignore=ignore)
         else:
             dst.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(src, dst)
@@ -335,7 +369,9 @@ def watch(
         dst_images = out_dir / "images"
         if dst_images.exists():
             shutil.rmtree(dst_images)
-        shutil.copytree(src_images, dst_images)
+        shutil.copytree(
+            src_images, dst_images, ignore=ignore_undeployed(referenced_asset_names(src_dir))
+        )
         print("Done.")
 
     server.watch(str(src_dir / "images"), sync_images)

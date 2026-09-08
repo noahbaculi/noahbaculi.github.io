@@ -314,3 +314,20 @@ def test_copy_changed_asset_with_minify_js(tmp_path):
 
     output = (out / "assets" / "js" / "main.js").read_text()
     assert "\n\n" not in output
+
+
+def test_copy_static_assets_skips_unreferenced_originals(tmp_path):
+    """Source-resolution originals ship only when the site references them."""
+    src = tmp_path / "src"
+    out = tmp_path / "_site"
+    (src / "images" / "hobbies").mkdir(parents=True)
+    (src / "images" / "hobbies" / "trip.webp").write_bytes(b"fake")
+    (src / "images" / "hobbies" / "trip.jpg").write_bytes(b"fake")
+    (src / "images" / "hobbies" / "logo.png").write_bytes(b"fake")
+    (src / "index.html").write_text('<img src="/images/hobbies/logo.png" alt="" />')
+
+    build.copy_static_assets(src_dir=src, out_dir=out)
+
+    assert (out / "images" / "hobbies" / "trip.webp").exists()
+    assert (out / "images" / "hobbies" / "logo.png").exists()
+    assert not (out / "images" / "hobbies" / "trip.jpg").exists()

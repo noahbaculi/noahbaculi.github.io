@@ -287,8 +287,8 @@ describe("PRIORITY_LEVELS", () => {
     expect(PRIORITY_LEVELS.map((level) => level.label)).toEqual([
       "Ignore",
       "Low",
+      "Medium",
       "High",
-      "Highest",
     ]);
   });
 
@@ -365,8 +365,8 @@ describe("matchPresetId", () => {
     );
   });
 
-  // Only the ratio affects ranking, so a scaled triple is the same preset. Highest / Highest /
-  // Highest and Low / Low / Low are both Balanced.
+  // Only the ratio affects ranking, so a scaled triple is the same preset. High / High / High
+  // and Low / Low / Low are both Balanced.
   test("matches a scaled triple, since only the ratio matters", () => {
     expect(matchPresetId({ movement: 100, span: 100, position: 100 })).toBe(
       "balanced",

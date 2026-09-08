@@ -104,8 +104,8 @@ export function buildTabInput({
 export const PRIORITY_LEVELS = [
   { label: "Ignore", weight: 0 },
   { label: "Low", weight: 1 },
-  { label: "High", weight: 10 },
-  { label: "Highest", weight: 100 },
+  { label: "Medium", weight: 10 },
+  { label: "High", weight: 100 },
 ];
 
 /** The three difficulty axes in wire order, labelled by the musical effect each one buys. */

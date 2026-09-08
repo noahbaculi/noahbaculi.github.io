@@ -4,6 +4,7 @@ import init, {
 import {
   formatTabError,
   buildTabInput,
+  hasPitchInput,
   buildPlaybackSchedule,
   buildArrangementChips,
   playbackTotalBeats,
@@ -39,6 +40,8 @@ function intValue(id, fallback) {
   const n = parseInt(el(id).value, 10);
   return Number.isNaN(n) ? fallback : n;
 }
+
+const EMPTY_INPUT_MESSAGE = "Enter pitches on the left to generate a tab.";
 
 // ---- toast ---------------------------------------------------------------------------------
 let toastTimer = null;
@@ -97,6 +100,13 @@ function regenerate() {
     state.set = null;
   }
   state.normalizedInput = null;
+
+  // Nothing to arrange yet: stay in the placeholder state rather than showing cards for an
+  // empty tab, whichever setting the change came from.
+  if (!hasPitchInput(el("pitchInput").value)) {
+    showMessage(EMPTY_INPUT_MESSAGE);
+    return;
+  }
 
   const tabInput = buildTabInput({
     pitches: el("pitchInput").value,
@@ -285,7 +295,7 @@ function resetToEmpty() {
   state.selectedIndex = 0;
   el("pitchInput").value = "";
   el("playbackProgress").style.width = "0%";
-  showMessage("Enter pitches on the left to generate a tab.");
+  showMessage(EMPTY_INPUT_MESSAGE);
 }
 
 // ---- playback -----------------------------------------------------------------------------

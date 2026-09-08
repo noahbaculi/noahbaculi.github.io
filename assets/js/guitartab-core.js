@@ -103,6 +103,16 @@ export function buildTabInput({
 }
 
 /**
+ * Whether this raw input holds a note to arrange. Blank lines are rests and dash runs are
+ * measure breaks, so input made only of those has nothing to place on a fretboard.
+ */
+export function hasPitchInput(text) {
+  return (text ?? "")
+    .split("\n")
+    .some((line) => line.trim() !== "" && !/^-+$/.test(line.trim()));
+}
+
+/**
  * Coefficient behind each priority chip, low to high. The scale is logarithmic because the
  * ranking barely moves under about 100:1, so the labels are ordinal words rather than the raw
  * numbers, which an evenly spaced row of boxes would misrepresent.

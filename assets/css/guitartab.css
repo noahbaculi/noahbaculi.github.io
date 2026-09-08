@@ -258,6 +258,8 @@ textarea {
   .header-grid {
     margin-top: 2vh;
     margin-bottom: 5vh;
+    /* Two rows here, so the breadcrumbs need clearance from the heading */
+    row-gap: 1.5rem;
     grid-template-areas:
       "exit exit exit"
       "_blank header export";

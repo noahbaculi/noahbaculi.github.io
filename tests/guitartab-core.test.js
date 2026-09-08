@@ -523,3 +523,25 @@ describe("visibleChipCount", () => {
     );
   });
 });
+
+import { hasPitchInput } from "../assets/js/guitartab-core.js";
+
+describe("hasPitchInput", () => {
+  test("blank and whitespace-only input has no notes", () => {
+    expect(hasPitchInput("")).toBe(false);
+    expect(hasPitchInput("   \n\t\n  ")).toBe(false);
+  });
+
+  test("rests and measure breaks alone have no notes", () => {
+    expect(hasPitchInput("---\n\n---\n")).toBe(false);
+    expect(hasPitchInput("  ---  ")).toBe(false);
+  });
+
+  test("a single pitch counts", () => {
+    expect(hasPitchInput("\n---\nE4\n")).toBe(true);
+  });
+
+  test("undefined input has no notes", () => {
+    expect(hasPitchInput(undefined)).toBe(false);
+  });
+});

@@ -30,6 +30,7 @@
   --color-text-link: #585858;
   --color-border: #c9c9c9;
   --color-border-light: #eeeeee;
+  --color-mockup-bg: #e3e5ea;
   --color-heading-green: #23751f;
   --color-heading-blue: #0e4194;
   --color-code-bg: rgba(144, 144, 144, 0.075);
@@ -62,6 +63,7 @@
   --color-text-link: #b0b0b8;
   --color-border: #65656f;
   --color-border-light: #2a2a2e;
+  --color-mockup-bg: #35353d;
   --color-heading-green: #5aab55;
   --color-heading-blue: #6fa0d8;
   --color-code-bg: rgba(255, 255, 255, 0.06);
@@ -99,6 +101,7 @@
     --color-text-link: #b0b0b8;
     --color-border: #65656f;
     --color-border-light: #2a2a2e;
+    --color-mockup-bg: #35353d;
     --color-heading-green: #5aab55;
     --color-heading-blue: #6fa0d8;
     --color-code-bg: rgba(255, 255, 255, 0.06);
@@ -1018,14 +1021,13 @@ div.project-card__tech-used {
 }
 
 /*
- * Card mockups shipped as transparent PNGs. The backdrop is one step away from
- * the window interior so the screenshot edges stay legible: darker than the
- * window in light mode, lighter in dark mode. --color-border-light already
- * holds that pair, so it does background duty here rather than a duplicate token.
+ * Card mockups shipped as transparent PNGs. The backdrop sits clear of the
+ * window interior so the screenshot edges stay legible: darker than the window
+ * in light mode, lighter in dark mode.
  */
 .project-card__mockup {
   display: block;
-  background: var(--color-border-light);
+  background: var(--color-mockup-bg);
 }
 .project-card__mockup--dark {
   display: none;

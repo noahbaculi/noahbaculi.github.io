@@ -109,7 +109,10 @@ describe("formatTabError", () => {
   });
 });
 
-import { buildTabInput } from "../assets/js/guitartab-core.js";
+import {
+  buildTabInput,
+  MAX_FRET_SPAN_ANY,
+} from "../assets/js/guitartab-core.js";
 
 describe("buildTabInput", () => {
   const base = {
@@ -124,9 +127,25 @@ describe("buildTabInput", () => {
     expect("maxFretSpanFilter" in r).toBe(false);
   });
 
+  test("omits maxFretSpanFilter at the slider's Any notch", () => {
+    const r = buildTabInput({
+      ...base,
+      maxFretSpanValue: String(MAX_FRET_SPAN_ANY),
+    });
+    expect("maxFretSpanFilter" in r).toBe(false);
+  });
+
   test("includes maxFretSpanFilter as an integer when a span is chosen", () => {
     const r = buildTabInput({ ...base, maxFretSpanValue: "3" });
     expect(r.maxFretSpanFilter).toBe(3);
+  });
+
+  test("keeps the filter at the widest real span, one below the Any notch", () => {
+    const r = buildTabInput({
+      ...base,
+      maxFretSpanValue: String(MAX_FRET_SPAN_ANY - 1),
+    });
+    expect(r.maxFretSpanFilter).toBe(MAX_FRET_SPAN_ANY - 1);
   });
 
   test("parses the capo and keeps the fixed fret and arrangement counts", () => {

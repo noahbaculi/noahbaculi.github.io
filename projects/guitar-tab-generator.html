@@ -147,37 +147,29 @@ blank line = rest
                     <option value="dropD">Drop D</option>
                   </select>
                 </label>
-                <label for="guitarCapo"
-                  >Capo
-                  <select id="guitarCapo" name="guitarCapo" class="gtg-select">
-                    <option value="0" selected>None</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                    <option value="11">11</option>
-                  </select>
+                <label for="guitarCapo">
+                  <span id="guitarCapoLabel"></span>
+                  <input
+                    type="range"
+                    min="0"
+                    max="8"
+                    value="0"
+                    id="guitarCapo"
+                    name="guitarCapo"
+                    class="gtg-range"
+                  />
                 </label>
-                <label for="maxFretSpan" style="grid-column: 1 / -1"
-                  >Max Fret Span
-                  <select
+                <label for="maxFretSpan">
+                  <span id="maxFretSpanLabel"></span>
+                  <input
+                    type="range"
+                    min="2"
+                    max="7"
+                    value="7"
                     id="maxFretSpan"
                     name="maxFretSpan"
-                    class="gtg-select"
-                  >
-                    <option value="" selected>Any</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                  </select>
+                    class="gtg-range"
+                  />
                 </label>
               </div>
             </details>
@@ -189,7 +181,7 @@ blank line = rest
               <div class="priority__rows" id="priorityRows"></div>
             </details>
 
-            <details class="disclosure disclosure--display" name="settings">
+            <details class="disclosure" name="settings">
               <summary class="disclosure__summary">Display</summary>
               <div class="controls-grid">
                 <label for="tabPadding">

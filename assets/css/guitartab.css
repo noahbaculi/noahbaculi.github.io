@@ -452,9 +452,11 @@ textarea {
 }
 
 /* Controls grid */
+/* One control per row: a slider and its live label read as a single unit, and the tuning
+   select wants the width its longest option name needs */
 .controls-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 1fr;
   gap: 0.75rem;
 }
 .controls-grid label {
@@ -513,11 +515,6 @@ textarea {
 }
 .disclosure .controls-grid {
   margin-top: 0.75rem;
-}
-/* Two sliders read as one control each, so give them a full row apiece rather than
-   the 2-up layout the guitar selects want */
-.disclosure--display .controls-grid {
-  grid-template-columns: 1fr;
 }
 .priority__rows {
   display: grid;

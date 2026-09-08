@@ -7,6 +7,7 @@ import {
   buildPlaybackSchedule,
   buildArrangementChips,
   playbackTotalBeats,
+  MAX_FRET_SPAN_ANY,
   PRIORITY_AXES,
   PRIORITY_LEVELS,
   prioritySummary,
@@ -120,9 +121,11 @@ function regenerate() {
   // An aggressive Max Fret Span can filter out every arrangement. That returns Ok with an
   // empty set, not an error.
   if (state.set.isEmpty) {
-    const span = el("maxFretSpan").value;
+    const span = intValue("maxFretSpan", MAX_FRET_SPAN_ANY);
     showMessage(
-      `No playable arrangement fits within a ${span}-fret span.\nRaise the Max Fret Span (or set it to Any) to see results.`,
+      span >= MAX_FRET_SPAN_ANY
+        ? "No playable arrangement was found for this input."
+        : `No playable arrangement fits within a ${span}-fret span.\nRaise the Max Fret Span (or set it to Any) to see results.`,
     );
     return;
   }
@@ -353,6 +356,17 @@ function resetPlayback() {
   playbackStep = 0;
   el("playbackProgress").style.width = "0%";
   renderTab(null);
+}
+
+// ---- guitar-setting labels ----------------------------------------------------------------
+// Both sliders name a state rather than a number at one end of their track: no capo at 0, and
+// no span filter at the top notch.
+function updateGuitarLabels() {
+  const capo = intValue("guitarCapo", 0);
+  el("guitarCapoLabel").textContent = `Capo - ${capo === 0 ? "None" : capo}`;
+  const span = intValue("maxFretSpan", MAX_FRET_SPAN_ANY);
+  el("maxFretSpanLabel").textContent =
+    `Max Fret Span - ${span >= MAX_FRET_SPAN_ANY ? "Any" : span}`;
 }
 
 // ---- display-setting labels ---------------------------------------------------------------
@@ -817,8 +831,13 @@ function loadExampleSong() {
 // ---- event wiring -------------------------------------------------------------------------
 // Pathfinding-tier inputs regenerate the set.
 el("pitchInput").addEventListener("input", requestRegenerate);
-for (const settingId of ["guitarTuning", "guitarCapo", "maxFretSpan"]) {
-  el(settingId).addEventListener("change", requestRegenerate);
+el("guitarTuning").addEventListener("change", requestRegenerate);
+// The sliders paint their own labels live; the regeneration behind them is already debounced.
+for (const sliderId of ["guitarCapo", "maxFretSpan"]) {
+  el(sliderId).addEventListener("input", () => {
+    updateGuitarLabels();
+    requestRegenerate();
+  });
 }
 el("exampleSongs").addEventListener("change", loadExampleSong);
 el("clearInputButton").addEventListener("click", resetToEmpty);
@@ -901,6 +920,7 @@ document.addEventListener("pointerdown", (event) => {
 });
 
 // Initial label paint. The output keeps its placeholder until the user enters pitches.
+updateGuitarLabels();
 updateDisplayLabels();
 renderPriority();
 

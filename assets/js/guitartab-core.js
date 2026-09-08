@@ -66,11 +66,17 @@ function intOr(value, fallback) {
 const NUM_ARRANGEMENTS = 5;
 
 /**
+ * Top notch of the Max Fret Span slider, one past the widest real span. Sitting at it means no
+ * filter at all, which is the loosest setting and so belongs at the loose end of the track.
+ */
+export const MAX_FRET_SPAN_ANY = 7;
+
+/**
  * Build the TabInput for generateArrangements from raw control values. The fret count is fixed
  * for this demo and the arrangement count is NUM_ARRANGEMENTS. maxFretSpanValue is the Max Fret
- * Span dropdown value: the empty string (the "Any" option) omits the filter; any other value is
- * parsed to an integer and passed as maxFretSpanFilter. weights is the difficulty-coefficient
- * override; omitting it leaves the crate's built-in ranking in place.
+ * Span slider value: MAX_FRET_SPAN_ANY (or anything unparseable) omits the filter; any other
+ * value is parsed to an integer and passed as maxFretSpanFilter. weights is the
+ * difficulty-coefficient override; omitting it leaves the crate's built-in ranking in place.
  */
 export function buildTabInput({
   pitches,
@@ -87,7 +93,7 @@ export function buildTabInput({
     numArrangements: NUM_ARRANGEMENTS,
   };
   const span = parseInt(maxFretSpanValue, 10);
-  if (!Number.isNaN(span)) {
+  if (!Number.isNaN(span) && span < MAX_FRET_SPAN_ANY) {
     tabInput.maxFretSpanFilter = span;
   }
   if (weights) {

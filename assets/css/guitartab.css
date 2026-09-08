@@ -466,6 +466,18 @@ textarea {
   color: var(--gtg-fg-soft);
 }
 
+/* A select names its own value, so its label sits beside it rather than stacked above the way
+   the sliders' value-carrying labels do */
+.field--inline {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.field--inline .gtg-select {
+  flex: 1;
+  min-width: 0;
+}
+
 /* Carries the 1rem gap .input-col gave the disclosures as direct children */
 .settings-stack {
   display: flex;

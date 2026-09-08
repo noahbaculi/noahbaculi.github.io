@@ -32,5 +32,7 @@ jobs:
         with:
           ref: ${{ github.head_ref }}
       - uses: oven-sh/setup-bun@v2
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
       - name: Prettier check
         run: bunx prettier . --check

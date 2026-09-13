@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" hidden>
+<html lang="en">
   <head>
     <title>Noah - Guitar Tab Generator</title>
     <meta charset="utf-8" />
@@ -15,18 +15,8 @@
       href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap"
     />
     <script src="/assets/js/theme-init.js"></script>
-    <script>
-      document.documentElement.classList.toggle(
-        "dark",
-        document.documentElement.getAttribute("data-theme") === "dark",
-      );
-    </script>
     <link rel="stylesheet" href="/assets/css/guitartab.css" />
     <link rel="icon" href="/images/icons/favicon-50_w.webp" />
-    <script type="twind-config">
-      { "darkMode": "class" }
-    </script>
-    <script type="module" src="https://cdn.skypack.dev/twind/shim"></script>
   </head>
   <body>
     <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
@@ -69,7 +59,7 @@
           </nav>
         </div>
         <div class="header">
-          <h1 class="text-3xl">Guitar Tab Generator</h1>
+          <h1>Guitar Tab Generator</h1>
         </div>
       </section>
 
@@ -346,11 +336,13 @@ Enter pitches on the left to generate a tab.</pre>
       </section>
     </div>
 
-    <script src="/assets/js/main.js"></script>
     <script>
       var exports = {}; // instantiate exports variable to pull guitar exports
     </script>
-    <script type="module" src="https://unpkg.com/tone"></script>
+    <script
+      type="module"
+      src="https://unpkg.com/tone@15.1.22/build/Tone.js"
+    ></script>
     <script type="module" src="/assets/js/guitartab.js"></script>
   </body>
 </html>

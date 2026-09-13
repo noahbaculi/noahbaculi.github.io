@@ -181,6 +181,17 @@ textarea {
   grid-area: header;
   text-align: center;
 }
+
+/* The demo has no site navbar, so it carries its own copy of the site theme toggle */
+.theme-toggle-btn {
+  grid-area: export;
+  justify-self: end;
+}
+[data-theme="dark"] .theme-toggle__sun,
+:root:not([data-theme="dark"]) .theme-toggle__moon {
+  display: none;
+}
+
 @media screen and (max-width: 800px) {
   .header-grid {
     margin-top: 2vh;

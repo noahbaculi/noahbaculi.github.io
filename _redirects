@@ -45,9 +45,11 @@
 /guitartab                     /projects/guitar-tab-generator   301
 /guitartab.html                /projects/guitar-tab-generator   301
 
-# Doc tool moved to projects directory
-/doc-tool                      /projects/doc-tool               301
-/doc-tool.html                 /projects/doc-tool               301
+# Doc tool retired
+/doc-tool                      /projects/                       301
+/doc-tool.html                 /projects/                       301
+/projects/doc-tool             /projects/                       301
+/projects/doc-tool.html        /projects/                       301
 
 # =============================================================================
 # COMPONENT/PARTIAL FILE REDIRECTS

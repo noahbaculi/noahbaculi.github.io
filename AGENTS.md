@@ -5,8 +5,6 @@ It is kept short on purpose - every line here is paid on every session.
 
 ## Learnings
 
-- None recorded yet. backpass adds evidence-backed entries here from real sessions.
-
 - Dev server: `uv run python build.py --watch`. There is no `--serve` or `--dev` flag, and the port is hardcoded to 8080 (`build.py:380`).
 - Before starting the dev server, kill whatever already holds port 8080, and stop the server once the check is done.
 - Responsive webp variants come from `images/image_generator.py`, not from `build.py`. It skips any output path that already exists (`images/image_generator.py:78`), so delete stale variants before regenerating.

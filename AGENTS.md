@@ -11,6 +11,8 @@ It is kept short on purpose - every line here is paid on every session.
 - Before starting the dev server, kill whatever already holds port 8080, and stop the server once the check is done.
 - Responsive webp variants come from `images/image_generator.py`, not from `build.py`. It skips any output path that already exists (`images/image_generator.py:78`), so delete stale variants before regenerating.
 - Measure layout and scroll behavior in a browser before stating it as absolute. Reasoning from the stylesheet alone has produced overstated claims here.
+- `staging` is the default and working branch. `production` is the release branch: `z_git_commit.sh` ships by merging `staging` into it. Merge to `production` only when the user asks.
+- `z_git_commit.sh` runs `git add .` on `staging`. Stage files explicitly instead of running it.
 
 ## Maintaining this file
 
